@@ -5,13 +5,5 @@
 <web-app>
 <display-name>Archetype Created Web Application</display-name>
 
-<servlet>
-    <servlet-name>HelloServlet</servlet-name>
-    <servlet-class>by.it.academy.travelcompany.HelloServlet</servlet-class>
-</servlet>
 
-<servlet-mapping>
-    <servlet-name>HelloServlet</servlet-name>
-    <url-pattern>/sayhello</url-pattern>
-</servlet-mapping>
 </web-app>
