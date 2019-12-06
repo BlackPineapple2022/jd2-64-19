@@ -1,6 +1,6 @@
-package by.it.academy.travelcompany.service;
+package by.academy.it.travelcompany.service;
 
-import by.it.academy.travelcompany.model.Product;
+import by.academy.it.travelcompany.model.Product;
 
 import java.util.List;
 

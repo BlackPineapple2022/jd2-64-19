@@ -6,5 +6,10 @@
          version="4.0">
 <display-name>Archetype Created Web Application</display-name>
 
+    <servlet>
+        <servlet-name>HelloServlet</servlet-name>
+        <servlet-class>by.academy.it.travelcompany.HelloServlet</servlet-class>
+    </servlet>
+
 
 </web-app>

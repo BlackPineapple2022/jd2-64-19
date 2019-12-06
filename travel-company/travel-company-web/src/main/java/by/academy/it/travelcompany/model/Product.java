@@ -1,4 +1,4 @@
-package by.it.academy.travelcompany.model;
+package by.academy.it.travelcompany.model;
 
 public class Product {
     private Long id;

@@ -1,4 +1,4 @@
-package by.it.academy.travelcompany.servlet;
+package by.academy.it.travelcompany.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

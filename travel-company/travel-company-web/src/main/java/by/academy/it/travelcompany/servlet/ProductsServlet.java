@@ -1,8 +1,8 @@
-package by.it.academy.travelcompany.servlet;
+package by.academy.it.travelcompany.servlet;
 
-import by.it.academy.travelcompany.model.Product;
-import by.it.academy.travelcompany.service.ProductService;
-import by.it.academy.travelcompany.service.ProductServiceImpl;
+import by.academy.it.travelcompany.service.ProductService;
+import by.academy.it.travelcompany.service.ProductServiceImpl;
+import by.academy.it.travelcompany.model.Product;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
