@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ProductServlet", urlPatterns = "/pro")
+@WebServlet(name = "ProductsServlet", urlPatterns = "/products")
 
 public class ProductsServlet extends HttpServlet {
 
@@ -20,11 +20,12 @@ public class ProductsServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
         List<Product> allProducts = productService.getAllProducts();
 
-        req.setAttribute("productList", allProducts);
+        req.setAttribute("products", allProducts);
 
-        req.getRequestDispatcher("/WEB-INF/products.jsp").forward(req,resp);
+        req.getRequestDispatcher("/WEB-INF/products.jsp").forward(req, resp);
 
     }
 

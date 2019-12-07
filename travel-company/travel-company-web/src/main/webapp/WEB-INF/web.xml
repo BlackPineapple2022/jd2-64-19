@@ -11,5 +11,10 @@
         <servlet-class>by.academy.it.travelcompany.HelloServlet</servlet-class>
     </servlet>
 
+    <servlet-mapping>
+        <servlet-name>HelloServlet</servlet-name>
+        <url-pattern>/sayhello</url-pattern>
+    </servlet-mapping>
+
 
 </web-app>

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <html>
 <head>
@@ -7,7 +9,7 @@
 
 <body>
 
-<%= request.getAttribute("productList")%>
+<%= request.getAttribute("products")%>
 
 <table>
     <tr>
@@ -16,7 +18,6 @@
         <td>Price</td>
     </tr>
 
-    <c: forEach
     <tr>
         <td>1</td>
         <td>Name_1</td>
