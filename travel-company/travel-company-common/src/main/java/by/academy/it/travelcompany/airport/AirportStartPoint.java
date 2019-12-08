@@ -1,6 +1,16 @@
 package by.academy.it.travelcompany.airport;
 
-public enum AirportStart {
+/**
+ * This enum contains all airports, that you can start you trip from
+ * it is four airport near Minsk,
+ * VNO - Lithuania Vilnius airport
+ * KUN - Lithuania Kaunas airport
+ * WMI - Poland Warsaw Modlin airport
+ * WAW - Poland Warsaw Chopin airport
+ * You can get to this airport by train, bus, blablacar and other
+ */
+
+public enum AirportStartPoint {
     VNO("Lithuania","Vilnius"),
     KUN("Lithuania","Kaunas"),
     WMI("Poland","Warsaw Modlin"),
@@ -9,7 +19,7 @@ public enum AirportStart {
     private String country;
     private String city;
 
-    AirportStart(String country, String city){
+    AirportStartPoint(String country, String city){
         this.country = country;
         this.city = city;
     }

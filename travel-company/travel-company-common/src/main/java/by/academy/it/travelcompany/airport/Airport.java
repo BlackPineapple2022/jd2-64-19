@@ -1,5 +1,12 @@
 package by.academy.it.travelcompany.airport;
 
+/**
+ * This class describes airport and has field:
+ * code - this defining information, IATA code,
+ * equals and hashcode overriding by this field,
+ * country and city fields only for additional information
+ */
+
 import java.util.Objects;
 
 public class Airport {

@@ -1,26 +1,32 @@
 package by.academy.it;
 
 import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.airport.AirportFromKUNRY;
-import by.academy.it.travelcompany.airport.AirportService;
-import by.academy.it.travelcompany.airport.AirportServiceImpl;
+import by.academy.it.travelcompany.airport.AirportInfoCentre;
+import by.academy.it.travelcompany.airport.Airline;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
-/**
- * Hello world!
- */
 public class App {
     public static void main(String[] args) {
-        //System.out.println(AirportFromKUNRY.values()[0].toString());
-       /* Airport airport = new Airport(AirportFromKUNRY.values()[0].toString(),AirportFromKUNRY.values()[0].getCountry(),AirportFromKUNRY.values()[0].getCity());
-        System.out.println(airport.toString());
-    */
-        AirportService airportService = new AirportServiceImpl();
-        Set<Airport> allAirports = airportService.getAllAirports();
-        for (Airport a: allAirports ) {
-            System.out.println(a);
-        }
+//        System.out.println(AirportInfoCentre.getAllAirports());
+
+        Map <Airline, Set<Airport>> airportMap = new HashMap<>();
+        airportMap = AirportInfoCentre.getAllDestinationsAndCompany(new Airport("LIS","",""));
+        Set <Airline> companies = airportMap.keySet();
+        System.out.println(companies);
+        Set <Airport> airportsRY = airportMap.get(Airline.RY);
+        System.out.println("{RY} - " + airportsRY);
+        Set <Airport> airportsWIZZ = airportMap.get(Airline.WIZZ);
+        System.out.println("{WIZZ} - " + airportsWIZZ);
+        //Airport bva = new Airport("BVA","dscvsdc","dfvfd");
+        //Set <Airport> set = AirportInfoCentre.getAllAirportsFromVNORY();
+        //System.out.println(set.contains(bva));
+        //System.out.println(set);
+
+        //Set <Airport> set2 = AirportInfoCentre.getAllAirportsFromWMIRY();
+        //System.out.println(set2.contains(bva));
 
     }
 }
