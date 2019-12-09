@@ -52,6 +52,7 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public void addFlight(Flight flight) {
-
+    flight.setId((long)flights.size()+1);
+    flights.add(flight);
     }
 }
