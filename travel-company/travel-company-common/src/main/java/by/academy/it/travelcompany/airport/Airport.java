@@ -8,11 +8,12 @@ package by.academy.it.travelcompany.airport;
  */
 
 import java.util.Objects;
+import java.util.Set;
 
-public class Airport {
-    String code;
-    String country;
-    String city;
+public class Airport implements Comparable<Airport> {
+    private String code;
+    private String country;
+    private String city;
 
     public Airport() {
     }
@@ -21,6 +22,17 @@ public class Airport {
         this.code = code;
         this.country = country;
         this.city = city;
+    }
+
+    public Airport(String code) {
+        this.code = code;
+        Set<Airport> airports = AirportInfoCentre.getAllAirports();
+        for (Airport a : airports) {
+            if (code.equals(a.getCode())) {
+                this.city = a.getCity();
+                this.country = a.getCountry();
+            }
+        }
     }
 
     public String getCode() {
@@ -62,11 +74,19 @@ public class Airport {
 
     @Override
     public String toString() {
-        return "Airport{" +
-                "code='" + code + '\'' +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                '}';
+        return country + " | " + city + " | " + code;
     }
 
+    @Override
+    public int compareTo(Airport a) {
+        //int result = 0;
+        int result = country.compareTo(a.getCountry());
+        if (result == 0) {
+            result = city.compareTo(a.getCity());
+        }
+        if (result == 0){
+            result = code.compareTo(a.getCode());
+        }
+        return result;
+    }
 }

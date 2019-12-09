@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Writer;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -23,19 +21,17 @@ public class FlightAddServlet extends HttpServlet {
 
     private FlightService flightService = FlightServiceImpl.getService();
 
-
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Set allAirport = AirportInfoCentre.getAllAirports();
-        //List<Airport> allAirport = new ArrayList<>(AirportInfoCentre.getAllAirports());
-        req.setAttribute("allAirport",allAirport);
+        Set allStartedAirports = AirportInfoCentre.getAllAirports();
+        req.setAttribute("allStartedAirports",allStartedAirports);
         req.getRequestDispatcher("/WEB-INF/addFlightFirstStep.jsp").
             forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Airport airportOrigin = new Airport (req.getParameter("airportOrigin"), "", "");
+        Airport airportOrigin = new Airport (req.getParameter("airportOrigin"));
         if (req.getParameter("airportDestination")==null) {
             req.setAttribute("airportOrigin", airportOrigin);
             req.setAttribute("allDestinationAirports",AirportInfoCentre.getAllDestinations(airportOrigin));
@@ -43,7 +39,7 @@ public class FlightAddServlet extends HttpServlet {
                     forward(req, resp);
         }else{
 
-            Airport airportDestination = new Airport(req.getParameter("airportDestination"), "", "");
+            Airport airportDestination = new Airport(req.getParameter("airportDestination"));
             Airline airline = Airline.valueOf(req.getParameter("airlines"));
 
             String arriveTime = req.getParameter("arriveTime");

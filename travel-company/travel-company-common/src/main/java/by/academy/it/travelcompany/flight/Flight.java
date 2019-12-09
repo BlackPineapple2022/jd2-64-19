@@ -26,7 +26,6 @@ public class Flight {
 
     public Flight(long id,Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, double ticketPrice, String flightNumber) {
 
-        if (AirportInfoCentre.getAllDestinations(originAirport).contains(destinationAirport)) {
             this.id = id;
             this.originAirport = originAirport;
             this.destinationAirport = destinationAirport;
@@ -35,17 +34,7 @@ public class Flight {
             this.airline = airline;
             this.ticketPrice = ticketPrice;
             this.flightNumber = flightNumber;
-        }
-        else {
-            this.id = 0L;
-            this.originAirport = null;
-            this.destinationAirport = null;
-            this.arriveTime = null;
-            this.departureTime = null;
-            this.airline = null;
-            this.ticketPrice = 0.0;
-            this.flightNumber = null;
-        }
+
     }
 
     public Airport getOriginAirport() {
@@ -129,12 +118,13 @@ public class Flight {
 
     @Override
     public int hashCode() {
-        return Objects.hash(originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber, id);
+        return Objects.hash(id, originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber);
     }
 
     @Override
     public String toString() {
         return "Flight{" +
+                ", id=" + id +
                 "originAirport=" + originAirport +
                 ", destinationAirport=" + destinationAirport +
                 ", arriveTime=" + arriveTime +
@@ -142,7 +132,6 @@ public class Flight {
                 ", airline=" + airline +
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
-                ", id=" + id +
                 '}';
     }
 }

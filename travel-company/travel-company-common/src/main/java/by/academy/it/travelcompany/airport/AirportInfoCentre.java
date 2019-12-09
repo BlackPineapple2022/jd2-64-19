@@ -6,25 +6,22 @@ package by.academy.it.travelcompany.airport;
  * to prepare information to make correct request to Wizzair or Ryanair web site
  * */
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class AirportInfoCentre {
-private static Set<Airport> allStartAirports = new HashSet<>();
-private static Set<Airport> allAirports = new HashSet<>();
-private static Set<Airport> allAirportsFromStart = new HashSet<>();
-private static Set<Airport> allAirportsFromVNO = new HashSet<>();
-private static Set<Airport> allAirportsFromVNORY = new HashSet<>();
-private static Set<Airport> allAirportsFromVNOWIZZ = new HashSet<>();
-private static Set<Airport> allAirportsFromKUN = new HashSet<>();
-private static Set<Airport> allAirportsFromKUNRY = new HashSet<>();
-private static Set<Airport> allAirportsFromKUNWIZZ = new HashSet<>();
-private static Set<Airport> allAirportsFromWAW = new HashSet<>();
-private static Set<Airport> allAirportsFromWAWWIZZ = new HashSet<>();
-private static Set<Airport> allAirportsFromWMI = new HashSet<>();
-private static Set<Airport> allAirportsFromWMIRY = new HashSet<>();
+private static Set<Airport> allStartAirports = new TreeSet<>();
+private static Set<Airport> allAirports = new TreeSet<>();
+private static Set<Airport> allAirportsFromStart = new TreeSet<>();
+private static Set<Airport> allAirportsFromVNO = new TreeSet<>();
+private static Set<Airport> allAirportsFromVNORY = new TreeSet<>();
+private static Set<Airport> allAirportsFromVNOWIZZ = new TreeSet<>();
+private static Set<Airport> allAirportsFromKUN = new TreeSet<>();
+private static Set<Airport> allAirportsFromKUNRY = new TreeSet<>();
+private static Set<Airport> allAirportsFromKUNWIZZ = new TreeSet<>();
+private static Set<Airport> allAirportsFromWAW = new TreeSet<>();
+private static Set<Airport> allAirportsFromWAWWIZZ = new TreeSet<>();
+private static Set<Airport> allAirportsFromWMI = new TreeSet<>();
+private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
 
     static {
         // allStartAirports initialisation
@@ -198,27 +195,27 @@ private static Set<Airport> allAirportsFromWMIRY = new HashSet<>();
      */
 
     public static Set <Airport> getAllDestinations(Airport airport){
-        if (airport.equals(new Airport("VNO","",""))){
+        if (airport.equals(new Airport("VNO"))){
             return allAirportsFromVNO;
-        }else if (airport.equals(new Airport("KUN","",""))){
+        }else if (airport.equals(new Airport("KUN"))){
             return allAirportsFromKUN;
-        }else if (airport.equals(new Airport("WAW","",""))){
+        }else if (airport.equals(new Airport("WAW"))){
             return allAirportsFromWAW;
-        }else if (airport.equals(new Airport("WMI","",""))){
+        }else if (airport.equals(new Airport("WMI"))){
             return allAirportsFromWMI;
         }else {
-            Set <Airport> airportsDest = new HashSet<>();
+            Set <Airport> airportsDest = new TreeSet<>();
             if (getAllAirportsFromVNO().contains(airport)){
-                airportsDest.add(new Airport("VNO","Lithuania","Vilnius"));
+                airportsDest.add(new Airport("VNO"));
             }
             if (getAllAirportsFromKUN().contains(airport)){
-                airportsDest.add(new Airport("KUN","Lithuania","Kaunas"));
+                airportsDest.add(new Airport("KUN"));
             }
             if (getAllAirportsFromWAW().contains(airport)){
-                airportsDest.add(new Airport("WAW","Poland","Warsaw Modlin"));
+                airportsDest.add(new Airport("WAW"));
             }
             if (getAllAirportsFromVNO().contains(airport)){
-                airportsDest.add(new Airport("WMI","Poland","Warsaw Chopin"));
+                airportsDest.add(new Airport("WMI"));
             }
             return airportsDest;
         }
@@ -227,90 +224,86 @@ private static Set<Airport> allAirportsFromWMIRY = new HashSet<>();
     /**
      * Get all airports that you can get to and companies from @param airport
      * @return HashMap, where key is Company enum (Company.java) and value is
-     * Hashset of Airport
+     * Treeset of Airport
      */
 
     public static Map<Airline,Set<Airport>> getAllDestinationsAndCompany(Airport airport){
         Map <Airline,Set<Airport>> allDestinationsAndCompany = new HashMap<>();
-        if (airport.equals(new Airport("VNO","",""))){
+        if (airport.equals(new Airport("VNO"))){
             allDestinationsAndCompany.put(Airline.RY,allAirportsFromVNORY);
             allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromVNOWIZZ);
-        } else if(airport.equals(new Airport("KUN","",""))){
+        } else if(airport.equals(new Airport("KUN"))){
             allDestinationsAndCompany.put(Airline.RY,allAirportsFromKUNRY);
             allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromKUNWIZZ);
-        } else if(airport.equals(new Airport("WMI","",""))){
+        } else if(airport.equals(new Airport("WMI"))){
             allDestinationsAndCompany.put(Airline.RY,allAirportsFromWMIRY);
-        } else if(airport.equals(new Airport("WAW", "", ""))){
+        } else if(airport.equals(new Airport("WAW"))){
             allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromWAWWIZZ);
         } else {
 
             if (allAirportsFromVNORY.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports1 = new HashSet<>();
-                    airports1.add(new Airport("VNO","Lithuania","Vilnius"));
+                    Set <Airport> airports1 = new TreeSet<>();
+                    airports1.add(new Airport("VNO"));
                     allDestinationsAndCompany.put(Airline.RY,airports1);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("VNO","Lithuania","Vilnius"));
+                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("VNO"));
                 }
             }
 
             if (allAirportsFromVNOWIZZ.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports2 = new HashSet<>();
-                    airports2.add(new Airport("VNO","Lithuania","Vilnius"));
+                    Set <Airport> airports2 = new TreeSet<>();
+                    airports2.add(new Airport("VNO"));
                     allDestinationsAndCompany.put(Airline.WIZZ,airports2);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("VNO","Lithuania","Vilnius"));
+                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("VNO"));
                 }
             }
 
             if (allAirportsFromKUNRY.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports3 = new HashSet<>();
-                    airports3.add(new Airport("KUN","Lithuania","Kaunas"));
+                    Set <Airport> airports3 = new TreeSet<>();
+                    airports3.add(new Airport("KUN"));
                     allDestinationsAndCompany.put(Airline.RY,airports3);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("KUN","Lithuania","Kaunas"));
+                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("KUN"));
                 }
 
             }
 
             if (allAirportsFromKUNWIZZ.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports4 = new HashSet<>();
-                    airports4.add(new Airport("KUN","Lithuania","Kaunas"));
+                    Set <Airport> airports4 = new TreeSet<>();
+                    airports4.add(new Airport("KUN"));
                     allDestinationsAndCompany.put(Airline.WIZZ,airports4);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("KUN","Lithuania","Kaunas"));
+                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("KUN"));
                 }
             }
 
             if (allAirportsFromWAWWIZZ.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports5 = new HashSet<>();
-                    airports5.add(new Airport("WAW","Poland","Warsaw Chopin"));
+                    Set <Airport> airports5 = new TreeSet<>();
+                    airports5.add(new Airport("WAW"));
                     allDestinationsAndCompany.put(Airline.WIZZ,airports5);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("WAW","Poland","Warsaw Chopin"));
+                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("WAW"));
                 }
             }
 
             if (allAirportsFromWMIRY.contains(airport)){
                 if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports6 = new HashSet<>();
-                    airports6.add(new Airport("WMI","Poland","Warsaw Modlin"));
+                    Set <Airport> airports6 = new TreeSet<>();
+                    airports6.add(new Airport("WMI"));
                     allDestinationsAndCompany.put(Airline.RY,airports6);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("WMI","Poland","Warsaw Modlin"));
+                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("WMI"));
                 }
             }
 
         }
-
         return allDestinationsAndCompany;
-
     }
-
-
 
 }

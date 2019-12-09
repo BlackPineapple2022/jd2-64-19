@@ -17,7 +17,11 @@ public class FlightServiceImpl implements FlightService {
 
     private FlightServiceImpl() {
         flights = new ArrayList<>();
+
         // Manual adding flight
+        // Actual flight with actual price
+        // Price actual on 09.12.2019 Catch it!
+
         long id1 = 1L;
         Airport origin1 = new Airport("VNO", "Lithuania", "Vilnius");
         Airport destination1 = new Airport("BVA", "France", "Paris Beauvais");

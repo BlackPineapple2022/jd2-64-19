@@ -24,8 +24,17 @@ public interface FlightService {
 
     void addFlight(Flight flight);
 
+    /**
+     * Delete flight by id
+      * flight with @param id delete from set
+     */
 
     void deleteFlight(long id);
+
+    /**
+     * update object in set with same id of
+     * @param flight
+     */
 
     void updateFlight(Flight flight);
 

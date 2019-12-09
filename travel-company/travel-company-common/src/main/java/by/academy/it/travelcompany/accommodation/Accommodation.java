@@ -1,6 +1,7 @@
 package by.academy.it.travelcompany.accommodation;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Accommodation {
     private String country;
@@ -16,6 +17,7 @@ public class Accommodation {
     }
 
     public Accommodation(long id, String country, String city, String address, String nameOfAccommodation, LocalDate checkInDate, LocalDate checkOutDate, Accomodations accomodations) {
+        this.id = id;
         this.country = country;
         this.city = city;
         this.address = address;
@@ -23,7 +25,6 @@ public class Accommodation {
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.accomodations = accomodations;
-        this.id = id;
     }
 
     public long getId() {
@@ -89,4 +90,39 @@ public class Accommodation {
     public void setAccomodations(Accomodations accomodations) {
         this.accomodations = accomodations;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Accommodation that = (Accommodation) o;
+        return id == that.id &&
+                Objects.equals(country, that.country) &&
+                Objects.equals(city, that.city) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(nameOfAccommodation, that.nameOfAccommodation) &&
+                Objects.equals(checkInDate, that.checkInDate) &&
+                Objects.equals(checkOutDate, that.checkOutDate) &&
+                accomodations == that.accomodations;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(country, city, address, nameOfAccommodation, checkInDate, checkOutDate, accomodations, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Accommodation{" +
+                "country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", address='" + address + '\'' +
+                ", nameOfAccommodation='" + nameOfAccommodation + '\'' +
+                ", checkInDate=" + checkInDate +
+                ", checkOutDate=" + checkOutDate +
+                ", accomodations=" + accomodations +
+                ", id=" + id +
+                '}';
+    }
+
 }

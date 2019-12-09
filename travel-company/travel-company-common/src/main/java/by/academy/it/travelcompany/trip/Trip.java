@@ -4,26 +4,25 @@ import by.academy.it.travelcompany.accommodation.Accommodation;
 import by.academy.it.travelcompany.flight.Flight;
 
 import java.util.List;
+import java.util.Objects;
 
 public class Trip {
 
     private Flight flightFrom;
     private Flight flightTo;
-    private List <Accommodation> accommodations;
+    private List<Accommodation> accommodations;
     private long id;
-
-    private static long idCount = 1L;
 
     public Trip() {
     }
 
-    public Trip(Flight flightFrom, Flight flightTo, List<Accommodation> accommodations) {
-        this.id = idCount;
-        idCount++;
+    public Trip(long id, Flight flightFrom, Flight flightTo, List<Accommodation> accommodations) {
 
+        this.id = id;
         this.flightFrom = flightFrom;
         this.flightTo = flightTo;
         this.accommodations = accommodations;
+
     }
 
     public Flight getFlightFrom() {
@@ -58,8 +57,29 @@ public class Trip {
         this.id = id;
     }
 
-    public static long getIdCount() {
-        return idCount;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Trip trip = (Trip) o;
+        return id == trip.id &&
+                Objects.equals(flightFrom, trip.flightFrom) &&
+                Objects.equals(flightTo, trip.flightTo) &&
+                Objects.equals(accommodations, trip.accommodations);
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(flightFrom, flightTo, accommodations, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Trip{" +
+                "flightFrom=" + flightFrom +
+                ", flightTo=" + flightTo +
+                ", accommodations=" + accommodations +
+                ", id=" + id +
+                '}';
+    }
 }
