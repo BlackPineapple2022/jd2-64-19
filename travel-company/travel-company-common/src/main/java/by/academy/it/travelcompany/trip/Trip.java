@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany;
+package by.academy.it.travelcompany.trip;
 
 import by.academy.it.travelcompany.accommodation.Accommodation;
 import by.academy.it.travelcompany.flight.Flight;

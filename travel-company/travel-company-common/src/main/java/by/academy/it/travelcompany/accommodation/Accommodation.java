@@ -12,10 +12,18 @@ public class Accommodation {
     private Accomodations accomodations;
     private long id;
 
-    private static long idCount = 1L;
+    public Accommodation() {
+    }
 
-    public static long getIdCount() {
-        return idCount;
+    public Accommodation(long id, String country, String city, String address, String nameOfAccommodation, LocalDate checkInDate, LocalDate checkOutDate, Accomodations accomodations) {
+        this.country = country;
+        this.city = city;
+        this.address = address;
+        this.nameOfAccommodation = nameOfAccommodation;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.accomodations = accomodations;
+        this.id = id;
     }
 
     public long getId() {
@@ -24,21 +32,6 @@ public class Accommodation {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Accommodation() {
-    }
-
-    public Accommodation(String country, String city, String address, String nameOfAccommodation, LocalDate checkInDate, LocalDate checkOutDate, Accomodations accomodations) {
-        this.country = country;
-        this.city = city;
-        this.address = address;
-        this.nameOfAccommodation = nameOfAccommodation;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.accomodations = accomodations;
-        this.id = idCount;
-        idCount++;
     }
 
     public String getCountry() {

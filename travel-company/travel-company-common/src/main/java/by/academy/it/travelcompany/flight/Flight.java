@@ -5,6 +5,7 @@ import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.AirportInfoCentre;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Flight {
 
@@ -17,17 +18,16 @@ public class Flight {
     private Airline airline;
     private double ticketPrice;
     private String flightNumber;
+
     private long id;
 
-    private static long idCount = 1L;
     public Flight() {
     }
 
-    public Flight(Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, double ticketPrice, String flightNumber) {
-        id = idCount;
-        idCount++;
+    public Flight(long id,Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, double ticketPrice, String flightNumber) {
 
         if (AirportInfoCentre.getAllDestinations(originAirport).contains(destinationAirport)) {
+            this.id = id;
             this.originAirport = originAirport;
             this.destinationAirport = destinationAirport;
             this.arriveTime = arriveTime;
@@ -36,6 +36,7 @@ public class Flight {
             this.ticketPrice = ticketPrice;
             this.flightNumber = flightNumber;
         } else {
+            this.id = 0L;
             this.originAirport = null;
             this.destinationAirport = null;
             this.arriveTime = null;
@@ -78,10 +79,6 @@ public class Flight {
         return id;
     }
 
-    public static long getIdCount() {
-        return idCount;
-    }
-
     public void setOriginAirport(Airport originAirport) {
         this.originAirport = originAirport;
     }
@@ -112,5 +109,39 @@ public class Flight {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Flight flight = (Flight) o;
+        return Double.compare(flight.ticketPrice, ticketPrice) == 0 &&
+                id == flight.id &&
+                Objects.equals(originAirport, flight.originAirport) &&
+                Objects.equals(destinationAirport, flight.destinationAirport) &&
+                Objects.equals(arriveTime, flight.arriveTime) &&
+                Objects.equals(departureTime, flight.departureTime) &&
+                airline == flight.airline &&
+                Objects.equals(flightNumber, flight.flightNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber, id);
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "originAirport=" + originAirport +
+                ", destinationAirport=" + destinationAirport +
+                ", arriveTime=" + arriveTime +
+                ", departureTime=" + departureTime +
+                ", airline=" + airline +
+                ", ticketPrice=" + ticketPrice +
+                ", flightNumber='" + flightNumber + '\'' +
+                ", id=" + id +
+                '}';
     }
 }
