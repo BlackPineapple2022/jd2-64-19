@@ -12,6 +12,7 @@
 <tr>Давайте выберем аэропорт назначения:</tr>
 <form method="post" action="${pageContext.request.contextPath}/addFlight">
 
+    <input type="hidden" name = "airportOrigin" value = "${airportOrigin.code}">
     <select name="airportDestination" >
         <c:forEach items="${allDestinationAirports}" var="airport">
             <option value = "${airport.code}">${airport}</option>

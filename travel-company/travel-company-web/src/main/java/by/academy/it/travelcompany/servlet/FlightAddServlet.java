@@ -37,7 +37,7 @@ public class FlightAddServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Airport airportOrigin = new Airport (req.getParameter("airportOrigin"), "", "");
         if (req.getParameter("airportDestination")==null) {
-            //req.setAttribute("airportOrigin", airportOrigin);
+            req.setAttribute("airportOrigin", airportOrigin);
             req.setAttribute("allDestinationAirports",AirportInfoCentre.getAllDestinations(airportOrigin));
             req.getRequestDispatcher("/WEB-INF/addFlightSecondStep.jsp").
                     forward(req, resp);
@@ -58,6 +58,7 @@ public class FlightAddServlet extends HttpServlet {
 
             double ticketPrice = Double.parseDouble(req.getParameter("ticketPrice"));
             String flightNumber = req.getParameter("flightNumber");
+
 
             Flight flight = new Flight(0L,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,ticketPrice,flightNumber);
             flightService.addFlight(flight);

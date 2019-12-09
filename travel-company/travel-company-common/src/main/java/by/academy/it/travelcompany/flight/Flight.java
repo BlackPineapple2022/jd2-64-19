@@ -35,7 +35,8 @@ public class Flight {
             this.airline = airline;
             this.ticketPrice = ticketPrice;
             this.flightNumber = flightNumber;
-        } else {
+        }
+        else {
             this.id = 0L;
             this.originAirport = null;
             this.destinationAirport = null;

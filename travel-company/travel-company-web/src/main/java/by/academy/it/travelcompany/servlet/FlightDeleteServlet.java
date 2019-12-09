@@ -1,6 +1,5 @@
 package by.academy.it.travelcompany.servlet;
 
-import by.academy.it.travelcompany.flight.Flight;
 import by.academy.it.travelcompany.service.FlightService;
 import by.academy.it.travelcompany.service.FlightServiceImpl;
 
@@ -10,19 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
-import java.util.Set;
 
-@WebServlet(urlPatterns = "/flightList")
-public class FlightListServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/deleteFlight")
+public class FlightDeleteServlet extends HttpServlet {
     private FlightService flightService = FlightServiceImpl.getService();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List <Flight> flightList = flightService.getAllFlights();
-        req.setAttribute("flightList",flightList);
-        req.getRequestDispatcher("/WEB-INF/flight-list.jsp")
-                .forward(req,resp);
-    }
+        if (req.getParameter("modelId") != null) {
+            flightService.deleteFlight(Long.parseLong(req.getParameter("modelId")));
+        }
 
+    }
 }

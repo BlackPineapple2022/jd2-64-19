@@ -25,4 +25,8 @@ public interface FlightService {
     void addFlight(Flight flight);
 
 
+    void deleteFlight(long id);
+
+    void updateFlight(Flight flight);
+
 }

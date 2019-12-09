@@ -9,7 +9,7 @@
 
 <h2>Укажите аэропорт начала путешествия</h2>
 <form method="post" action="${pageContext.request.contextPath}/addFlight">
-    <select name="airportOrigin" size>
+    <select name="airportOrigin" >
 
         <c:forEach items="${allAirport}" var="airport">
         <option value = "${airport.code}">${airport}</option>
