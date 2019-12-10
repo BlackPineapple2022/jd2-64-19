@@ -11,7 +11,7 @@
 <form method="post" action="${pageContext.request.contextPath}/addFlight">
     <select name="airportOrigin" >
 
-        <c:forEach items="${allAirport}" var="airport">
+        <c:forEach items="${allStartedAirports}" var="airport">
         <option value = "${airport.code}">${airport}</option>
         </c:forEach>
 
