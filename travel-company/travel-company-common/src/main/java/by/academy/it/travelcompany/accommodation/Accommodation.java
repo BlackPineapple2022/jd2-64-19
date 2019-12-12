@@ -4,19 +4,20 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class Accommodation {
+
+    private Long id;
     private String country;
     private String city;
     private String address;
     private String nameOfAccommodation;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
-    private Accomodations accomodations;
-    private long id;
+    private Accommodations accommodations;
 
     public Accommodation() {
     }
 
-    public Accommodation(long id, String country, String city, String address, String nameOfAccommodation, LocalDate checkInDate, LocalDate checkOutDate, Accomodations accomodations) {
+    public Accommodation(Long id, String country, String city, String address, String nameOfAccommodation, LocalDate checkInDate, LocalDate checkOutDate, Accommodations accommodations) {
         this.id = id;
         this.country = country;
         this.city = city;
@@ -24,14 +25,14 @@ public class Accommodation {
         this.nameOfAccommodation = nameOfAccommodation;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
-        this.accomodations = accomodations;
+        this.accommodations = accommodations;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -83,12 +84,12 @@ public class Accommodation {
         this.checkOutDate = checkOutDate;
     }
 
-    public Accomodations getAccomodations() {
-        return accomodations;
+    public Accommodations getAccommodations() {
+        return accommodations;
     }
 
-    public void setAccomodations(Accomodations accomodations) {
-        this.accomodations = accomodations;
+    public void setAccommodations(Accommodations accommodations) {
+        this.accommodations = accommodations;
     }
 
     @Override
@@ -96,32 +97,32 @@ public class Accommodation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Accommodation that = (Accommodation) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(country, that.country) &&
                 Objects.equals(city, that.city) &&
                 Objects.equals(address, that.address) &&
                 Objects.equals(nameOfAccommodation, that.nameOfAccommodation) &&
                 Objects.equals(checkInDate, that.checkInDate) &&
                 Objects.equals(checkOutDate, that.checkOutDate) &&
-                accomodations == that.accomodations;
+                accommodations == that.accommodations;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(country, city, address, nameOfAccommodation, checkInDate, checkOutDate, accomodations, id);
+        return Objects.hash(id, country, city, address, nameOfAccommodation, checkInDate, checkOutDate, accommodations);
     }
 
     @Override
     public String toString() {
         return "Accommodation{" +
-                "country='" + country + '\'' +
+                "id=" + id +
+                ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", address='" + address + '\'' +
                 ", nameOfAccommodation='" + nameOfAccommodation + '\'' +
                 ", checkInDate=" + checkInDate +
                 ", checkOutDate=" + checkOutDate +
-                ", accomodations=" + accomodations +
-                ", id=" + id +
+                ", accommodations=" + accommodations +
                 '}';
     }
 

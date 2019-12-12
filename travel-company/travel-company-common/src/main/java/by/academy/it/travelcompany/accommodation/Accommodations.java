@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.accommodation;
 
-public enum Accomodations {
+public enum Accommodations {
     HOTEL,
     HOSTEL,
     APARTMENT,

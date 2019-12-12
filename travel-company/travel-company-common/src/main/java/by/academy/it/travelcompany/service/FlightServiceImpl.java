@@ -8,38 +8,35 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicLong;
 
 public class FlightServiceImpl implements FlightService {
 
     private static final FlightService INSTANCE = new FlightServiceImpl();
-
-    private final List<Flight> flights;
+    private final List<Flight> flights = new ArrayList<>();
+    private final AtomicLong sequence = new AtomicLong(10);
 
     private FlightServiceImpl() {
-        flights = new ArrayList<>();
 
-        // Manual adding flight
-        // Actual flight with actual price
-        // Price actual on 09.12.2019 Catch it!
-
-        long id1 = 1L;
-        Airport origin1 = new Airport("VNO", "Lithuania", "Vilnius");
-        Airport destination1 = new Airport("BVA", "France", "Paris Beauvais");
-        LocalDateTime arriveTime1 = LocalDateTime.of(2019, Month.DECEMBER, 19, 15, 30);
-        LocalDateTime departureTime1 = LocalDateTime.of(2019, Month.DECEMBER, 19, 17, 20);
+        Long id1 = 1L;
+        Airport origin1 = new Airport("VNO");
+        Airport destination1 = new Airport("BGY");
+        LocalDateTime arriveTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 22, 25);
+        LocalDateTime departureTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 23, 55);
         Airline airline1 = Airline.RY;
-        double ticketPrice1 = 14.99;
-        String flightN1 = "FR 1737";
+        double ticketPrice1 = 21.84;
+        String flightN1 = "FR 2871";
 
         flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1, ticketPrice1, flightN1));
 
-        long id2 = 2L;
-        Airport origin2 = new Airport("BVA", "France", "Paris Beauvais");
-        Airport destination2 = new Airport("VNO", "Lithuania", "Vilnius");
-        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.DECEMBER, 22, 17, 10);
-        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.DECEMBER, 19, 20, 45);
-        Airline airline2 = Airline.WIZZ;
-        double ticketPrice2 = 194.99;
+        Long id2 = 2L;
+        Airport origin2 = new Airport("BGY");
+        Airport destination2 = new Airport("VNO");
+        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 17, 55);
+        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 21, 20);
+        Airline airline2 = Airline.RY;
+        double ticketPrice2 = 30.30;
         String flightN2 = "W6 8022";
 
         flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2, ticketPrice2, flightN2));
@@ -55,19 +52,22 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public void addFlight(Flight flight) {
-        flight.setId((long) flights.size() + 1);
+    public Flight addFlight(Flight flight) {
+        flight.setId(sequence.incrementAndGet());
         flights.add(flight);
+        return flight;
     }
 
     @Override
-    public void deleteFlight(long id) {
-        flights.removeIf(f -> f.getId() == id);
+    public void deleteFlight(Long id) {
+        flights.removeIf(f -> f.getId().equals(id));
     }
 
     @Override
-    public void updateFlight(Flight flight) {
+    public Flight updateFlight(Flight flight) {
         deleteFlight(flight.getId());
-        addFlight(flight);
+        flights.add(flight);
+        return flight;
     }
+
 }
