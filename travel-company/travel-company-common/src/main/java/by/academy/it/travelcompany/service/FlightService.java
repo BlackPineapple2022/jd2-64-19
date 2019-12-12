@@ -20,22 +20,27 @@ public interface FlightService {
     /**
      * Add new flight
      * @param flight flight to save
+     * @return new flight with generated Id
      */
 
-    void addFlight(Flight flight);
+    Flight addFlight(Flight flight);
 
     /**
      * Delete flight by id
-      * flight with @param id delete from set
+     * flight with @param id delete from list
      */
 
-    void deleteFlight(long id);
+    void deleteFlight(Long id);
 
     /**
-     * update object in set with same id of
-     * @param flight
+     * update object in list with same id of
+     * update object in list with same id of
+     * @param flight flight to update (by id)
+     * @return flight updated flight
      */
 
-    void updateFlight(Flight flight);
+    Flight updateFlight(Flight flight);
+
+
 
 }

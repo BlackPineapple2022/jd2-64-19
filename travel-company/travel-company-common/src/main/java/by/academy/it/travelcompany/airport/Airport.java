@@ -79,7 +79,6 @@ public class Airport implements Comparable<Airport> {
 
     @Override
     public int compareTo(Airport a) {
-        //int result = 0;
         int result = country.compareTo(a.getCountry());
         if (result == 0) {
             result = city.compareTo(a.getCity());

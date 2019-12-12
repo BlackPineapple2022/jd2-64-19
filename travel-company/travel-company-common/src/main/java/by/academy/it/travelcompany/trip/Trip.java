@@ -2,43 +2,42 @@ package by.academy.it.travelcompany.trip;
 
 import by.academy.it.travelcompany.accommodation.Accommodation;
 import by.academy.it.travelcompany.flight.Flight;
+import by.academy.it.travelcompany.transfer.Transfer;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Trip {
 
-    private Flight flightFrom;
-    private Flight flightTo;
+    private Long id;
+    private List<Flight> flights;
     private List<Accommodation> accommodations;
-    private long id;
+    private List<Transfer> transfers;
 
     public Trip() {
     }
 
-    public Trip(long id, Flight flightFrom, Flight flightTo, List<Accommodation> accommodations) {
-
+    public Trip(Long id, List<Flight> flights, List<Accommodation> accommodations, List<Transfer> transfers) {
         this.id = id;
-        this.flightFrom = flightFrom;
-        this.flightTo = flightTo;
+        this.flights = flights;
         this.accommodations = accommodations;
-
+        this.transfers = transfers;
     }
 
-    public Flight getFlightFrom() {
-        return flightFrom;
+    public Long getId() {
+        return id;
     }
 
-    public void setFlightFrom(Flight flightFrom) {
-        this.flightFrom = flightFrom;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Flight getFlightTo() {
-        return flightTo;
+    public List<Flight> getFlights() {
+        return flights;
     }
 
-    public void setFlightTo(Flight flightTo) {
-        this.flightTo = flightTo;
+    public void setFlights(List<Flight> flights) {
+        this.flights = flights;
     }
 
     public List<Accommodation> getAccommodations() {
@@ -49,12 +48,12 @@ public class Trip {
         this.accommodations = accommodations;
     }
 
-    public long getId() {
-        return id;
+    public List<Transfer> getTransfers() {
+        return transfers;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setTransfers(List<Transfer> transfers) {
+        this.transfers = transfers;
     }
 
     @Override
@@ -62,24 +61,24 @@ public class Trip {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Trip trip = (Trip) o;
-        return id == trip.id &&
-                Objects.equals(flightFrom, trip.flightFrom) &&
-                Objects.equals(flightTo, trip.flightTo) &&
-                Objects.equals(accommodations, trip.accommodations);
+        return Objects.equals(id, trip.id) &&
+                Objects.equals(flights, trip.flights) &&
+                Objects.equals(accommodations, trip.accommodations) &&
+                Objects.equals(transfers, trip.transfers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(flightFrom, flightTo, accommodations, id);
+        return Objects.hash(id, flights, accommodations, transfers);
     }
 
     @Override
     public String toString() {
         return "Trip{" +
-                "flightFrom=" + flightFrom +
-                ", flightTo=" + flightTo +
+                "id=" + id +
+                ", flights=" + flights +
                 ", accommodations=" + accommodations +
-                ", id=" + id +
+                ", transfers=" + transfers +
                 '}';
     }
 }
