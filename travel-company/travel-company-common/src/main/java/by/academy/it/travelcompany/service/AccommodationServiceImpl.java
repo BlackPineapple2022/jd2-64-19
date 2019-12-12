@@ -15,6 +15,10 @@ public class AccommodationServiceImpl implements AccommodationService {
     private AccommodationServiceImpl(){
     }
 
+    public static AccommodationService getService(){
+        return INSTANCE;
+    }
+
     @Override
     public List<Accommodation> getAllAccommodations() {
         return null;
