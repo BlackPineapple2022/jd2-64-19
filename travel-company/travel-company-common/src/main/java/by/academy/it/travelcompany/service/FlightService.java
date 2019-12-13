@@ -34,7 +34,6 @@ public interface FlightService {
 
     /**
      * update object in list with same id of
-     * update object in list with same id of
      * @param flight flight to update (by id)
      * @return flight updated flight
      */

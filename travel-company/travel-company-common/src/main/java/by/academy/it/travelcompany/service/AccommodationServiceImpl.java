@@ -9,8 +9,8 @@ import java.util.concurrent.atomic.AtomicLong;
 public class AccommodationServiceImpl implements AccommodationService {
 
     private static final AccommodationService INSTANCE = new AccommodationServiceImpl();
-    private static final List<Accommodation> accommodations = new ArrayList<>();
-    private static final AtomicLong sequence = new AtomicLong();
+    private final List<Accommodation> accommodations = new ArrayList<>();
+    private final AtomicLong sequence = new AtomicLong(10);
 
     private AccommodationServiceImpl(){
     }
@@ -21,22 +21,26 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public List<Accommodation> getAllAccommodations() {
-        return null;
+        return accommodations;
     }
 
     @Override
     public Accommodation addAccommodation(Accommodation accommodation) {
-        return null;
+        accommodation.setId(sequence.incrementAndGet());
+        accommodations.add(accommodation);
+        return accommodation;
     }
 
     @Override
-    public void deleteAccommodation() {
-
+    public void deleteAccommodation(Long id) {
+        accommodations.removeIf(f->f.getId().equals(id));
     }
 
     @Override
     public Accommodation updateAccommodation(Accommodation accommodation) {
-        return null;
+        deleteAccommodation(accommodation.getId());
+        accommodations.add(accommodation);
+        return accommodation;
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface AccommodationService {
 
     /**
-     * Get all accommodation
+     * Get all accommodations
      * @return list of found accommodation
      */
 
@@ -27,10 +27,10 @@ public interface AccommodationService {
 
     /**
      * Delete accommodation by id
-     * accommodation with @param id delete from list
+     * @param id delete accommodation by id
      */
 
-    void deleteAccommodation();
+    void deleteAccommodation(Long id);
 
     /**
      * Update object in list with same id of
