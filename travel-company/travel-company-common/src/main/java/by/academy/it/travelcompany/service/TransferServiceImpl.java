@@ -34,7 +34,7 @@ public class TransferServiceImpl implements TransferService {
 
     @Override
     public void deleteTransfer(Long id) {
-        transfers.removeIf(f->f.getId().equals(id));
+        transfers.removeIf(t->t.getId().equals(id));
     }
 
     @Override

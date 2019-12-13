@@ -33,7 +33,7 @@ public class AccommodationServiceImpl implements AccommodationService {
 
     @Override
     public void deleteAccommodation(Long id) {
-        accommodations.removeIf(f->f.getId().equals(id));
+        accommodations.removeIf(a->a.getId().equals(id));
     }
 
     @Override
