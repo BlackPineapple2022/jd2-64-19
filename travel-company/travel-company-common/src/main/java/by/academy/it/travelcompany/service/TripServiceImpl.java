@@ -13,7 +13,6 @@ public class TripServiceImpl implements TripService {
     private final AtomicLong sequence = new AtomicLong(10);
 
     private TripServiceImpl(){
-
     }
 
     public static TripService getService(){
