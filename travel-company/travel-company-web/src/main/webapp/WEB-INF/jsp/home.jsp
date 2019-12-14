@@ -4,8 +4,8 @@
 <fmt:setLocale scope="session" value="${param.lang}"/>
 <fmt:setBundle basename="messages"/>
 
-<!DOCTYPE html>
-<html lang="${param.lang}">
+<!DOCTYPE html >
+<html>
 
 <head>
     <meta charset="UTF-8">
@@ -13,6 +13,8 @@
 </head>
 
 <body>
+
+
 <%@include file="include/header.jsp" %>
 
 

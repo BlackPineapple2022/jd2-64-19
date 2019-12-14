@@ -6,7 +6,7 @@
 <fmt:setLocale scope="session" value="${param.lang}"/>
 <fmt:setBundle basename="messages"/>
 
-<div style="background:#FFFCFC; color: #8c52ff; float: right; padding: 5px; padding-right: 30px; text-align: right;">
+<div style="background:#FFFCFC; color: #000000; float: right; padding: 5px; padding-right: 30px; text-align: right;">
 
     <!-- User store in session with attribute: loginedUser -->
         <c:if test="${user != null}"> <fmt:message key="label.welcome"/> <b>${user.userName}</b>
@@ -27,6 +27,8 @@
         <img src="${pageContext.request.contextPath}/resources/pic/logo.png">
     </a>
 </div>
+
+<div style="background: #5371ff; height:5px"></div>
 
 
 

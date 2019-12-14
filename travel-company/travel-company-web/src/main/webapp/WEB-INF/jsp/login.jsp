@@ -4,19 +4,21 @@
 <fmt:setLocale scope="session" value="${param.lang}"/>
 <fmt:setBundle basename="messages"/>
 
-<html lang="${param.lang}">
+<html >
 <head>
     <meta charset="UTF-8">
     <title>BlackPineapple.by | <fmt:message key="login.page.title"/></title>
 </head>
 <body>
 <%@include file="include/header.jsp" %>
+<c:if test ="${errorCode==1}"><p style="color: red; text-align: center"><fmt:message key="error.code.1"/></p></c:if>
+<c:if test ="${errorCode==2}"><p style="color: red; text-align: center"><fmt:message key="error.code.2"/></p></c:if>
 <form method="POST" action="${pageContext.request.contextPath}/login">
     <p align="center"><fmt:message key="login.page.title"/>:</p>
     <table align="center" border="0" bord >
         <tr>
             <td><fmt:message key="login.page.user.name"/></td>
-            <td><input type="text" name="userName" value="${user.userName}"/></td>
+            <td><input type="text" name="userName" value="${userName}"/></td>
         </tr>
         <tr>
             <td><fmt:message key="login.page.user.password"/></td>
