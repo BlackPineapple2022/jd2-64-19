@@ -21,7 +21,7 @@ public class FlightListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List <Flight> flightList = flightService.getAllFlights();
         req.setAttribute("flightList",flightList);
-        req.getRequestDispatcher("/WEB-INF/flight-list.jsp")
+        req.getRequestDispatcher("/WEB-INF/jsp/flight-list.jsp")
                 .forward(req,resp);
     }
 

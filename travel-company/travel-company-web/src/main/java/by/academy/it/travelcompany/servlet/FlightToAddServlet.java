@@ -26,7 +26,7 @@ public class FlightToAddServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Set allStartedAirports = AirportInfoCentre.getAllStartAirports();
         req.setAttribute("allStartedAirports",allStartedAirports);
-        req.getRequestDispatcher("/WEB-INF/addFlightFirstStep.jsp").
+        req.getRequestDispatcher("/WEB-INF/jsp/addFlightFirstStep.jsp").
                 forward(req,resp);
     }
 
@@ -36,7 +36,7 @@ public class FlightToAddServlet extends HttpServlet {
         if (req.getParameter("airportDestination") == null) {
             req.setAttribute("airportOrigin", airportOrigin);
             req.setAttribute("allDestinationAirports", AirportInfoCentre.getAllDestinations(airportOrigin));
-            req.getRequestDispatcher("/WEB-INF/addFlightSecondStep.jsp").
+            req.getRequestDispatcher("/WEB-INF/jsp/addFlightSecondStep.jsp").
                     forward(req, resp);
         }
 

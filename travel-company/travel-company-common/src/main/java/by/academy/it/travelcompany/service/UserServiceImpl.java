@@ -12,8 +12,8 @@ public class UserServiceImpl implements UserService {
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
     private UserServiceImpl(){
-        users.put("black",new User(1L,"black","black1123581321","admin"));
-        users.put("white",new User(2L,"white","white1123581321","user"));
+        users.put("black",new User(1L,"black","123","admin"));
+        users.put("white",new User(2L,"white","123","user"));
     }
 
     public static UserService getService(){

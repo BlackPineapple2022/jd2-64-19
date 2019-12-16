@@ -27,7 +27,7 @@ public class FlightFromAddServlet extends HttpServlet {
         Set allStartedAirports = AirportInfoCentre.getAllAirportsFromStart();
         //List<Airport> allAirport = new ArrayList<>(AirportInfoCentre.getAllAirports());
         req.setAttribute("allStartedAirports",allStartedAirports);
-        req.getRequestDispatcher("/WEB-INF/addFlightFirstStep.jsp").
+        req.getRequestDispatcher("/WEB-INF/jsp/addFlightFirstStep.jsp").
                 forward(req,resp);
     }
 
@@ -37,7 +37,7 @@ public class FlightFromAddServlet extends HttpServlet {
         if (req.getParameter("airportDestination") == null) {
             req.setAttribute("airportOrigin", airportOrigin);
             req.setAttribute("allDestinationAirports", AirportInfoCentre.getAllDestinations(airportOrigin));
-            req.getRequestDispatcher("/WEB-INF/addFlightSecondStep.jsp").
+            req.getRequestDispatcher("/WEB-INF/jsp/addFlightSecondStep.jsp").
                     forward(req, resp);
         }
 
