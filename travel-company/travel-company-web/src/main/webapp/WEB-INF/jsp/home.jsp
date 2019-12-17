@@ -15,10 +15,6 @@
 <body>
 <%@include file="include/header.jsp" %>
 <%@include file="include/menu.jsp" %>
-
-
-
-
 <%@include file="include/footer.jsp" %>
 </body>
 

@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
                 hasError = true;
                 errorCode = 2;
             } else {
+
                 req.getSession(true).setAttribute("user", user.get());
             }
         }

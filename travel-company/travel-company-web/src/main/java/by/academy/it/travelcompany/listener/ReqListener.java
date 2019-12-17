@@ -14,7 +14,8 @@ public class ReqListener implements ServletRequestListener {
 
     @Override
     public void requestInitialized(ServletRequestEvent sre) {
-
-        logger.info("req initialized by user: "+ sre.getServletRequest().getParameter("userName"));
+       if (sre.getServletRequest().getParameter("userName") != null) {
+            logger.info("req initialized by user: " + sre.getServletRequest().getParameter("userName"));
+       }
     }
 }
