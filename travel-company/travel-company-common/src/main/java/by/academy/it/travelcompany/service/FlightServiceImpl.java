@@ -8,7 +8,6 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class FlightServiceImpl implements FlightService {
@@ -18,14 +17,14 @@ public class FlightServiceImpl implements FlightService {
     private final AtomicLong sequence = new AtomicLong(10);
 
     private FlightServiceImpl() {
-//                                               !!!---IT IS REAL PRICE, REAL FLIGHT, REAL DATE, REAL TIME---!!!
+
         Long id1 = 1L;
         Airport origin1 = new Airport("VNO");
         Airport destination1 = new Airport("BGY");
         LocalDateTime arriveTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 22, 25);
         LocalDateTime departureTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 23, 55);
         Airline airline1 = Airline.RY;
-        double ticketPrice1 = 21.84;
+        double ticketPrice1 = 21.84;//it is outdated price, let see how Flight scanner replace it;
         String flightN1 = "FR 2871";
 
         flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1, ticketPrice1, flightN1));
@@ -42,7 +41,7 @@ public class FlightServiceImpl implements FlightService {
         flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2, ticketPrice2, flightN2));
     }
 
-    public static FlightService getService() {
+    public static FlightService getInstance() {
         return INSTANCE;
     }
 
@@ -59,15 +58,22 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public void deleteFlight(Long id) {
+    public void deleteFlightById(Long id) {
         flights.removeIf(f -> f.getId().equals(id));
     }
 
     @Override
-    public Flight updateFlight(Flight flight) {
-        deleteFlight(flight.getId());
+    public Flight updateFlightById(Flight flight) {
+        deleteFlightById(flight.getId());
         flights.add(flight);
         return flight;
+    }
+
+    @Override
+    public Flight updateOrCreateByLocalDateTime(Flight flight) {
+       flights.removeIf(f->f.getArriveTime().equals(flight.getArriveTime()));
+       flights.add(flight);
+       return flight;
     }
 
 }

@@ -15,7 +15,7 @@ public class TransferServiceImpl implements TransferService {
     private TransferServiceImpl(){
     }
 
-    public static TransferService getService(){
+    public static TransferService getInstance(){
         return INSTANCE;
     }
 

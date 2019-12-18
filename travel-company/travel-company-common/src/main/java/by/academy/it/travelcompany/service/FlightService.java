@@ -30,7 +30,7 @@ public interface FlightService {
      * flight with @param id delete from list
      */
 
-    void deleteFlight(Long id);
+    void deleteFlightById(Long id);
 
     /**
      * update object in list with same id of
@@ -38,8 +38,16 @@ public interface FlightService {
      * @return flight updated flight
      */
 
-    Flight updateFlight(Flight flight);
+    Flight updateFlightById(Flight flight);
 
+    /**
+     * update object in list with same LocalDateTime arriveTime
+     * @param flight flight to update (by LocalTime arriveTime )
+     * @return flight updated flight
+     * If flight with LocalDateTime arriveTime doesn't exist on list
+     * It will be created
+     */
 
+    Flight updateOrCreateByLocalDateTime(Flight flight);
 
 }

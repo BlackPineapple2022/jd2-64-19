@@ -15,7 +15,7 @@ public class TripServiceImpl implements TripService {
     private TripServiceImpl(){
     }
 
-    public static TripService getService(){
+    public static TripService getInstance(){
         return INSTANCE;
     }
 

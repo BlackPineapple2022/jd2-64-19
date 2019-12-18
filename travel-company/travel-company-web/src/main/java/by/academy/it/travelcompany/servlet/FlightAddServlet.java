@@ -19,7 +19,7 @@ import java.util.*;
 @WebServlet (urlPatterns = "/addFlight")
 public class FlightAddServlet extends HttpServlet {
 
-    private FlightService flightService = FlightServiceImpl.getService();
+    private FlightService flightService = FlightServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,7 +56,7 @@ public class FlightAddServlet extends HttpServlet {
             String flightNumber = req.getParameter("flightNumber");
 
 
-            Flight flight = new Flight(0L,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,ticketPrice,flightNumber);
+            Flight flight = new Flight(null,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,ticketPrice,flightNumber);
             flightService.addFlight(flight);
 
             resp.sendRedirect(req.getContextPath() + "/flightList");

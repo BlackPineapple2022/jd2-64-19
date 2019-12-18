@@ -15,7 +15,7 @@ import java.util.List;
 
 @WebServlet(urlPatterns = "/flightList")
 public class FlightListServlet extends HttpServlet {
-    private FlightService flightService = FlightServiceImpl.getService();
+    private FlightService flightService = FlightServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

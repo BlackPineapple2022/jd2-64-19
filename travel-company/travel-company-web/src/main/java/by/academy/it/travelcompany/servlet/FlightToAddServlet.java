@@ -16,7 +16,7 @@ import java.util.Set;
 @WebServlet(urlPatterns = "/addFlightTo")
 public class FlightToAddServlet extends HttpServlet {
 
-    private FlightService flightService = FlightServiceImpl.getService();
+    private FlightService flightService = FlightServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

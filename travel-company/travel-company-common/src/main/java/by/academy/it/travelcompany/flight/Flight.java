@@ -20,6 +20,8 @@ public class Flight {
     private double ticketPrice;
     private String flightNumber;
 
+    private LocalDateTime checkedTime; // Last time Scanner update(create) this flight
+
     public Flight() {
     }
 
@@ -132,4 +134,11 @@ public class Flight {
         return Objects.hash(id, originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber);
     }
 
+    public LocalDateTime getCheckedTime() {
+        return checkedTime;
+    }
+
+    public void setCheckedTime(LocalDateTime checkedTime) {
+        this.checkedTime = checkedTime;
+    }
 }
