@@ -17,6 +17,8 @@ public class Flight {
     private LocalDateTime departureTime;
 
     private Airline airline;
+
+    private String currency;
     private double ticketPrice;
     private String flightNumber;
 
@@ -25,13 +27,14 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, double ticketPrice, String flightNumber) {
+    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline,String currency, double ticketPrice, String flightNumber) {
         this.id = id;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
         this.arriveTime = arriveTime;
         this.departureTime = departureTime;
         this.airline = airline;
+        this.currency =currency;
         this.ticketPrice = ticketPrice;
         this.flightNumber = flightNumber;
     }
@@ -84,6 +87,14 @@ public class Flight {
         this.airline = airline;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
     public double getTicketPrice() {
         return ticketPrice;
     }
@@ -98,6 +109,14 @@ public class Flight {
 
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
+    }
+
+    public LocalDateTime getCheckedTime() {
+        return checkedTime;
+    }
+
+    public void setCheckedTime(LocalDateTime checkedTime) {
+        this.checkedTime = checkedTime;
     }
 
     @Override
@@ -134,11 +153,4 @@ public class Flight {
         return Objects.hash(id, originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber);
     }
 
-    public LocalDateTime getCheckedTime() {
-        return checkedTime;
-    }
-
-    public void setCheckedTime(LocalDateTime checkedTime) {
-        this.checkedTime = checkedTime;
-    }
 }

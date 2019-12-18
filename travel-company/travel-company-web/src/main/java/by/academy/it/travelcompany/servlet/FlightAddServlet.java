@@ -56,7 +56,7 @@ public class FlightAddServlet extends HttpServlet {
             String flightNumber = req.getParameter("flightNumber");
 
 
-            Flight flight = new Flight(null,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,ticketPrice,flightNumber);
+            Flight flight = new Flight(null,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,"EUR",ticketPrice,flightNumber);
             flightService.addFlight(flight);
 
             resp.sendRedirect(req.getContextPath() + "/flightList");

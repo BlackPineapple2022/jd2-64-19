@@ -30,21 +30,22 @@ public class FlightScannerImpl implements FlightScanner {
     }
 
     @Override
-    public void parseFlights(Airline airline, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    public void parseFlights(Airline airline,LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
         if (airline.equals(Airline.RY)) {
             for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
                 try {
-                    String req = getReqStringRY(LocalDate.now().plusDays(j), origin, destination);
+                    String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
 
                     JSONObject json = new JSONObject(readUrl(req));
                     JSONArray jsonTrips = json.getJSONArray("trips");
+                    String currency = (String)json.get("currency");
                     JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
                     JSONArray jsonDates = jsonTrip.getJSONArray("dates");
                     JSONObject jsonDate = (JSONObject) jsonDates.get(0);
                     JSONArray jsonFlights = jsonDate.getJSONArray("flights");
                     for (int i = 0; i < jsonFlights.length(); i++) {
                         JSONObject jsonFlight = (JSONObject) jsonFlights.get(i);
-                        JSONArray time = jsonFlight.getJSONArray("timeUTC");
+                        JSONArray time = jsonFlight.getJSONArray("time");
                         String arriveDateTime = (String) time.get(0);
                         String departureDateTime = (String) time.get(1);
                         String flightNumber = (String) jsonFlight.get("flightNumber");
@@ -79,7 +80,7 @@ public class FlightScannerImpl implements FlightScanner {
                         LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                         LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                        flightService.updateOrCreateByLocalDateTime(new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY, amount, flightNumber));
+                        flightService.updateOrCreateByLocalDateTime(new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY,currency, amount, flightNumber));
                     }
                     Thread.sleep(20000);
                 } catch (Exception e) {
@@ -88,6 +89,8 @@ public class FlightScannerImpl implements FlightScanner {
             }
         }
     }
+
+
 
     private String getReqStringRY(LocalDate dateOfSearch, Airport origin, Airport destination) {
         String dateOfSearchFormatted = dateOfSearch.getYear() + "-" + dateOfSearch.getMonthValue() + "-" + dateOfSearch.getDayOfMonth();
