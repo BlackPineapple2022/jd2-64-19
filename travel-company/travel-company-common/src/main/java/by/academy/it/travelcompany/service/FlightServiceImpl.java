@@ -27,7 +27,7 @@ public class FlightServiceImpl implements FlightService {
         double ticketPrice1 = 21.84;//it is outdated price, let see how Flight scanner replace it;
         String flightN1 = "FR 2871";
 
-        flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1,"EUR", ticketPrice1, flightN1));
+        flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1, "EUR", ticketPrice1, flightN1));
 
         Long id2 = 2L;
         Airport origin2 = new Airport("BGY");
@@ -38,7 +38,7 @@ public class FlightServiceImpl implements FlightService {
         double ticketPrice2 = 30.30;
         String flightN2 = "W6 8022";
 
-        flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2,"EUR", ticketPrice2, flightN2));
+        flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2, "EUR", ticketPrice2, flightN2));
     }
 
     public static FlightService getInstance() {
@@ -70,10 +70,20 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flight updateOrCreateByLocalDateTime(Flight flight) {
-       flights.removeIf(f->f.getArriveTime().equals(flight.getArriveTime()));
-       flights.add(flight);
-       return flight;
+    public Flight updateOrCreate(Flight flight) {
+        for (Flight f : flights) {
+            if (f.equals(flight)) {
+                flight.setId(f.getId());
+                flights.remove(f);
+                flights.add(flight);
+                return flight;
+            }
+        }
+        addFlight(flight);
+        return flight;
     }
 
+
+
 }
+

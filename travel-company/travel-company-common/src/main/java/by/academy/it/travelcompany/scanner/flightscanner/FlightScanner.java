@@ -3,6 +3,7 @@ package by.academy.it.travelcompany.scanner.flightscanner;
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,6 +20,6 @@ public interface FlightScanner{
      *
      */
 
-    void parseFlights (Airline airline, LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination );
+    void parseFlights (Airline airline, LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) throws IOException;
 
 }

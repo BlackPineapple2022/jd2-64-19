@@ -41,13 +41,14 @@ public interface FlightService {
     Flight updateFlightById(Flight flight);
 
     /**
-     * update object in list with same LocalDateTime arriveTime
-     * @param flight flight to update (by LocalTime arriveTime )
+     * update object in list with same LocalDate, Airline, flight number, Airport origin, Airport destination (Flight.equals())
+     * @param flight flight to update
      * @return flight updated flight
-     * If flight with LocalDateTime arriveTime doesn't exist on list
+     * If flight  doesn't exist on list
      * It will be created
+     * See Flight class equals method for more information
      */
 
-    Flight updateOrCreateByLocalDateTime(Flight flight);
+    Flight updateOrCreate(Flight flight);
 
 }

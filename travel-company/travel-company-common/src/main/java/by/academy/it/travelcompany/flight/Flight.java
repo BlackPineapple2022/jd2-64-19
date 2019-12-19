@@ -124,12 +124,10 @@ public class Flight {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Flight flight = (Flight) o;
-        return Double.compare(flight.ticketPrice, ticketPrice) == 0 &&
-                Objects.equals(id, flight.id) &&
+        return
                 Objects.equals(originAirport, flight.originAirport) &&
                 Objects.equals(destinationAirport, flight.destinationAirport) &&
-                Objects.equals(arriveTime, flight.arriveTime) &&
-                Objects.equals(departureTime, flight.departureTime) &&
+                Objects.equals(arriveTime.getDayOfYear(), flight.arriveTime.getDayOfYear()) &&
                 airline == flight.airline &&
                 Objects.equals(flightNumber, flight.flightNumber);
     }

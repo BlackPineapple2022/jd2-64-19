@@ -6,17 +6,50 @@ import by.academy.it.travelcompany.flight.Flight;
 import by.academy.it.travelcompany.service.FlightService;
 import by.academy.it.travelcompany.service.FlightServiceImpl;
 
+import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.fluent.Content;
+import org.apache.http.client.fluent.Request;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.entity.ContentType;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 public class FlightScannerImpl implements FlightScanner {
+
+//https://be.wizzair.com/10.3.0/Api/asset/farechart
+
+    private static final String KEY_NAME = "x-requestverificationtoken";
+    private static final String KEY_VALUE = "b43eed385ee940d891de8162fe78ffd1";
+
+    private static final int DELAYREQ = 10000;
 
     private static final FlightScanner INSTANCE = new FlightScannerImpl();
 
@@ -30,15 +63,16 @@ public class FlightScannerImpl implements FlightScanner {
     }
 
     @Override
-    public void parseFlights(Airline airline,LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    public void parseFlights(Airline airline, LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) throws IOException {
         if (airline.equals(Airline.RY)) {
             for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
                 try {
+                    Thread.sleep(DELAYREQ);
                     String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
 
                     JSONObject json = new JSONObject(readUrl(req));
                     JSONArray jsonTrips = json.getJSONArray("trips");
-                    String currency = (String)json.get("currency");
+                    String currency = (String) json.get("currency");
                     JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
                     JSONArray jsonDates = jsonTrip.getJSONArray("dates");
                     JSONObject jsonDate = (JSONObject) jsonDates.get(0);
@@ -80,16 +114,80 @@ public class FlightScannerImpl implements FlightScanner {
                         LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                         LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                        flightService.updateOrCreateByLocalDateTime(new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY,currency, amount, flightNumber));
+                        flightService.updateOrCreate(new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY, currency, amount, flightNumber));
                     }
-                    Thread.sleep(20000);
+
                 } catch (Exception e) {
                     e.printStackTrace();
+
                 }
             }
         }
-    }
 
+        if (airline.equals(Airline.WIZZ)) {
+            try {
+                final Content postResult = Request.Post("https://be.wizzair.com/10.3.0/Api/asset/farechart")
+                        .bodyString("{\n" +
+                                //"\"" + KEY_NAME + "\":" +
+                                //"\"" + KEY_VALUE + "\":" +
+                                "" + "\"isRescueFare\":false,\n" +
+                                "\"adultCount\":1,\n" + "\"childCount\":0,\n" + "\"dayInterval\":3,\n" +
+                                "\"wdc\":false,\n" + "\"flightList\":[\n" + "{\n" +
+                                "\"departureStation\":\"" + origin.getCode() + "\",\n" +
+                                "\"arrivalStation\":\"" + destination.getCode() + "\",\n" +
+                                "\"date\":\"" + getDateStringWIZZ(startLocalDate) + "\"\n" + "}\n" + "]\n" +
+                                "}", ContentType.APPLICATION_JSON)
+                        .execute().returnContent();
+                System.out.println(postResult.asString());
+
+            } catch (Exception e) {
+
+            }
+            //final Collection<NameValuePair> params = new ArrayList<>();
+            //params.add(new BasicNameValuePair(KEY_NAME, KEY_VALUE));
+
+            /*final Content postResultForm = Request.Post("https://be.wizzair.com/10.3.0/Api/search/search")
+                    .bodyForm(params, Charset.defaultCharset())
+                    .execute().returnContent();
+            System.out.println(postResultForm.asString());
+
+
+        }*/
+            /*try {
+                //https://be.wizzair.com/10.3.0/Api/asset/map?languageCode=en-gb
+
+                *//*final Content getResult = Request.Get("https://be.wizzair.com/10.3.0/Api/asset/map?languageCode=en-gb")
+                        .execute().returnContent();
+                System.out.println(getResult.asString());*//*
+
+                Thread.sleep(DELAYREQ);
+
+                final Content postResult = Request.Post("https://be.wizzair.com/10.3.0/Api/search/search")
+                        .bodyString("{\n" +
+                                "\"" + KEY_NAME + "\":" +
+                                "\"" + KEY_VALUE + "\":" +
+                                "" + "\"isRescueFare\":false,\n" +
+                                "\"adultCount\":1,\n" + "\"childCount\":0,\n" + "\"dayInterval\":3,\n" +
+                                "\"wdc\":false,\n" + "\"flightList\":[\n" + "{\n" +
+                                "\"departureStation\":\"" + origin.getCode() + "\",\n" +
+                                "\"arrivalStation\":\"" + destination.getCode() + "\",\n" +
+                                "\"date\":\"" + getDateStringWIZZ(startLocalDate) + "\"\n" + "}\n" + "]\n" +
+                                "}", ContentType.APPLICATION_JSON)
+                        .execute().returnContent();
+                System.out.println(postResult.asString());
+
+            } catch (Exception e) {
+
+            }
+
+
+
+
+        }*/
+
+        }
+
+    }
 
 
     private String getReqStringRY(LocalDate dateOfSearch, Airport origin, Airport destination) {
@@ -106,6 +204,12 @@ public class FlightScannerImpl implements FlightScanner {
                 "&ToUs=AGREED" +
                 "&tpIsConnectedFlight=false&tpIsReturn=false&tpDiscount=0";
         return req;
+    }
+
+    private static String getDateStringWIZZ(LocalDate dateOfSearch) {
+        String month = dateOfSearch.getMonthValue() < 10 ? "0" + dateOfSearch.getMonth() : "" + dateOfSearch.getMonthValue();
+        String day = dateOfSearch.getDayOfMonth() < 10 ? "0" + dateOfSearch.getDayOfMonth() : "" + dateOfSearch.getDayOfMonth();
+        return dateOfSearch.getYear() + "-" + month + "-" + day;
     }
 
     private static String readUrl(String urlString) throws Exception {
