@@ -2,6 +2,7 @@ package by.academy.it.travelcompany.service;
 
 import by.academy.it.travelcompany.flight.Flight;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -47,8 +48,9 @@ public interface FlightService {
      * If flight  doesn't exist on list
      * It will be created
      * See Flight class equals method for more information
+     * If Flight or important field is null, trows IOException;
      */
 
-    Flight updateOrCreate(Flight flight);
+    Flight updateOrCreate(Flight flight) throws IOException;
 
 }

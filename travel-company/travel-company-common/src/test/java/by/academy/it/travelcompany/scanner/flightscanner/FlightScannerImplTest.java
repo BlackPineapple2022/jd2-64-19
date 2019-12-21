@@ -21,58 +21,20 @@ public class FlightScannerImplTest {
     public void parseFlights() {
         FlightScanner scanner = FlightScannerImpl.getInstance();
         try {
-            scanner.parseFlights(Airline.RY, LocalDate.of(2020,4,6),1,new Airport("VNO"),new Airport("BGY"));
+            scanner.parseFlights(Airline.WIZZ, LocalDate.of(2020, 7, 1), 12, new Airport("VNO"), new Airport("MXP"));
         } catch (IOException e) {
             e.printStackTrace();
         }
         FlightService flightService = FlightServiceImpl.getInstance();
         List<Flight> flights = flightService.getAllFlights();
-        for (Flight f:flights) {
-            if (f.getArriveTime().equals(LocalDateTime.of(2020,4,6,22,25))){
-                assertNotEquals(f.getTicketPrice(),21.84);
-                break;
-            }
-        }
+        /*for (Flight f : flights) {
+            System.out.println(f);
+        }*/
     }
+}
 
-    @Test
-    public void parseFlights1() {
-        if (LocalDate.now().isBefore(LocalDate.of(2020,1,1))) {
-            FlightService flightService = FlightServiceImpl.getInstance();
-            List<Flight> flights = flightService.getAllFlights();
-            int startSizeArr = flights.size();
 
-            FlightScanner scanner = FlightScannerImpl.getInstance();
-            try {
-                scanner.parseFlights(Airline.RY, LocalDate.of(2020, 1, 1), 2, new Airport("VNO"), new Airport("BGY"));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Assert.assertEquals(flights.size(), startSizeArr + 3);
-        }
-    }
-
-    @Test
-    public void parseFlights2() {
-
-        FlightService flightService = FlightServiceImpl.getInstance();
-        List<Flight> flights = flightService.getAllFlights();
-        int startSizeArr = flights.size();
-
-        FlightScanner scanner = FlightScannerImpl.getInstance();
-        try {
-            scanner.parseFlights(Airline.RY, LocalDate.of(2020,2,1),5,new Airport("KUN"),new Airport("BGY"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        for (Flight f: flights ) {
-            assertNotEquals(f.getOriginAirport(),new Airport("KUN"));
-        }
-        assertEquals(flights.size(),startSizeArr);
-    }
-
-    @Test
+   /* @Test
     public void parseFlights3() {
 
         FlightScanner scanner = FlightScannerImpl.getInstance();
@@ -82,9 +44,8 @@ public class FlightScannerImplTest {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 
 
 
-}

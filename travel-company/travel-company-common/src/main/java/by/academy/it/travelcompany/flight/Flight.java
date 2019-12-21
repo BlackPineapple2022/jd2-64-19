@@ -19,7 +19,7 @@ public class Flight {
     private Airline airline;
 
     private String currency;
-    private double ticketPrice;
+    private Double ticketPrice;
     private String flightNumber;
 
     private LocalDateTime checkedTime; // Last time Scanner update(create) this flight
@@ -27,7 +27,7 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline,String currency, double ticketPrice, String flightNumber) {
+    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, String currency, Double ticketPrice, String flightNumber) {
         this.id = id;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
@@ -95,11 +95,11 @@ public class Flight {
         this.currency = currency;
     }
 
-    public double getTicketPrice() {
+    public Double getTicketPrice() {
         return ticketPrice;
     }
 
-    public void setTicketPrice(double ticketPrice) {
+    public void setTicketPrice(Double ticketPrice) {
         this.ticketPrice = ticketPrice;
     }
 
@@ -141,6 +141,7 @@ public class Flight {
                 ", arriveTime=" + arriveTime +
                 ", departureTime=" + departureTime +
                 ", airline=" + airline +
+                ", currency =" + currency +
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
                 '}';
