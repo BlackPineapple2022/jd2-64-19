@@ -21,33 +21,18 @@ public class FlightScannerImplTest {
     @Test
     public void parseFlights() {
         FlightScanner scanner = new FlightScannerImpl();
-
         try {
-            scanner.parseFlightsWIZZ(LocalDate.of(2020, 7, 1), 12, new Airport("VNO"), new Airport("MXP"));
-        } catch (UnsupportedEncodingException | InterruptedException e) {
+            scanner.parseFlightsWIZZ(LocalDate.of(2019,12,26),1,new Airport("BCN"),new Airport("BUD"));
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        FlightService flightService = FlightServiceImpl.getInstance();
-        List<Flight> flights = flightService.getAllFlights();
-        /*for (Flight f : flights) {
-            System.out.println(f);
-        }*/
     }
 }
 
 
-   /* @Test
-    public void parseFlights3() {
-
-        FlightScanner scanner = FlightScannerImpl.getInstance();
-        try {
-            scanner.parseFlights(Airline.WIZZ, LocalDate.of(2019,12,21),5,new Airport("VNO"),new Airport("MXP"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
 
 
 

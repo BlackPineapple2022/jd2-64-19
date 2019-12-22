@@ -66,6 +66,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
 
 
     private static final int DELAYREQRY = 10000;
+    private static final int DELAYREQWIZZ = 10;
     private static final int CONNECTION_TIMEOUT = 5000;
 
     private static final FlightService flightService = FlightServiceImpl.getInstance();
@@ -147,17 +148,16 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
     public void parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) throws UnsupportedEncodingException, InterruptedException {
 
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
-        System.out.println("1");
-        System.out.println(authMap.get("x-requestverificationtoken").get(0));
-        for (int k = 0;k<authMap.get("Set-Cookie").size();k++){
-            System.out.println(authMap.get("Set-Cookie").get(k));
-        }
-        System.out.println("1");
 
-
+        // System.out.println("1");
+        // System.out.println(authMap.get("x-requestverificationtoken").get(0));
+        // for (int k = 0;k<authMap.get("Set-Cookie").size();k++){
+        //    System.out.println(authMap.get("Set-Cookie").get(k));
+        //}
+        // System.out.println("1");
 
         for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
-            Thread.sleep(DELAYREQRY);
+            Thread.sleep(DELAYREQWIZZ);
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
 
@@ -177,18 +177,18 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
             httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken").get(0));
 
             for (int j = 0; j < authMap.get("Set-Cookie").size(); j++) {
-                httpPost.addHeader("Set-Cookie", authMap.get("Set-Cookie").get(j));
+                httpPost.addHeader("cookie", authMap.get("Set-Cookie").get(j));
             }
 
-            System.out.println("2");
-            Header[] headers = httpPost.getAllHeaders();
+            // System.out.println("2");
+            // Header[] headers = httpPost.getAllHeaders();
 
-            for (Header h:headers) {
-                System.out.println(h.getName()+":**********:"+h.getValue());
-            }
-            System.out.println("2");
+            // for (Header h:headers) {
+            //    System.out.println(h.getName()+":**********:"+h.getValue());
+            //}
+            // System.out.println("2");
 
-            HttpEntity httpEntity = null;
+            HttpEntity httpEntity;// = null;
 
             String stringEntity = "{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"" +
                     origin.getCode() +
@@ -198,7 +198,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     getDateStringWIZZ(localDateForSearch) +
                     "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
 
-            System.out.println(stringEntity);
+            //System.out.println(stringEntity);
 
             httpEntity = new StringEntity(stringEntity);
 
@@ -207,16 +207,61 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
             try (
                     CloseableHttpResponse response = httpClient.execute(httpPost)
             ) {
-                Header[] headersResp = response.getAllHeaders();
-                System.out.println("3");
-                for (Header h : headersResp) {
-                    System.out.println(h.getName() + "******-*********" + h.getValue());
+                //Header[] headersResp = response.getAllHeaders();
+                //System.out.println("3");
+                //for (Header h : headersResp) {
+                //    System.out.println(h.getName() + "******-*********" + h.getValue());
+                //
+                //}
+
+                HttpEntity responseEntity = response.getEntity();
+                String responseBodyString = convertInputStreamToString(responseEntity.getContent());
+                //System.out.println(responseBodyString);
+                JSONObject json = new JSONObject(responseBodyString);
+
+                JSONArray jsonOutBoundFlights = json.getJSONArray("outboundFlights");
+                System.out.println(jsonOutBoundFlights);
+
+                for (int l = 0;l<jsonOutBoundFlights.length();l++){
+                    JSONObject jsonOutBoundFlight = (JSONObject) jsonOutBoundFlights.get(l);
+                    String flightN = jsonOutBoundFlight.getString("carrierCode")+" "+jsonOutBoundFlight.getString("flightNumber");
+                    System.out.println(flightN);
+                    String arriveDateTime = jsonOutBoundFlight.getString("arrivalDateTime");
+                    String departureDateTime = jsonOutBoundFlight.getString("departureDateTime");
+
+                    String regexDateFromTime = "T";
+                    String regexDate = "-";
+                    String regexTime = ":";
+
+                    String arriveDate = arriveDateTime.split(regexDateFromTime)[0];
+                    String arriveYear = arriveDate.split(regexDate)[0];
+                    String arriveMonth = arriveDate.split(regexDate)[1];
+                    String arriveDay = arriveDate.split(regexDate)[2];
+                    LocalDate arriveDateL = LocalDate.of(Integer.parseInt(arriveYear), Integer.parseInt(arriveMonth), Integer.parseInt(arriveDay));
+                    String arriveTime = arriveDateTime.split(regexDateFromTime)[1];
+                    String arriveHour = arriveTime.split(regexTime)[0];
+                    String arriveMin = arriveTime.split(regexTime)[1];
+                    LocalTime arriveTimeL = LocalTime.of(Integer.parseInt(arriveHour), Integer.parseInt(arriveMin));
+                    LocalDateTime arriveLocalDateTime = LocalDateTime.of(arriveDateL, arriveTimeL);
+
+                    String departureDate = departureDateTime.split(regexDateFromTime)[0];
+                    String departureYear = departureDate.split(regexDate)[0];
+                    String departureMonth = departureDate.split(regexDate)[1];
+                    String departureDay = departureDate.split(regexDate)[2];
+                    LocalDate departureDateL = LocalDate.of(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
+                    String departureTime = departureDateTime.split(regexDateFromTime)[1];
+                    String departureHour = departureTime.split(regexTime)[0];
+                    String departureMin = departureTime.split(regexTime)[1];
+                    LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
+                    LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
+
+                    System.out.println(arriveLocalDateTime);
+                    System.out.println(departureLocalDateTime);
 
                 }
 
-                HttpEntity responseEntity = response.getEntity();
-                System.out.println(convertInputStreamToString(responseEntity.getContent()));
-                System.out.println("3");
+                //System.out.println(convertInputStreamToString(responseEntity.getContent()));
+                //System.out.println("3");
 
             } catch (Exception e) {
 
@@ -298,7 +343,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
 
 
     private static String getDateStringWIZZ(LocalDate dateOfSearch) {
-        String month = dateOfSearch.getMonthValue() < 10 ? "0" + dateOfSearch.getMonth() : "" + dateOfSearch.getMonthValue();
+        String month = dateOfSearch.getMonthValue() < 10 ? "0" + dateOfSearch.getMonthValue() : "" + dateOfSearch.getMonthValue();
         String day = dateOfSearch.getDayOfMonth() < 10 ? "0" + dateOfSearch.getDayOfMonth() : "" + dateOfSearch.getDayOfMonth();
         return dateOfSearch.getYear() + "-" + month + "-" + day;
     }
