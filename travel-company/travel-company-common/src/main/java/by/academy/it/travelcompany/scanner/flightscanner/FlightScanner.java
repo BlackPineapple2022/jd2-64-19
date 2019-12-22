@@ -4,6 +4,7 @@ import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -20,6 +21,10 @@ public interface FlightScanner{
      *
      */
 
-    void parseFlights (Airline airline, LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) throws IOException;
+    void parseFlights (Airline airline, LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) ;
+
+    void parseFlightsRY (LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) ;
+
+    void parseFlightsWIZZ (LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) throws UnsupportedEncodingException, InterruptedException;
 
 }

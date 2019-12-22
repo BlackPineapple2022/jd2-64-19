@@ -36,7 +36,7 @@ import java.time.LocalTime;
 import java.util.*;
 
 
-public class FlightScannerImpl implements FlightScanner {
+public class FlightScannerImpl extends Thread implements FlightScanner {
 
 // RY API address for getting json:
 // https://www.ryanair.com/api/booking/v4/en-gb/
@@ -65,98 +65,103 @@ public class FlightScannerImpl implements FlightScanner {
 // "duration":"02:30"}]}]}],"serverTimeUTC":"2019-12-20T18:45:08.773Z"}
 
 
-    private static final int DELAYREQRY = 3000;
+    private static final int DELAYREQRY = 10000;
     private static final int CONNECTION_TIMEOUT = 5000;
-
-    private static final FlightScanner INSTANCE = new FlightScannerImpl();
 
     private static final FlightService flightService = FlightServiceImpl.getInstance();
 
-    private FlightScannerImpl() {
-    }
-
-    public static FlightScanner getInstance() {
-        return INSTANCE;
+    public FlightScannerImpl() {
     }
 
     @Override
-    public void parseFlights(Airline airline, LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) throws IOException {
-        if (airline.equals(Airline.RY)) {
-            for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
-                try {
-                    Thread.sleep(DELAYREQRY);
+    public void parseFlights(Airline airline, LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    }
 
-                    String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
+    @Override
+    public void parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+        for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
+            try {
+                Thread.sleep(DELAYREQRY);
 
-                    JSONObject json = new JSONObject(readUrl(req));
-                    JSONArray jsonTrips = json.getJSONArray("trips");
-                    String currency = (String) json.get("currency");
-                    JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
-                    JSONArray jsonDates = jsonTrip.getJSONArray("dates");
-                    JSONObject jsonDate = (JSONObject) jsonDates.get(0);
-                    JSONArray jsonFlights = jsonDate.getJSONArray("flights");
+                String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
 
-                    for (int i = 0; i < jsonFlights.length(); i++) {
-                        JSONObject jsonFlight = (JSONObject) jsonFlights.get(i);
-                        JSONArray time = jsonFlight.getJSONArray("time");
-                        String arriveDateTime = (String) time.get(0);
-                        String departureDateTime = (String) time.get(1);
-                        String flightNumber = (String) jsonFlight.get("flightNumber");
-                        JSONObject jsonRegularFare = jsonFlight.getJSONObject("regularFare");
-                        JSONArray jsonFares = jsonRegularFare.getJSONArray("fares");
-                        JSONObject jsonFare = (JSONObject) jsonFares.get(0);
-                        Double amount = (Double) (jsonFare.get("amount"));
+                JSONObject json = new JSONObject(readUrl(req));
+                JSONArray jsonTrips = json.getJSONArray("trips");
+                String currency = (String) json.get("currency");
+                JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
+                JSONArray jsonDates = jsonTrip.getJSONArray("dates");
+                JSONObject jsonDate = (JSONObject) jsonDates.get(0);
+                JSONArray jsonFlights = jsonDate.getJSONArray("flights");
 
-                        String regexDateFromTime = "T";
-                        String regexDate = "-";
-                        String regexTime = ":";
+                for (int i = 0; i < jsonFlights.length(); i++) {
+                    JSONObject jsonFlight = (JSONObject) jsonFlights.get(i);
+                    JSONArray time = jsonFlight.getJSONArray("time");
+                    String arriveDateTime = (String) time.get(0);
+                    String departureDateTime = (String) time.get(1);
+                    String flightNumber = (String) jsonFlight.get("flightNumber");
+                    JSONObject jsonRegularFare = jsonFlight.getJSONObject("regularFare");
+                    JSONArray jsonFares = jsonRegularFare.getJSONArray("fares");
+                    JSONObject jsonFare = (JSONObject) jsonFares.get(0);
+                    Double amount = (Double) (jsonFare.get("amount"));
 
-                        String arriveDate = arriveDateTime.split(regexDateFromTime)[0];
-                        String arriveYear = arriveDate.split(regexDate)[0];
-                        String arriveMonth = arriveDate.split(regexDate)[1];
-                        String arriveDay = arriveDate.split(regexDate)[2];
-                        LocalDate arriveDateL = LocalDate.of(Integer.parseInt(arriveYear), Integer.parseInt(arriveMonth), Integer.parseInt(arriveDay));
-                        String arriveTime = arriveDateTime.split(regexDateFromTime)[1];
-                        String arriveHour = arriveTime.split(regexTime)[0];
-                        String arriveMin = arriveTime.split(regexTime)[1];
-                        LocalTime arriveTimeL = LocalTime.of(Integer.parseInt(arriveHour), Integer.parseInt(arriveMin));
-                        LocalDateTime arriveLocalDateTime = LocalDateTime.of(arriveDateL, arriveTimeL);
+                    String regexDateFromTime = "T";
+                    String regexDate = "-";
+                    String regexTime = ":";
 
-                        String departureDate = departureDateTime.split(regexDateFromTime)[0];
-                        String departureYear = departureDate.split(regexDate)[0];
-                        String departureMonth = departureDate.split(regexDate)[1];
-                        String departureDay = departureDate.split(regexDate)[2];
-                        LocalDate departureDateL = LocalDate.of(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
-                        String departureTime = departureDateTime.split(regexDateFromTime)[1];
-                        String departureHour = departureTime.split(regexTime)[0];
-                        String departureMin = departureTime.split(regexTime)[1];
-                        LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
-                        LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
+                    String arriveDate = arriveDateTime.split(regexDateFromTime)[0];
+                    String arriveYear = arriveDate.split(regexDate)[0];
+                    String arriveMonth = arriveDate.split(regexDate)[1];
+                    String arriveDay = arriveDate.split(regexDate)[2];
+                    LocalDate arriveDateL = LocalDate.of(Integer.parseInt(arriveYear), Integer.parseInt(arriveMonth), Integer.parseInt(arriveDay));
+                    String arriveTime = arriveDateTime.split(regexDateFromTime)[1];
+                    String arriveHour = arriveTime.split(regexTime)[0];
+                    String arriveMin = arriveTime.split(regexTime)[1];
+                    LocalTime arriveTimeL = LocalTime.of(Integer.parseInt(arriveHour), Integer.parseInt(arriveMin));
+                    LocalDateTime arriveLocalDateTime = LocalDateTime.of(arriveDateL, arriveTimeL);
 
-                        Flight f = new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY, currency, amount, flightNumber);
-                        System.out.println(f);
-                        flightService.updateOrCreate(f);
-                        System.out.println(f);
-                    }
+                    String departureDate = departureDateTime.split(regexDateFromTime)[0];
+                    String departureYear = departureDate.split(regexDate)[0];
+                    String departureMonth = departureDate.split(regexDate)[1];
+                    String departureDay = departureDate.split(regexDate)[2];
+                    LocalDate departureDateL = LocalDate.of(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
+                    String departureTime = departureDateTime.split(regexDateFromTime)[1];
+                    String departureHour = departureTime.split(regexTime)[0];
+                    String departureMin = departureTime.split(regexTime)[1];
+                    LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
+                    LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-
+                    Flight f = new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY, currency, amount, flightNumber);
+                    System.out.println(f);
+                    flightService.updateOrCreate(f);
+                    System.out.println(f);
                 }
+
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
 
+    }
 
-        //////////////////////////////////////////////////
-        ///////////////////////////////////////////////// WIZZZZ
-        ////////////////////////////////////////////////
-        if (airline.equals(Airline.WIZZ)) {
-            Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
-            System.out.println(authMap.get("x-requestverificationtoken"));
-            System.out.println(authMap.get("Set-Cookie"));
+    @Override
+    public void parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) throws UnsupportedEncodingException, InterruptedException {
 
-            final CloseableHttpClient httpClient = HttpClients.createDefault();
-            final HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
+        Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
+        System.out.println("1");
+        System.out.println(authMap.get("x-requestverificationtoken").get(0));
+        for (int k = 0;k<authMap.get("Set-Cookie").size();k++){
+            System.out.println(authMap.get("Set-Cookie").get(k));
+        }
+        System.out.println("1");
+
+
+
+        for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
+            Thread.sleep(DELAYREQRY);
+            CloseableHttpClient httpClient = HttpClients.createDefault();
+            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
+
+            LocalDate localDateForSearch = localDate.plusDays(i);
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -167,52 +172,65 @@ public class FlightScannerImpl implements FlightScanner {
             httpPost.setHeader("sec-fetch-site", "none");
             httpPost.setHeader("sec-fetch-user", "?1");
             httpPost.setHeader("upgrade-insecure-requests", "1");
-            httpPost.setHeader("Content-Type","application/json");
+            httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-
             httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken").get(0));
-            for (int i = 0; i < authMap.get("Set-Cookie").size(); i++) {
-                httpPost.setHeader("Set-Cookie", authMap.get("Set-Cookie").get(i));
+
+            for (int j = 0; j < authMap.get("Set-Cookie").size(); j++) {
+                httpPost.addHeader("Set-Cookie", authMap.get("Set-Cookie").get(j));
             }
-            System.out.println("HI!!!!");
-            System.out.println(httpPost.getAllHeaders().length);
 
-            //HttpEntity httpEntity = (HttpEntity)new JSONObject("{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"VNO\",\"arrivalStation\":\"MXP\",\"departureDate\":\"2019-12-22\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}");
-            HttpEntity httpEntity = new StringEntity("{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"VNO\",\"arrivalStation\":\"MXP\",\"departureDate\":\"2019-12-22\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}");
+            System.out.println("2");
+            Header[] headers = httpPost.getAllHeaders();
 
+            for (Header h:headers) {
+                System.out.println(h.getName()+":**********:"+h.getValue());
+            }
+            System.out.println("2");
+
+            HttpEntity httpEntity = null;
+
+            String stringEntity = "{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"" +
+                    origin.getCode() +
+                    "\",\"arrivalStation\":\"" +
+                    destination.getCode() +
+                    "\",\"departureDate\":\"" +
+                    getDateStringWIZZ(localDateForSearch) +
+                    "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
+
+            System.out.println(stringEntity);
+
+            httpEntity = new StringEntity(stringEntity);
 
             httpPost.setEntity(httpEntity);
-            Header[] headers1 = httpPost.getAllHeaders();
-
-            for (Header h : headers1) {
-                System.out.println(h.getName());
-
-            }
-            System.out.println(convertInputStreamToString(httpEntity.getContent()));
 
             try (
-                    CloseableHttpResponse response1 = httpClient.execute(httpPost)
+                    CloseableHttpResponse response = httpClient.execute(httpPost)
             ) {
-                Header[] headers= response1.getAllHeaders();
-                for (Header h: headers ) {
-                    System.out.println(h.getName() + " " +h.getValue());
+                Header[] headersResp = response.getAllHeaders();
+                System.out.println("3");
+                for (Header h : headersResp) {
+                    System.out.println(h.getName() + "******-*********" + h.getValue());
 
                 }
 
-                HttpEntity responseEntity = response1.getEntity();
+                HttpEntity responseEntity = response.getEntity();
                 System.out.println(convertInputStreamToString(responseEntity.getContent()));
-                //System.out.println(convertInputStreamToString(response1.getEntity().getContent()));
+                System.out.println("3");
 
-            }catch (Exception e){
+            } catch (Exception e) {
 
             }
 
-
-
-
         }
-
     }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//*************************************PRIVATE METHODS****************************************************************//
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private Map<String, List<String>> getWizzAirCookiesAndTokens() {
         Map<String, List<String>> result = new HashMap<>();
@@ -224,7 +242,7 @@ public class FlightScannerImpl implements FlightScanner {
 
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        final HttpUriRequest httpGet = new HttpGet("https://be.wizzair.com/10.3.0/Api/search/search");
+        final HttpUriRequest httpGet = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
 
         httpGet.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         httpGet.setHeader("accept-encoding", "gzip, deflate, br");
@@ -252,7 +270,6 @@ public class FlightScannerImpl implements FlightScanner {
                         }
                         keyList.add(requestVerificationToken);
                     }
-                    System.out.println(h.getValue());
                 }
             }
 
@@ -261,6 +278,7 @@ public class FlightScannerImpl implements FlightScanner {
         }
         return result;
     }
+
 
     private String getReqStringRY(LocalDate dateOfSearch, Airport origin, Airport destination) {
         String dateOfSearchFormatted = dateOfSearch.getYear() + "-" + dateOfSearch.getMonthValue() + "-" + dateOfSearch.getDayOfMonth();
@@ -278,11 +296,13 @@ public class FlightScannerImpl implements FlightScanner {
         return req;
     }
 
+
     private static String getDateStringWIZZ(LocalDate dateOfSearch) {
         String month = dateOfSearch.getMonthValue() < 10 ? "0" + dateOfSearch.getMonth() : "" + dateOfSearch.getMonthValue();
         String day = dateOfSearch.getDayOfMonth() < 10 ? "0" + dateOfSearch.getDayOfMonth() : "" + dateOfSearch.getDayOfMonth();
         return dateOfSearch.getYear() + "-" + month + "-" + day;
     }
+
 
     private static String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;
@@ -294,7 +314,6 @@ public class FlightScannerImpl implements FlightScanner {
             char[] chars = new char[1024];
             while ((read = reader.read(chars)) != -1)
                 buffer.append(chars, 0, read);
-
             return buffer.toString();
         } finally {
             if (reader != null)
@@ -302,17 +321,15 @@ public class FlightScannerImpl implements FlightScanner {
         }
     }
 
+
     private static String convertInputStreamToString(InputStream inputStream)
             throws IOException {
-
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;
         while ((length = inputStream.read(buffer)) != -1) {
             result.write(buffer, 0, length);
         }
-
         return result.toString(StandardCharsets.UTF_8.name());
-
     }
 }

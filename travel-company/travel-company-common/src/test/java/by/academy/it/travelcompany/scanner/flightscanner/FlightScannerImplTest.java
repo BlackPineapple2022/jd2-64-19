@@ -9,6 +9,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -19,12 +20,14 @@ public class FlightScannerImplTest {
 
     @Test
     public void parseFlights() {
-        FlightScanner scanner = FlightScannerImpl.getInstance();
+        FlightScanner scanner = new FlightScannerImpl();
+
         try {
-            scanner.parseFlights(Airline.WIZZ, LocalDate.of(2020, 7, 1), 12, new Airport("VNO"), new Airport("MXP"));
-        } catch (IOException e) {
+            scanner.parseFlightsWIZZ(LocalDate.of(2020, 7, 1), 12, new Airport("VNO"), new Airport("MXP"));
+        } catch (UnsupportedEncodingException | InterruptedException e) {
             e.printStackTrace();
         }
+
         FlightService flightService = FlightServiceImpl.getInstance();
         List<Flight> flights = flightService.getAllFlights();
         /*for (Flight f : flights) {
