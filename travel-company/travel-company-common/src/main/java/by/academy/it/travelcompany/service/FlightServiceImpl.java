@@ -22,24 +22,24 @@ public class FlightServiceImpl implements FlightService {
         Long id1 = 1L;
         Airport origin1 = new Airport("VNO");
         Airport destination1 = new Airport("BGY");
-        LocalDateTime arriveTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 22, 25);
-        LocalDateTime departureTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 23, 55);
+        LocalDateTime departureTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 22, 25);
+        LocalDateTime arriveTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 23, 55);
         Airline airline1 = Airline.RY;
         Double ticketPrice1 = 21.84;//it is outdated price, let see how Flight scanner replace it;
         String flightN1 = "FR 2871";
 
-        flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1, "EUR", ticketPrice1, flightN1));
+        flights.add(new Flight(id1, origin1, destination1,departureTime1, arriveTime1, airline1, "EUR", ticketPrice1, flightN1));
 
         Long id2 = 2L;
         Airport origin2 = new Airport("BGY");
         Airport destination2 = new Airport("VNO");
-        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 17, 55);
-        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 21, 20);
+        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 17, 55);
+        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 21, 20);
         Airline airline2 = Airline.RY;
         Double ticketPrice2 = 30.30;
         String flightN2 = "W6 8022";
 
-        flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2, "EUR", ticketPrice2, flightN2));
+        flights.add(new Flight(id2, origin2, destination2,departureTime2, arriveTime2, airline2, "EUR", ticketPrice2, flightN2));
     }
 
     public static FlightService getInstance() {

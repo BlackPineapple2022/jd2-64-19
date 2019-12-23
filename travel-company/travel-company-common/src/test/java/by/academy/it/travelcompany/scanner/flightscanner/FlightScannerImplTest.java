@@ -22,7 +22,7 @@ public class FlightScannerImplTest {
     public void parseFlights() {
         FlightScanner scanner = new FlightScannerImpl();
         try {
-            scanner.parseFlightsWIZZ(LocalDate.of(2019,12,26),1,new Airport("BCN"),new Airport("BUD"));
+            scanner.parseFlightsWIZZ(LocalDate.of(2019,12,26),31,new Airport("VNO"),new Airport("MXP"));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

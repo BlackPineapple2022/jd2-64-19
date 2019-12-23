@@ -97,8 +97,8 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                 for (int i = 0; i < jsonFlights.length(); i++) {
                     JSONObject jsonFlight = (JSONObject) jsonFlights.get(i);
                     JSONArray time = jsonFlight.getJSONArray("time");
-                    String arriveDateTime = (String) time.get(0);
-                    String departureDateTime = (String) time.get(1);
+                    String arriveDateTime = (String) time.get(1);
+                    String departureDateTime = (String) time.get(0);
                     String flightNumber = (String) jsonFlight.get("flightNumber");
                     JSONObject jsonRegularFare = jsonFlight.getJSONObject("regularFare");
                     JSONArray jsonFares = jsonRegularFare.getJSONArray("fares");
@@ -131,7 +131,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                     LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                    Flight f = new Flight(null, origin, destination, arriveLocalDateTime, departureLocalDateTime, Airline.RY, currency, amount, flightNumber);
+                    Flight f = new Flight(null, origin, destination,departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
                     System.out.println(f);
                     flightService.updateOrCreate(f);
                     System.out.println(f);
@@ -225,7 +225,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                 for (int l = 0;l<jsonOutBoundFlights.length();l++){
                     JSONObject jsonOutBoundFlight = (JSONObject) jsonOutBoundFlights.get(l);
                     String flightN = jsonOutBoundFlight.getString("carrierCode")+" "+jsonOutBoundFlight.getString("flightNumber");
-                    System.out.println(flightN);
+
                     String arriveDateTime = jsonOutBoundFlight.getString("arrivalDateTime");
                     String departureDateTime = jsonOutBoundFlight.getString("departureDateTime");
 
@@ -255,13 +255,27 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                     LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                    System.out.println(arriveLocalDateTime);
-                    System.out.println(departureLocalDateTime);
+
+
+                    JSONArray jsonFares = jsonOutBoundFlight.getJSONArray("fares");
+                    JSONObject jsonFare = (JSONObject) jsonFares.get(3);
+
+
+                    JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
+                    Double amount = (Double) jsonBasePrice.get("amount");
+                    String currencyCode = (String) jsonBasePrice.get("currencyCode");
+
+                    System.out.println(flightN);
+                    System.out.println("A" + arriveLocalDateTime);
+                    System.out.println("D" + departureLocalDateTime);
+                    System.out.println(amount);
+                    System.out.println(currencyCode);
+                    Flight f = new Flight(null,origin,destination,departureLocalDateTime,arriveLocalDateTime,Airline.WIZZ,currencyCode,amount,flightN);
+                    System.out.println(f);
+                    flightService.updateOrCreate(f);
 
                 }
 
-                //System.out.println(convertInputStreamToString(responseEntity.getContent()));
-                //System.out.println("3");
 
             } catch (Exception e) {
 

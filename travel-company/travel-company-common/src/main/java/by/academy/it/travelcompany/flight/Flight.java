@@ -13,8 +13,8 @@ public class Flight {
     private Airport originAirport;
     private Airport destinationAirport;
 
-    private LocalDateTime arriveTime;
     private LocalDateTime departureTime;
+    private LocalDateTime arriveTime;
 
     private Airline airline;
 
@@ -27,12 +27,12 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime arriveTime, LocalDateTime departureTime, Airline airline, String currency, Double ticketPrice, String flightNumber) {
+    public Flight(Long id, Airport originAirport, Airport destinationAirport,LocalDateTime departureTime, LocalDateTime arriveTime, Airline airline, String currency, Double ticketPrice, String flightNumber) {
         this.id = id;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
-        this.arriveTime = arriveTime;
         this.departureTime = departureTime;
+        this.arriveTime = arriveTime;
         this.airline = airline;
         this.currency =currency;
         this.ticketPrice = ticketPrice;
@@ -63,20 +63,20 @@ public class Flight {
         this.destinationAirport = destinationAirport;
     }
 
-    public LocalDateTime getArriveTime() {
-        return arriveTime;
-    }
-
-    public void setArriveTime(LocalDateTime arriveTime) {
-        this.arriveTime = arriveTime;
-    }
-
     public LocalDateTime getDepartureTime() {
         return departureTime;
     }
 
     public void setDepartureTime(LocalDateTime departureTime) {
         this.departureTime = departureTime;
+    }
+
+    public LocalDateTime getArriveTime() {
+        return arriveTime;
+    }
+
+    public void setArriveTime(LocalDateTime arriveTime) {
+        this.arriveTime = arriveTime;
     }
 
     public Airline getAirline() {
@@ -127,7 +127,7 @@ public class Flight {
         return
                 Objects.equals(originAirport, flight.originAirport) &&
                 Objects.equals(destinationAirport, flight.destinationAirport) &&
-                Objects.equals(arriveTime.getDayOfYear(), flight.arriveTime.getDayOfYear()) &&
+                Objects.equals(departureTime.getDayOfYear(), flight.departureTime.getDayOfYear()) &&
                 airline == flight.airline &&
                 Objects.equals(flightNumber, flight.flightNumber);
     }
@@ -138,8 +138,8 @@ public class Flight {
                 "id=" + id +
                 ", originAirport=" + originAirport +
                 ", destinationAirport=" + destinationAirport +
-                ", arriveTime=" + arriveTime +
                 ", departureTime=" + departureTime +
+                ", arriveTime=" + arriveTime +
                 ", airline=" + airline +
                 ", currency =" + currency +
                 ", ticketPrice=" + ticketPrice +
@@ -149,7 +149,7 @@ public class Flight {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, originAirport, destinationAirport, arriveTime, departureTime, airline, ticketPrice, flightNumber);
+        return Objects.hash(id, originAirport, destinationAirport,departureTime, arriveTime, airline, ticketPrice, flightNumber);
     }
 
 }
