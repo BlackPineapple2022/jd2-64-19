@@ -56,5 +56,4 @@ public interface FlightService {
     Flight updateOrCreate(Flight flight) throws IOException;
 
 
-
 }

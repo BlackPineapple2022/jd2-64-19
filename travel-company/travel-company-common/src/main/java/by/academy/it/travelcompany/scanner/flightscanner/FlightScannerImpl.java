@@ -2,7 +2,6 @@ package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.flight.Flight;
 import by.academy.it.travelcompany.service.FlightService;
 import by.academy.it.travelcompany.service.FlightServiceImpl;
@@ -31,7 +30,6 @@ import java.util.*;
 
 public class FlightScannerImpl implements FlightScanner {
 
-    private Map<Airline, Set<Airport>> searchMap;
     private static final int DELAYREQRY = 3000;
     private static final int DELAYREQWIZZ = 3000;
 

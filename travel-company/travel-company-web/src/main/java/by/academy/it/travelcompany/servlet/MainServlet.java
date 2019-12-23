@@ -1,4 +1,4 @@
-/*
+
 
 package by.academy.it.travelcompany.servlet;
 
@@ -18,4 +18,4 @@ public class MainServlet extends HttpServlet {
     }
 }
 
-*/
+

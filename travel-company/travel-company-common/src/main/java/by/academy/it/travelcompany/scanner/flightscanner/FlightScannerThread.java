@@ -2,14 +2,10 @@ package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.service.FlightService;
 import by.academy.it.travelcompany.service.FlightServiceImpl;
-import sun.reflect.generics.tree.Tree;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
 
 public class FlightScannerThread extends Thread {
     private Airline airline;
@@ -30,7 +26,6 @@ public class FlightScannerThread extends Thread {
     @Override
     public void run() {
         FlightScanner flightScanner = new FlightScannerImpl();
-        System.out.println("Hello run");
         if (airline.equals(Airline.RY)) {
             flightScanner.parseFlightsRY(startingDate,dayQuantityForSearch,originAirport,destinationAirport);
             FlightService flightService = FlightServiceImpl.getInstance();

@@ -1,12 +1,11 @@
-package by.academy.it.travelcompany.scanner.flightscanner;
+package by.academy.it.travelcompany.scanner.tripscanner;
 
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
 import by.academy.it.travelcompany.airport.AirportInfoCentre;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
+import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerThread;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -34,16 +33,13 @@ public class TripScannerImpl {
         for (String str:routeMap ) {
             String regex = "--";
             String [] routeArr = str.split(regex);
-            System.out.println("hi");
             FlightScannerThread fst = new FlightScannerThread(
                     Airline.valueOf(routeArr[0]),
                     new Airport(routeArr[1]),
                     new Airport(routeArr[2]),
                     startingDate,
                     dayQuantityForSearch);
-            System.out.println("Hello!");
             fst.start();
-
         }
     }
 
