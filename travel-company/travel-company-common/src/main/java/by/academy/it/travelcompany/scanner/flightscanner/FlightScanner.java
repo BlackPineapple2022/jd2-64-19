@@ -22,9 +22,9 @@ public interface FlightScanner {
      *                                      new flight create by FlightServiceImpl
      */
 
-    List<Flight> parseFlightsRY(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination);
+    List<Flight> parseFlightsRY(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination, String direction);
 
-    List <Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination);
+    List <Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination, String direction);
 
 
 

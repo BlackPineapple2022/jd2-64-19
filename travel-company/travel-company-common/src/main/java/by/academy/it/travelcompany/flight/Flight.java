@@ -22,6 +22,8 @@ public class Flight {
     private Double ticketPrice;
     private String flightNumber;
 
+    private String direction;
+
     private LocalDateTime checkedTime; // Last time Scanner update(create) this flight
 
     public Flight() {
@@ -34,9 +36,17 @@ public class Flight {
         this.departureTime = departureTime;
         this.arriveTime = arriveTime;
         this.airline = airline;
-        this.currency =currency;
+        this.currency = currency;
         this.ticketPrice = ticketPrice;
         this.flightNumber = flightNumber;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public Airport getOriginAirport() {
@@ -144,6 +154,7 @@ public class Flight {
                 ", currency =" + currency +
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
+                ", direction='" + direction + '\'' +
                 '}';
     }
 

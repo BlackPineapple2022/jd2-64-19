@@ -30,8 +30,11 @@ import java.util.*;
 
 public class FlightScannerImpl implements FlightScanner {
 
-    private static final int DELAYREQRY = 3000;
-    private static final int DELAYREQWIZZ = 3000;
+    private static final int DELAYREQRY = 2000;
+    private static final int DELAYREQRYSYNC = 1200;
+    private static final int DELAYREQWIZZ = 100;
+
+    private static Object sync = new Object();
 
     private static final FlightService flightService = FlightServiceImpl.getInstance();
 
@@ -39,16 +42,20 @@ public class FlightScannerImpl implements FlightScanner {
     }
 
 
+
     @Override
-    public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
         List<Flight> result = new ArrayList<>();
         for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
             try {
                 Thread.sleep(DELAYREQRY);
 
                 String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
-
-                JSONObject json = new JSONObject(readUrl(req));
+                JSONObject json = null;
+                synchronized (sync) {
+                    json = new JSONObject(readUrl(req));
+                    Thread.sleep(DELAYREQRYSYNC);
+                }
                 JSONArray jsonTrips = json.getJSONArray("trips");
                 String currency = (String) json.get("currency");
                 JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
@@ -94,6 +101,7 @@ public class FlightScannerImpl implements FlightScanner {
                     LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
                     Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
+                    f.setDirection(direction);
                     flightService.updateOrCreate(f);
                     result.add(f);
                 }
@@ -106,7 +114,7 @@ public class FlightScannerImpl implements FlightScanner {
     }
 
     @Override
-    public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
@@ -209,6 +217,7 @@ public class FlightScannerImpl implements FlightScanner {
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
 
                     Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightN);
+                    f.setDirection(direction);
                     flightService.updateOrCreate(f);
                     result.add(f);
                 }

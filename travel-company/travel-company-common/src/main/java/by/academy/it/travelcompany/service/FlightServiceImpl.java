@@ -20,7 +20,7 @@ public class FlightServiceImpl implements FlightService {
 
     private FlightServiceImpl() {
 
-        Long id1 = 1L;
+        /*Long id1 = 1L;
         Airport origin1 = new Airport("VNO");
         Airport destination1 = new Airport("BGY");
         LocalDateTime departureTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 22, 25);
@@ -40,7 +40,7 @@ public class FlightServiceImpl implements FlightService {
         Double ticketPrice2 = 30.30;
         String flightN2 = "W6 8022";
 
-        flights.add(new Flight(id2, origin2, destination2,departureTime2, arriveTime2, airline2, "EUR", ticketPrice2, flightN2));
+        flights.add(new Flight(id2, origin2, destination2,departureTime2, arriveTime2, airline2, "EUR", ticketPrice2, flightN2));*/
     }
 
     public static FlightService getInstance() {
