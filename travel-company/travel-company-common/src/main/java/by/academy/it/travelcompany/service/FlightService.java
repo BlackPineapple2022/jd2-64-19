@@ -1,9 +1,11 @@
 package by.academy.it.travelcompany.service;
 
+import by.academy.it.travelcompany.airport.Airport;
 import by.academy.it.travelcompany.flight.Flight;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Flight service
@@ -52,5 +54,7 @@ public interface FlightService {
      */
 
     Flight updateOrCreate(Flight flight) throws IOException;
+
+
 
 }

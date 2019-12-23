@@ -2,29 +2,30 @@ package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
+import by.academy.it.travelcompany.flight.Flight;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
-public interface FlightScanner{
+public interface FlightScanner {
 
     /**
      * This is scanner flights on ryanair.com and wizzair.com
-     * @param airline airport.Airline RY or WIZZ
-     * @param localDate starting date for parsing
-     * @param dayQuantityForSearchFromToday Integer how deep to scan day
-     * @param origin Airport origin
-     * @param destination Airport destination
-     * new flight create by FlightServiceImpl
      *
+     * @param localDate                     starting date for parsing
+     * @param dayQuantityForSearch Integer how deep to scan day
+     * @param origin                        Airport origin
+     * @param destination                   Airport destination
+     *                                      new flight create by FlightServiceImpl
      */
 
-    void parseFlights (Airline airline, LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) ;
+    List<Flight> parseFlightsRY(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination);
 
-    void parseFlightsRY (LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) ;
+    List <Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearch, Airport origin, Airport destination);
 
-    void parseFlightsWIZZ (LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination ) throws UnsupportedEncodingException, InterruptedException;
+
 
 }

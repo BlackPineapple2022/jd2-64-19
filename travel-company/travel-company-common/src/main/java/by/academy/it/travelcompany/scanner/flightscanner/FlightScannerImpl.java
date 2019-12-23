@@ -2,31 +2,25 @@ package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
+import by.academy.it.travelcompany.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.flight.Flight;
 import by.academy.it.travelcompany.service.FlightService;
 import by.academy.it.travelcompany.service.FlightServiceImpl;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import sun.net.www.http.HttpClient;
 
 import java.io.*;
 
-import java.net.HttpURLConnection;
 import java.net.URL;
 
 import java.nio.charset.StandardCharsets;
@@ -35,51 +29,21 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 
+public class FlightScannerImpl implements FlightScanner {
 
-public class FlightScannerImpl extends Thread implements FlightScanner {
-
-// RY API address for getting json:
-// https://www.ryanair.com/api/booking/v4/en-gb/
-
-// example request:
-// https://www.ryanair.com/api/booking/v4/en-gb/availability?ADT=1&TEEN=0&CHD=0&INF=0&DateOut=2019-12-21&DateIn=&Origin=VNO&Destination=BGY&isConnectedFlight=false&RoundTrip=false&Discount=0&tpAdults=1&tpTeens=0&tpChildren=0&tpInfants=0&tpStartDate=2019-12-21&tpEndDate=&tpOriginIata=VNO&tpDestinationIata=BGY&ToUs=AGREED&tpIsConnectedFlight=false&tpIsReturn=false&tpDiscount=0
-//
-// example response:
-// {"termsOfUse":"https://www.ryanair.com/ie/en/corporate/terms-of-use=AGREED",
-// "currency":"EUR","currPrecision":2,"trips":[{"origin":"VNO","originName":"Vilnius",
-// "destination":"BGY","destinationName":"Milan (Bergamo)",
-// "routeGroup":"CITY","tripType":"CITY_BREAK","upgradeType":
-// "PLUS","dates":[{"dateOut":"2019-12-21T00:00:00.000","flights":
-// [{"faresLeft":3,"flightKey":"FR~2871~ ~~VNO~12/21/2019
-// 21:50~BGY~12/21/2019 23:20~~","infantsLeft":16,"regularFare"
-// :{"fareKey":"RJ2GYYYJH6UJRR3I6CEYIIU7I6TMXZXQPFFJXBRET4GD6A3PXCDQXFOB6ZESSDH6IBIF7MBVYKB33PDBJI2T3UA7WCMTIU4R7ZLMI5252X7ROIA666QNSHXVF764PZR45JMAYRX4EKMM4DOKIJJZJLBW4YWZN6QQBDFUKCL2U2N32VPNQYXA"
-// ,"fareClass":"A","fares":[{"type":"ADT","amount":39.9900,"count":1,"hasDiscount":
-// false,"publishedFare":39.9900,"discountInPercent":0,"hasPromoDiscount":
-// false,"discountAmount":0.0}]},"operatedBy":"","segments":[{"segmentNr":
-// 0,"origin":"VNO","destination":"BGY","flightNumber":"FR 2871","time":
-// ["2019-12-21T21:50:00.000","2019-12-21T23:20:00.000"],"timeUTC":
-// ["2019-12-21T19:50:00.000Z","2019-12-21T22:20:00.000Z"],
-// "duration":"02:30"}],"flightNumber":"FR 2871","time":
-// ["2019-12-21T21:50:00.000","2019-12-21T23:20:00.000"],
-// "timeUTC":["2019-12-21T19:50:00.000Z","2019-12-21T22:20:00.000Z"],
-// "duration":"02:30"}]}]}],"serverTimeUTC":"2019-12-20T18:45:08.773Z"}
-
-
-    private static final int DELAYREQRY = 10000;
-    private static final int DELAYREQWIZZ = 10;
-    private static final int CONNECTION_TIMEOUT = 5000;
+    private Map<Airline, Set<Airport>> searchMap;
+    private static final int DELAYREQRY = 3000;
+    private static final int DELAYREQWIZZ = 3000;
 
     private static final FlightService flightService = FlightServiceImpl.getInstance();
 
     public FlightScannerImpl() {
     }
 
-    @Override
-    public void parseFlights(Airline airline, LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
-    }
 
     @Override
-    public void parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+    public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+        List<Flight> result = new ArrayList<>();
         for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
             try {
                 Thread.sleep(DELAYREQRY);
@@ -131,33 +95,31 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                     LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-                    Flight f = new Flight(null, origin, destination,departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
-                    System.out.println(f);
+                    Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
                     flightService.updateOrCreate(f);
-                    System.out.println(f);
+                    result.add(f);
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
+        return result;
     }
 
     @Override
-    public void parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) throws UnsupportedEncodingException, InterruptedException {
-
+    public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination) {
+        List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
-        // System.out.println("1");
-        // System.out.println(authMap.get("x-requestverificationtoken").get(0));
-        // for (int k = 0;k<authMap.get("Set-Cookie").size();k++){
-        //    System.out.println(authMap.get("Set-Cookie").get(k));
-        //}
-        // System.out.println("1");
-
         for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
-            Thread.sleep(DELAYREQWIZZ);
+
+            try {
+                Thread.sleep(DELAYREQWIZZ);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
 
@@ -180,15 +142,7 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                 httpPost.addHeader("cookie", authMap.get("Set-Cookie").get(j));
             }
 
-            // System.out.println("2");
-            // Header[] headers = httpPost.getAllHeaders();
-
-            // for (Header h:headers) {
-            //    System.out.println(h.getName()+":**********:"+h.getValue());
-            //}
-            // System.out.println("2");
-
-            HttpEntity httpEntity;// = null;
+            HttpEntity httpEntity;
 
             String stringEntity = "{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"" +
                     origin.getCode() +
@@ -198,33 +152,27 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     getDateStringWIZZ(localDateForSearch) +
                     "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
 
-            //System.out.println(stringEntity);
-
-            httpEntity = new StringEntity(stringEntity);
-
-            httpPost.setEntity(httpEntity);
+            try {
+                httpEntity = new StringEntity(stringEntity);
+                httpPost.setEntity(httpEntity);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
 
             try (
                     CloseableHttpResponse response = httpClient.execute(httpPost)
             ) {
-                //Header[] headersResp = response.getAllHeaders();
-                //System.out.println("3");
-                //for (Header h : headersResp) {
-                //    System.out.println(h.getName() + "******-*********" + h.getValue());
-                //
-                //}
 
                 HttpEntity responseEntity = response.getEntity();
                 String responseBodyString = convertInputStreamToString(responseEntity.getContent());
-                //System.out.println(responseBodyString);
+
                 JSONObject json = new JSONObject(responseBodyString);
 
                 JSONArray jsonOutBoundFlights = json.getJSONArray("outboundFlights");
-                System.out.println(jsonOutBoundFlights);
 
-                for (int l = 0;l<jsonOutBoundFlights.length();l++){
+                for (int l = 0; l < jsonOutBoundFlights.length(); l++) {
                     JSONObject jsonOutBoundFlight = (JSONObject) jsonOutBoundFlights.get(l);
-                    String flightN = jsonOutBoundFlight.getString("carrierCode")+" "+jsonOutBoundFlight.getString("flightNumber");
+                    String flightN = jsonOutBoundFlight.getString("carrierCode") + " " + jsonOutBoundFlight.getString("flightNumber");
 
                     String arriveDateTime = jsonOutBoundFlight.getString("arrivalDateTime");
                     String departureDateTime = jsonOutBoundFlight.getString("departureDateTime");
@@ -255,33 +203,24 @@ public class FlightScannerImpl extends Thread implements FlightScanner {
                     LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
                     LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
-
-
                     JSONArray jsonFares = jsonOutBoundFlight.getJSONArray("fares");
                     JSONObject jsonFare = (JSONObject) jsonFares.get(3);
-
 
                     JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
 
-                    System.out.println(flightN);
-                    System.out.println("A" + arriveLocalDateTime);
-                    System.out.println("D" + departureLocalDateTime);
-                    System.out.println(amount);
-                    System.out.println(currencyCode);
-                    Flight f = new Flight(null,origin,destination,departureLocalDateTime,arriveLocalDateTime,Airline.WIZZ,currencyCode,amount,flightN);
-                    System.out.println(f);
+                    Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightN);
                     flightService.updateOrCreate(f);
-
+                    result.add(f);
                 }
-
 
             } catch (Exception e) {
 
             }
 
         }
+        return result;
     }
 
 
