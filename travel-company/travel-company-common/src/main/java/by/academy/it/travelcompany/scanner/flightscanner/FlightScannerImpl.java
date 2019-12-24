@@ -30,9 +30,9 @@ import java.util.*;
 
 public class FlightScannerImpl implements FlightScanner {
 
-    private static final int DELAYREQRY = 2000;
-    private static final int DELAYREQRYSYNC = 1200;
-    private static final int DELAYREQWIZZ = 100;
+    private static final int DELAY_REQ_RY = 2000;
+    private static final int DELAY_REQ_RY_SYNC = 1200;
+    private static final int DELAY_REQ_WIZZ = 100;
 
     private static Object sync = new Object();
 
@@ -42,19 +42,18 @@ public class FlightScannerImpl implements FlightScanner {
     }
 
 
-
     @Override
     public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
         List<Flight> result = new ArrayList<>();
         for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
             try {
-                Thread.sleep(DELAYREQRY);
+                Thread.sleep(DELAY_REQ_RY);
 
                 String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
                 JSONObject json = null;
                 synchronized (sync) {
                     json = new JSONObject(readUrl(req));
-                    Thread.sleep(DELAYREQRYSYNC);
+                    Thread.sleep(DELAY_REQ_RY_SYNC);
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
                 String currency = (String) json.get("currency");
@@ -113,6 +112,7 @@ public class FlightScannerImpl implements FlightScanner {
         return result;
     }
 
+
     @Override
     public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
         List<Flight> result = new ArrayList<>();
@@ -121,7 +121,7 @@ public class FlightScannerImpl implements FlightScanner {
         for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
 
             try {
-                Thread.sleep(DELAYREQWIZZ);
+                Thread.sleep(DELAY_REQ_WIZZ);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -223,9 +223,8 @@ public class FlightScannerImpl implements FlightScanner {
                 }
 
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
-
         }
         return result;
     }

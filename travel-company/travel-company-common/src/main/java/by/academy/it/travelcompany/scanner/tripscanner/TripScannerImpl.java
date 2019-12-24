@@ -14,16 +14,19 @@ import java.util.List;
 import java.util.Set;
 
 public class TripScannerImpl {
+
     private List<Airport> originAirports;
     private List<Airport> destinationAirports;
     private LocalDate startingDate;
     private Integer dayQuantityForSearch;
     private Integer minDayOfTrip;
     private Integer maxDayOfTrip;
+
     private List<FlightScannerThread> threads = new ArrayList<>();
     private Boolean isSearchActive;
 
-    private static final Integer DELAY = 1000;
+    private static final Integer DELAY_CHECK_ALL_TREADS_ARE_FINISHED = 1000;
+    private static final Integer DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED = 10000;
 
     public TripScannerImpl(List<Airport> originAirports, List<Airport> destinationAirports, LocalDate startingDate, Integer dayQuantityForSearch, Integer minDayOfTrip, Integer maxDayOfTrip) {
         this.destinationAirports = destinationAirports;
@@ -34,61 +37,16 @@ public class TripScannerImpl {
         this.maxDayOfTrip = maxDayOfTrip;
     }
 
-    public List<Airport> getDestinationAirports() {
-        return destinationAirports;
-    }
-
-    public void setDestinationAirports(List<Airport> destinationAirports) {
-        this.destinationAirports = destinationAirports;
-    }
-
-    public List<Airport> getOriginAirports() {
-        return originAirports;
-    }
-
-    public void setOriginAirports(List<Airport> originAirports) {
-        this.originAirports = originAirports;
-    }
-
-    public LocalDate getStartingDate() {
-        return startingDate;
-    }
-
-    public void setStartingDate(LocalDate startingDate) {
-        this.startingDate = startingDate;
-    }
-
-    public Integer getDayQuantityForSearch() {
-        return dayQuantityForSearch;
-    }
-
-    public void setDayQuantityForSearch(Integer dayQuantityForSearch) {
-        this.dayQuantityForSearch = dayQuantityForSearch;
-    }
-
-    public Integer getMinDayOfTrip() {
-        return minDayOfTrip;
-    }
-
-    public void setMinDayOfTrip(Integer minDayOfTrip) {
-        this.minDayOfTrip = minDayOfTrip;
-    }
-
-    public Integer getMaxDayOfTrip() {
-        return maxDayOfTrip;
-    }
-
-    public void setMaxDayOfTrip(Integer maxDayOfTrip) {
-        this.maxDayOfTrip = maxDayOfTrip;
-    }
-
     public void searchTrip() {
+
         isSearchActive = true;
         Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirports, destinationAirports);
         System.out.println(routeMap);
+
         for (String str : routeMap) {
             String regex = "--";
             String[] routeArr = str.split(regex);
+
             if (routeArr[3].equals("Direct")) {
                 FlightScannerThread fst = new FlightScannerThread(
                         Airline.valueOf(routeArr[0]),
@@ -100,6 +58,7 @@ public class TripScannerImpl {
                 fst.start();
                 threads.add(fst);
             }
+
             if (routeArr[3].equals("Return")) {
                 FlightScannerThread fst = new FlightScannerThread(
                         Airline.valueOf(routeArr[0]),
@@ -111,50 +70,40 @@ public class TripScannerImpl {
                 fst.start();
                 threads.add(fst);
             }
-
-
-
         }
 
         try {
-            Thread.sleep(DELAY * 10);
+            Thread.sleep(DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
         while (true) {
+
             try {
-                Thread.sleep(DELAY);
+                Thread.sleep(DELAY_CHECK_ALL_TREADS_ARE_FINISHED);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
             isSearchActive = false;
+
             for (FlightScannerThread f : threads) {
                 if (f.isAlive()) {
                     isSearchActive = true;
                     break;
                 }
             }
-            if (!isSearchActive){
-                System.out.println("Well done");
+
+            if (!isSearchActive) {
+
                 FlightService flightService = FlightServiceImpl.getInstance();
-                System.out.println(flightService.getAllFlights());
 
-
-                for (Flight f:flightService.getAllFlights()
-                     ) {
-                    //Найти директ с самой маленькой ценой.
-                    // Проверить, есть ли в диапазоне от мин до максимальной даты путешествия обратные перелёты
-                    // Если есть, то найти с минимальной ценой.
-                    // Положить в триплист
-                    // Повторить для директ трипа с следующей ценой.
-                    // Что если одинаковы цены...
-
+                for (Flight f : flightService.getAllFlights()){
+                    System.out.println(f);
                 }
-
                 break;
             }
-
         }
     }
 
