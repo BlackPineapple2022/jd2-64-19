@@ -23,6 +23,7 @@ public final class TcDataSource {
         config.setPassword(bundle.getString("db.user.password"));
         config.setMaximumPoolSize(20);
         config.setMinimumIdle(5);
+
         dataSource = new HikariDataSource(config);
     }
 
