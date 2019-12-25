@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.servlet;
 
-import by.academy.it.travelcompany.service.FlightService;
-import by.academy.it.travelcompany.service.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightService;
+import by.academy.it.travelcompany.service.local.FlightServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
-import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.flight.Flight;
+import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.flight.Flight;
 
 import java.time.LocalDate;
 import java.util.List;
