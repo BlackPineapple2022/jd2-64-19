@@ -330,4 +330,43 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
         return traces;
     }
 
+    public static Set<String> getRouteMap(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List <Airport> destinationAirportsReturn, List<Airport> originAirportsReturn){
+
+        Set <String> traces = new TreeSet<>() ;
+
+        for (int i = 0; i < originAirportsDirect.size(); i++) {
+
+            Map<Airline, Set<Airport>> searchMapLocalDirect = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsDirect.get(i));
+
+            for (Airline airline:searchMapLocalDirect.keySet()) {
+                for (Airport airport:searchMapLocalDirect.get(airline)) {
+                    for (Airport airportGlobal:destinationAirportsDirect ) {
+                        if (airportGlobal.equals(airport)){
+                            String trace = airline+"--"+originAirportsDirect.get(i).getCode()+"--"+airport.getCode()+"--Direct";
+                            traces.add(trace);
+                        }
+                    }
+                }
+            }
+
+            Map<Airline, Set<Airport>> searchMapLocalReturn = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsReturn.get(i));
+
+            for (Airline airline:searchMapLocalReturn.keySet()) {
+                for (Airport airport:searchMapLocalReturn.get(airline)) {
+                    for (Airport airportGlobal:destinationAirportsReturn ) {
+                        if (airportGlobal.equals(airport)){
+                            String trace = airline+"--"+airport.getCode()+"--"+originAirportsReturn.get(i).getCode()+"--Return";
+                            traces.add(trace);
+                        }
+                    }
+                }
+            }
+
+        }
+        return traces;
+    }
+
+
+
+
 }
