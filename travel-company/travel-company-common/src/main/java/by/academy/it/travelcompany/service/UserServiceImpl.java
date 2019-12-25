@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
         users.put("white",new User(2L,"white","123","user"));
     }
 
-    public static UserService getService(){
+    public static UserService getInstance(){
         return INSTANCE;
     }
 

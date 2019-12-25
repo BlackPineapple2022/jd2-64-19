@@ -306,4 +306,28 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
         return allDestinationsAndCompany;
     }
 
+    public static Set<String> getRouteMap(List<Airport> originAirports, List<Airport> destinationAirports){
+
+        Set <String> traces = new TreeSet<>() ;
+
+        for (int i = 0; i < originAirports.size(); i++) {
+
+            Map<Airline, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
+
+            for (Airline airline:searchMapLocal.keySet()) {
+                for (Airport airport:searchMapLocal.get(airline)) {
+                    for (Airport airportGlobal:destinationAirports ) {
+                        if (airportGlobal.equals(airport)){
+                            String trace = airline+"--"+originAirports.get(i).getCode()+"--"+airport.getCode()+"--Direct";
+                            traces.add(trace);
+                            String traceReturn = airline+"--"+airport.getCode()+"--"+originAirports.get(i).getCode()+"--Return";
+                            traces.add(traceReturn);
+                        }
+                    }
+                }
+            }
+        }
+        return traces;
+    }
+
 }

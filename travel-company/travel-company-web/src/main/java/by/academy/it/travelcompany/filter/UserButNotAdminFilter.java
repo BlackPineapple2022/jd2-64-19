@@ -30,6 +30,7 @@ public class UserButNotAdminFilter extends HttpFilter {
                 && !req.getRequestURI().endsWith("/logout")
                 && !req.getRequestURI().endsWith("/allin")
                 && !req.getRequestURI().endsWith("/spec")
+                && !req.getRequestURI().endsWith("/logo.png")
         )
 
         {

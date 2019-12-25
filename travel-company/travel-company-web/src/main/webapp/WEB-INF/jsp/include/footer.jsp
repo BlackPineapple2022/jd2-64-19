@@ -4,7 +4,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix = "custom" uri = "/WEB-INF/taglib/authAdmin.tld"%>
 
-<fmt:setLocale scope="session" value="${param.lang}"/>
 <fmt:setBundle basename="messages"/>
 
 

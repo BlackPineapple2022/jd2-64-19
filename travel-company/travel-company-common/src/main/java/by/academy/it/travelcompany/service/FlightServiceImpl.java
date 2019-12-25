@@ -4,11 +4,12 @@ import by.academy.it.travelcompany.airport.Airline;
 import by.academy.it.travelcompany.airport.Airport;
 import by.academy.it.travelcompany.flight.Flight;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class FlightServiceImpl implements FlightService {
@@ -18,31 +19,31 @@ public class FlightServiceImpl implements FlightService {
     private final AtomicLong sequence = new AtomicLong(10);
 
     private FlightServiceImpl() {
-//                                               !!!---IT IS REAL PRICE, REAL FLIGHT, REAL DATE, REAL TIME---!!!
-        Long id1 = 1L;
+
+        /*Long id1 = 1L;
         Airport origin1 = new Airport("VNO");
         Airport destination1 = new Airport("BGY");
-        LocalDateTime arriveTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 22, 25);
-        LocalDateTime departureTime1 = LocalDateTime.of(2019, Month.APRIL, 6, 23, 55);
+        LocalDateTime departureTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 22, 25);
+        LocalDateTime arriveTime1 = LocalDateTime.of(2020, Month.APRIL, 6, 23, 55);
         Airline airline1 = Airline.RY;
-        double ticketPrice1 = 21.84;
+        Double ticketPrice1 = 21.84;//it is outdated price, let see how Flight scanner replace it;
         String flightN1 = "FR 2871";
 
-        flights.add(new Flight(id1, origin1, destination1, arriveTime1, departureTime1, airline1, ticketPrice1, flightN1));
+        flights.add(new Flight(id1, origin1, destination1,departureTime1, arriveTime1, airline1, "EUR", ticketPrice1, flightN1));
 
         Long id2 = 2L;
         Airport origin2 = new Airport("BGY");
         Airport destination2 = new Airport("VNO");
-        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 17, 55);
-        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 21, 20);
+        LocalDateTime departureTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 17, 55);
+        LocalDateTime arriveTime2 = LocalDateTime.of(2019, Month.APRIL, 23, 21, 20);
         Airline airline2 = Airline.RY;
-        double ticketPrice2 = 30.30;
+        Double ticketPrice2 = 30.30;
         String flightN2 = "W6 8022";
 
-        flights.add(new Flight(id2, origin2, destination2, arriveTime2, departureTime2, airline2, ticketPrice2, flightN2));
+        flights.add(new Flight(id2, origin2, destination2,departureTime2, arriveTime2, airline2, "EUR", ticketPrice2, flightN2));*/
     }
 
-    public static FlightService getService() {
+    public static FlightService getInstance() {
         return INSTANCE;
     }
 
@@ -59,15 +60,42 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public void deleteFlight(Long id) {
+    public void deleteFlightById(Long id) {
         flights.removeIf(f -> f.getId().equals(id));
     }
 
     @Override
-    public Flight updateFlight(Flight flight) {
-        deleteFlight(flight.getId());
+    public Flight updateFlightById(Flight flight) {
+        deleteFlightById(flight.getId());
         flights.add(flight);
         return flight;
     }
 
+    @Override
+    public Flight updateOrCreate(Flight flight) throws IOException {
+        if (flight == null
+                || flight.getOriginAirport().getCode() == null
+                || flight.getDestinationAirport().getCode() == null
+                || flight.getArriveTime() == null
+                || flight.getDepartureTime() == null
+                || flight.getCurrency() == null
+                || flight.getTicketPrice() == null) {
+            throw new IOException("Any args has null value");
+        }
+
+        for (Flight f : flights) {
+            if (f.equals(flight)) {
+                flight.setId(f.getId());
+                flights.remove(f);
+                flights.add(flight);
+                return flight;
+            }
+        }
+
+        addFlight(flight);
+        return flight;
+    }
+
+
 }
+

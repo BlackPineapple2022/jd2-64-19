@@ -12,12 +12,12 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/deleteFlight")
 public class FlightDeleteServlet extends HttpServlet {
-    private FlightService flightService = FlightServiceImpl.getService();
+    private FlightService flightService = FlightServiceImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("modelId") != null) {
-            flightService.deleteFlight(Long.parseLong(req.getParameter("modelId")));
+            flightService.deleteFlightById(Long.parseLong(req.getParameter("modelId")));
         }
 
     }

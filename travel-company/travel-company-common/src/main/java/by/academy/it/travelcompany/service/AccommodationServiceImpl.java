@@ -15,7 +15,7 @@ public class AccommodationServiceImpl implements AccommodationService {
     private AccommodationServiceImpl(){
     }
 
-    public static AccommodationService getService(){
+    public static AccommodationService getInstance(){
         return INSTANCE;
     }
 

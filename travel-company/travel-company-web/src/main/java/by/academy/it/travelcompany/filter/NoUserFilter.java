@@ -28,11 +28,13 @@ public class NoUserFilter extends HttpFilter {
                 && !req.getRequestURI().endsWith("/login")
                 && !req.getRequestURI().endsWith("/about")
                 && !req.getRequestURI().endsWith("/logout")
-                && !req.getRequestURI().endsWith("/allin"))
+                && !req.getRequestURI().endsWith("/allin")
+                && !req.getRequestURI().endsWith("/logo.png")
+        )
 
         {
+            System.out.println("filter");
             res.sendRedirect(req.getContextPath() + "/login");
-
         } else {
             super.doFilter(req, res, chain);
         }

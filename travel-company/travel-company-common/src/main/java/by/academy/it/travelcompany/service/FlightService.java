@@ -1,8 +1,11 @@
 package by.academy.it.travelcompany.service;
 
+import by.academy.it.travelcompany.airport.Airport;
 import by.academy.it.travelcompany.flight.Flight;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Flight service
@@ -30,7 +33,7 @@ public interface FlightService {
      * flight with @param id delete from list
      */
 
-    void deleteFlight(Long id);
+    void deleteFlightById(Long id);
 
     /**
      * update object in list with same id of
@@ -38,8 +41,19 @@ public interface FlightService {
      * @return flight updated flight
      */
 
-    Flight updateFlight(Flight flight);
+    Flight updateFlightById(Flight flight);
 
+    /**
+     * update object in list with same LocalDate, Airline, flight number, Airport origin, Airport destination (Flight.equals())
+     * @param flight flight to update
+     * @return flight updated flight
+     * If flight  doesn't exist on list
+     * It will be created
+     * See Flight class equals method for more information
+     * If Flight or important field is null, trows IOException;
+     */
+
+    Flight updateOrCreate(Flight flight) throws IOException;
 
 
 }

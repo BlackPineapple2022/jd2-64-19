@@ -1,3 +1,5 @@
+
+
 package by.academy.it.travelcompany.servlet;
 
 import javax.servlet.ServletException;
@@ -15,3 +17,5 @@ public class MainServlet extends HttpServlet {
         resp.sendRedirect(req.getContextPath()+"/home");
     }
 }
+
+

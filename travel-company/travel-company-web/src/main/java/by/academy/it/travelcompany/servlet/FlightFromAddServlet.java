@@ -16,7 +16,7 @@ import java.util.Set;
 @WebServlet(urlPatterns = "/addFlightFrom")
 public class FlightFromAddServlet extends HttpServlet {
 
-    private FlightService flightService = FlightServiceImpl.getService();
+    private FlightService flightService = FlightServiceImpl.getInstance();
 
 
     @Override
