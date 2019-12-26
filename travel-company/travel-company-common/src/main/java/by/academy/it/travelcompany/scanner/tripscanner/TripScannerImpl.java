@@ -1,12 +1,12 @@
 package by.academy.it.travelcompany.scanner.tripscanner;
 
-import by.academy.it.travelcompany.airport.Airline;
-import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.airport.AirportInfoCentre;
-import by.academy.it.travelcompany.flight.Flight;
+import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
+import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerThread;
-import by.academy.it.travelcompany.service.FlightService;
-import by.academy.it.travelcompany.service.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightService;
+import by.academy.it.travelcompany.service.local.FlightServiceImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -15,8 +15,13 @@ import java.util.Set;
 
 public class TripScannerImpl {
 
-    private List<Airport> originAirports;
-    private List<Airport> destinationAirports;
+    private List<Airport> originAirportsDirect;
+    private List<Airport> destinationAirportsDirect;
+
+    private List<Airport> originAirportsReturn;
+    private List<Airport> destinationAirportsReturn;
+
+
     private LocalDate startingDate;
     private Integer dayQuantityForSearch;
     private Integer minDayOfTrip;
@@ -29,8 +34,21 @@ public class TripScannerImpl {
     private static final Integer DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED = 10000;
 
     public TripScannerImpl(List<Airport> originAirports, List<Airport> destinationAirports, LocalDate startingDate, Integer dayQuantityForSearch, Integer minDayOfTrip, Integer maxDayOfTrip) {
-        this.destinationAirports = destinationAirports;
-        this.originAirports = originAirports;
+        this.originAirportsDirect = originAirports;
+        this.destinationAirportsDirect = destinationAirports;
+        this.originAirportsReturn = originAirports;
+        this.destinationAirportsReturn = destinationAirports;
+        this.startingDate = startingDate;
+        this.dayQuantityForSearch = dayQuantityForSearch;
+        this.minDayOfTrip = minDayOfTrip;
+        this.maxDayOfTrip = maxDayOfTrip;
+    }
+
+    public TripScannerImpl(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn,List<Airport> originAirportsReturn, LocalDate startingDate, Integer dayQuantityForSearch, Integer minDayOfTrip, Integer maxDayOfTrip) {
+        this.originAirportsDirect = originAirportsDirect;
+        this.destinationAirportsDirect = destinationAirportsDirect;
+        this.destinationAirportsReturn = destinationAirportsReturn;
+        this.originAirportsReturn = originAirportsReturn;
         this.startingDate = startingDate;
         this.dayQuantityForSearch = dayQuantityForSearch;
         this.minDayOfTrip = minDayOfTrip;
@@ -40,7 +58,7 @@ public class TripScannerImpl {
     public void searchTrip() {
 
         isSearchActive = true;
-        Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirports, destinationAirports);
+        Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirportsDirect, destinationAirportsDirect, destinationAirportsReturn, originAirportsReturn);
         System.out.println(routeMap);
 
         for (String str : routeMap) {

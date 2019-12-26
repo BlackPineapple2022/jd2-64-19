@@ -1,10 +1,10 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
-import by.academy.it.travelcompany.airport.Airline;
-import by.academy.it.travelcompany.airport.Airport;
-import by.academy.it.travelcompany.flight.Flight;
-import by.academy.it.travelcompany.service.FlightService;
-import by.academy.it.travelcompany.service.FlightServiceImpl;
+import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.flight.Flight;
+import by.academy.it.travelcompany.service.local.FlightService;
+import by.academy.it.travelcompany.service.local.FlightServiceImpl;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;

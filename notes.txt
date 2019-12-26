@@ -1,3 +1,7 @@
 https://vertex-academy.com/tutorials/ru/java-8-optional/
 https://www.mobilefish.com/services/unicode_escape_sequence_converter/unicode_escape_sequence_converter.php
 https://www.javacodegeeks.com/2014/09/3-examples-of-parsing-html-file-in-java-using-jsoup.html
+
+API key fixer.io
+http://data.fixer.io/api/latest?access_key=872986e602ba0f07b2dfceea07408ea1
+872986e602ba0f07b2dfceea07408ea1
