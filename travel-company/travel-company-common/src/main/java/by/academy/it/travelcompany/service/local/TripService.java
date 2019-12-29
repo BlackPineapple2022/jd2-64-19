@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.service.global;
+package by.academy.it.travelcompany.service.local;
 
 
 import by.academy.it.travelcompany.travelitem.trip.Trip;
@@ -40,5 +40,9 @@ public interface TripService {
      */
 
     Trip updateTrip(Trip trip);
+
+
+    List <Trip> getAllTripById(Long searchId);
+
 
 }

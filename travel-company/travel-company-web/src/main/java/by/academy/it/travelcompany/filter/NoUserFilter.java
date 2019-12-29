@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.filter;
 
 import by.academy.it.travelcompany.user.User;
@@ -29,6 +30,7 @@ public class NoUserFilter extends HttpFilter {
                 && !req.getRequestURI().endsWith("/about")
                 && !req.getRequestURI().endsWith("/logout")
                 && !req.getRequestURI().endsWith("/allin")
+                && !req.getRequestURI().endsWith("/spec")
                 && !req.getRequestURI().endsWith("/logo.png")
         )
 
@@ -39,4 +41,4 @@ public class NoUserFilter extends HttpFilter {
             super.doFilter(req, res, chain);
         }
     }
-}
+}*/

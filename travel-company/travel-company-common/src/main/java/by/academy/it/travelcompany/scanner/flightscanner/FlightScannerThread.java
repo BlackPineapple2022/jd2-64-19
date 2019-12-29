@@ -14,6 +14,15 @@ public class FlightScannerThread extends Thread {
     private LocalDate startingDate;
     private Integer dayQuantityForSearch;
 
+    private Long searchId;
+
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
 
     public FlightScannerThread(Airline airline, Airport originAirport, Airport destinationAirport, LocalDate startingDate, Integer dayQuantityForSearch, String direction) {
         this.airline = airline;
@@ -28,6 +37,8 @@ public class FlightScannerThread extends Thread {
     @Override
     public void run() {
         FlightScanner flightScanner = new FlightScannerImpl();
+        flightScanner.setSearchId(searchId);
+
         if (airline.equals(Airline.RY)) {
             flightScanner.parseFlightsRY(startingDate, dayQuantityForSearch, originAirport, destinationAirport, direction);
         }

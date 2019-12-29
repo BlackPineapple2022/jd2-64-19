@@ -28,7 +28,7 @@ public enum AirportFromWMIRY {
     BLQ("Italy","Bologna"),
     CAG("Italy","Cagliari"),
     BGY("Italy","Milan Bergamo"),
-    NAP("Italy"," Naples"),
+    NAP("Italy","Naples"),
     PSR("Italy","Pescara"),
     PSA("Italy","Pisa"),
     RMI("Italy","Rimini"),

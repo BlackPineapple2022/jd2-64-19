@@ -53,5 +53,7 @@ public interface FlightService {
 
     Flight updateOrCreate(Flight flight) throws IOException;
 
+    List <Flight> getAllFlightBySearchIdAndDirection(Long searchId, String direction);
+
 
 }

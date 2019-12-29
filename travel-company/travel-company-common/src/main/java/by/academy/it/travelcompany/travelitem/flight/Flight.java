@@ -24,6 +24,8 @@ public class Flight {
 
     private String direction;
 
+    private Long searchId;
+
     private LocalDateTime checkedTime; // Last time Scanner update(create) this flight
 
     public Flight() {
@@ -39,6 +41,14 @@ public class Flight {
         this.currency = currency;
         this.ticketPrice = ticketPrice;
         this.flightNumber = flightNumber;
+    }
+
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
     }
 
     public String getDirection() {
@@ -155,6 +165,7 @@ public class Flight {
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
                 ", direction='" + direction + '\'' +
+                ", searchId='" + searchId + '\'' +
                 '}';
     }
 

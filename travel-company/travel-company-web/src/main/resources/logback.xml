@@ -28,11 +28,11 @@
         </encoder>
     </appender>
 
-    <logger name="by.it.academy" level="debug" additivity="false">
+    <logger name="by.academy.it" level="debug" additivity="false">
         <appender-ref ref="FILE-ROLLING"/>
     </logger>
 
-    <logger name="by.it.academy" level="debug" additivity="false">
+    <logger name="by.academy.it" level="debug" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 

@@ -1,5 +1,7 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
+import by.academy.it.travelcompany.service.global.ScheduleService;
+import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
@@ -17,6 +19,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -34,22 +38,41 @@ public class FlightScannerImpl implements FlightScanner {
     private static final int DELAY_REQ_RY_SYNC = 1200;
     private static final int DELAY_REQ_WIZZ = 100;
 
-    private static Object sync = new Object();
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightScannerImpl.class);
+    private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
+    private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
 
-    private static final FlightService flightService = FlightServiceImpl.getInstance();
+    private static final Object sync = new Object();
+
+    private Long searchId;
 
     public FlightScannerImpl() {
     }
 
+    @Override
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    @Override
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
 
     @Override
     public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
+        LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startLocalDate + "dayQuantity: " + dayQuantityForSearchFromToday
+                + "origin: " + origin + "destination: " + destination + "direction: " + direction + "searchId: " + searchId);
+        final LocalDate finishLocalDate = startLocalDate.plusDays(dayQuantityForSearchFromToday);
+
+        LocalDate currentLocalDate = LocalDate.of(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
+
         List<Flight> result = new ArrayList<>();
-        for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
+        while (currentLocalDate.isBefore(finishLocalDate)) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
 
-                String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
+                String req = getReqStringRY(currentLocalDate, origin, destination);
                 JSONObject json = null;
                 synchronized (sync) {
                     json = new JSONObject(readUrl(req));
@@ -101,12 +124,15 @@ public class FlightScannerImpl implements FlightScanner {
 
                     Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
                     f.setDirection(direction);
-                    flightService.updateOrCreate(f);
+                    f.setSearchId(searchId);
+                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
+
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+            } finally {
+              currentLocalDate = SCHEDULE_SERVICE.getNextLocalDate(currentLocalDate,Airline.RY,origin,destination);
             }
         }
         return result;
@@ -115,6 +141,7 @@ public class FlightScannerImpl implements FlightScanner {
 
     @Override
     public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
+        LOGGER.debug("Start parsing WIZZ");
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
@@ -218,7 +245,8 @@ public class FlightScannerImpl implements FlightScanner {
 
                     Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightN);
                     f.setDirection(direction);
-                    flightService.updateOrCreate(f);
+                    f.setSearchId(searchId);
+                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
                 }
 

@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.filter;
 
 import by.academy.it.travelcompany.user.User;
@@ -41,3 +42,4 @@ public class UserButNotAdminFilter extends HttpFilter {
         }
     }
 }
+*/

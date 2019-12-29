@@ -3,5 +3,17 @@ https://www.mobilefish.com/services/unicode_escape_sequence_converter/unicode_es
 https://www.javacodegeeks.com/2014/09/3-examples-of-parsing-html-file-in-java-using-jsoup.html
 
 API key fixer.io
+1eb5276f5726efc74fbf3799adcf7973
+http://data.fixer.io/api/latest?access_key=1eb5276f5726efc74fbf3799adcf7973
+
+From 01/01/2020
 http://data.fixer.io/api/latest?access_key=872986e602ba0f07b2dfceea07408ea1
 872986e602ba0f07b2dfceea07408ea1
+
+
+TODO
+1. Updater currency rate
+2. Parser flight considering shedule, shedule to mysql!
+
+
+

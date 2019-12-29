@@ -1,5 +1,6 @@
 package by.academy.it.travelcompany.listener;
 
+import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
