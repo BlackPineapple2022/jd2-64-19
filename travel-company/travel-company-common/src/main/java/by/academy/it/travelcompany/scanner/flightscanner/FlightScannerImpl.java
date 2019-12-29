@@ -5,9 +5,10 @@ import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.service.local.FlightService;
-import by.academy.it.travelcompany.service.local.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightServiceLocal;
+import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 
+import by.academy.it.travelcompany.travelitem.schedule.Schedule;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -39,7 +40,7 @@ public class FlightScannerImpl implements FlightScanner {
     private static final int DELAY_REQ_WIZZ = 100;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlightScannerImpl.class);
-    private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
+    private static final FlightServiceLocal FLIGHT_SERVICE = FlightServiceLocalImpl.getInstance();
     private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
 
     private static final Object sync = new Object();
@@ -61,14 +62,14 @@ public class FlightScannerImpl implements FlightScanner {
 
     @Override
     public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
-        LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startLocalDate + "dayQuantity: " + dayQuantityForSearchFromToday
-                + "origin: " + origin + "destination: " + destination + "direction: " + direction + "searchId: " + searchId);
+        LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startLocalDate + " dayQuantity: " + dayQuantityForSearchFromToday
+                + " origin: " + origin + " destination: " + destination + " direction: " + direction + " searchId: " + searchId);
         final LocalDate finishLocalDate = startLocalDate.plusDays(dayQuantityForSearchFromToday);
-
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.RY,origin,destination,startLocalDate,dayQuantityForSearchFromToday);
         LocalDate currentLocalDate = LocalDate.of(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
 
         List<Flight> result = new ArrayList<>();
-        while (currentLocalDate.isBefore(finishLocalDate)) {
+        while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
 
@@ -127,36 +128,36 @@ public class FlightScannerImpl implements FlightScanner {
                     f.setSearchId(searchId);
                     FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
-
+                    LOGGER.info("Flight found: "+ f);
                 }
-
             } catch (Exception e) {
             } finally {
-              currentLocalDate = SCHEDULE_SERVICE.getNextLocalDate(currentLocalDate,Airline.RY,origin,destination);
+                currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         return result;
     }
 
-
     @Override
-    public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
-        LOGGER.debug("Start parsing WIZZ");
+    public List<Flight> parseFlightsWIZZ(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
+        LOGGER.info("Start parsing on Wizzair.com, Starting date:" + startLocalDate + " dayQuantity: " + dayQuantityForSearchFromToday
+                + " origin: " + origin + " destination: " + destination + " direction: " + direction + " searchId: " + searchId);
+
+        final LocalDate finishLocalDate = startLocalDate.plusDays(dayQuantityForSearchFromToday);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.WIZZ,origin,destination,startLocalDate,dayQuantityForSearchFromToday);
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
-        for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
+        LocalDate currentLocalDate = LocalDate.of(startLocalDate.getYear(), startLocalDate.getMonthValue(), startLocalDate.getDayOfMonth());
+        while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
 
             try {
                 Thread.sleep(DELAY_REQ_WIZZ);
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
-
-            LocalDate localDateForSearch = localDate.plusDays(i);
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -182,14 +183,13 @@ public class FlightScannerImpl implements FlightScanner {
                     "\",\"arrivalStation\":\"" +
                     destination.getCode() +
                     "\",\"departureDate\":\"" +
-                    getDateStringWIZZ(localDateForSearch) +
+                    getDateStringWIZZ(currentLocalDate) +
                     "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
 
             try {
                 httpEntity = new StringEntity(stringEntity);
                 httpPost.setEntity(httpEntity);
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
 
             try (
@@ -251,12 +251,12 @@ public class FlightScannerImpl implements FlightScanner {
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+            } finally {
+                currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         return result;
     }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

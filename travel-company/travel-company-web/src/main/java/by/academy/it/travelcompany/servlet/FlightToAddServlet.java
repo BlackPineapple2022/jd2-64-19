@@ -2,8 +2,8 @@ package by.academy.it.travelcompany.servlet;
 
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
-import by.academy.it.travelcompany.service.local.FlightService;
-import by.academy.it.travelcompany.service.local.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightServiceLocal;
+import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +16,7 @@ import java.util.Set;
 @WebServlet(urlPatterns = "/addFlightTo")
 public class FlightToAddServlet extends HttpServlet {
 
-    private FlightService flightService = FlightServiceImpl.getInstance();
+    private FlightServiceLocal flightServiceLocal = FlightServiceLocalImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

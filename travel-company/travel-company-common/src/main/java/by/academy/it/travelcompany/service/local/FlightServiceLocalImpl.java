@@ -11,13 +11,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class FlightServiceImpl implements FlightService {
+public class FlightServiceLocalImpl implements FlightServiceLocal {
 
-    private static final FlightService INSTANCE = new FlightServiceImpl();
+    private static final FlightServiceLocal INSTANCE = new FlightServiceLocalImpl();
     private final List<Flight> flights = new ArrayList<>();
     private final AtomicLong sequence = new AtomicLong(10);
 
-    private FlightServiceImpl() {
+    private FlightServiceLocalImpl() {
 
         Long id1 = 1L;
         Airport origin1 = new Airport("VNO");
@@ -42,7 +42,7 @@ public class FlightServiceImpl implements FlightService {
         flights.add(new Flight(id2, origin2, destination2, departureTime2, arriveTime2, airline2, "EUR", ticketPrice2, flightN2));
     }
 
-    public static FlightService getInstance() {
+    public static FlightServiceLocal getInstance() {
         return INSTANCE;
     }
 

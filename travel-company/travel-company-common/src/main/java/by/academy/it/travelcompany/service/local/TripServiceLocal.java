@@ -9,7 +9,7 @@ import java.util.List;
  * Trip service
  */
 
-public interface TripService {
+public interface TripServiceLocal {
 
     /**
      * Get all trips

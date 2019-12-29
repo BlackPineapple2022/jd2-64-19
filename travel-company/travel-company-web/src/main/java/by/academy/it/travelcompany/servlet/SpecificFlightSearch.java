@@ -1,7 +1,6 @@
 package by.academy.it.travelcompany.servlet;
 
 import by.academy.it.travelcompany.scanner.tripscanner.TripScannerImpl;
-import by.academy.it.travelcompany.service.local.TripService;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.travelitem.trip.Trip;
@@ -37,29 +36,29 @@ public class SpecificFlightSearch extends HttpServlet {
         List<Airport> destinationsDirect = new ArrayList<>();
         List<Airport> destinationsReturn = new ArrayList<>();
 
-        if (req.getParameter("originDirectIsVNO").equals("Y")) {
+        if (req.getParameter("originDirectIsVNO")!=null&&req.getParameter("originDirectIsVNO").equals("Y")) {
             originsDirect.add(new Airport("VNO"));
         }
-        if (req.getParameter("originDirectIsKUN").equals("Y")) {
+        if (req.getParameter("originDirectIsKUN")!=null&&req.getParameter("originDirectIsKUN").equals("Y")) {
             originsDirect.add(new Airport("KUN"));
         }
-        if (req.getParameter("originDirectIsWMI").equals("Y")) {
+        if (req.getParameter("originDirectIsWMI")!=null&&req.getParameter("originDirectIsWMI").equals("Y")) {
             originsDirect.add(new Airport("WMI"));
         }
-        if (req.getParameter("originDirectIsWAW").equals("Y")) {
+        if (req.getParameter("originDirectIsWAW")!=null&&req.getParameter("originDirectIsWAW").equals("Y")) {
             originsDirect.add(new Airport("WAW"));
         }
 
-        if (req.getParameter("originReturnIsVNO").equals("Y")) {
+        if (req.getParameter("originReturnIsVNO")!=null&&req.getParameter("originReturnIsVNO").equals("Y")) {
             originsReturn.add(new Airport("VNO"));
         }
-        if (req.getParameter("originReturnIsKUN").equals("Y")) {
+        if (req.getParameter("originReturnIsKUN")!=null&&req.getParameter("originReturnIsKUN").equals("Y")) {
             originsReturn.add(new Airport("KUN"));
         }
-        if (req.getParameter("originReturnIsWMI").equals("Y")) {
+        if (req.getParameter("originReturnIsWMI")!=null&&req.getParameter("originReturnIsWMI").equals("Y")) {
             originsReturn.add(new Airport("WMI"));
         }
-        if (req.getParameter("originReturnIsWAW").equals("Y")) {
+        if (req.getParameter("originReturnIsWAW")!=null&&req.getParameter("originReturnIsWAW").equals("Y")) {
             originsReturn.add(new Airport("WAW"));
         }
 

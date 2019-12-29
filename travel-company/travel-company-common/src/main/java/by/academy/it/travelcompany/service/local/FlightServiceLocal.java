@@ -9,7 +9,7 @@ import java.util.List;
  * Flight service
  */
 
-public interface FlightService {
+public interface FlightServiceLocal {
 
     /**
      * Get all flights

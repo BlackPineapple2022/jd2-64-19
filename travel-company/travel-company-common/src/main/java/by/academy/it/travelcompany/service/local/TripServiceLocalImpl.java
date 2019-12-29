@@ -11,17 +11,17 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
-public class TripServiceImpl implements TripService {
+public class TripServiceLocalImpl implements TripServiceLocal {
 
-    private static final TripService INSTANCE = new TripServiceImpl();
+    private static final TripServiceLocal INSTANCE = new TripServiceLocalImpl();
     private final List<Trip> trips = new ArrayList<>();
     private final AtomicLong sequence = new AtomicLong(10);
-    private static final CurrencyScanner currencyScanner = CurrencyScannerImpl.getInstance();
+    private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
 
-    private TripServiceImpl() {
+    private TripServiceLocalImpl() {
     }
 
-    public static TripService getInstance() {
+    public static TripServiceLocal getInstance() {
         return INSTANCE;
     }
 
@@ -69,12 +69,12 @@ public class TripServiceImpl implements TripService {
                 List<Flight> flightso2 = o2.getFlights();
                 Double priceo1 = 0.0;
                 for (Flight flight : flightso1) {
-                    priceo1 += flight.getTicketPrice() * currencyScanner.getEURMultiplier(flight.getCurrency());
+                    priceo1 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency());
                 }
 
                 Double priceo2 = 0.0;
                 for (Flight flight : flightso2) {
-                    priceo2 += flight.getTicketPrice() * currencyScanner.getEURMultiplier(flight.getCurrency());
+                    priceo2 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency());
                 }
 
                 return priceo1.compareTo(priceo2);

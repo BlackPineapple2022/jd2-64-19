@@ -7,13 +7,59 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>BlackPineapple.by | <fmt:message key="login.page.title"/></title>
+    <title>BlackPineapple.by | <fmt:message key="search.page.title"/></title>
 </head>
 <body>
 <%@include file="include/header.jsp" %>
 <form method="POST" action="${pageContext.request.contextPath}/spec">
-    <p align="center"><fmt:message key="searh.page.title"/></p>
+    <p align="center"><fmt:message key="search.page.warning"/></p>
 
+    <table align="center" border="3px" bordercolor="#000000">
+        <tr >
+            <td>
+                <b>Прямой маршрут:</b>
+            </td>
+            <td>
+                <b>Обратный маршрут:</b>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Откуда будем стартовать?
+            </td>
+            <td>
+                Куда будем возвращаться?
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                <input type="checkbox" name="originDirectIsVNO" value="Y"/> Вильнюс аэропорт<br>
+                <input type="checkbox" name="originDirectIsKUN" value="Y"/> Каунас аэропорт<br>
+                <input type="checkbox" name="originDirectIsWMI" value="Y"/> Варшава аэропорт Модлен<br>
+                <input type="checkbox" name="originDirectIsWAW" value="Y"/> Варшава аэропорт им. Ф. Шопена<br>
+            </td>
+            <td>
+                <input type="checkbox" name="originDirectIsVNO" value="Y"/> Вильнюс аэропорт<br>
+                <input type="checkbox" name="originDirectIsKUN" value="Y"/> Каунас аэропорт<br>
+                <input type="checkbox" name="originDirectIsWMI" value="Y"/> Варшава аэропорт Модлен<br>
+                <input type="checkbox" name="originDirectIsWAW" value="Y"/> Варшава аэропорт им. Ф. Шопена<br>
+            </td>
+        </tr>
+
+        <tr>
+            <td>
+                Куда полетим?
+            </td>
+            <td>
+                Откуда будем возвращаться?
+            </td>
+        </tr>
+
+
+
+    </table>
 
     <div style="text-align: center; font-size: 20px">
         Откуда полетим?
@@ -109,7 +155,7 @@
     <br>
 
     <div style="text-align: center; font-size: 20px">
-       и ещё откуда обратно полетим?
+        и ещё откуда обратно полетим?
     </div>
 
     <div style="text-align: center">
@@ -168,39 +214,35 @@
             <td colspan="2">Введите дату начала поиска в формате гггг-мм-дд</td>
         </tr>
         <tr>
-            <td colspan="2"><label> <input type="text" name = "startingDate" ></label></td>
+            <td colspan="2"><label> <input type="text" name="startingDate"></label></td>
         </tr>
 
         <tr>
             <td colspan="2">Сколько дней искать</td>
         </tr>
         <tr>
-            <td colspan="2"><label> <input type="text" name = "dayCount" ></label></td>
+            <td colspan="2"><label> <input type="text" name="dayCount"></label></td>
         </tr>
 
         <tr>
             <td colspan="2">Минимальная длительность путешествия</td>
         </tr>
         <tr>
-            <td colspan="2"><label> <input type="text" name = "minDay" ></label></td>
+            <td colspan="2"><label> <input type="text" name="minDay"></label></td>
         </tr>
 
         <tr>
             <td colspan="2">Максимальная длительность путешествия</td>
         </tr>
         <tr>
-            <td colspan="2"><label> <input type="text" name = "maxDay" ></label></td>
+            <td colspan="2"><label> <input type="text" name="maxDay"></label></td>
         </tr>
 
 
-
     </table>
-<div style="text-align: center">
-    <input type="submit" value="Искать"/>
-</div>
-
-
-
+    <div style="text-align: center">
+        <input type="submit" value="Искать"/>
+    </div>
 
 
 </form>

@@ -4,8 +4,8 @@ import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.service.local.FlightService;
-import by.academy.it.travelcompany.service.local.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightServiceLocal;
+import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,7 +19,7 @@ import java.util.*;
 @WebServlet (urlPatterns = "/addFlight")
 public class FlightAddServlet extends HttpServlet {
 
-    private FlightService flightService = FlightServiceImpl.getInstance();
+    private FlightServiceLocal flightServiceLocal = FlightServiceLocalImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -57,7 +57,7 @@ public class FlightAddServlet extends HttpServlet {
 
 
             Flight flight = new Flight(null,airportOrigin,airportDestination,arriveTimeL,departureTimeL,airline,"EUR",ticketPrice,flightNumber);
-            flightService.addFlight(flight);
+            flightServiceLocal.addFlight(flight);
 
             resp.sendRedirect(req.getContextPath() + "/flightList");
         }

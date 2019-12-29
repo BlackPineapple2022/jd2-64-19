@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.servlet;
 
-import by.academy.it.travelcompany.service.local.FlightService;
-import by.academy.it.travelcompany.service.local.FlightServiceImpl;
+import by.academy.it.travelcompany.service.local.FlightServiceLocal;
+import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,12 +12,12 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = "/deleteFlight")
 public class FlightDeleteServlet extends HttpServlet {
-    private FlightService flightService = FlightServiceImpl.getInstance();
+    private FlightServiceLocal flightServiceLocal = FlightServiceLocalImpl.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (req.getParameter("modelId") != null) {
-            flightService.deleteFlightById(Long.parseLong(req.getParameter("modelId")));
+            flightServiceLocal.deleteFlightById(Long.parseLong(req.getParameter("modelId")));
         }
 
     }
