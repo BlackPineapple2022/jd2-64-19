@@ -12,5 +12,9 @@
     <a href="${pageContext.request.contextPath}/allin"><fmt:message key="menu.allin"/></a> |
     <a href="${pageContext.request.contextPath}/spec"><fmt:message key="menu.spec"/></a>
     <br>
+    <br>
 </div>
+
+<div style="background: #5371ff; height:2px"></div>
+
 

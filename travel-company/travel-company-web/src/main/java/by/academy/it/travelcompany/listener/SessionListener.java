@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.listener;
+/*package by.academy.it.travelcompany.listener;
 
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.user.User;
@@ -25,4 +25,4 @@ public class SessionListener implements HttpSessionListener {
         User user = (User)(se.getSession().getAttribute("user"));
         logger.info("Session ended by "+user.getUserName());
     }
-}
+}*/

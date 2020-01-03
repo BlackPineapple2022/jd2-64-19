@@ -11,6 +11,7 @@
 </head>
 <body>
 <%@include file="include/header.jsp" %>
+<%@include file="include/menu.jsp" %>
 <c:if test ="${errorCode==1}"><p style="color: red; text-align: center"><fmt:message key="error.code.1"/></p></c:if>
 <c:if test ="${errorCode==2}"><p style="color: red; text-align: center"><fmt:message key="error.code.2"/></p></c:if>
 <form method="POST" action="${pageContext.request.contextPath}/login">

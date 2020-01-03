@@ -20,6 +20,6 @@ public interface CurrencyScanner {
      * Update currency scanner, update all multiplier
      */
 
-    public void update();
+    void update();
 
 }
