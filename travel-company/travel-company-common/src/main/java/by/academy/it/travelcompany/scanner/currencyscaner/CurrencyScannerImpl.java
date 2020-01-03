@@ -83,7 +83,6 @@ public class CurrencyScannerImpl implements CurrencyScanner {
         return null;
     }
 
-
     private static String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;
         try {

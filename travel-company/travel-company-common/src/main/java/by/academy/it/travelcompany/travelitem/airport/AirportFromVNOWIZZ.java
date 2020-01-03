@@ -26,7 +26,7 @@ public enum AirportFromVNOWIZZ {
     MXP("Italy","Milan Malpensa"),
     EIN("Netherlands","Eindhoven"),
     TRF("Norway","Oslo Sandefjord Torp"),
-    BCN("Spain","Barcelona El Prat");
+    BCN("Spain","Barcelona");
 
     private String country;
     private String city;

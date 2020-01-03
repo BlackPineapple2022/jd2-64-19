@@ -43,32 +43,16 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public Long getSearchId() {
-        return searchId;
-    }
-
-    public void setSearchId(Long searchId) {
-        this.searchId = searchId;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public Airport getOriginAirport() {
-        return originAirport;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Airport getOriginAirport() {
+        return originAirport;
     }
 
     public void setOriginAirport(Airport originAirport) {
@@ -129,6 +113,22 @@ public class Flight {
 
     public void setFlightNumber(String flightNumber) {
         this.flightNumber = flightNumber;
+    }
+
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     public LocalDateTime getCheckedTime() {

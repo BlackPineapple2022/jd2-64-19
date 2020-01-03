@@ -47,7 +47,7 @@ public enum AirportFromWAWWIZZ {
     OPO("Portugal","Porto"),
     OTP("Romania","Bucharest"),
     ALC("Spain","Alicante"),
-    BCN("Spain","Barcelona El Prat"),
+    BCN("Spain","Barcelona"),
     MAD("Spain","Madrid"),
     SDR("Spain","Santander"),
     TFS("Spain","Tenerife South"),

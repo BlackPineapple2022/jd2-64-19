@@ -9,14 +9,15 @@ import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerThread;
 import by.academy.it.travelcompany.service.local.FlightServiceLocal;
 import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 import by.academy.it.travelcompany.travelitem.trip.Trip;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class TripScannerImpl {
@@ -28,11 +29,11 @@ public class TripScannerImpl {
     private List<Airport> destinationAirportsReturn;
 
     private LocalDate startingDate;
-    private Integer dayQuantityForSearch;
+    private Integer dayQuantity;
     private Integer minDayOfTrip;
     private Integer maxDayOfTrip;
 
-    private List<FlightScannerThread> threads = new ArrayList<>();
+    private List<FlightScannerImpl> threads = new ArrayList<>();
     private Boolean isSearchActive;
 
     private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
@@ -42,32 +43,21 @@ public class TripScannerImpl {
     private static final Integer DELAY_CHECK_ALL_TREADS_ARE_FINISHED = 1000;
     private static final Integer DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED = 10000;
 
-    public TripScannerImpl(List<Airport> originAirports, List<Airport> destinationAirports, LocalDate startingDate, Integer dayQuantityForSearch, Integer minDayOfTrip, Integer maxDayOfTrip) {
-        this.originAirportsDirect = originAirports;
-        this.destinationAirportsDirect = destinationAirports;
-        this.originAirportsReturn = originAirports;
-        this.destinationAirportsReturn = destinationAirports;
-        this.startingDate = startingDate;
-        this.dayQuantityForSearch = dayQuantityForSearch;
-        this.minDayOfTrip = minDayOfTrip;
-        this.maxDayOfTrip = maxDayOfTrip;
-    }
-
-    public TripScannerImpl(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn, LocalDate startingDate, Integer dayQuantityForSearch, Integer minDayOfTrip, Integer maxDayOfTrip) {
+    public TripScannerImpl(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn, LocalDate startingDate, Integer dayQuantity, Integer minDayOfTrip, Integer maxDayOfTrip) {
         this.originAirportsDirect = originAirportsDirect;
         this.destinationAirportsDirect = destinationAirportsDirect;
         this.destinationAirportsReturn = destinationAirportsReturn;
         this.originAirportsReturn = originAirportsReturn;
         this.startingDate = startingDate;
-        this.dayQuantityForSearch = dayQuantityForSearch;
+        this.dayQuantity = dayQuantity;
         this.minDayOfTrip = minDayOfTrip;
         this.maxDayOfTrip = maxDayOfTrip;
     }
 
-    public List<Trip> searchTrip() {
+    public List<Trip> searchRoundTrip() {
         List<Trip> tripRes = new ArrayList<>();
 
-        Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + (int) (Math.random() * 1000000000));
+        Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + ""+ LocalTime.now().getHour()+""+ LocalTime.now().getMinute()+"" + (int) (Math.random() * 100000));
 
         isSearchActive = true;
         Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirportsDirect, destinationAirportsDirect, destinationAirportsReturn, originAirportsReturn);
@@ -79,29 +69,29 @@ public class TripScannerImpl {
             String[] routeArr = str.split(regex);
 
             if (routeArr[3].equals("Direct")) {
-                FlightScannerThread fst = new FlightScannerThread(
+                FlightScannerImpl scanner = new FlightScannerImpl(
+                        searchId,
                         Airline.valueOf(routeArr[0]),
                         new Airport(routeArr[1]),
                         new Airport(routeArr[2]),
                         startingDate,
-                        dayQuantityForSearch,
+                        dayQuantity,
                         "Direct");
-                fst.setSearchId(searchId);
-                fst.start();
-                threads.add(fst);
+                scanner.start();
+                threads.add(scanner);
             }
 
             if (routeArr[3].equals("Return")) {
-                FlightScannerThread fst = new FlightScannerThread(
+                FlightScannerImpl scanner = new FlightScannerImpl(
+                        searchId,
                         Airline.valueOf(routeArr[0]),
                         new Airport(routeArr[1]),
                         new Airport(routeArr[2]),
-                        startingDate.plusDays(minDayOfTrip-1),
-                        dayQuantityForSearch + maxDayOfTrip - minDayOfTrip,
+                        startingDate.plusDays(minDayOfTrip - 1),
+                        dayQuantity + maxDayOfTrip - minDayOfTrip,
                         "Return");
-                fst.setSearchId(searchId);
-                fst.start();
-                threads.add(fst);
+                scanner.start();
+                threads.add(scanner);
             }
         }
 
@@ -121,7 +111,7 @@ public class TripScannerImpl {
 
             isSearchActive = false;
 
-            for (FlightScannerThread f : threads) {
+            for (FlightScannerImpl f : threads) {
                 if (f.isAlive()) {
                     isSearchActive = true;
                     break;
@@ -147,7 +137,7 @@ public class TripScannerImpl {
                     LocalDate directDate = d.getDepartureTime().toLocalDate();
                     for (Flight r : returns) {
                         LocalDate returnDate = r.getDepartureTime().toLocalDate();
-                        if (returnDate.isAfter(directDate.plusDays(minDayOfTrip-2)) && returnDate.isBefore(directDate.plusDays(maxDayOfTrip))) {
+                        if (returnDate.isAfter(directDate.plusDays(minDayOfTrip - 2)) && returnDate.isBefore(directDate.plusDays(maxDayOfTrip))) {
                             List<Flight> flights = new ArrayList<>();
                             flights.add(d);
                             flights.add(r);
@@ -161,7 +151,7 @@ public class TripScannerImpl {
 
                     }
                 }
-                LOGGER.info("Searching trip is finished, searchId: "+searchId);
+                LOGGER.info("Searching trip is finished, searchId: " + searchId);
                 tripRes = TRIP_SERVICE.getAllTripById(searchId);
                 break;
             }

@@ -16,7 +16,6 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class SpecificFlightSearch extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/jsp/specificSearch.jsp").
                     forward(req, resp);
         }
-        System.out.println("Never !");
+
     }
 
     @Override
@@ -108,7 +107,7 @@ public class SpecificFlightSearch extends HttpServlet {
         Integer max = Integer.parseInt(req.getParameter("maxDay"));
 
         TripScannerImpl tripScanner = new TripScannerImpl(originsDirect, destinationsDirect, destinationsReturn, originsReturn, localDateL, deep, min, max);
-        List<Trip> trips = tripScanner.searchTrip();
+        List<Trip> trips = tripScanner.searchRoundTrip();
 
         req.setAttribute("trips", trips);
         HttpSession httpSession = req.getSession();
