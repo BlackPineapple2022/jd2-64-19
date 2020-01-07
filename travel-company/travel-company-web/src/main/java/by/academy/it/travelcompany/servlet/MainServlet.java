@@ -1,5 +1,3 @@
-
-
 package by.academy.it.travelcompany.servlet;
 
 import javax.servlet.ServletException;

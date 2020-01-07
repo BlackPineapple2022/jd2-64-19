@@ -13,7 +13,6 @@ public class Schedule {
     private Airport destination;
     private LocalDate startingDate;
     private Integer days;
-
     private Set<LocalDate> scheduleSet = new TreeSet<>();
 
     public Airline getAirline() {

@@ -82,7 +82,8 @@ public class SpecificFlightSearch extends HttpServlet {
         if (req.getParameter("airportDestinationDirect3") != null
                 && !req.getParameter("airportDestinationDirect1").equals(req.getParameter("airportDestinationDirect3"))
                 && !req.getParameter("airportDestinationDirect2").equals(req.getParameter("airportDestinationDirect3"))
-        ) {
+        )
+        {
             destinationsDirect.add(new Airport(req.getParameter("airportDestinationDirect3")));
         }
 
@@ -94,7 +95,8 @@ public class SpecificFlightSearch extends HttpServlet {
         if (req.getParameter("airportDestinationReturn3") != null
                 && !req.getParameter("airportDestinationReturn1").equals(req.getParameter("airportDestinationReturn3"))
                 && !req.getParameter("airportDestinationReturn2").equals(req.getParameter("airportDestinationReturn3"))
-        ) {
+        )
+        {
             destinationsReturn.add(new Airport(req.getParameter("airportDestinationReturn3")));
         }
 
@@ -156,7 +158,6 @@ public class SpecificFlightSearch extends HttpServlet {
 
         req.setAttribute("trips", trips);
         HttpSession httpSession = req.getSession();
-
 
         Object searchIdObj = httpSession.getAttribute("searchIdList");
 

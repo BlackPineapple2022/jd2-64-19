@@ -18,15 +18,16 @@ public class ScheduleServiceImpl implements ScheduleService {
         return INSTANCE;
     }
 
-    @Override //TODO: make real schedule service
+    @Override
     public Schedule getSchedule(Airline airline, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
 
         Schedule schedule = new Schedule(airline, origin, destination, startingDate, days);
+        //TODO: make real schedule service
 
-        for (int i = 0; i < days; i++) {
+        /*for (int i = 0; i < days; i++) {
             LocalDate dateToSet = startingDate.plusDays(i);
             schedule.getScheduleSet().add(dateToSet);
-        }
+        }*/
 
         return schedule;
     }
