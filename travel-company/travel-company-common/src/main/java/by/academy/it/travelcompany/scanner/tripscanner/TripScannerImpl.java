@@ -57,7 +57,7 @@ public class TripScannerImpl {
     public List<Trip> searchRoundTrip() {
         List<Trip> tripRes = new ArrayList<>();
 
-        Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + ""+ LocalTime.now().getHour()+""+ LocalTime.now().getMinute()+"" + (int) (Math.random() * 100000));
+        Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + LocalTime.now().getHour() + "" + LocalTime.now().getMinute() + "" + (int) (Math.random() * 100000));
 
         isSearchActive = true;
         Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirportsDirect, destinationAirportsDirect, destinationAirportsReturn, originAirportsReturn);
@@ -152,11 +152,47 @@ public class TripScannerImpl {
                     }
                 }
                 LOGGER.info("Searching trip is finished, searchId: " + searchId);
-                tripRes = TRIP_SERVICE.getAllTripById(searchId);
+                tripRes = TRIP_SERVICE.getAllTripBySearchId(searchId);
                 break;
             }
         }
         return tripRes;
     }
+
+    public List<Trip> searchRoundTrip(Boolean isStartingSameCountry, Boolean isStartingSameCity, Boolean isStartingSameAirport, Boolean isEndingSameCountry, Boolean isEndingSameCity, Boolean isEndingSameAirport) {
+        List<Trip> tripList = searchRoundTrip();
+        if (isEndingSameCountry) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getDestinationAirport().getCountry().equals(t.getFlights().get(1).getOriginAirport().getCountry()));
+        }
+        if (isEndingSameCity) {
+            for (Trip t : tripList) {
+                String cityDestinationDirect = t.getFlights().get(0).getDestinationAirport().getCity().split("--")[0];
+                String cityOriginReturn = t.getFlights().get(1).getOriginAirport().getCity().split("--")[0];
+                if (!cityDestinationDirect.equals(cityOriginReturn)) {
+                    tripList.remove(t);
+                }
+            }
+        }
+        if (isEndingSameAirport) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getDestinationAirport().equals(t.getFlights().get(1).getOriginAirport()));
+        }
+        if (isStartingSameCountry) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getOriginAirport().getCountry().equals(t.getFlights().get(1).getDestinationAirport().getCountry()));
+        }
+        if (isStartingSameCity) {
+            for (Trip t : tripList) {
+                String cityOriginDirect = t.getFlights().get(0).getOriginAirport().getCity().split("--")[0];
+                String cityDestinationReturn = t.getFlights().get(1).getDestinationAirport().getCity().split("--")[0];
+                if (!cityOriginDirect.equals(cityDestinationReturn)) {
+                    tripList.remove(t);
+                }
+            }
+        }
+        if (isStartingSameAirport) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getOriginAirport().equals(t.getFlights().get(1).getDestinationAirport()));
+        }
+        return tripList;
+    }
+
 
 }

@@ -50,7 +50,7 @@ public class TripServiceLocalImpl implements TripServiceLocal {
     }
 
     @Override
-    public List<Trip> getAllTripById(Long searchId) {
+    public List<Trip> getAllTripBySearchId(Long searchId) {
 
 
         List<Trip> allTrip = getAllTrips();

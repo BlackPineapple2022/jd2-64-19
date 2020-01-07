@@ -41,8 +41,7 @@ public interface TripServiceLocal {
 
     Trip updateTrip(Trip trip);
 
-
-    List <Trip> getAllTripById(Long searchId);
+    List <Trip> getAllTripBySearchId(Long searchId);
 
 
 }

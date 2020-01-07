@@ -27,7 +27,7 @@ public class SpecificFlightSearch extends HttpServlet {
 
         if (req.getParameter("searchId") != null) {
             TripServiceLocal tripServiceLocal = TripServiceLocalImpl.getInstance();
-            List<Trip> tripList = tripServiceLocal.getAllTripById(Long.parseLong(req.getParameter("searchId")));
+            List<Trip> tripList = tripServiceLocal.getAllTripBySearchId(Long.parseLong(req.getParameter("searchId")));
             req.setAttribute("trips", tripList);
             req.getRequestDispatcher("/WEB-INF/jsp/resultSearch.jsp").
                     forward(req, resp);
@@ -107,24 +107,70 @@ public class SpecificFlightSearch extends HttpServlet {
         Integer max = Integer.parseInt(req.getParameter("maxDay"));
 
         TripScannerImpl tripScanner = new TripScannerImpl(originsDirect, destinationsDirect, destinationsReturn, originsReturn, localDateL, deep, min, max);
-        List<Trip> trips = tripScanner.searchRoundTrip();
+
+        Boolean isStartingSameAirport = false;
+        Boolean isStartingSameCity = false;
+        Boolean isStartingSameCountry = false;
+
+        Boolean isEndingSameAirport = false;
+        Boolean isEndingSameCity = false;
+        Boolean isEndingSameCountry = false;
+
+        String endingFilter = req.getParameter("endingFilter");
+        String startingFilter = req.getParameter("startingFilter");
+
+        switch (endingFilter){
+            case "airportFilter":{
+                isEndingSameAirport=true;
+                break;
+            }
+            case "cityFilter":{
+                isEndingSameCity=true;
+                break;
+            }
+            case "countryFilter":{
+                isEndingSameCountry=true;
+                break;
+            }
+        }
+
+        switch (startingFilter){
+            case "airportFilter":{
+                isStartingSameAirport=true;
+                break;
+            }
+
+            case "cityFilter":{
+                isStartingSameCity=true;
+                break;
+            }
+
+            case "countryFilter":{
+                isStartingSameCountry=true;
+                break;
+            }
+
+        }
+
+        List<Trip> trips = tripScanner.searchRoundTrip(isStartingSameCountry,isStartingSameCity,isStartingSameAirport,isEndingSameCountry,isEndingSameCity,isEndingSameAirport);
 
         req.setAttribute("trips", trips);
         HttpSession httpSession = req.getSession();
+
+
         Object searchIdObj = httpSession.getAttribute("searchIdList");
 
         if (searchIdObj == null) {
             searchIdObj = new ArrayList<Long>();
         }
         List<Long> searchIdList = (ArrayList<Long>) searchIdObj;
-        if (trips.get(0) != null) {
+        if (trips.size() > 0) {
             searchIdList.add(trips.get(0).getSearchId());
         }
         httpSession.setAttribute("searchIdList", searchIdList);
 
         req.getRequestDispatcher("/WEB-INF/jsp/resultSearch.jsp").
                 forward(req, resp);
-
 
     }
 }

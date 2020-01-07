@@ -46,7 +46,7 @@ public class FlightScannerImpl extends Thread {
     private static final FlightServiceLocal FLIGHT_SERVICE = FlightServiceLocalImpl.getInstance();
     private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
 
-    private static final Object SYNC = new Object();
+    private static final Object SYNC_RY = new Object();
 
     private Long searchId;
     private Airline airline;
@@ -136,7 +136,7 @@ public class FlightScannerImpl extends Thread {
 
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
-                synchronized (SYNC) {
+                synchronized (SYNC_RY) {
                     json = new JSONObject(readUrl(req));
                     Thread.sleep(DELAY_REQ_RY_SYNC);
                 }

@@ -3,10 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<% out.println("<p>bufferSize: " + out.getBufferSize() + " remaining: "
-        + out.getRemaining() + " used: " + (out.getBufferSize() - out.getRemaining()) +
-        " autoFlush: " + out.isAutoFlush() + "</p><br>"); %>
-
 <fmt:setBundle basename="messages"/>
 
 <!DOCTYPE html >
