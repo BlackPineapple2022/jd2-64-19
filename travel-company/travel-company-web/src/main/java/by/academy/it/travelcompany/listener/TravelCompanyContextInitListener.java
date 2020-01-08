@@ -30,9 +30,5 @@ import java.util.ResourceBundle;
             }
         }
 
-        @Override
-        public void contextDestroyed(ServletContextEvent sce) {
-            LOGGER.info("Context destroyed");
-        }
     }
 

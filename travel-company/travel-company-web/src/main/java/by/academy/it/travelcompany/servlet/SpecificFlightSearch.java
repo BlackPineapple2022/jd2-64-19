@@ -76,7 +76,8 @@ public class SpecificFlightSearch extends HttpServlet {
 
         destinationsDirect.add(new Airport(req.getParameter("airportDestinationDirect1")));
         if (req.getParameter("airportDestinationDirect2") != null
-                && !req.getParameter("airportDestinationDirect1").equals(req.getParameter("airportDestinationDirect2"))) {
+                && !req.getParameter("airportDestinationDirect1").equals(req.getParameter("airportDestinationDirect2")))
+        {
             destinationsDirect.add(new Airport(req.getParameter("airportDestinationDirect2")));
         }
         if (req.getParameter("airportDestinationDirect3") != null
@@ -89,7 +90,8 @@ public class SpecificFlightSearch extends HttpServlet {
 
         destinationsReturn.add(new Airport(req.getParameter("airportDestinationReturn1")));
         if (req.getParameter("airportDestinationReturn2") != null
-                && !req.getParameter("airportDestinationReturn1").equals(req.getParameter("airportDestinationReturn2"))) {
+                && !req.getParameter("airportDestinationReturn1").equals(req.getParameter("airportDestinationReturn2")))
+        {
             destinationsReturn.add(new Airport(req.getParameter("airportDestinationReturn2")));
         }
         if (req.getParameter("airportDestinationReturn3") != null
