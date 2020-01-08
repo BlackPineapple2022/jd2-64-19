@@ -19,7 +19,7 @@ public class UserButNotAdminFilter extends HttpFilter {
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpSession session = req.getSession();
         User user = (User) session.getAttribute("user");
-        if ((user != null && user.getRole().equals("user"))){
+        if ((user != null && !user.getRole().equals("ADMIN"))){
             res.sendRedirect(req.getContextPath() + "/login");
         } else {
             super.doFilter(req, res, chain);

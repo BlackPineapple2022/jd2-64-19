@@ -37,7 +37,7 @@ public class LoginServlet extends HttpServlet {
             hasError = true;
             errorCode = 1;
         } else {
-            Optional<User> user = userService.findUser(userName, password);
+            Optional<User> user = userService.findUserByLoginAndPassword(userName, password);
             if (!user.isPresent()) {
                 hasError = true;
                 errorCode = 2;

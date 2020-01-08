@@ -6,6 +6,10 @@ import java.util.Optional;
 
 public interface UserService {
 
-    Optional <User> findUser(String login,String password);
+    Optional <User> findUserByLoginAndPassword(String login, String password);
+
+    Optional <User> findUserById(Long id);
+
+
 
 }

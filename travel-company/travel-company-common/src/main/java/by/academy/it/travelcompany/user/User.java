@@ -8,6 +8,7 @@ public class User {
     private String userName;
     private String password;
     private String role;
+    private String salt;
 
     public User() {
     }
@@ -22,6 +23,14 @@ public class User {
         this.id = id;
         this.userName = userName;
         this.password = password;
+        this.role = role;
+    }
+
+    public User(Long id, String userName, String password, String salt, String role) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.salt = salt;
         this.role = role;
     }
 
@@ -57,6 +66,14 @@ public class User {
         this.role = role;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -64,13 +81,12 @@ public class User {
         User user = (User) o;
         return Objects.equals(id, user.id) &&
                 Objects.equals(userName, user.userName) &&
-                Objects.equals(password, user.password) &&
                 Objects.equals(role, user.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, role);
+        return Objects.hash(id, userName, role);
     }
 
     @Override
@@ -78,7 +94,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }
