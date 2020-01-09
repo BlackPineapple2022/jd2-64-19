@@ -27,6 +27,7 @@
     <modules>
         <module>travel-company-common</module>
         <module>travel-company-web</module>
+        <module>common-hibernate</module>
     </modules>
 
     <dependencyManagement>
