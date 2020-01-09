@@ -15,7 +15,6 @@ import java.sql.SQLException;
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-
     private static final UserService INSTANCE = new UserServiceImpl();
 
     private final UserDAO userDAO = UserDAOImpl.getInstance();
@@ -49,5 +48,31 @@ public class UserServiceImpl implements UserService {
             LOGGER.error("Error find user by id: " + id, e);
         }
         return Optional.empty();
+    }
+
+    @Override
+    public User add(User user) {
+        LOGGER.info("add new user {}", user);
+        try {
+            Long id = userDAO.create(user);
+            user.setId(id);
+            LOGGER.info("result {}", id);
+        } catch (SQLException e) {
+            LOGGER.error("Error while creating student " + user, e);
+        }
+        return user;
+    }
+
+    @Override
+    public Boolean isUserNameFree(String userName) {
+        try {
+            Optional<User> userOption = userDAO.getByUserName(userName);
+            if (userOption.isPresent()) {
+                return false;
+            }
+        } catch (SQLException e) {
+            LOGGER.error("Error find user by userName" + userName, e);
+        }
+        return true;
     }
 }

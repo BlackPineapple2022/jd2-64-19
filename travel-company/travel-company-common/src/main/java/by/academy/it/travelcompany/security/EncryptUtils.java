@@ -56,12 +56,12 @@ public final class EncryptUtils {
     }
 
     public static void main(String[] args) {
-        String pass = "123";
+        String pass = "wapapa";
         String salt = EncryptUtils.generateSaltString();
         System.out.println("salt = " + salt);
         System.out.println("pass = " + pass);
 
-        String hash = EncryptUtils.getSHA256(pass, salt);
+        String hash = EncryptUtils.getSHA256(pass, "uMqCBSJbbb4duzS87dPe0DSlt2Q=");
         System.out.println("hash " + hash);
     }
 

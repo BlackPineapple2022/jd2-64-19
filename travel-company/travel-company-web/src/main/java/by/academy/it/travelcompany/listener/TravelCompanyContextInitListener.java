@@ -2,6 +2,10 @@ package by.academy.it.travelcompany.listener;
 
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
+import by.academy.it.travelcompany.security.EncryptUtils;
+import by.academy.it.travelcompany.service.global.UserService;
+import by.academy.it.travelcompany.service.global.UserServiceImpl;
+import by.academy.it.travelcompany.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,6 +28,7 @@ import java.util.ResourceBundle;
                 TcDataSource.configure(bundle);
                 DataSource dataSource = TcDataSource.getDataSource();
                 DbMigration.migrate(dataSource);
+
             } catch (Exception e) {
                 LOGGER.error("error", e);
                 throw new RuntimeException("Datasource initialisation error", e);
