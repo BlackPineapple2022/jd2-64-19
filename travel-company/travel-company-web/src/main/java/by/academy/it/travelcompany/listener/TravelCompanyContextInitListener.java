@@ -5,6 +5,8 @@ import by.academy.it.travelcompany.db.migration.DbMigration;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.service.global.UserService;
 import by.academy.it.travelcompany.service.global.UserServiceImpl;
+import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.user.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +30,7 @@ import java.util.ResourceBundle;
                 TcDataSource.configure(bundle);
                 DataSource dataSource = TcDataSource.getDataSource();
                 DbMigration.migrate(dataSource);
+
 
             } catch (Exception e) {
                 LOGGER.error("error", e);
