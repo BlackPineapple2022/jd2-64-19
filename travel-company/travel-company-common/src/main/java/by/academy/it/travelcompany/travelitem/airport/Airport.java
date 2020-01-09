@@ -90,7 +90,7 @@ public class Airport implements Comparable<Airport> {
 
     @Override
     public String toString() {
-        return country + " | " + city + " | " + code;
+        return country + " | " + city + " | " + code + "|"+id;
     }
 
     @Override

@@ -23,6 +23,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
     public static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
     public static final String DELETE_AIRPORT_BY_ID = "DELETE FROM airport WHERE id = ?";
+    public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =? ";
 
     @Override
     public Long create(Airport airport) throws SQLException {
@@ -55,7 +56,16 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
 
     @Override
     public int update(Airport airport) throws SQLException {
-        return 0;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_AIRPORT)) {
+
+            statement.setString(1, airport.getCode());
+            statement.setString(2, airport.getCountry());
+            statement.setString(3, airport.getCity());
+            statement.setLong(4, airport.getId());
+
+            return statement.executeUpdate();
+        }
     }
 
     @Override

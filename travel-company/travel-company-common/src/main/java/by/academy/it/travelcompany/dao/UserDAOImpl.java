@@ -16,6 +16,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
     public static final String INSERT_USER = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'2')";
     public static final String INSERT_ADMIN = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'1')";
 
+
     private UserDAOImpl() {
         super(LoggerFactory.getLogger(UserDAOImpl.class));
     }

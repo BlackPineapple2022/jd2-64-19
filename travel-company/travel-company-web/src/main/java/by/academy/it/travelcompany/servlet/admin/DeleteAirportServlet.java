@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.servlet;
+package by.academy.it.travelcompany.servlet.admin;
 
 import by.academy.it.travelcompany.service.global.AirportServiceImpl;
 

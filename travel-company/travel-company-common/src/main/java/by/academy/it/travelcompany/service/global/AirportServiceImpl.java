@@ -57,5 +57,16 @@ public class AirportServiceImpl {
         }
     }
 
+    public Airport update(Airport airport) {
+        LOGGER.info("updating airport {}", airport);
+        try {
+            int update = airportDAO.update(airport);
+            LOGGER.info("result {}", update);
+        } catch (SQLException e) {
+            LOGGER.error("Error while updating airport " + airport, e);
+        }
+        return airport;
+    }
+
 
 }
