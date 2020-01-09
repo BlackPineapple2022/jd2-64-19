@@ -6,16 +6,6 @@ package by.academy.it.travelcompany.travelitem.airport;
  * to prepare information to make correct request to Wizzair or Ryanair web site
  */
 
-import by.academy.it.travelcompany.dao.AirportDAO;
-import by.academy.it.travelcompany.dao.AirportDAOImpl;
-import by.academy.it.travelcompany.dao.UserDAO;
-import by.academy.it.travelcompany.dao.UserDAOImpl;
-import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
-import by.academy.it.travelcompany.user.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.sql.SQLException;
 import java.util.*;
 
 public class AirportInfoCentre {

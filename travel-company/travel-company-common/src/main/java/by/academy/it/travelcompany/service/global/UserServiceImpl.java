@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
             user.setId(id);
             LOGGER.info("result {}", id);
         } catch (SQLException e) {
-            LOGGER.error("Error while creating student " + user, e);
+            LOGGER.error("Error while creating user " + user, e);
         }
         return user;
     }
