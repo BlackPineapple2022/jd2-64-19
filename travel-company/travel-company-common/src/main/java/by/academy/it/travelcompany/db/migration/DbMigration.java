@@ -8,15 +8,15 @@ import javax.sql.DataSource;
 
     public final class DbMigration {
 
-        private static final Logger logger = LoggerFactory.getLogger(DbMigration.class);
+        private static final Logger LOGGER = LoggerFactory.getLogger(DbMigration.class);
 
         private DbMigration() {
         }
 
         public static void migrate(DataSource dataSource) {
-            logger.info("Starting DB migration...");
+            LOGGER.info("Starting DB migration...");
             Flyway flyway = Flyway.configure().dataSource(dataSource).load();
             flyway.migrate();
-            logger.info("DB migration finished");
+            LOGGER.info("DB migration finished");
         }
 }

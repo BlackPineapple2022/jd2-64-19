@@ -11,6 +11,7 @@ import java.util.Objects;
 import java.util.Set;
 
 public class Airport implements Comparable<Airport> {
+    private Long id;
     private String code;
     private String country;
     private String city;
@@ -33,6 +34,21 @@ public class Airport implements Comparable<Airport> {
                 this.country = a.getCountry();
             }
         }
+    }
+
+    public Airport(Long id, String code, String country, String city) {
+        this.id = id;
+        this.code = code;
+        this.country = country;
+        this.city = city;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCode() {
@@ -74,7 +90,7 @@ public class Airport implements Comparable<Airport> {
 
     @Override
     public String toString() {
-        return country + " | " + city + " | " + code;
+        return country + " | " + city + " | " + code + "|"+id;
     }
 
     @Override

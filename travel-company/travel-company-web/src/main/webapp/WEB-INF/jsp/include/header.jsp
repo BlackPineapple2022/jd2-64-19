@@ -47,7 +47,23 @@
     </a>
 </div>
 
-<div style="background: #5371ff; height:5px"></div>
+
+<c:if test="${searchIdList!=null}">
+    <p>Недавние поиски:</p>
+    <c:forEach items="${searchIdList}" var="searchId">
+        <a href="${pageContext.request.contextPath}/spec?searchId=<c:out value="${searchId}"/>"><c:out value="${searchId}"/></a>
+        <br>
+    </c:forEach>
+</c:if>
+
+<div style="background: #5371ff; height:2px"></div>
+
+
+
+
+
+
+
 
 
 

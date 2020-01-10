@@ -13,8 +13,8 @@ package by.academy.it.travelcompany.travelitem.airport;
 public enum AirportStartPoint {
     VNO("Lithuania","Vilnius"),
     KUN("Lithuania","Kaunas"),
-    WMI("Poland","Warsaw Modlin"),
-    WAW("Poland","Warsaw Chopin");
+    WMI("Poland","Warsaw--Modlin"),
+    WAW("Poland","Warsaw--Chopin");
 
     private String country;
     private String city;

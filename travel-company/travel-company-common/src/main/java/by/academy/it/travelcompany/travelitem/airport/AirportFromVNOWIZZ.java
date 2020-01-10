@@ -23,10 +23,10 @@ public enum AirportFromVNOWIZZ {
     KEF("Iceland","Reykjavik"),
     ETM("Israel","Eilat"),
     TLV("Israel","Tel-Aviv"),
-    MXP("Italy","Milan Malpensa"),
+    MXP("Italy","Milan--Malpensa"),
     EIN("Netherlands","Eindhoven"),
-    TRF("Norway","Oslo Sandefjord Torp"),
-    BCN("Spain","Barcelona El Prat");
+    TRF("Norway","Oslo--Torp"),
+    BCN("Spain","Barcelona");
 
     private String country;
     private String city;

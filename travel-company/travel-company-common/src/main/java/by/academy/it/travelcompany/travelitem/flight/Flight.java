@@ -24,6 +24,8 @@ public class Flight {
 
     private String direction;
 
+    private Long searchId;
+
     private LocalDateTime checkedTime; // Last time Scanner update(create) this flight
 
     public Flight() {
@@ -41,24 +43,16 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public Airport getOriginAirport() {
-        return originAirport;
-    }
-
     public Long getId() {
         return id;
     }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Airport getOriginAirport() {
+        return originAirport;
     }
 
     public void setOriginAirport(Airport originAirport) {
@@ -121,6 +115,22 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
     public LocalDateTime getCheckedTime() {
         return checkedTime;
     }
@@ -155,6 +165,7 @@ public class Flight {
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
                 ", direction='" + direction + '\'' +
+                ", searchId='" + searchId + '\'' +
                 '}';
     }
 

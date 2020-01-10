@@ -4,61 +4,63 @@ package by.academy.it.travelcompany.travelitem.airport;
  * This class contains static method that help to plan trip,
  * find destination airport, find airport on same city or same area,
  * to prepare information to make correct request to Wizzair or Ryanair web site
- * */
+ */
 
 import java.util.*;
 
 public class AirportInfoCentre {
-private static Set<Airport> allStartAirports = new TreeSet<>();
-private static Set<Airport> allAirports = new TreeSet<>();
-private static Set<Airport> allAirportsFromStart = new TreeSet<>();
-private static Set<Airport> allAirportsFromVNO = new TreeSet<>();
-private static Set<Airport> allAirportsFromVNORY = new TreeSet<>();
-private static Set<Airport> allAirportsFromVNOWIZZ = new TreeSet<>();
-private static Set<Airport> allAirportsFromKUN = new TreeSet<>();
-private static Set<Airport> allAirportsFromKUNRY = new TreeSet<>();
-private static Set<Airport> allAirportsFromKUNWIZZ = new TreeSet<>();
-private static Set<Airport> allAirportsFromWAW = new TreeSet<>();
-private static Set<Airport> allAirportsFromWAWWIZZ = new TreeSet<>();
-private static Set<Airport> allAirportsFromWMI = new TreeSet<>();
-private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
+
+
+    private static Set<Airport> allStartAirports = new TreeSet<>();
+    private static Set<Airport> allAirports = new TreeSet<>();
+    private static Set<Airport> allAirportsFromStart = new TreeSet<>();
+    private static Set<Airport> allAirportsFromVNO = new TreeSet<>();
+    private static Set<Airport> allAirportsFromVNORY = new TreeSet<>();
+    private static Set<Airport> allAirportsFromVNOWIZZ = new TreeSet<>();
+    private static Set<Airport> allAirportsFromKUN = new TreeSet<>();
+    private static Set<Airport> allAirportsFromKUNRY = new TreeSet<>();
+    private static Set<Airport> allAirportsFromKUNWIZZ = new TreeSet<>();
+    private static Set<Airport> allAirportsFromWAW = new TreeSet<>();
+    private static Set<Airport> allAirportsFromWAWWIZZ = new TreeSet<>();
+    private static Set<Airport> allAirportsFromWMI = new TreeSet<>();
+    private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
 
     static {
         // allStartAirports initialisation
-        for (int i = 0; i < AirportStartPoint.values().length; i++){
+        for (int i = 0; i < AirportStartPoint.values().length; i++) {
             allStartAirports.add(new Airport(AirportStartPoint.values()[i].toString(), AirportStartPoint.values()[i].getCountry(), AirportStartPoint.values()[i].getCity()));
         }
         // allAirportsFromVNORY initialisation
-        for (int i = 0; i < AirportFromVNORY.values().length; i++){
-            allAirportsFromVNORY.add(new Airport(AirportFromVNORY.values()[i].toString(),AirportFromVNORY.values()[i].getCountry(),AirportFromVNORY.values()[i].getCity()));
+        for (int i = 0; i < AirportFromVNORY.values().length; i++) {
+            allAirportsFromVNORY.add(new Airport(AirportFromVNORY.values()[i].toString(), AirportFromVNORY.values()[i].getCountry(), AirportFromVNORY.values()[i].getCity()));
         }
         // allAirportsFromVNOWIZZ initialisation
-        for (int i = 0; i < AirportFromVNOWIZZ.values().length; i++){
-            allAirportsFromVNOWIZZ.add(new Airport(AirportFromVNOWIZZ.values()[i].toString(),AirportFromVNOWIZZ.values()[i].getCountry(),AirportFromVNOWIZZ.values()[i].getCity()));
+        for (int i = 0; i < AirportFromVNOWIZZ.values().length; i++) {
+            allAirportsFromVNOWIZZ.add(new Airport(AirportFromVNOWIZZ.values()[i].toString(), AirportFromVNOWIZZ.values()[i].getCountry(), AirportFromVNOWIZZ.values()[i].getCity()));
         }
         // allAirportsFromVNO initialisation
         allAirportsFromVNO.addAll(allAirportsFromVNORY);
         allAirportsFromVNO.addAll(allAirportsFromVNOWIZZ);
         // allAirportsFromKUNRY initialisation
-        for (int i = 0; i < AirportFromKUNRY.values().length; i++){
-            allAirportsFromKUNRY.add(new Airport(AirportFromKUNRY.values()[i].toString(),AirportFromKUNRY.values()[i].getCountry(),AirportFromKUNRY.values()[i].getCity()));
+        for (int i = 0; i < AirportFromKUNRY.values().length; i++) {
+            allAirportsFromKUNRY.add(new Airport(AirportFromKUNRY.values()[i].toString(), AirportFromKUNRY.values()[i].getCountry(), AirportFromKUNRY.values()[i].getCity()));
         }
         // allAirportsFromKUNWIZZ initialisation
-        for (int i = 0; i < AirportFromKUNWIZZ.values().length; i++){
-            allAirportsFromKUNWIZZ.add(new Airport(AirportFromKUNWIZZ.values()[i].toString(),AirportFromKUNWIZZ.values()[i].getCountry(),AirportFromKUNWIZZ.values()[i].getCity()));
+        for (int i = 0; i < AirportFromKUNWIZZ.values().length; i++) {
+            allAirportsFromKUNWIZZ.add(new Airport(AirportFromKUNWIZZ.values()[i].toString(), AirportFromKUNWIZZ.values()[i].getCountry(), AirportFromKUNWIZZ.values()[i].getCity()));
         }
         // allAirportsFromKUN initialisation
         allAirportsFromKUN.addAll(allAirportsFromKUNRY);
         allAirportsFromKUN.addAll(allAirportsFromKUNWIZZ);
         // allAirportsFromWAWWIZZ initialisation
-        for (int i = 0; i < AirportFromWAWWIZZ.values().length; i++){
-            allAirportsFromWAWWIZZ.add(new Airport(AirportFromWAWWIZZ.values()[i].toString(),AirportFromWAWWIZZ.values()[i].getCountry(),AirportFromWAWWIZZ.values()[i].getCity()));
+        for (int i = 0; i < AirportFromWAWWIZZ.values().length; i++) {
+            allAirportsFromWAWWIZZ.add(new Airport(AirportFromWAWWIZZ.values()[i].toString(), AirportFromWAWWIZZ.values()[i].getCountry(), AirportFromWAWWIZZ.values()[i].getCity()));
         }
         // allAirportsFromWAW initialisation
         allAirportsFromWAW.addAll(allAirportsFromWAWWIZZ);
         // allAirportsFromWMIRY initialisation
-        for (int i = 0; i < AirportFromWMIRY.values().length; i++){
-            allAirportsFromWMIRY.add(new Airport(AirportFromWMIRY.values()[i].toString(),AirportFromWMIRY.values()[i].getCountry(),AirportFromWMIRY.values()[i].getCity()));
+        for (int i = 0; i < AirportFromWMIRY.values().length; i++) {
+            allAirportsFromWMIRY.add(new Airport(AirportFromWMIRY.values()[i].toString(), AirportFromWMIRY.values()[i].getCountry(), AirportFromWMIRY.values()[i].getCity()));
         }
         // allAirportsFromWMI initialisation
         allAirportsFromWMI.addAll(allAirportsFromWMIRY);
@@ -194,27 +196,27 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
      * * @return set of all airport that you can get from @param airport
      */
 
-    public static Set <Airport> getAllDestinations(Airport airport){
-        if (airport.equals(new Airport("VNO"))){
+    public static Set<Airport> getAllDestinations(Airport airport) {
+        if (airport.equals(new Airport("VNO"))) {
             return allAirportsFromVNO;
-        }else if (airport.equals(new Airport("KUN"))){
+        } else if (airport.equals(new Airport("KUN"))) {
             return allAirportsFromKUN;
-        }else if (airport.equals(new Airport("WAW"))){
+        } else if (airport.equals(new Airport("WAW"))) {
             return allAirportsFromWAW;
-        }else if (airport.equals(new Airport("WMI"))){
+        } else if (airport.equals(new Airport("WMI"))) {
             return allAirportsFromWMI;
-        }else {
-            Set <Airport> airportsDest = new TreeSet<>();
-            if (getAllAirportsFromVNO().contains(airport)){
+        } else {
+            Set<Airport> airportsDest = new TreeSet<>();
+            if (getAllAirportsFromVNO().contains(airport)) {
                 airportsDest.add(new Airport("VNO"));
             }
-            if (getAllAirportsFromKUN().contains(airport)){
+            if (getAllAirportsFromKUN().contains(airport)) {
                 airportsDest.add(new Airport("KUN"));
             }
-            if (getAllAirportsFromWAW().contains(airport)){
+            if (getAllAirportsFromWAW().contains(airport)) {
                 airportsDest.add(new Airport("WAW"));
             }
-            if (getAllAirportsFromVNO().contains(airport)){
+            if (getAllAirportsFromVNO().contains(airport)) {
                 airportsDest.add(new Airport("WMI"));
             }
             return airportsDest;
@@ -227,76 +229,76 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
      * Treeset of Airport
      */
 
-    public static Map<Airline,Set<Airport>> getAllDestinationsAndCompany(Airport airport){
-        Map <Airline,Set<Airport>> allDestinationsAndCompany = new HashMap<>();
-        if (airport.equals(new Airport("VNO"))){
-            allDestinationsAndCompany.put(Airline.RY,allAirportsFromVNORY);
-            allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromVNOWIZZ);
-        } else if(airport.equals(new Airport("KUN"))){
-            allDestinationsAndCompany.put(Airline.RY,allAirportsFromKUNRY);
-            allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromKUNWIZZ);
-        } else if(airport.equals(new Airport("WMI"))){
-            allDestinationsAndCompany.put(Airline.RY,allAirportsFromWMIRY);
-        } else if(airport.equals(new Airport("WAW"))){
-            allDestinationsAndCompany.put(Airline.WIZZ,allAirportsFromWAWWIZZ);
+    public static Map<Airline, Set<Airport>> getAllDestinationsAndCompany(Airport airport) {
+        Map<Airline, Set<Airport>> allDestinationsAndCompany = new HashMap<>();
+        if (airport.equals(new Airport("VNO"))) {
+            allDestinationsAndCompany.put(Airline.RY, allAirportsFromVNORY);
+            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromVNOWIZZ);
+        } else if (airport.equals(new Airport("KUN"))) {
+            allDestinationsAndCompany.put(Airline.RY, allAirportsFromKUNRY);
+            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromKUNWIZZ);
+        } else if (airport.equals(new Airport("WMI"))) {
+            allDestinationsAndCompany.put(Airline.RY, allAirportsFromWMIRY);
+        } else if (airport.equals(new Airport("WAW"))) {
+            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromWAWWIZZ);
         } else {
 
-            if (allAirportsFromVNORY.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports1 = new TreeSet<>();
+            if (allAirportsFromVNORY.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                    Set<Airport> airports1 = new TreeSet<>();
                     airports1.add(new Airport("VNO"));
-                    allDestinationsAndCompany.put(Airline.RY,airports1);
+                    allDestinationsAndCompany.put(Airline.RY, airports1);
                 } else {
                     allDestinationsAndCompany.get(Airline.RY).add(new Airport("VNO"));
                 }
             }
 
-            if (allAirportsFromVNOWIZZ.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports2 = new TreeSet<>();
+            if (allAirportsFromVNOWIZZ.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                    Set<Airport> airports2 = new TreeSet<>();
                     airports2.add(new Airport("VNO"));
-                    allDestinationsAndCompany.put(Airline.WIZZ,airports2);
+                    allDestinationsAndCompany.put(Airline.WIZZ, airports2);
                 } else {
                     allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("VNO"));
                 }
             }
 
-            if (allAirportsFromKUNRY.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports3 = new TreeSet<>();
+            if (allAirportsFromKUNRY.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                    Set<Airport> airports3 = new TreeSet<>();
                     airports3.add(new Airport("KUN"));
-                    allDestinationsAndCompany.put(Airline.RY,airports3);
+                    allDestinationsAndCompany.put(Airline.RY, airports3);
                 } else {
                     allDestinationsAndCompany.get(Airline.RY).add(new Airport("KUN"));
                 }
 
             }
 
-            if (allAirportsFromKUNWIZZ.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports4 = new TreeSet<>();
+            if (allAirportsFromKUNWIZZ.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                    Set<Airport> airports4 = new TreeSet<>();
                     airports4.add(new Airport("KUN"));
-                    allDestinationsAndCompany.put(Airline.WIZZ,airports4);
+                    allDestinationsAndCompany.put(Airline.WIZZ, airports4);
                 } else {
                     allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("KUN"));
                 }
             }
 
-            if (allAirportsFromWAWWIZZ.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)){
-                    Set <Airport> airports5 = new TreeSet<>();
+            if (allAirportsFromWAWWIZZ.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                    Set<Airport> airports5 = new TreeSet<>();
                     airports5.add(new Airport("WAW"));
-                    allDestinationsAndCompany.put(Airline.WIZZ,airports5);
+                    allDestinationsAndCompany.put(Airline.WIZZ, airports5);
                 } else {
                     allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("WAW"));
                 }
             }
 
-            if (allAirportsFromWMIRY.contains(airport)){
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)){
-                    Set <Airport> airports6 = new TreeSet<>();
+            if (allAirportsFromWMIRY.contains(airport)) {
+                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                    Set<Airport> airports6 = new TreeSet<>();
                     airports6.add(new Airport("WMI"));
-                    allDestinationsAndCompany.put(Airline.RY,airports6);
+                    allDestinationsAndCompany.put(Airline.RY, airports6);
                 } else {
                     allDestinationsAndCompany.get(Airline.RY).add(new Airport("WMI"));
                 }
@@ -306,21 +308,21 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
         return allDestinationsAndCompany;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirports, List<Airport> destinationAirports){
+    public static Set<String> getRouteMap(List<Airport> originAirports, List<Airport> destinationAirports) {
 
-        Set <String> traces = new TreeSet<>() ;
+        Set<String> traces = new TreeSet<>();
 
         for (int i = 0; i < originAirports.size(); i++) {
 
             Map<Airline, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
 
-            for (Airline airline:searchMapLocal.keySet()) {
-                for (Airport airport:searchMapLocal.get(airline)) {
-                    for (Airport airportGlobal:destinationAirports ) {
-                        if (airportGlobal.equals(airport)){
-                            String trace = airline+"--"+originAirports.get(i).getCode()+"--"+airport.getCode()+"--Direct";
+            for (Airline airline : searchMapLocal.keySet()) {
+                for (Airport airport : searchMapLocal.get(airline)) {
+                    for (Airport airportGlobal : destinationAirports) {
+                        if (airportGlobal.equals(airport)) {
+                            String trace = airline + "--" + originAirports.get(i).getCode() + "--" + airport.getCode() + "--Direct";
                             traces.add(trace);
-                            String traceReturn = airline+"--"+airport.getCode()+"--"+originAirports.get(i).getCode()+"--Return";
+                            String traceReturn = airline + "--" + airport.getCode() + "--" + originAirports.get(i).getCode() + "--Return";
                             traces.add(traceReturn);
                         }
                     }
@@ -330,32 +332,19 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
         return traces;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List <Airport> destinationAirportsReturn, List<Airport> originAirportsReturn){
+    public static Set<String> getRouteMap(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
 
-        Set <String> traces = new TreeSet<>() ;
+        Set<String> traces = new TreeSet<>();
 
         for (int i = 0; i < originAirportsDirect.size(); i++) {
 
             Map<Airline, Set<Airport>> searchMapLocalDirect = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsDirect.get(i));
 
-            for (Airline airline:searchMapLocalDirect.keySet()) {
-                for (Airport airport:searchMapLocalDirect.get(airline)) {
-                    for (Airport airportGlobal:destinationAirportsDirect ) {
-                        if (airportGlobal.equals(airport)){
-                            String trace = airline+"--"+originAirportsDirect.get(i).getCode()+"--"+airport.getCode()+"--Direct";
-                            traces.add(trace);
-                        }
-                    }
-                }
-            }
-
-            Map<Airline, Set<Airport>> searchMapLocalReturn = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsReturn.get(i));
-
-            for (Airline airline:searchMapLocalReturn.keySet()) {
-                for (Airport airport:searchMapLocalReturn.get(airline)) {
-                    for (Airport airportGlobal:destinationAirportsReturn ) {
-                        if (airportGlobal.equals(airport)){
-                            String trace = airline+"--"+airport.getCode()+"--"+originAirportsReturn.get(i).getCode()+"--Return";
+            for (Airline airline : searchMapLocalDirect.keySet()) {
+                for (Airport airport : searchMapLocalDirect.get(airline)) {
+                    for (Airport airportGlobal : destinationAirportsDirect) {
+                        if (airportGlobal.equals(airport)) {
+                            String trace = airline + "--" + originAirportsDirect.get(i).getCode() + "--" + airport.getCode() + "--Direct";
                             traces.add(trace);
                         }
                     }
@@ -363,6 +352,23 @@ private static Set<Airport> allAirportsFromWMIRY = new TreeSet<>();
             }
 
         }
+
+        for (int i = 0; i < originAirportsReturn.size(); i++) {
+
+            Map<Airline, Set<Airport>> searchMapLocalReturn = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsReturn.get(i));
+
+            for (Airline airline : searchMapLocalReturn.keySet()) {
+                for (Airport airport : searchMapLocalReturn.get(airline)) {
+                    for (Airport airportGlobal : destinationAirportsReturn) {
+                        if (airportGlobal.equals(airport)) {
+                            String trace = airline + "--" + airport.getCode() + "--" + originAirportsReturn.get(i).getCode() + "--Return";
+                            traces.add(trace);
+                        }
+                    }
+                }
+            }
+        }
+
         return traces;
     }
 

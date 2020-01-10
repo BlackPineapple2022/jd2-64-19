@@ -9,7 +9,7 @@ import java.util.List;
  * Flight service
  */
 
-public interface FlightService {
+public interface FlightServiceLocal {
 
     /**
      * Get all flights
@@ -52,6 +52,8 @@ public interface FlightService {
      */
 
     Flight updateOrCreate(Flight flight) throws IOException;
+
+    List <Flight> getAllFlightBySearchIdAndDirection(Long searchId, String direction);
 
 
 }

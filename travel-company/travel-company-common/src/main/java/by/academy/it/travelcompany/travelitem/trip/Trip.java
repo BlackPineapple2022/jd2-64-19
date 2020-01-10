@@ -13,8 +13,16 @@ public class Trip {
     private List<Flight> flights;
     private List<Accommodation> accommodations;
     private List<Transfer> transfers;
+    private Double price;
+    private Long searchId;
 
     public Trip() {
+    }
+
+    public Trip(List<Flight> flights, Double price, Long searchId) {
+        this.flights = flights;
+        this.price = price;
+        this.searchId = searchId;
     }
 
     public Trip(Long id, List<Flight> flights, List<Accommodation> accommodations, List<Transfer> transfers) {
@@ -22,6 +30,22 @@ public class Trip {
         this.flights = flights;
         this.accommodations = accommodations;
         this.transfers = transfers;
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public Long getSearchId() {
+        return searchId;
+    }
+
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
     }
 
     public Long getId() {
@@ -77,8 +101,10 @@ public class Trip {
         return "Trip{" +
                 "id=" + id +
                 ", flights=" + flights +
-                ", accommodations=" + accommodations +
-                ", transfers=" + transfers +
+                ", price=" + price +
+
+                //", accommodations=" + accommodations +
+                //", transfers=" + transfers +
                 '}';
     }
 }

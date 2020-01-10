@@ -1,10 +1,13 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
+import by.academy.it.travelcompany.service.global.ScheduleService;
+import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.service.local.FlightService;
-import by.academy.it.travelcompany.service.local.FlightServiceImpl;
+import by.academy.it.travelcompany.travelitem.schedule.Schedule;
+import by.academy.it.travelcompany.service.local.FlightServiceLocal;
+import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -13,45 +16,127 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-
 import org.apache.http.impl.client.HttpClients;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
 import java.net.URL;
 
 import java.nio.charset.StandardCharsets;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+
 import java.util.*;
 
-public class FlightScannerImpl implements FlightScanner {
+public class FlightScannerImpl extends Thread {
 
-    private static final int DELAY_REQ_RY = 2000;
-    private static final int DELAY_REQ_RY_SYNC = 1200;
+    private static final int DELAY_REQ_RY = 100;
+    private static final int DELAY_REQ_RY_SYNC = 1000;
     private static final int DELAY_REQ_WIZZ = 100;
 
-    private static Object sync = new Object();
+    private static final Logger LOGGER = LoggerFactory.getLogger(FlightScannerImpl.class);
+    private static final FlightServiceLocal FLIGHT_SERVICE = FlightServiceLocalImpl.getInstance();
+    private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
 
-    private static final FlightService flightService = FlightServiceImpl.getInstance();
+    private static final Object SYNC_RY = new Object();
 
-    public FlightScannerImpl() {
+    private Long searchId;
+    private Airline airline;
+    private Airport originAirport;
+    private Airport destinationAirport;
+    private LocalDate startingDate;
+    private Integer dayQuantity;
+    private String direction;
+
+    public FlightScannerImpl(Long searchId, Airline airline, Airport originAirport, Airport destinationAirport, LocalDate startingDate, Integer dayQuantity, String direction) {
+        this.searchId = searchId;
+        this.airline = airline;
+        this.originAirport = originAirport;
+        this.destinationAirport = destinationAirport;
+        this.startingDate = startingDate;
+        this.dayQuantity = dayQuantity;
+        this.direction = direction;
     }
 
+    public Long getSearchId() {
+        return searchId;
+    }
 
-    @Override
-    public List<Flight> parseFlightsRY(LocalDate startLocalDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
+    public void setSearchId(Long searchId) {
+        this.searchId = searchId;
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
+    }
+
+    public Airport getOriginAirport() {
+        return originAirport;
+    }
+
+    public void setOriginAirport(Airport originAirport) {
+        this.originAirport = originAirport;
+    }
+
+    public Airport getDestinationAirport() {
+        return destinationAirport;
+    }
+
+    public void setDestinationAirport(Airport destinationAirport) {
+        this.destinationAirport = destinationAirport;
+    }
+
+    public LocalDate getStartingDate() {
+        return startingDate;
+    }
+
+    public void setStartingDate(LocalDate startingDate) {
+        this.startingDate = startingDate;
+    }
+
+    public Integer getDayQuantity() {
+        return dayQuantity;
+    }
+
+    public void setDayQuantity(Integer dayQuantity) {
+        this.dayQuantity = dayQuantity;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public List<Flight> parseFlightsRY() {
+        LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
+                + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
+        final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.RY, originAirport, destinationAirport, startingDate, dayQuantity);
+        LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
+
         List<Flight> result = new ArrayList<>();
-        for (int j = 0; j < dayQuantityForSearchFromToday; j++) {
+        while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
 
-                String req = getReqStringRY(startLocalDate.plusDays(j), origin, destination);
+                String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
-                synchronized (sync) {
+                synchronized (SYNC_RY) {
                     json = new JSONObject(readUrl(req));
                     Thread.sleep(DELAY_REQ_RY_SYNC);
                 }
@@ -65,71 +150,51 @@ public class FlightScannerImpl implements FlightScanner {
                 for (int i = 0; i < jsonFlights.length(); i++) {
                     JSONObject jsonFlight = (JSONObject) jsonFlights.get(i);
                     JSONArray time = jsonFlight.getJSONArray("time");
-                    String arriveDateTime = (String) time.get(1);
                     String departureDateTime = (String) time.get(0);
+                    String arriveDateTime = (String) time.get(1);
                     String flightNumber = (String) jsonFlight.get("flightNumber");
                     JSONObject jsonRegularFare = jsonFlight.getJSONObject("regularFare");
                     JSONArray jsonFares = jsonRegularFare.getJSONArray("fares");
                     JSONObject jsonFare = (JSONObject) jsonFares.get(0);
                     Double amount = (Double) (jsonFare.get("amount"));
 
-                    String regexDateFromTime = "T";
-                    String regexDate = "-";
-                    String regexTime = ":";
+                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
+                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
 
-                    String arriveDate = arriveDateTime.split(regexDateFromTime)[0];
-                    String arriveYear = arriveDate.split(regexDate)[0];
-                    String arriveMonth = arriveDate.split(regexDate)[1];
-                    String arriveDay = arriveDate.split(regexDate)[2];
-                    LocalDate arriveDateL = LocalDate.of(Integer.parseInt(arriveYear), Integer.parseInt(arriveMonth), Integer.parseInt(arriveDay));
-                    String arriveTime = arriveDateTime.split(regexDateFromTime)[1];
-                    String arriveHour = arriveTime.split(regexTime)[0];
-                    String arriveMin = arriveTime.split(regexTime)[1];
-                    LocalTime arriveTimeL = LocalTime.of(Integer.parseInt(arriveHour), Integer.parseInt(arriveMin));
-                    LocalDateTime arriveLocalDateTime = LocalDateTime.of(arriveDateL, arriveTimeL);
-
-                    String departureDate = departureDateTime.split(regexDateFromTime)[0];
-                    String departureYear = departureDate.split(regexDate)[0];
-                    String departureMonth = departureDate.split(regexDate)[1];
-                    String departureDay = departureDate.split(regexDate)[2];
-                    LocalDate departureDateL = LocalDate.of(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
-                    String departureTime = departureDateTime.split(regexDateFromTime)[1];
-                    String departureHour = departureTime.split(regexTime)[0];
-                    String departureMin = departureTime.split(regexTime)[1];
-                    LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
-                    LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
-
-                    Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
+                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
                     f.setDirection(direction);
-                    flightService.updateOrCreate(f);
+                    f.setSearchId(searchId);
+                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
+                    LOGGER.info("Flight found: " + f);
                 }
-
             } catch (Exception e) {
-                e.printStackTrace();
+            } finally {
+                currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         return result;
     }
 
+    public List<Flight> parseFlightsWIZZ() {
+        LOGGER.info("Start parsing on Wizzair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
+                + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
 
-    @Override
-    public List<Flight> parseFlightsWIZZ(LocalDate localDate, Integer dayQuantityForSearchFromToday, Airport origin, Airport destination, String direction) {
+        final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.WIZZ, originAirport, destinationAirport, startingDate, dayQuantity);
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
-        for (int i = 0; i < dayQuantityForSearchFromToday; i++) {
+        LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
+        while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
 
             try {
                 Thread.sleep(DELAY_REQ_WIZZ);
             } catch (InterruptedException e) {
-                e.printStackTrace();
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
             HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
-
-            LocalDate localDateForSearch = localDate.plusDays(i);
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -151,18 +216,17 @@ public class FlightScannerImpl implements FlightScanner {
             HttpEntity httpEntity;
 
             String stringEntity = "{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"" +
-                    origin.getCode() +
+                    originAirport.getCode() +
                     "\",\"arrivalStation\":\"" +
-                    destination.getCode() +
+                    destinationAirport.getCode() +
                     "\",\"departureDate\":\"" +
-                    getDateStringWIZZ(localDateForSearch) +
+                    getDateStringWIZZ(currentLocalDate) +
                     "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
 
             try {
                 httpEntity = new StringEntity(stringEntity);
                 httpPost.setEntity(httpEntity);
             } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             }
 
             try (
@@ -178,36 +242,10 @@ public class FlightScannerImpl implements FlightScanner {
 
                 for (int l = 0; l < jsonOutBoundFlights.length(); l++) {
                     JSONObject jsonOutBoundFlight = (JSONObject) jsonOutBoundFlights.get(l);
-                    String flightN = jsonOutBoundFlight.getString("carrierCode") + " " + jsonOutBoundFlight.getString("flightNumber");
+                    String flightNumber = jsonOutBoundFlight.getString("carrierCode") + " " + jsonOutBoundFlight.getString("flightNumber");
 
                     String arriveDateTime = jsonOutBoundFlight.getString("arrivalDateTime");
                     String departureDateTime = jsonOutBoundFlight.getString("departureDateTime");
-
-                    String regexDateFromTime = "T";
-                    String regexDate = "-";
-                    String regexTime = ":";
-
-                    String arriveDate = arriveDateTime.split(regexDateFromTime)[0];
-                    String arriveYear = arriveDate.split(regexDate)[0];
-                    String arriveMonth = arriveDate.split(regexDate)[1];
-                    String arriveDay = arriveDate.split(regexDate)[2];
-                    LocalDate arriveDateL = LocalDate.of(Integer.parseInt(arriveYear), Integer.parseInt(arriveMonth), Integer.parseInt(arriveDay));
-                    String arriveTime = arriveDateTime.split(regexDateFromTime)[1];
-                    String arriveHour = arriveTime.split(regexTime)[0];
-                    String arriveMin = arriveTime.split(regexTime)[1];
-                    LocalTime arriveTimeL = LocalTime.of(Integer.parseInt(arriveHour), Integer.parseInt(arriveMin));
-                    LocalDateTime arriveLocalDateTime = LocalDateTime.of(arriveDateL, arriveTimeL);
-
-                    String departureDate = departureDateTime.split(regexDateFromTime)[0];
-                    String departureYear = departureDate.split(regexDate)[0];
-                    String departureMonth = departureDate.split(regexDate)[1];
-                    String departureDay = departureDate.split(regexDate)[2];
-                    LocalDate departureDateL = LocalDate.of(Integer.parseInt(departureYear), Integer.parseInt(departureMonth), Integer.parseInt(departureDay));
-                    String departureTime = departureDateTime.split(regexDateFromTime)[1];
-                    String departureHour = departureTime.split(regexTime)[0];
-                    String departureMin = departureTime.split(regexTime)[1];
-                    LocalTime departureTimeL = LocalTime.of(Integer.parseInt(departureHour), Integer.parseInt(departureMin));
-                    LocalDateTime departureLocalDateTime = LocalDateTime.of(departureDateL, departureTimeL);
 
                     JSONArray jsonFares = jsonOutBoundFlight.getJSONArray("fares");
                     JSONObject jsonFare = (JSONObject) jsonFares.get(3);
@@ -216,19 +254,34 @@ public class FlightScannerImpl implements FlightScanner {
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
 
-                    Flight f = new Flight(null, origin, destination, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightN);
+                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
+                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
+
+                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightNumber);
                     f.setDirection(direction);
-                    flightService.updateOrCreate(f);
+                    f.setSearchId(searchId);
+                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
+                    LOGGER.info("Flight found: " + f);
                 }
 
             } catch (Exception e) {
-                e.printStackTrace();
+            } finally {
+                currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         return result;
     }
 
+    @Override
+    public void run() {
+        if (airline.equals(Airline.RY)) {
+            parseFlightsRY();
+        }
+        if (airline.equals(Airline.WIZZ)) {
+            parseFlightsWIZZ();
+        }
+    }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -283,30 +336,27 @@ public class FlightScannerImpl implements FlightScanner {
         return result;
     }
 
-
-    private String getReqStringRY(LocalDate dateOfSearch, Airport origin, Airport destination) {
+    private String getReqStringRY(LocalDate dateOfSearch) {
         String dateOfSearchFormatted = dateOfSearch.getYear() + "-" + dateOfSearch.getMonthValue() + "-" + dateOfSearch.getDayOfMonth();
         String req = "https://www.ryanair.com/api/booking/v4/en-gb/availability?" +
                 "ADT=1&TEEN=0&CHD=0&INF=0&" +
                 "DateOut=" + dateOfSearchFormatted +
-                "&DateIn=&Origin=" + origin.getCode() +
-                "&Destination=" + destination.getCode() +
+                "&DateIn=&Origin=" + originAirport.getCode() +
+                "&Destination=" + destinationAirport.getCode() +
                 "&isConnectedFlight=false&RoundTrip=false&Discount=0&tpAdults=1&tpTeens=0&tpChildren=0&tpInfants=0&" +
                 "tpStartDate=" + dateOfSearchFormatted +
-                "&tpEndDate=&tpOriginIata=" + origin.getCode() +
-                "&tpDestinationIata=" + destination.getCode() +
+                "&tpEndDate=&tpOriginIata=" + originAirport.getCode() +
+                "&tpDestinationIata=" + destinationAirport.getCode() +
                 "&ToUs=AGREED" +
                 "&tpIsConnectedFlight=false&tpIsReturn=false&tpDiscount=0";
         return req;
     }
 
-
-    private static String getDateStringWIZZ(LocalDate dateOfSearch) {
+    private String getDateStringWIZZ(LocalDate dateOfSearch) {
         String month = dateOfSearch.getMonthValue() < 10 ? "0" + dateOfSearch.getMonthValue() : "" + dateOfSearch.getMonthValue();
         String day = dateOfSearch.getDayOfMonth() < 10 ? "0" + dateOfSearch.getDayOfMonth() : "" + dateOfSearch.getDayOfMonth();
         return dateOfSearch.getYear() + "-" + month + "-" + day;
     }
-
 
     private static String readUrl(String urlString) throws Exception {
         BufferedReader reader = null;
@@ -325,7 +375,6 @@ public class FlightScannerImpl implements FlightScanner {
         }
     }
 
-
     private static String convertInputStreamToString(InputStream inputStream)
             throws IOException {
         ByteArrayOutputStream result = new ByteArrayOutputStream();
@@ -335,5 +384,19 @@ public class FlightScannerImpl implements FlightScanner {
             result.write(buffer, 0, length);
         }
         return result.toString(StandardCharsets.UTF_8.name());
+    }
+
+    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime,String regexDayMonthYear, String regexMinHour){
+
+        String date = str.split(regexDateFromTime)[0];
+        String year = date.split(regexDayMonthYear)[0];
+        String month = date.split(regexDayMonthYear)[1];
+        String day = date.split(regexDayMonthYear)[2];
+        String time = str.split(regexDateFromTime)[1];
+        String hour = time.split(regexMinHour)[0];
+        String min = time.split(regexMinHour)[1];
+        return LocalDateTime.of(
+                LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
+                LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
 }

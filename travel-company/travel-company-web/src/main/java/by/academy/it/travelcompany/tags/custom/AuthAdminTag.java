@@ -16,7 +16,7 @@ public class AuthAdminTag extends ConditionalTagSupport {
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
 
-        return ((user != null) && (user.getRole().equals("admin")));
+        return ((user != null) && (user.getRole().equals("ADMIN")));
     }
 
     public void setPath(String path) {
