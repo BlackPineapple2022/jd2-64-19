@@ -3,6 +3,8 @@ package by.academy.it.travelcompany.listener;
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
 import by.academy.it.travelcompany.security.EncryptUtils;
+import by.academy.it.travelcompany.service.global.AirportServiceImpl;
+import by.academy.it.travelcompany.service.global.RouteMapServiceImpl;
 import by.academy.it.travelcompany.service.global.UserService;
 import by.academy.it.travelcompany.service.global.UserServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
@@ -36,6 +38,8 @@ import java.util.ResourceBundle;
                 LOGGER.error("error", e);
                 throw new RuntimeException("Datasource initialisation error", e);
             }
+            //AirportServiceImpl.getInstance().allAllAirportToBase();
+            //RouteMapServiceImpl.getInstance().addToBase("RY--VNO--BGY--Direct");
         }
 
     }

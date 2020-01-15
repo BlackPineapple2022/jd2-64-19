@@ -2,6 +2,7 @@ package by.academy.it.travelcompany.travelitem.schedule;
 
 import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -69,6 +70,10 @@ public class Schedule {
         this.destination = destination;
         this.startingDate = startingDate;
         this.days = days;
+    }
+
+    public Schedule(){
+
     }
 
     public LocalDate getNextDate(LocalDate currentDay) {

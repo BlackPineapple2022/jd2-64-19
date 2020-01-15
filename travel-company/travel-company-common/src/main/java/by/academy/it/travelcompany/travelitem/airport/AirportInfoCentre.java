@@ -76,6 +76,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all start airport
+     *
      * @return set of all start airport
      */
 
@@ -85,6 +86,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport
+     *
      * @return set of all airport
      */
 
@@ -94,6 +96,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from all starting airport
+     *
      * @return set of all airport that you can get to from all starting airport
      */
 
@@ -103,6 +106,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports)
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports)
      */
 
@@ -112,6 +116,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports) by Ryanair company
      */
 
@@ -121,6 +126,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports) by Wizzair company
      */
 
@@ -130,6 +136,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports)
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports)
      */
 
@@ -139,6 +146,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports) by Ryanair company
      */
 
@@ -148,6 +156,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports) by Wizzair company
      */
 
@@ -157,6 +166,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WAW (one of starting airports)
+     *
      * @return set of all airport that you can get to from WAW (one of starting airports)
      */
 
@@ -166,6 +176,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WAW (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from WAW (one of starting airports) by Wizzair company
      */
 
@@ -175,6 +186,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WMI (one of starting airports)
+     *
      * @return set of all airport that you can get to from WMI (one of starting airports)
      */
 
@@ -184,6 +196,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WMI (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from WMI (one of starting airports) by Ryanair company
      */
 
@@ -225,6 +238,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airports that you can get to and companies from @param airport
+     *
      * @return HashMap, where key is Company enum (Company.java) and value is
      * Treeset of Airport
      */
@@ -371,8 +385,6 @@ public class AirportInfoCentre {
 
         return traces;
     }
-
-
 
 
 }

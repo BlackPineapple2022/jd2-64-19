@@ -1,10 +1,13 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
+import by.academy.it.travelcompany.dao.FlightDAO;
+import by.academy.it.travelcompany.dao.FlightDAOImpl;
 import by.academy.it.travelcompany.service.global.ScheduleService;
 import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 import by.academy.it.travelcompany.travelitem.schedule.Schedule;
 import by.academy.it.travelcompany.service.local.FlightServiceLocal;
 import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
@@ -30,6 +33,7 @@ import java.net.URL;
 
 import java.nio.charset.StandardCharsets;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -38,8 +42,10 @@ import java.util.*;
 
 public class FlightScannerImpl extends Thread {
 
-    private static final int DELAY_REQ_RY = 100;
-    private static final int DELAY_REQ_RY_SYNC = 1000;
+    private static final FlightDAO FLIGHT_DAO = FlightDAOImpl.getInstance();
+
+    private static final int DELAY_REQ_RY = 1000;
+    private static final int DELAY_REQ_RY_SYNC = 1500;
     private static final int DELAY_REQ_WIZZ = 100;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FlightScannerImpl.class);
@@ -126,13 +132,20 @@ public class FlightScannerImpl extends Thread {
         LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
                 + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.RY, originAirport, destinationAirport, startingDate, dayQuantity);
+        RouteMap routeMap = new RouteMap(airline.toString(),originAirport.getCode(),destinationAirport.getCode(),direction);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
+        Set <LocalDate> dateSet = schedule.getScheduleSet();
+        for (LocalDate l : dateSet
+             ) {
+            System.out.println(l);
+        }
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
 
         List<Flight> result = new ArrayList<>();
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
+                System.out.println("CLD - "+currentLocalDate);
 
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
@@ -167,12 +180,20 @@ public class FlightScannerImpl extends Thread {
                     FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
                     LOGGER.info("Flight found: " + f);
+                    try {
+                        Long id = FLIGHT_DAO.create(f);
+                        LOGGER.info ("Flight successful added to base, id: " + id);
+                    }catch (SQLException e){
+                        LOGGER.error("Error during adding flight to base",e);
+                    }
                 }
             } catch (Exception e) {
+                System.out.println("HIFROMCATCHBLOCK!");
             } finally {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
+        LOGGER.info("Flight scanning successfully ended");
         return result;
     }
 

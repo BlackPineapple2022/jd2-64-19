@@ -10,10 +10,11 @@ import org.slf4j.LoggerFactory;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class AirportServiceImpl {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AirportInfoCentre.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AirportServiceImpl.class);
     private final AirportDAO airportDAO = AirportDAOImpl.getInstance();
 
     private static final AirportServiceImpl INSTANCE = new AirportServiceImpl();
@@ -30,6 +31,7 @@ public class AirportServiceImpl {
         LOGGER.info("add new airport to Base{}", airport);
         try {
             Long id = airportDAO.create(airport);
+            airport.setId(id);
             LOGGER.info("result {}", id);
         } catch (SQLException e) {
             LOGGER.error("Error while creating airport " + airport, e);
@@ -67,6 +69,14 @@ public class AirportServiceImpl {
         }
         return airport;
     }
+
+    public void addAllAirportToBase(){
+        Set<Airport> allAirport = AirportInfoCentre.getAllAirports();
+        for (Airport a:allAirport ) {
+            addToBase(a);
+        }
+    }
+
 
 
 }

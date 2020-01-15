@@ -1,6 +1,7 @@
 package by.academy.it.travelcompany.dao;
 
 import by.academy.it.travelcompany.travelitem.airport.Airport;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
@@ -8,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
+@Slf4j
 public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
 
     private static final AirportDAO INSTANCE = new AirportDAOImpl();
@@ -21,9 +24,10 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     }
 
     public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
+    public static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
     public static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
     public static final String DELETE_AIRPORT_BY_ID = "DELETE FROM airport WHERE id = ?";
-    public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =? ";
+    public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =?";
 
     @Override
     public Long create(Airport airport) throws SQLException {
@@ -51,6 +55,18 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
 
     @Override
     public Optional<Airport> read(Long id) throws SQLException {
+        ResultSet resultSet = null;
+        Airport result = new Airport();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_AIRPORT)) {
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                result = mapAirport(resultSet);
+                return Optional.of(result);
+            }
+        } finally {
+            closeQuietly(resultSet);
+        }
         return Optional.empty();
     }
 
@@ -100,7 +116,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
         String airportCode = resultSet.getString("airport_code");
         String city = resultSet.getString("city");
         String country = resultSet.getString("country");
-        return new Airport(id,airportCode,city,country);
+        return new Airport(id, airportCode, city, country);
     }
 
 }
