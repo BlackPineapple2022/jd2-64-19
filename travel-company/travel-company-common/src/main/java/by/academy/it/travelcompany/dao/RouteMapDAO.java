@@ -1,9 +1,7 @@
 package by.academy.it.travelcompany.dao;
 
-import java.sql.SQLException;
-import java.util.List;
-import java.util.Optional;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 
-public interface RouteMapDAO extends DAO<String> {
+public interface RouteMapDAO extends DAO<RouteMap> {
 
 }

@@ -5,7 +5,7 @@ import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
 import by.academy.it.travelcompany.service.local.TripServiceLocal;
 import by.academy.it.travelcompany.service.local.TripServiceLocalImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
@@ -71,7 +71,7 @@ public class TripScannerImpl {
             if (routeArr[3].equals("Direct")) {
                 FlightScannerImpl scanner = new FlightScannerImpl(
                         searchId,
-                        Airline.valueOf(routeArr[0]),
+                        AirlineEnum.valueOf(routeArr[0]),
                         new Airport(routeArr[1]),
                         new Airport(routeArr[2]),
                         startingDate,
@@ -84,7 +84,7 @@ public class TripScannerImpl {
             if (routeArr[3].equals("Return")) {
                 FlightScannerImpl scanner = new FlightScannerImpl(
                         searchId,
-                        Airline.valueOf(routeArr[0]),
+                        AirlineEnum.valueOf(routeArr[0]),
                         new Airport(routeArr[1]),
                         new Airport(routeArr[2]),
                         startingDate.plusDays(minDayOfTrip - 1),

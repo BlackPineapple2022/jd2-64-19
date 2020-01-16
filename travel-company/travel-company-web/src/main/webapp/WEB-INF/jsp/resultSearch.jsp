@@ -111,11 +111,11 @@
         <tr>
             <td>Авиакомпания</td>
             <td>
-                <c:out value="${trip.flights[0].airline}"/>
+                <c:out value="${trip.flights[0].airlineEnum}"/>
             </td>
             <td>Авиакомпания</td>
             <td>
-                <c:out value="${trip.flights[1].airline}"/>
+                <c:out value="${trip.flights[1].airlineEnum}"/>
             </td>
         </tr>
         <tr>

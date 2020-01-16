@@ -1,11 +1,11 @@
-package by.academy.it.travelcompany.dao;
+package by.academy.it.travelcompany.dao.impl;
 
-import by.academy.it.travelcompany.travelitem.airport.Airline;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.dao.AbstractDAO;
+import by.academy.it.travelcompany.dao.RouteMapDAO;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
 
 
     @Override
-    public Long create(String s) throws SQLException {
+    public Long create(RouteMap r) throws SQLException {
         ResultSet resultSet = null;
         Long result = null;
         try (Connection connection = getConnection();
@@ -42,12 +42,10 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
             int destinationAirportID;
             int directionID;
 
-            String[] sArr = s.split(REGEX_ROUTE_MAP);
-
-            String airlineString = sArr[0];
-            String originAirportString = sArr[1];
-            String destinationAirportString = sArr[2];
-            String directionString = sArr[3];
+            String airlineString = r.getAirlineStr();
+            String originAirportString = r.getOriginAirportCode();
+            String destinationAirportString = r.getDestinationAirportCode();
+            String directionString = r.getDirectionStr();
 
             statement.setInt(1, getAirlineIdFromString(airlineString));
             statement.setInt(2, getAirportIdFromString(originAirportString));
@@ -68,12 +66,12 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
     }
 
     @Override
-    public Optional<String> read(Long id) throws SQLException {
+    public Optional<RouteMap> read(Long id) throws SQLException {
         return Optional.empty();
     }
 
     @Override
-    public int update(String s) throws SQLException {
+    public int update(RouteMap routeMap) throws SQLException {
         return 0;
     }
 
@@ -83,7 +81,7 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
     }
 
     @Override
-    public List<String> getAll() throws SQLException {
+    public List<RouteMap> getAll() throws SQLException {
         return null;
     }
 

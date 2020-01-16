@@ -1,9 +1,6 @@
 package by.academy.it.travelcompany.servlet.admin.install;
 
-import by.academy.it.travelcompany.dao.RouteMapDAO;
-import by.academy.it.travelcompany.dao.RouteMapDAOImpl;
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
-import by.academy.it.travelcompany.service.global.RouteMapServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.RouteMapServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 
 import javax.servlet.ServletException;
@@ -19,7 +16,7 @@ import java.util.Set;
 public class AddAllRouteMapToBase extends HttpServlet {
 
 
-    @Override
+ /*   @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         RouteMapServiceImpl routeMapServiceImpl = RouteMapServiceImpl.getInstance();
         Set<String> routeMapArr = AirportInfoCentre.getRouteMap(
@@ -28,10 +25,10 @@ public class AddAllRouteMapToBase extends HttpServlet {
         );
         int i = 0;
         for(String str: routeMapArr){
-            routeMapServiceImpl.addToBase(str);
+            routeMapServiceImpl.addRouteMapToBase(str);
             i++;
         }
         System.out.println(i);
         req.getRequestDispatcher("/WEB-INF/jsp/adminpanel.jsp").forward(req,resp);
-    }
+    }*/
 }

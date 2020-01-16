@@ -1,5 +1,7 @@
-package by.academy.it.travelcompany.dao;
+package by.academy.it.travelcompany.dao.impl;
 
+import by.academy.it.travelcompany.dao.AbstractDAO;
+import by.academy.it.travelcompany.dao.AirportDAO;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
@@ -23,11 +25,14 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
         return INSTANCE;
     }
 
-    public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
-    public static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
     public static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
-    public static final String DELETE_AIRPORT_BY_ID = "DELETE FROM airport WHERE id = ?";
+    public static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
     public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =?";
+    public static final String DELETE_AIRPORT_BY_ID = "DELETE FROM airport WHERE id = ?";
+
+    public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
+
+//CRUD
 
     @Override
     public Long create(Airport airport) throws SQLException {
@@ -56,12 +61,12 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     @Override
     public Optional<Airport> read(Long id) throws SQLException {
         ResultSet resultSet = null;
-        Airport result = new Airport();
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_AIRPORT)) {
+            statement.setLong(1,id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                result = mapAirport(resultSet);
+                Airport result = mapAirport(resultSet);
                 return Optional.of(result);
             }
         } finally {
@@ -92,6 +97,8 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
             return statement.executeUpdate();
         }
     }
+
+//!CRUD
 
     @Override
     public List<Airport> getAll() throws SQLException {

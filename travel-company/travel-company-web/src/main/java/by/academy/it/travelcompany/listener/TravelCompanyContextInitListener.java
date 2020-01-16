@@ -2,14 +2,9 @@ package by.academy.it.travelcompany.listener;
 
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
-import by.academy.it.travelcompany.security.EncryptUtils;
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
-import by.academy.it.travelcompany.service.global.RouteMapServiceImpl;
-import by.academy.it.travelcompany.service.global.UserService;
-import by.academy.it.travelcompany.service.global.UserServiceImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
-import by.academy.it.travelcompany.user.User;
+import by.academy.it.travelcompany.service.global.AirlineService;
+import by.academy.it.travelcompany.service.global.imp.AirlineServiceImpl;
+import by.academy.it.travelcompany.travelitem.airline.Airline;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +35,10 @@ import java.util.ResourceBundle;
             }
             //AirportServiceImpl.getInstance().allAllAirportToBase();
             //RouteMapServiceImpl.getInstance().addToBase("RY--VNO--BGY--Direct");
+            //new AirlineServiceImpl().add(new Airline(null,"BOBO"));
+
+
+
         }
 
     }

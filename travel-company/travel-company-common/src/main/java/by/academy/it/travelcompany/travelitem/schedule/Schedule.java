@@ -1,27 +1,26 @@
 package by.academy.it.travelcompany.travelitem.schedule;
 
-import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class Schedule {
-    private Airline airline;
+    private AirlineEnum airlineEnum;
     private Airport origin;
     private Airport destination;
     private LocalDate startingDate;
     private Integer days;
     private Set<LocalDate> scheduleSet = new TreeSet<>();
 
-    public Airline getAirline() {
-        return airline;
+    public AirlineEnum getAirlineEnum() {
+        return airlineEnum;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    public void setAirlineEnum(AirlineEnum airlineEnum) {
+        this.airlineEnum = airlineEnum;
     }
 
     public Airport getOrigin() {
@@ -64,8 +63,8 @@ public class Schedule {
         this.scheduleSet = scheduleSet;
     }
 
-    public Schedule(Airline airline, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
-        this.airline = airline;
+    public Schedule(AirlineEnum airlineEnum, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
+        this.airlineEnum = airlineEnum;
         this.origin = origin;
         this.destination = destination;
         this.startingDate = startingDate;

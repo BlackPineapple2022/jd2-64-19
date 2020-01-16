@@ -9,4 +9,5 @@ import java.sql.SQLException;
 public interface FlightDAO extends DAO<Flight> {
 
     Schedule getSchedule(RouteMap routemap) throws SQLException;
+
 }

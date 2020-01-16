@@ -42,7 +42,7 @@ public interface FlightServiceLocal {
     Flight updateFlightById(Flight flight);
 
     /**
-     * update object in list with same LocalDate, Airline, flight number, Airport origin, Airport destination (Flight.equals())
+     * update object in list with same LocalDate, AirlineEnum, flight number, Airport origin, Airport destination (Flight.equals())
      * @param flight flight to update
      * @return flight updated flight
      * If flight  doesn't exist on list

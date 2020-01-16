@@ -1,5 +1,6 @@
-package by.academy.it.travelcompany.service.global;
+package by.academy.it.travelcompany.service.global.imp;
 
+import by.academy.it.travelcompany.service.global.AccommodationService;
 import by.academy.it.travelcompany.travelitem.accommodation.Accommodation;
 
 import java.util.ArrayList;

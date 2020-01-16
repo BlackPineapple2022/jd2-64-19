@@ -1,8 +1,9 @@
-package by.academy.it.travelcompany.service.global;
+package by.academy.it.travelcompany.service.global.imp;
 
 import by.academy.it.travelcompany.dao.FlightDAO;
-import by.academy.it.travelcompany.dao.FlightDAOImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
+import by.academy.it.travelcompany.service.global.ScheduleService;
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 import by.academy.it.travelcompany.travelitem.schedule.Schedule;
@@ -26,7 +27,7 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 
     @Override
-    public Schedule getSchedule(Airline airline, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
+    public Schedule getSchedule(AirlineEnum airlineEnum, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
         return new Schedule();
     }
 

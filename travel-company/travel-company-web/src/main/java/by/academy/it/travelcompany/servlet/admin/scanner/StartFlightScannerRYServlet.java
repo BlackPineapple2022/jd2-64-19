@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.servlet.admin.scanner;
 
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 
@@ -29,8 +29,8 @@ public class StartFlightScannerRYServlet extends HttpServlet {
         Integer dayCountInt = Integer.parseInt(dayCountStr);
         RouteMap routeMapDirect = new RouteMap("RY",originStr,destinationStr,"Direct");
         RouteMap routeMapReturn = new RouteMap("RY",originStr,destinationStr,"Return");
-        FlightScannerImpl flightScannerDirect = new FlightScannerImpl(null, Airline.RY,new Airport(originStr),new Airport (destinationStr), LocalDate.now(),dayCountInt,"Direct");
-        FlightScannerImpl flightScannerReturn = new FlightScannerImpl(null, Airline.RY,new Airport (destinationStr), new Airport(originStr), LocalDate.now(),dayCountInt,"Return");
+        FlightScannerImpl flightScannerDirect = new FlightScannerImpl(null, AirlineEnum.RY,new Airport(originStr),new Airport (destinationStr), LocalDate.now(),dayCountInt,"Direct");
+        FlightScannerImpl flightScannerReturn = new FlightScannerImpl(null, AirlineEnum.RY,new Airport (destinationStr), new Airport(originStr), LocalDate.now(),dayCountInt,"Return");
         flightScannerDirect.start();
         flightScannerReturn.start();
     }

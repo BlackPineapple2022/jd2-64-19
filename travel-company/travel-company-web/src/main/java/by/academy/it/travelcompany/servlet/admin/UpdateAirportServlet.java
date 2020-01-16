@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.servlet.admin;
 
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 
 import javax.servlet.ServletException;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet(urlPatterns = "/admin/updateAirport")
 public class UpdateAirportServlet extends HttpServlet {

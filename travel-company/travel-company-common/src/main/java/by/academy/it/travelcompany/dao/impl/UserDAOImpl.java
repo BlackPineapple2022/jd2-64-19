@@ -1,5 +1,7 @@
-package by.academy.it.travelcompany.dao;
+package by.academy.it.travelcompany.dao.impl;
 
+import by.academy.it.travelcompany.dao.AbstractDAO;
+import by.academy.it.travelcompany.dao.UserDAO;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.user.User;
 import org.slf4j.LoggerFactory;
@@ -14,8 +16,6 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     public static final String SELECT_BY_USER_NAME = "SELECT  * FROM user u JOIN user_role r ON u.role_id = r.id WHERE u.user_name = ?";
     public static final String INSERT_USER = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'2')";
-    public static final String INSERT_ADMIN = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'1')";
-
 
     private UserDAOImpl() {
         super(LoggerFactory.getLogger(UserDAOImpl.class));

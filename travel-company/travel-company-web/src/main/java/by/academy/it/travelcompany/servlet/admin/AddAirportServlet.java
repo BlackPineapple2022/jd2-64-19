@@ -1,8 +1,7 @@
 package by.academy.it.travelcompany.servlet.admin;
 
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +24,7 @@ public class AddAirportServlet extends HttpServlet {
         String country = req.getParameter("country");
         String city = req.getParameter("city");
         AirportServiceImpl airportService = AirportServiceImpl.getInstance();
-        airportService.addToBase(new Airport(airportCode,country,city));
+        airportService.add(new Airport(airportCode,country,city));
         req.getRequestDispatcher("/WEB-INF/jsp/addAirport.jsp").forward(req,resp);
 
     }

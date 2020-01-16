@@ -1,11 +1,11 @@
 CREATE TABLE user
 (
-    id        BIGINT AUTO_INCREMENT,
-    user_name VARCHAR(255) NOT NULL UNIQUE,
-    password  VARCHAR(150) NOT NULL,
-    salt      varchar(50)  NOT NULL,
-    role_id   int          NOT NULL DEFAULT 2,
-    created   datetime     not null default now(),
+    id                BIGINT AUTO_INCREMENT,
+    user_name         VARCHAR(255) NOT NULL UNIQUE,
+    password          VARCHAR(150) NOT NULL,
+    salt              varchar(50)  NOT NULL,
+    role_id           int          NOT NULL DEFAULT 2,
+    created_date_time datetime     not null default now(),
     CONSTRAINT user_pk PRIMARY KEY (id),
     CONSTRAINT role_fk FOREIGN KEY (role_id)
         REFERENCES user_role (id) ON DELETE CASCADE

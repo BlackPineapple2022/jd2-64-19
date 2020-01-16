@@ -1,10 +1,10 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.dao.FlightDAO;
-import by.academy.it.travelcompany.dao.FlightDAOImpl;
+import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
 import by.academy.it.travelcompany.service.global.ScheduleService;
-import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
+import by.academy.it.travelcompany.service.global.imp.ScheduleServiceImpl;
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
@@ -55,16 +55,16 @@ public class FlightScannerImpl extends Thread {
     private static final Object SYNC_RY = new Object();
 
     private Long searchId;
-    private Airline airline;
+    private AirlineEnum airlineEnum;
     private Airport originAirport;
     private Airport destinationAirport;
     private LocalDate startingDate;
     private Integer dayQuantity;
     private String direction;
 
-    public FlightScannerImpl(Long searchId, Airline airline, Airport originAirport, Airport destinationAirport, LocalDate startingDate, Integer dayQuantity, String direction) {
+    public FlightScannerImpl(Long searchId, AirlineEnum airlineEnum, Airport originAirport, Airport destinationAirport, LocalDate startingDate, Integer dayQuantity, String direction) {
         this.searchId = searchId;
-        this.airline = airline;
+        this.airlineEnum = airlineEnum;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
         this.startingDate = startingDate;
@@ -80,12 +80,12 @@ public class FlightScannerImpl extends Thread {
         this.searchId = searchId;
     }
 
-    public Airline getAirline() {
-        return airline;
+    public AirlineEnum getAirlineEnum() {
+        return airlineEnum;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    public void setAirlineEnum(AirlineEnum airlineEnum) {
+        this.airlineEnum = airlineEnum;
     }
 
     public Airport getOriginAirport() {
@@ -132,7 +132,7 @@ public class FlightScannerImpl extends Thread {
         LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
                 + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        RouteMap routeMap = new RouteMap(airline.toString(),originAirport.getCode(),destinationAirport.getCode(),direction);
+        RouteMap routeMap = new RouteMap(airlineEnum.toString(),originAirport.getCode(),destinationAirport.getCode(),direction);
         Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
         Set <LocalDate> dateSet = schedule.getScheduleSet();
         for (LocalDate l : dateSet
@@ -174,7 +174,7 @@ public class FlightScannerImpl extends Thread {
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
 
-                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
+                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, AirlineEnum.RY, currency, amount, flightNumber);
                     f.setDirection(direction);
                     f.setSearchId(searchId);
                     FLIGHT_SERVICE.updateOrCreate(f);
@@ -202,7 +202,7 @@ public class FlightScannerImpl extends Thread {
                 + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
 
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.WIZZ, originAirport, destinationAirport, startingDate, dayQuantity);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(AirlineEnum.WIZZ, originAirport, destinationAirport, startingDate, dayQuantity);
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
@@ -278,7 +278,7 @@ public class FlightScannerImpl extends Thread {
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
 
-                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightNumber);
+                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, AirlineEnum.WIZZ, currencyCode, amount, flightNumber);
                     f.setDirection(direction);
                     f.setSearchId(searchId);
                     FLIGHT_SERVICE.updateOrCreate(f);
@@ -296,10 +296,10 @@ public class FlightScannerImpl extends Thread {
 
     @Override
     public void run() {
-        if (airline.equals(Airline.RY)) {
+        if (airlineEnum.equals(AirlineEnum.RY)) {
             parseFlightsRY();
         }
-        if (airline.equals(Airline.WIZZ)) {
+        if (airlineEnum.equals(AirlineEnum.WIZZ)) {
             parseFlightsWIZZ();
         }
     }

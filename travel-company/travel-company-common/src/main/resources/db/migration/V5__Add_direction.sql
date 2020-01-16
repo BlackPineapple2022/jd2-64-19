@@ -1,6 +1,6 @@
 CREATE TABLE direction
 (
-    id             int PRIMARY KEY AUTO_INCREMENT,
+    id             bigint PRIMARY KEY AUTO_INCREMENT,
     direction_name varchar(20) NOT NULL UNIQUE
 );
 

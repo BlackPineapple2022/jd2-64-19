@@ -1,6 +1,6 @@
 CREATE TABLE currency
 (
-    id            int primary key AUTO_INCREMENT,
+    id            bigint primary key AUTO_INCREMENT,
     currency_code VARCHAR(10) NOT NULL UNIQUE
 );
 

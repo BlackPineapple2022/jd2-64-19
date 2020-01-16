@@ -14,7 +14,7 @@
 
 <custom:authAdminTag path="/home">
 <div style="background: red;height: 30px; color:black; text-align: center; padding: 15px; margin-top: 10px;">Вы вошли как Администратор</div>
-    <a href="${pageContext.request.contextPath}/admin/addAirport">Добавить аэропорт </a>
+    <a href="${pageContext.request.contextPath}/admin/manager/airline">Airline manager</a>
     <a href="${pageContext.request.contextPath}/admin/airportList">Список аэропортов</a>
     <a href="${pageContext.request.contextPath}/admin/updateAirport">Обновить аэропорт</a>
 </custom:authAdminTag>

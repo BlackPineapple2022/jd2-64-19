@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.servlet.admin;
 
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

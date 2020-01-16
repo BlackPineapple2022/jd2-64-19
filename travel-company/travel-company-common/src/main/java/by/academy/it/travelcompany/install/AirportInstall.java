@@ -2,7 +2,7 @@ package by.academy.it.travelcompany.install;
 
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
-import by.academy.it.travelcompany.service.global.AirportServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,6 +28,6 @@ public class AirportInstall {
 
     public void installAllAirportToBase(){
         AirportServiceImpl airportService = AirportServiceImpl.getInstance();
-        airportService.addAllAirportToBase();
+        airportService.installAllAirportToBase();
     }
 }

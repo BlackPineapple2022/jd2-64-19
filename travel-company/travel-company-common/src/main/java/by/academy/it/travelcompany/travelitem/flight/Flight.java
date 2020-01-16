@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.travelitem.flight;
 
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -16,7 +16,7 @@ public class Flight {
     private LocalDateTime departureTime;
     private LocalDateTime arriveTime;
 
-    private Airline airline;
+    private AirlineEnum airlineEnum;
 
     private String currency;
     private Double ticketPrice;
@@ -31,13 +31,13 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(Long id, Airport originAirport, Airport destinationAirport,LocalDateTime departureTime, LocalDateTime arriveTime, Airline airline, String currency, Double ticketPrice, String flightNumber) {
+    public Flight(Long id, Airport originAirport, Airport destinationAirport, LocalDateTime departureTime, LocalDateTime arriveTime, AirlineEnum airlineEnum, String currency, Double ticketPrice, String flightNumber) {
         this.id = id;
         this.originAirport = originAirport;
         this.destinationAirport = destinationAirport;
         this.departureTime = departureTime;
         this.arriveTime = arriveTime;
-        this.airline = airline;
+        this.airlineEnum = airlineEnum;
         this.currency = currency;
         this.ticketPrice = ticketPrice;
         this.flightNumber = flightNumber;
@@ -83,12 +83,12 @@ public class Flight {
         this.arriveTime = arriveTime;
     }
 
-    public Airline getAirline() {
-        return airline;
+    public AirlineEnum getAirlineEnum() {
+        return airlineEnum;
     }
 
-    public void setAirline(Airline airline) {
-        this.airline = airline;
+    public void setAirlineEnum(AirlineEnum airlineEnum) {
+        this.airlineEnum = airlineEnum;
     }
 
     public String getCurrency() {
@@ -148,7 +148,7 @@ public class Flight {
                 Objects.equals(originAirport, flight.originAirport) &&
                 Objects.equals(destinationAirport, flight.destinationAirport) &&
                 Objects.equals(departureTime.getDayOfYear(), flight.departureTime.getDayOfYear()) &&
-                airline == flight.airline &&
+                airlineEnum == flight.airlineEnum &&
                 Objects.equals(flightNumber, flight.flightNumber);
     }
 
@@ -160,7 +160,7 @@ public class Flight {
                 ", destinationAirport=" + destinationAirport +
                 ", departureTime=" + departureTime +
                 ", arriveTime=" + arriveTime +
-                ", airline=" + airline +
+                ", airlineEnum=" + airlineEnum +
                 ", currency =" + currency +
                 ", ticketPrice=" + ticketPrice +
                 ", flightNumber='" + flightNumber + '\'' +
@@ -171,7 +171,7 @@ public class Flight {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, originAirport, destinationAirport,departureTime, arriveTime, airline, ticketPrice, flightNumber);
+        return Objects.hash(id, originAirport, destinationAirport,departureTime, arriveTime, airlineEnum, ticketPrice, flightNumber);
     }
 
 }

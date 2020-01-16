@@ -1,11 +1,11 @@
 CREATE TABLE flight
 (
     id                  BIGINT PRIMARY KEY AUTO_INCREMENT,
-    routemap_id         int            NOT NULL,
+    routemap_id         bigint            NOT NULL,
     arrive_date_time    DATETIME       NOT NULL,
     departure_date_time DATETIME       NOT NULL,
     flight_number       VARCHAR(20)    NOT NULL,
-    currency_id         INT            NOT NULL,
+    currency_id         bigint            NOT NULL,
     price               DECIMAL(10, 2) NOT NULL,
     checked_date        DATETIME DEFAULT NOW(),
     CONSTRAINT routemap_fk FOREIGN KEY (routemap_id)
