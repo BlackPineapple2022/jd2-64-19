@@ -28,6 +28,6 @@ public class AirportInstall {
 
     public void installAllAirportToBase(){
         AirportServiceImpl airportService = AirportServiceImpl.getInstance();
-        airportService.installAllAirportToBase();
+        airportService.installAllAirport();
     }
 }

@@ -1,7 +1,8 @@
-package by.academy.it.travelcompany.servlet.admin;
+package by.academy.it.travelcompany.servlet.admin.manager.airport;
 
 import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,22 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(urlPatterns = "/admin/addAirport")
-public class AddAirportServlet extends HttpServlet {
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/WEB-INF/jsp/addAirport.jsp").forward(req, resp);
-    }
+@Slf4j
+@WebServlet(urlPatterns = "/admin/manager/airport/add")
+public class AirportAddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String airportCode = req.getParameter("airportCode");
-        String country = req.getParameter("country");
-        String city = req.getParameter("city");
+        String airportCountry = req.getParameter("airportCountry");
+        String airportCity = req.getParameter("airportCity");
         AirportServiceImpl airportService = AirportServiceImpl.getInstance();
-        airportService.add(new Airport(airportCode,country,city));
-        req.getRequestDispatcher("/WEB-INF/jsp/addAirport.jsp").forward(req,resp);
-
+        airportService.create(new Airport(null,airportCode,airportCountry,airportCity));
+        resp.sendRedirect(req.getContextPath()+"/admin/manager/airport");
     }
 }

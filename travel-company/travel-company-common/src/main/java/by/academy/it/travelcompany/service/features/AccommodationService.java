@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.service.global;
+package by.academy.it.travelcompany.service.features;
 
 import by.academy.it.travelcompany.travelitem.accommodation.Accommodation;
 

@@ -1,6 +1,7 @@
-package by.academy.it.travelcompany.servlet.admin.install;
+package by.academy.it.travelcompany.servlet.admin.manager.airport;
 
 import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet (urlPatterns = "/admin/install/addAllAirportToBase")
-public class AddAllAirportToBase extends HttpServlet {
-
+@Slf4j
+@WebServlet(urlPatterns = "/admin/manager/airport/delete")
+public class AirportDeleteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        AirportServiceImpl.getInstance().installAllAirportToBase();
-        req.getRequestDispatcher("/WEB-INF/jsp/adminpanel.jsp").forward(req,resp);
+        Long id = Long.parseLong(req.getParameter("id"));
+        AirportServiceImpl.getInstance().delete(id);
+        resp.sendRedirect(req.getContextPath()+"/admin/manager/airport");
     }
 }

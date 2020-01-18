@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User add(User user) {
+    public User create(User user) {
         LOGGER.info("add new user {}", user);
         try {
             Long id = userDAO.create(user);

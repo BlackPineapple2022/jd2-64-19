@@ -29,12 +29,12 @@ public class AirlineServiceImpl implements AirlineService {
 //CRUD
 
     @Override
-    public Airline add(Airline airline) {
-        log.info("add new airline to Base{}", airline);
+    public Airline create(Airline airline) {
+        log.info("Add new airline to Base{}", airline);
         try {
             Long id = airlineDAO.create(airline);
             airline.setId(id);
-            log.info("result {}", id);
+            log.info("Result {}", id);
             return airline;
         } catch (SQLException e) {
             log.error("Error while creating airline " + airline, e);
@@ -43,11 +43,11 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public Optional<Airline> getById(Long id) {
-        log.info("getting airline from Base{}", id);
+    public Optional<Airline> read(Long id) {
+        log.info("Getting airline from Base{}", id);
         try {
             Optional<Airline> airline = airlineDAO.read(id);
-            log.info("result {}", airline);
+            log.info("Result {}", airline);
             return airline;
         } catch (SQLException e) {
             log.error("Error while getting airline ", e);
@@ -57,10 +57,10 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public Airline update(Airline airline) {
-        log.info("updating airline from Base{}", airline);
+        log.info("Updating airline from Base{}", airline);
         try {
             int update = airlineDAO.update(airline);
-            log.info("result {}", update);
+            log.info("Result {}", update);
         } catch (SQLException e) {
             log.error("Error while updating airline " + airline, e);
         }
@@ -69,10 +69,10 @@ public class AirlineServiceImpl implements AirlineService {
 
     @Override
     public void delete(Long id) {
-        log.info("deleting airline from Base{}", id);
+        log.info("Deleting airline from Base{}", id);
         try {
             airlineDAO.delete(id);
-            log.info("result {}", id);
+            log.info("Result {}", id);
         } catch (SQLException e) {
             log.error("Error while deleting airline " + id, e);
         }
@@ -107,15 +107,15 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public Long getIdFromBase(Airline airline) {
-        log.info("Getting airline id from Base{}", airline);
+    public Long getIdByName(String airlineName) {
+        log.info("Getting airline id from Base{}", airlineName);
         Long result = null;
         try {
-            result = airlineDAO.getIdByName(airline.getAirlineName());
-            log.info("result {}", result);
+            result = airlineDAO.getIdByName(airlineName);
+            log.info("Result {}", result);
             return result;
         } catch (SQLException e) {
-            log.error("Error while getting airline id" + airline, e);
+            log.error("Error while getting airline id" + airlineName, e);
         }
         return result;
     }

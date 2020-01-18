@@ -7,13 +7,23 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>BlackPineapple.by | Airport manager </title>
+    <title>BlackPineapple.by | airline Manager </title>
 </head>
 
 <body>
+<style type="text/css">
+    .id {
+        width: 20px;
+    }
+</style>
+<style type="text/css">
+    .airlineName {
+        width: 80px;
+    }
+</style>
+<%@include file="include/adminheader.jsp" %>
 
-
-<div align="center" style="font-size: 30px"><b>AIRPORT MANAGER</b></div>
+<div align="center" style="font-size: 30px"><b>AIRLINE MANAGER</b></div>
 
 <table align="center" style="text-align: center">
 
@@ -25,52 +35,45 @@
         <td></td>
         <td>__ __ __ __ __</td>
         <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
     </tr>
     <tr>
         <td> |</td>
-        <td colspan="9">
-            <b>LIST OF AIRPORT:</b>
+        <td colspan="5">
+            <b>LIST OF AIRLINE:</b>
         </td>
         <td> |</td>
     </tr>
 
     <tr>
         <td> |</td>
-        <td> Airport id</td>
+        <td> Airline id</td>
         <td> |</td>
-        <td> Airport code</td>
-        <td> |</td>
-        <td> Airport country</td>
-        <td> |</td>
-        <td> Airport city</td>
+        <td> Airline name</td>
         <td> |</td>
         <td> Delete?</td>
         <td> |</td>
     </tr>
 
 
-    <c:forEach items="${airportList}" var="airport">
+    <c:forEach items="${airlineList}" var="airline">
         <tr>
             <td> |</td>
-            <td><c:out value="${airport.id}"/></td>
+            <td><c:out value="${airline.id}"/></td>
             <td> |</td>
-            <td><c:out value="${airport.code}"/></td>
+            <td><c:out value="${airline.airlineName}"/></td>
             <td> |</td>
-            <td><c:out value="${airport.country}"/></td>
-            <td> |</td>
-            <td><c:out value="${airport.city}"/></td>
-            <td> |</td>
-            <td><a href="${pageContext.request.contextPath}/admin/manager/airport/delete?id=${airline.id}">[x]</a>
+            <td><a href="${pageContext.request.contextPath}/admin/manager/airline/delete?id=${airline.id}">[x]</a>
             </td>
             <td> |</td>
         </tr>
     </c:forEach>
 
-    <%--<tr>
+<tr>
+    <td> |</td>
+        <td colspan="5"></td>
+    <td> |</td>
+</tr>
+    <tr>
         <td> |</td>
         <td colspan="5">
             <b>ADD AIRLINE TO BASE</b>
@@ -85,6 +88,11 @@
                 <input type="submit" value="add"/>
             </form>
         </td>
+        <td> |</td>
+    </tr>
+    <tr>
+        <td> |</td>
+        <td colspan="5"></td>
         <td> |</td>
     </tr>
     <tr>
@@ -133,7 +141,7 @@
                 @danger
             </form>
         </td>
-    </tr>--%>
+    </tr>
 
 </table>
 

@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
             hasError = true;
             errorCode = 4;
         } else {
-            userService.add(new User(null,userName,password));
+            userService.create(new User(null,userName,password));
         }
 
         if (hasError) {

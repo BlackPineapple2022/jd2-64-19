@@ -12,7 +12,7 @@ public interface UserService {
 
     Boolean isUserNameFree(String userName);
 
-    User add(User user);
+    User create(User user);
 
 
 }

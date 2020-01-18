@@ -132,7 +132,7 @@ public class FlightScannerImpl extends Thread {
         LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
                 + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        RouteMap routeMap = new RouteMap(airlineEnum.toString(),originAirport.getCode(),destinationAirport.getCode(),direction);
+        RouteMap routeMap = new RouteMap(null,airlineEnum.toString(),originAirport.getCode(),destinationAirport.getCode(),direction);
         Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
         Set <LocalDate> dateSet = schedule.getScheduleSet();
         for (LocalDate l : dateSet

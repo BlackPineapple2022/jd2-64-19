@@ -27,8 +27,8 @@ public class StartFlightScannerRYServlet extends HttpServlet {
         String destinationStr = req.getParameter("destination");
         String dayCountStr = req.getParameter("dayCount");
         Integer dayCountInt = Integer.parseInt(dayCountStr);
-        RouteMap routeMapDirect = new RouteMap("RY",originStr,destinationStr,"Direct");
-        RouteMap routeMapReturn = new RouteMap("RY",originStr,destinationStr,"Return");
+        RouteMap routeMapDirect = new RouteMap(null,"RY",originStr,destinationStr,"Direct");
+        RouteMap routeMapReturn = new RouteMap(null,"RY",originStr,destinationStr,"Return");
         FlightScannerImpl flightScannerDirect = new FlightScannerImpl(null, AirlineEnum.RY,new Airport(originStr),new Airport (destinationStr), LocalDate.now(),dayCountInt,"Direct");
         FlightScannerImpl flightScannerReturn = new FlightScannerImpl(null, AirlineEnum.RY,new Airport (destinationStr), new Airport(originStr), LocalDate.now(),dayCountInt,"Return");
         flightScannerDirect.start();

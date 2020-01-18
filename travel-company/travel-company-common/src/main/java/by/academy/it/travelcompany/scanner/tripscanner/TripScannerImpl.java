@@ -60,7 +60,7 @@ public class TripScannerImpl {
         Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + LocalTime.now().getHour() + "" + LocalTime.now().getMinute() + "" + (int) (Math.random() * 100000));
 
         isSearchActive = true;
-        Set<String> routeMap = AirportInfoCentre.getRouteMap(originAirportsDirect, destinationAirportsDirect, destinationAirportsReturn, originAirportsReturn);
+        Set<String> routeMap = AirportInfoCentre.getRouteMapStringSet(originAirportsDirect, destinationAirportsDirect, destinationAirportsReturn, originAirportsReturn);
         LOGGER.info("Starting search trip searchId: " + searchId);
         LOGGER.info("Route map generated: " + routeMap.toString());
 

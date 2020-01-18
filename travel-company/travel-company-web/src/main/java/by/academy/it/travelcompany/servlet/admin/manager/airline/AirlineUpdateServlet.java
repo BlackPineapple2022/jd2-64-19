@@ -18,6 +18,7 @@ public class AirlineUpdateServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        
         Long id = Long.parseLong(req.getParameter("id"));
         String airlineName = req.getParameter("airlineName");
         Airline airline = new Airline(null,airlineName);

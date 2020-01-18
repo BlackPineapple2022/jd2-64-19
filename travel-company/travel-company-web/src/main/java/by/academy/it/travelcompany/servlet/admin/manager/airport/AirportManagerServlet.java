@@ -1,6 +1,5 @@
 package by.academy.it.travelcompany.servlet.admin.manager.airport;
 
-import by.academy.it.travelcompany.service.global.imp.AirlineServiceImpl;
 import by.academy.it.travelcompany.service.global.imp.AirportServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +16,7 @@ public class AirportManagerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("airportList", AirportServiceImpl.getInstance().getAllAirport());
-        req.getRequestDispatcher("/WEB-INF/jsp/admin/manager/airportManager.jsp").forward(req,resp);
+        req.setAttribute("airportList", AirportServiceImpl.getInstance().getAll());
+        req.getRequestDispatcher("/WEB-INF/jsp/admin/airportManager.jsp").forward(req,resp);
     }
 }

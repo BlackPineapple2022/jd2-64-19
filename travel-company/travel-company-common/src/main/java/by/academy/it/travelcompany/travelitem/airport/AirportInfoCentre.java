@@ -323,7 +323,7 @@ public class AirportInfoCentre {
         return allDestinationsAndCompany;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirports, List<Airport> destinationAirports) {
+    public static Set<String> getRouteMapStringSet(List<Airport> originAirports, List<Airport> destinationAirports) {
 
         Set<String> traces = new TreeSet<>();
 
@@ -347,7 +347,7 @@ public class AirportInfoCentre {
         return traces;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
+    public static Set<String> getRouteMapStringSet(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
 
         Set<String> traces = new TreeSet<>();
 

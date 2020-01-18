@@ -2,9 +2,7 @@ package by.academy.it.travelcompany.listener;
 
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
-import by.academy.it.travelcompany.service.global.AirlineService;
-import by.academy.it.travelcompany.service.global.imp.AirlineServiceImpl;
-import by.academy.it.travelcompany.travelitem.airline.Airline;
+import by.academy.it.travelcompany.service.global.imp.RouteMapServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,11 +31,12 @@ import java.util.ResourceBundle;
                 LOGGER.error("error", e);
                 throw new RuntimeException("Datasource initialisation error", e);
             }
-            //AirportServiceImpl.getInstance().allAllAirportToBase();
+
+            /*Airport a = AirportServiceImpl.getInstance().getAirportByCode("VN4");
+            System.out.println(a);*/
             //RouteMapServiceImpl.getInstance().addToBase("RY--VNO--BGY--Direct");
             //new AirlineServiceImpl().add(new Airline(null,"BOBO"));
-
-
+            RouteMapServiceImpl.getInstance().installAllRouteMap();
 
         }
 

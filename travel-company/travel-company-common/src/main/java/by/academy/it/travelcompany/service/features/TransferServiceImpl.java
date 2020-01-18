@@ -1,6 +1,5 @@
-package by.academy.it.travelcompany.service.global.imp;
+package by.academy.it.travelcompany.service.features;
 
-import by.academy.it.travelcompany.service.global.TransferService;
 import by.academy.it.travelcompany.travelitem.transfer.Transfer;
 
 import java.util.ArrayList;

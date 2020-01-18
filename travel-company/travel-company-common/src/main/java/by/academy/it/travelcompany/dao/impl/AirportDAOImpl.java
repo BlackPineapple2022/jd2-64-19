@@ -18,7 +18,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     private static final AirportDAO INSTANCE = new AirportDAOImpl();
 
     private AirportDAOImpl() {
-        super(LoggerFactory.getLogger(UserDAOImpl.class));
+        super(LoggerFactory.getLogger(AirportDAOImpl.class));
     }
 
     public static AirportDAO getInstance() {
@@ -28,9 +28,10 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     public static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
     public static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
     public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =?";
-    public static final String DELETE_AIRPORT_BY_ID = "DELETE FROM airport WHERE id = ?";
+    public static final String DELETE_AIRPORT = "DELETE FROM airport WHERE id = ?";
 
     public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
+    public static final String SELECT_AIRPORT_BY_CODE = "SELECT * FROM airport WHERE airport_code = ?";
 
 //CRUD
 
@@ -92,7 +93,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     @Override
     public int delete(Long id) throws SQLException {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(DELETE_AIRPORT_BY_ID)) {
+             PreparedStatement statement = connection.prepareStatement(DELETE_AIRPORT)) {
             statement.setLong(1, id);
             return statement.executeUpdate();
         }
@@ -111,6 +112,24 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
 
             while (resultSet.next()) {
                 result.add(mapAirport(resultSet));
+            }
+        } finally {
+            closeQuietly(resultSet);
+        }
+        return result;
+    }
+
+    @Override
+    public Airport getAirportByCode(String code) throws SQLException {
+        ResultSet resultSet = null;
+        Airport result = null;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_AIRPORT_BY_CODE)) {
+            statement.setString(1,code);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                result = mapAirport(resultSet);
             }
         } finally {
             closeQuietly(resultSet);

@@ -9,9 +9,9 @@ public interface AirlineService {
 
 //CRUD
 
-    Airline add(Airline airline);
+    Airline create(Airline airline);
 
-    Optional<Airline> getById(Long id);
+    Optional<Airline> read(Long id);
 
     Airline update(Airline airline);
 
@@ -23,6 +23,6 @@ public interface AirlineService {
 
     void installAllAirline();
 
-    Long getIdFromBase(Airline airline);
+    Long getIdByName(String airlineName);
 
 }

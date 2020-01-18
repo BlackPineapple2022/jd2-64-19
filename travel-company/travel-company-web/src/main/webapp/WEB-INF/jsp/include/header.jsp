@@ -16,24 +16,25 @@
 <div style="background:#FFFCFC; color: #000000; float: right; padding: 5px; padding-right: 30px; text-align: right;">
 
     <!-- User store in session with attribute: loginedUser -->
-        <c:if test="${user != null}"> <fmt:message key="label.welcome"/>  <b>${user.userName}</b>
+    <c:if test="${user != null && user.role eq 'ADMIN'}">
+        <a href="${pageContext.request.contextPath}/admin">[<img src="${pageContext.request.contextPath}/resources/pic/smallBlackPineApple.png" width="18px">]</a>
+
+    </c:if>
+
+    <c:if test="${user != null}"> <fmt:message key="label.welcome"/>  <b>${user.userName}</b>
 
         <a href="${pageContext.request.contextPath}/logout">logout</a>
+
     </c:if>
+
 </div>
 
-<c:if test="${user != null && user.role eq 'admin'}">
-    <div style="background:pink;height: 40px; color:black; text-align: center; padding: 15px; margin-top: 10px;">
+<c:if test="${user != null && user.role eq 'ADMIN'}">
 
-        <a href="${pageContext.request.contextPath}/addFlight">Добавить произвольный перелёт</a> |
-        <a href="${pageContext.request.contextPath}/addFlightTo">Добавить стартовый перелёт</a> |
-        <a href="${pageContext.request.contextPath}/addFlightFrom">Добавить обратный перелёт</a> |
-
-    </div>
 
 </c:if>
 
-<div style="background:#FFFCFC; text-align: right; font-size: 14px; padding: 30px;" >
+<div style="background:#FFFCFC; text-align: right; font-size: 14px; padding: 40px;" >
     <a href="${pageContext.request.contextPath}/login"> <fmt:message key="login.login"/> </a> |
     <a href="${pageContext.request.contextPath}/signup"> <fmt:message key="sign-up.sign-up"/> </a>|
     <a href="?lang=en"> en </a> |

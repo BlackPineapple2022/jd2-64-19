@@ -18,7 +18,7 @@ public class AirlineAddServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String airlineName = req.getParameter("airlineName");
-        AirlineServiceImpl.getInstance().add(new Airline(null,airlineName));
+        AirlineServiceImpl.getInstance().create(new Airline(null,airlineName));
         resp.sendRedirect(req.getContextPath()+"/admin/manager/airline");
     }
 }
