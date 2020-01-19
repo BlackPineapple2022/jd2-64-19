@@ -33,7 +33,10 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
     public static final String UPDATE_ROUTEMAP = "UPDATE routemap SET airline_id = ?, origin_airport_id = ?, destination_airport_id = ?, direction_id = ? WHERE id = ?";
     public static final String DELETE_ROUTEMAP = "DELETE FROM routemap WHERE id = ?";
 
-    public static final String SELECT_ALL_ROUTEMAP = "SELECT * FROM routemap";
+    public static final String SELECT_ALL_ROUTEMAP = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
+            " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id ORDER BY r.id ASC";
+    public static final String SELECT_ROUTEMAP_BY_PARAMETERS = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
+            " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE al.airline_name = ? AND apo.airport_code=? AND apd.airport_code = ? AND d.direction_name = ?";
 
     @Override
     public Long create(RouteMap r) throws SQLException {
@@ -124,6 +127,26 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
         return result;
     }
 
+    @Override
+    public Optional <RouteMap> getRouteMapByParam(String airline, String originAirport, String destinationAirport, String direction) throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_ROUTEMAP_BY_PARAMETERS)) {
+            statement.setString(1,airline);
+            statement.setString(2,originAirport);
+            statement.setString(3,destinationAirport);
+            statement.setString(4,direction);
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                return Optional.of(mapRouteMap(resultSet));
+            }
+        } finally {
+            closeQuietly(resultSet);
+        }
+        return Optional.empty();
+    }
+
     private RouteMap mapRouteMap(ResultSet resultSet) throws SQLException {
 
         Long id = resultSet.getLong(1);
@@ -152,6 +175,8 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
         return new RouteMap(id,airline,origin,destination,direction);
 
     }
+
+
 
 
 }

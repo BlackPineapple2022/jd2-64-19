@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.travelitem.transfer;
+package by.academy.it.travelcompany.travelitem.features.transfer;
 
 import java.time.LocalDateTime;
 import java.util.Objects;

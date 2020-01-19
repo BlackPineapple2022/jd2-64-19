@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.service.features;
 
-import by.academy.it.travelcompany.travelitem.accommodation.Accommodation;
+import by.academy.it.travelcompany.travelitem.features.accommodation.Accommodation;
 
 import java.util.ArrayList;
 import java.util.List;

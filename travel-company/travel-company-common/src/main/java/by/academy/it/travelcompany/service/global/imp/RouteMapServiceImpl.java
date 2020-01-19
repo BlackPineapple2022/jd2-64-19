@@ -95,10 +95,21 @@ public class RouteMapServiceImpl {
         return Collections.emptyList();
     }
 
+    public Optional<RouteMap> getRouteMapByParam(String airlineStr, String originAirportCode, String destinationAirportCode, String directionStr) {
+        log.info("Getting routeMap from Base{} by params");
+        try {
+            return routeMapDAO.getRouteMapByParam(airlineStr,originAirportCode,destinationAirportCode,directionStr);
+        } catch (SQLException e) {
+            log.error("Error while getting routeMap", e);
+        }
+        return Optional.empty();
+    }
+
+
     public void installAllRouteMap() {
         log.info("Installing all routeMap to Base{}");
         try {
-            Set<String> routeMapStringSet = AirportInfoCentre.getRouteMapStringSet(
+            List<String> routeMapStringSet = AirportInfoCentre.getRouteMapStringList(
                     new ArrayList<>(AirportInfoCentre.getAllStartAirports()),
                     new ArrayList<>(AirportInfoCentre.getAllAirportsFromStart())
             );

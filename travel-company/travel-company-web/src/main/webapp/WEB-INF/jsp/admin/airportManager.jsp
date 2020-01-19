@@ -36,15 +36,8 @@
 
     <tr>
         <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
+        <td colspan="9">__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ </td>
+
         <td></td>
     </tr>
     <tr>
@@ -155,17 +148,10 @@
     </tr>
 
     <tr>
-        <td> |</td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>@airport manager</td>
-        <td> |</td>
+        <td>| </td>
+        <td colspan="9">__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ @airport manager</td>
+        <td>| </td>
+
     </tr>
 
     <tr>
@@ -189,71 +175,6 @@
     </tr>
 
 
-
-    <%--<tr>
-        <td> |</td>
-        <td colspan="5">
-            <b>ADD AIRLINE TO BASE</b>
-        </td>
-        <td> |</td>
-    </tr>
-    <tr>
-        <td> |</td>
-        <td colspan="5">
-            <form method="POST" action="${pageContext.request.contextPath}/admin/manager/airline/add">
-                <input type="text" name="airlineName" value=""/>
-                <input type="submit" value="add"/>
-            </form>
-        </td>
-        <td> |</td>
-    </tr>
-    <tr>
-        <td> |</td>
-        <td colspan="5">
-            <b>UPDATE AIRLINE IN BASE</b>
-        </td>
-        <td> |</td>
-    </tr>
-    <tr>
-        <td> |</td>
-        <td colspan="5">
-            <form method="POST" action="${pageContext.request.contextPath}/admin/manager/airline/update">
-                id:<input type="text" class="id" name="id" value=""/>
-                new airline name
-                <input type="text" class="airlineName" name="airlineName" value=""/>
-                <input type="submit" value="update"/>
-            </form>
-        </td>
-        <td> |</td>
-    </tr>
-    <tr>
-        <td> |</td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>@airline manager</td>
-        <td> |</td>
-    </tr>
-    <tr>
-        <td colspan="7" style="text-align: left">For installing all airlines to base:</td>
-    </tr>
-    <tr>
-        <td colspan="7" style="text-align: left">Input "INSTALL" into field and press button</td>
-    </tr>
-    <tr>
-        <td colspan="7" style="text-align: left;color: red">All airline in base will be removed and installed default</td>
-    </tr>
-
-    <tr>
-        <td colspan="7" style="text-align: left">
-            <form method="POST" action="${pageContext.request.contextPath}/admin/manager/airline/install">
-                <input type="text" name="install" value=""/>
-                <input type="submit" value="install"/>
-                @danger
-            </form>
-        </td>
-    </tr>--%>
 
 </table>
 

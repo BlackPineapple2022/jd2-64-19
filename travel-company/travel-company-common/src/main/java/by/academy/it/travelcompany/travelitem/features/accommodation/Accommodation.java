@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.travelitem.accommodation;
+package by.academy.it.travelcompany.travelitem.features.accommodation;
 
 import java.time.LocalDate;
 import java.util.Objects;

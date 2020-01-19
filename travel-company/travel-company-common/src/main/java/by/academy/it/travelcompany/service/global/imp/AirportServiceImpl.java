@@ -29,13 +29,13 @@ public class AirportServiceImpl {
 
 //CRUD
 
-    public Long create(Airport airport) {
+    public Airport create(Airport airport) {
         log.info("Add new airport to Base{}", airport);
         try {
             Long id = airportDAO.create(airport);
             airport.setId(id);
             log.info("Result {}", id);
-            return id;
+            return airport;
         } catch (SQLException e) {
             log.error("Error while creating airport " + airport, e);
         }

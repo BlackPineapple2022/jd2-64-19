@@ -323,6 +323,7 @@ public class AirportInfoCentre {
         return allDestinationsAndCompany;
     }
 
+    @Deprecated
     public static Set<String> getRouteMapStringSet(List<Airport> originAirports, List<Airport> destinationAirports) {
 
         Set<String> traces = new TreeSet<>();
@@ -347,6 +348,31 @@ public class AirportInfoCentre {
         return traces;
     }
 
+    public static List<String> getRouteMapStringList(List<Airport> originAirports, List<Airport> destinationAirports) {
+
+        List<String> traces = new ArrayList<>();
+
+        for (int i = 0; i < originAirports.size(); i++) {
+
+            Map<AirlineEnum, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
+
+            for (AirlineEnum airlineEnum : searchMapLocal.keySet()) {
+                for (Airport airport : searchMapLocal.get(airlineEnum)) {
+                    for (Airport airportGlobal : destinationAirports) {
+                        if (airportGlobal.equals(airport)) {
+                            String trace = airlineEnum + "--" + originAirports.get(i).getCode() + "--" + airport.getCode() + "--Direct";
+                            traces.add(trace);
+                            String traceReturn = airlineEnum + "--" + airport.getCode() + "--" + originAirports.get(i).getCode() + "--Return";
+                            traces.add(traceReturn);
+                        }
+                    }
+                }
+            }
+        }
+        return traces;
+    }
+
+    @Deprecated
     public static Set<String> getRouteMapStringSet(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
 
         Set<String> traces = new TreeSet<>();

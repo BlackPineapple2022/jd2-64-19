@@ -29,11 +29,8 @@
 
     <tr>
         <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
+        <td colspan="5">__ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __</td>
+
         <td></td>
     </tr>
     <tr>
@@ -116,11 +113,8 @@
     </tr>
     <tr>
         <td> |</td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>__ __ __ __ __</td>
-        <td></td>
-        <td>@airline manager</td>
+        <td colspan="5">__ __ __ __ __ __ __ __ __ __ __ __ __ @airline manager </td>
+
         <td> |</td>
     </tr>
     <tr>

@@ -1,8 +1,8 @@
 package by.academy.it.travelcompany.travelitem.trip;
 
-import by.academy.it.travelcompany.travelitem.accommodation.Accommodation;
+import by.academy.it.travelcompany.travelitem.features.accommodation.Accommodation;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.travelitem.transfer.Transfer;
+import by.academy.it.travelcompany.travelitem.features.transfer.Transfer;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,16 +1,17 @@
+/*
 package by.academy.it.travelcompany.scanner.tripscanner;
 
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
+import by.academy.it.travelcompany.service.global.FlightService;
 import by.academy.it.travelcompany.service.local.TripServiceLocal;
 import by.academy.it.travelcompany.service.local.TripServiceLocalImpl;
 import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.service.local.FlightServiceLocal;
-import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
+import by.academy.it.travelcompany.service.global.imp.FlightServiceImpl;
 import by.academy.it.travelcompany.travelitem.trip.Trip;
 
 import org.slf4j.Logger;
@@ -120,7 +121,7 @@ public class TripScannerImpl {
 
             if (!isSearchActive) {
 
-                FlightServiceLocal flightServiceLocal = FlightServiceLocalImpl.getInstance();
+                FlightService flightServiceLocal = FlightServiceImpl.getInstance();
                 List<Flight> directs = flightServiceLocal.getAllFlightBySearchIdAndDirection(searchId, "Direct");
                 List<Flight> returns = flightServiceLocal.getAllFlightBySearchIdAndDirection(searchId, "Return");
 
@@ -196,3 +197,4 @@ public class TripScannerImpl {
 
 
 }
+*/

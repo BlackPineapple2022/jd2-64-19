@@ -10,6 +10,6 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        // TODO: delete session searches from TripServiceLocal and FlightServiceLocal
+        // TODO: delete session searches from TripServiceLocal and FlightService
     }
 }

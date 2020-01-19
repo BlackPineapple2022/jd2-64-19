@@ -20,6 +20,7 @@
     <a href="${pageContext.request.contextPath}/home">[<img src="${pageContext.request.contextPath}/resources/pic/smallPineApple.png" width="18px">]</a>
     <a href="${pageContext.request.contextPath}/admin/manager/airline">[airline Manager]</a>
     <a href="${pageContext.request.contextPath}/admin/manager/airport">[airport Manager]</a>
+    <a href="${pageContext.request.contextPath}/admin/manager/routemap">[routeMap Manager]</a>
     <br>
     <br>
    

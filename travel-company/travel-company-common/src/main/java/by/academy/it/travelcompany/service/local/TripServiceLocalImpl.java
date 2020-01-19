@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.service.local;
 
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
@@ -83,3 +84,4 @@ public class TripServiceLocalImpl implements TripServiceLocal {
         return resultTrip;
     }
 }
+*/

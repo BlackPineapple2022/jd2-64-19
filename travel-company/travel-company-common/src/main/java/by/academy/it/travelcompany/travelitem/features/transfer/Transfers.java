@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.travelitem.transfer;
+package by.academy.it.travelcompany.travelitem.features.transfer;
 
 public enum Transfers {
     TRAIN,

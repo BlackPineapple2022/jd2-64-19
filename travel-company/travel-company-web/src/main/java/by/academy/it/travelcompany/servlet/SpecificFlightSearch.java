@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.servlet;
 
 import by.academy.it.travelcompany.scanner.tripscanner.TripScannerImpl;
@@ -177,3 +178,4 @@ public class SpecificFlightSearch extends HttpServlet {
 
     }
 }
+*/
