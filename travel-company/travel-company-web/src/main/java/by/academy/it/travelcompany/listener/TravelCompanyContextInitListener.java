@@ -1,5 +1,7 @@
 package by.academy.it.travelcompany.listener;
 
+import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
+import by.academy.it.travelcompany.dao.impl.RouteMapDAOImpl;
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
@@ -18,9 +20,7 @@ import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import java.util.ResourceBundle;
+import java.util.*;
 
 @WebListener()
 public class TravelCompanyContextInitListener implements ServletContextListener {
@@ -80,6 +80,42 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
         for (Flight f :flightList) {
             System.out.println(f);
             FlightServiceImpl.getInstance().create(f);
+        }*/
+
+        /*String a1 = "VNO";
+        String a2 = "KUN";
+        String a3 = "WMI";
+        String a4 = "WAW";
+
+        String a5 = "BGY";
+        String a6 = "MXP";
+
+        Set<String> set1 = new HashSet<>();
+        Set<String> set2 = new HashSet<>();
+        Set<String> set3 = new HashSet<>();
+        Set<String> set4 = new HashSet<>();
+
+        set1.add(a1);
+        set1.add(a2);
+        set1.add(a3);
+        set1.add(a4);
+
+        set2.add(a5);
+        set2.add(a6);
+
+        set3.add(a5);
+        set3.add(a6);
+
+        set4.add(a1);
+        set4.add(a2);
+        set4.add(a3);
+        set4.add(a4);
+
+        try {
+            Set<RouteMap> routeMapSet = RouteMapDAOImpl.getInstance().getRouteMapSetByAirportCodeSets(set1, set2, set3, set4);
+            System.out.println((routeMapSet));
+        } catch (Exception e) {
+
         }*/
 
     }

@@ -10,9 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
@@ -37,7 +35,8 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
             " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id ORDER BY r.id ASC";
     public static final String SELECT_ROUTEMAP_BY_PARAMETERS = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
             " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE al.airline_name = ? AND apo.airport_code=? AND apd.airport_code = ? AND d.direction_name = ?";
-
+    public static final String SELECT_ALL_ROUTEMAP_BY_ORIGIN_AND_DESTINATION = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
+            " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE apo.airport_code=? AND apd.airport_code = ?";
     @Override
     public Long create(RouteMap r) throws SQLException {
         ResultSet resultSet = null;
@@ -147,6 +146,44 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
         return Optional.empty();
     }
 
+    public Set<RouteMap> getRouteMapSetByAirportCodeSets(Set <String> originDirect, Set <String>destinationDirect, Set<String> destinationReturn, Set<String> originReturn) throws SQLException{
+        Set<RouteMap> routeMapSet = new HashSet<>();
+        for (String originDirectStr: originDirect) {
+            for (String destinationDirectStr: destinationDirect ) {
+                ResultSet resultSet = null;
+                try (Connection connection = getConnection();
+                     PreparedStatement statement = connection.prepareStatement(SELECT_ALL_ROUTEMAP_BY_ORIGIN_AND_DESTINATION)) {
+                    statement.setString(1,originDirectStr);
+                    statement.setString(2,destinationDirectStr);
+                    resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        routeMapSet.add(mapRouteMap(resultSet));
+                    }
+                } finally {
+                    closeQuietly(resultSet);
+                }
+            }
+        }
+
+        for (String destinationReturnStr: destinationReturn) {
+            for (String originReturnStr: originReturn ) {
+                ResultSet resultSet = null;
+                try (Connection connection = getConnection();
+                     PreparedStatement statement = connection.prepareStatement(SELECT_ALL_ROUTEMAP_BY_ORIGIN_AND_DESTINATION)) {
+                    statement.setString(1,destinationReturnStr);
+                    statement.setString(2,originReturnStr);
+                    resultSet = statement.executeQuery();
+                    while (resultSet.next()) {
+                        routeMapSet.add(mapRouteMap(resultSet));
+                    }
+                } finally {
+                    closeQuietly(resultSet);
+                }
+            }
+        }
+        return routeMapSet;
+    }
+
     private RouteMap mapRouteMap(ResultSet resultSet) throws SQLException {
 
         Long id = resultSet.getLong(1);
@@ -156,13 +193,13 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
 
         Long airportOriginId = resultSet.getLong(4);
         String airportOriginCode = resultSet.getString(5);
-        String airportOriginCity = resultSet.getString(6);
-        String airportOriginCountry = resultSet.getString(7);
+        String airportOriginCity = resultSet.getString(7);
+        String airportOriginCountry = resultSet.getString(6);
 
         Long airportDestinationId = resultSet.getLong(8);
         String airportDestinationCode = resultSet.getString(9);
-        String airportDestinationCity = resultSet.getString(10);
-        String airportDestinationCountry = resultSet.getString(11);
+        String airportDestinationCity = resultSet.getString(11);
+        String airportDestinationCountry = resultSet.getString(10);
 
         Long directionId = resultSet.getLong(12);
         String directionName = resultSet.getString(13);

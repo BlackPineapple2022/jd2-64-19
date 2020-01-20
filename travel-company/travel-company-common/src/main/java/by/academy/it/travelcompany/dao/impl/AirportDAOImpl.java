@@ -142,7 +142,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
         String airportCode = resultSet.getString("airport_code");
         String city = resultSet.getString("city");
         String country = resultSet.getString("country");
-        return new Airport(id, airportCode, city, country);
+        return new Airport(id, airportCode, country, city);
     }
 
 }

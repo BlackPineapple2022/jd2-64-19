@@ -120,6 +120,12 @@ public class FlightScannerImpl extends Thread {
             }
         }
         log.info("Flight scanning successfully ended");
+        log.info("Finding flights going to Base{}");
+        FlightService flightService = FlightServiceImpl.getInstance();
+        for (Flight f:result) {
+            flightService.create(f);
+        }
+        log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
 
@@ -217,6 +223,12 @@ public class FlightScannerImpl extends Thread {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
+        log.info("Finding flights going to Base{}");
+        FlightService flightService = FlightServiceImpl.getInstance();
+        for (Flight f:result) {
+            flightService.create(f);
+        }
+        log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
 

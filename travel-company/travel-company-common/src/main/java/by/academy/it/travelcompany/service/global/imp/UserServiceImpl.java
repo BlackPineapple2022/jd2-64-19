@@ -4,6 +4,7 @@ import by.academy.it.travelcompany.dao.UserDAO;
 import by.academy.it.travelcompany.dao.impl.UserDAOImpl;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.service.global.UserService;
+import by.academy.it.travelcompany.user.Favourite;
 import by.academy.it.travelcompany.user.User;
 
 import java.util.Optional;
@@ -57,6 +58,7 @@ public class UserServiceImpl implements UserService {
         try {
             Long id = userDAO.create(user);
             user.setId(id);
+            FavouriteServiceImpl.getInstance().newUser(user.getUserName(),id);
             LOGGER.info("result {}", id);
         } catch (SQLException e) {
             LOGGER.error("Error while creating user " + user, e);

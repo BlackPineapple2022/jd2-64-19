@@ -105,6 +105,18 @@ public class RouteMapServiceImpl {
         return Optional.empty();
     }
 
+public Set<RouteMap> getRouteMapSetByAirportCodeSets(Set<String> originsDirect,Set<String> destinationsDirect,Set<String> destinationsReturn,Set<String> originsReturn){
+        log.info("Getting routeMap set from Base{}");
+        try{
+            Set<RouteMap> routeMaps = routeMapDAO.getRouteMapSetByAirportCodeSets(originsDirect,destinationsDirect,destinationsReturn,originsReturn);
+            log.info("Getting routeMap successfully completed, result: "+routeMaps );
+            return routeMaps;
+        }catch (SQLException e){
+            log.error("Error while getting routeMap set from Base{}");
+        }
+        return Collections.emptySet();
+}
+
 
     public void installAllRouteMap() {
         log.info("Installing all routeMap to Base{}");

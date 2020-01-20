@@ -1,4 +1,4 @@
-/*
+
 package by.academy.it.travelcompany.service.local;
 
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
@@ -70,12 +70,12 @@ public class TripServiceLocalImpl implements TripServiceLocal {
                 List<Flight> flightso2 = o2.getFlights();
                 Double priceo1 = 0.0;
                 for (Flight flight : flightso1) {
-                    priceo1 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency());
+                    priceo1 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency().getCurrencyCode());
                 }
 
                 Double priceo2 = 0.0;
                 for (Flight flight : flightso2) {
-                    priceo2 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency());
+                    priceo2 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency().getCurrencyCode());
                 }
 
                 return priceo1.compareTo(priceo2);
@@ -84,4 +84,4 @@ public class TripServiceLocalImpl implements TripServiceLocal {
         return resultTrip;
     }
 }
-*/
+

@@ -19,4 +19,6 @@ public interface FlightService {
 
     List <Flight> getAll();
 
+    public List<Flight> getAllFlightBySearchId(Long searchId);
+
 }

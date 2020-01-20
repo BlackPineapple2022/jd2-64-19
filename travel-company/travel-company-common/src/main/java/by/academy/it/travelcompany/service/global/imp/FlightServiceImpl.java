@@ -9,6 +9,7 @@ import by.academy.it.travelcompany.travelitem.flight.Flight;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -57,6 +58,17 @@ public class FlightServiceImpl implements FlightService {
     @Override
     public List<Flight> getAll() {
         return null;
+    }
+
+    public List<Flight> getAllFlightBySearchId(Long searchId) {
+        log.info("Getting all flights with search id: " + searchId);
+        List<Flight> result = new ArrayList<>();
+        try {
+            return flightDAO.getAllFlightBySearchId(searchId);
+        } catch (SQLException e) {
+            log.error("Error while getting all flight with search id: ", e);
+        }
+        return result;
     }
 }
 

@@ -139,7 +139,7 @@
 
 </table>
 
-
+<%@include file="include/adminfooter.jsp" %>
 </body>
 
 </html>
