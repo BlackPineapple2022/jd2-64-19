@@ -5,8 +5,8 @@ import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
 import by.academy.it.travelcompany.service.global.FlightService;
-import by.academy.it.travelcompany.service.local.TripServiceLocal;
-import by.academy.it.travelcompany.service.local.TripServiceLocalImpl;
+import by.academy.it.travelcompany.service.global.TripService;
+import by.academy.it.travelcompany.service.global.imp.TripServiceImpl;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.service.global.imp.FlightServiceImpl;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
@@ -31,7 +31,7 @@ public class TripScannerImpl {
     private Boolean isSearchActive;
 
     private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
-    private static final TripServiceLocal TRIP_SERVICE = TripServiceLocalImpl.getInstance();
+    private static final TripService TRIP_SERVICE = TripServiceImpl.getInstance();
 
     private static final Integer DELAY_CHECK_ALL_TREADS_ARE_FINISHED = 1000;
     private static final Integer DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED = 10000;

@@ -1,9 +1,7 @@
 package by.academy.it.travelcompany.service.global.imp;
 
 import by.academy.it.travelcompany.dao.FlightDAO;
-import by.academy.it.travelcompany.dao.RouteMapDAO;
 import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
-import by.academy.it.travelcompany.dao.impl.RouteMapDAOImpl;
 import by.academy.it.travelcompany.service.global.FlightService;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
 import lombok.extern.slf4j.Slf4j;

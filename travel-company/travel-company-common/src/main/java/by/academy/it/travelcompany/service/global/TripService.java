@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.service.local;
+package by.academy.it.travelcompany.service.global;
 
 
 import by.academy.it.travelcompany.travelitem.trip.Trip;
@@ -9,7 +9,7 @@ import java.util.List;
  * Trip service
  */
 
-public interface TripServiceLocal {
+public interface TripService {
 
     /**
      * Get all trips

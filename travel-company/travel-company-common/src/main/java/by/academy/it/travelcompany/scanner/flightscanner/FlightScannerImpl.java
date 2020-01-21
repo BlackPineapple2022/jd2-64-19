@@ -137,7 +137,6 @@ public class FlightScannerImpl extends Thread {
         Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
-        System.out.println("KEY : " +authMap.get("x-requestverificationtoken"));
 
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
@@ -278,7 +277,6 @@ public class FlightScannerImpl extends Thread {
                         for (int k = 25; k < 57; k++) {
                             requestVerificationToken = requestVerificationToken + h.getValue().charAt(k);
                         }
-                        System.out.println(" key  - "+requestVerificationToken);
                         keyList.add(requestVerificationToken);
                     }
                 }

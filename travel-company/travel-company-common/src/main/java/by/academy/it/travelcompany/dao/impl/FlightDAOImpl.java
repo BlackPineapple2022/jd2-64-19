@@ -34,6 +34,10 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
     public static final String INSERT_FLIGHT = "INSERT INTO flight" +
             "(routemap_id, departure_date_time,arrive_date_time, flight_number, currency_id, price, search_id)" +
             "VALUE (?,?,?,?,?,?,?)";
+    public static final String SELECT_FLIGHT=
+            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code" +
+                    " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
+                    " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.id = ?";
 
     public static final String SELECT_ALL_FLIGHT_WITH_SAME_ROUTE_MAP = "SELECT * FROM flight WHERE routemap_id = ?";
 
@@ -41,6 +45,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
             "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code" +
                     " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
                     " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.search_id = ?";
+
 
 
     @Override
@@ -83,6 +88,21 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
 
     @Override
     public Optional read(Long id) throws SQLException {
+        ResultSet resultSet = null;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_FLIGHT)) {
+            System.out.println("READ!!!");
+            statement.setLong(1, id);
+            resultSet = statement.executeQuery();
+            System.out.println("Never let me down again!");
+            if (resultSet.next()) {
+                Flight result = mapFlight(resultSet);
+                System.out.println("READ!!!");
+                return Optional.of(result);
+            }
+        } finally {
+            closeQuietly(resultSet);
+        }
         return Optional.empty();
     }
 
