@@ -7,10 +7,7 @@ import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.user.Favourite;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +59,25 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
             statement.setString(2, userName+"_favourite");
             return statement.executeUpdate();
         }
+    }
+
+    @Override
+    public Long newFavourite(String favouriteName, Long id) throws SQLException {
+        ResultSet resultSet = null;
+        Long result = null;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(INSERT_NEW_USER, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setLong(1, id);
+            statement.setString(2, favouriteName);
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            while (resultSet.next()) {
+                result = resultSet.getLong(1);
+            }
+        }finally {
+            closeQuietly(resultSet);
+        }
+        return result;
     }
 
     @Override

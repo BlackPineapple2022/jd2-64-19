@@ -30,6 +30,16 @@ public class FavouriteServiceImpl {
 
     }
 
+    public void newFavourite(String favouriteName, Long id){
+        log.info("Creating new favourite, adding favourite list to base",favouriteName);
+        try{
+            favouriteDAO.newFavourite(favouriteName,id);
+        }catch (SQLException e){
+            log.error("Error while adding favourite list to base",e);
+        }
+
+    }
+
     public List<Favourite> getAllFavouriteByUserId(Long userId){
         log.info("Getting favourites from Base{} by userId", userId);
         try{

@@ -278,13 +278,15 @@
             <td colspan="7"> add to:
                 <form method="POST" action="${pageContext.request.contextPath}/admin/favourite/add" target="iframe1">
 
-                    <select name="airportDestinationDirect1">
+                    <select name="favourite">
                         <c:forEach items="${favourites}" var="favourite">
                             <option value="${favourite}">${favourite}</option>
 
                         </c:forEach>
                     </select>
                     <input type="hidden" name = "tripId" value = "${trip.id}">
+                    or create new list
+                    <input type="text" name="newFavourite">
                     <input type="submit" value="+"/>
                 </form>
             </td>
