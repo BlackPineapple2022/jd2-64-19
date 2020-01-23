@@ -6,6 +6,7 @@ import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
 import by.academy.it.travelcompany.scanner.flightscanner.FlightScannerImpl;
 import by.academy.it.travelcompany.service.global.imp.CurrencyServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.FavouriteServiceImpl;
 import by.academy.it.travelcompany.service.global.imp.FlightServiceImpl;
 import by.academy.it.travelcompany.service.global.imp.RouteMapServiceImpl;
 import by.academy.it.travelcompany.travelitem.currency.Currency;
@@ -117,6 +118,17 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
         } catch (Exception e) {
 
         }*/
+
+
+        FlightScannerImpl flightScanner1 = new FlightScannerImpl(23L, RouteMapServiceImpl.getInstance().read(23L).get(),LocalDate.now(),300);
+        FlightScannerImpl flightScanner2 = new FlightScannerImpl(24L, RouteMapServiceImpl.getInstance().read(24L).get(),LocalDate.now(),300);
+        FlightScannerImpl flightScanner11 = new FlightScannerImpl(37L, RouteMapServiceImpl.getInstance().read(37L).get(),LocalDate.now(),300);
+        FlightScannerImpl flightScanner12 = new FlightScannerImpl(38L, RouteMapServiceImpl.getInstance().read(38L).get(),LocalDate.now(),300);
+
+        flightScanner1.start();
+        flightScanner2.start();
+        flightScanner11.start();
+        flightScanner12.start();
 
     }
 

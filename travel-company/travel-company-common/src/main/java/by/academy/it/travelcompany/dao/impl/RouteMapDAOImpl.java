@@ -27,7 +27,7 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
 
     public static final String INSERT_ROUTEMAP = "INSERT INTO routemap (airline_id, origin_airport_id, destination_airport_id,direction_id ) VALUE (?,?,?,?)";
     public static final String SELECT_ROUTEMAP = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
-            " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE id=?";
+            " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE r.id=?";
     public static final String UPDATE_ROUTEMAP = "UPDATE routemap SET airline_id = ?, origin_airport_id = ?, destination_airport_id = ?, direction_id = ? WHERE id = ?";
     public static final String DELETE_ROUTEMAP = "DELETE FROM routemap WHERE id = ?";
 

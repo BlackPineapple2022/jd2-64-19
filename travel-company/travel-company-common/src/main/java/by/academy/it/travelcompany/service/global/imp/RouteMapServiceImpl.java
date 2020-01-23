@@ -23,9 +23,7 @@ import java.util.*;
 public class RouteMapServiceImpl {
 
     private final RouteMapDAO routeMapDAO = RouteMapDAOImpl.getInstance();
-    private final AirlineDAO airlineDAO = AirlineDAOImpl.getInstance();
-    private final AirportDAO airportDAO = AirportDAOImpl.getInstance();
-    private final DirectionDAO directionDAO = DirectionDAOImpl.getInstance();
+    private final FlightScannerJournalServiceImpl flightScannerJournalService = FlightScannerJournalServiceImpl.getInstance();
 
 
     private static final RouteMapServiceImpl INSTANCE = new RouteMapServiceImpl();
@@ -137,7 +135,9 @@ public Set<RouteMap> getRouteMapSetByAirportCodeSets(Set<String> originsDirect,S
                 Direction direction = new Direction(DirectionServiceImpl.getInstance().getIdByName(directionName), directionName);
 
                 RouteMap routeMap = new RouteMap(null, airline, originAirport, destinationAirport, direction);
-                routeMapDAO.create(routeMap);
+                Long id = routeMapDAO.create(routeMap);
+                flightScannerJournalService.createJournalEntry(id);
+
             }
             log.info("Installing all routeMap to Base{} successfully ended");
         } catch (SQLException e) {
