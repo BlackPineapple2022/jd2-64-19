@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @Slf4j
 public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
 

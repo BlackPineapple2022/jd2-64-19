@@ -34,7 +34,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
     public static final String INSERT_FLIGHT = "INSERT INTO flight" +
             "(routemap_id, departure_date_time,arrive_date_time, flight_number, currency_id, price, search_id)" +
             "VALUE (?,?,?,?,?,?,?)";
-    public static final String SELECT_FLIGHT=
+    public static final String SELECT_FLIGHT =
             "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code" +
                     " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
                     " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.id = ?";
@@ -46,7 +46,8 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
                     " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
                     " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.search_id = ?";
 
-
+    public static final String UPDATE_BY_DATE_AND_FLIGHT_NUMBER = "UPDATE flight SET price = ?, checked_date = now(),search_id = ? WHERE flight_number = ? AND departure_date_time LIKE ?";
+//CRUD
 
     @Override
     public Long create(Flight flight) throws SQLException {
@@ -91,13 +92,10 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
         ResultSet resultSet = null;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_FLIGHT)) {
-            System.out.println("READ!!!");
             statement.setLong(1, id);
             resultSet = statement.executeQuery();
-            System.out.println("Never let me down again!");
             if (resultSet.next()) {
                 Flight result = mapFlight(resultSet);
-                System.out.println("READ!!!");
                 return Optional.of(result);
             }
         } finally {
@@ -115,6 +113,8 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
     public int delete(Long id) throws SQLException {
         return 0;
     }
+
+//!CRUD
 
     @Override
     public List getAll() throws SQLException {
@@ -166,8 +166,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
                 result.add(f);
             }
 
-        }
-        finally {
+        } finally {
             closeQuietly(resultSet);
         }
         return result;
@@ -225,5 +224,21 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
         return LocalDateTime.of(
                 LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
                 LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
+    }
+    @Override
+    public int updateByDateAndFlightNumberOrCreate(Flight flight) throws SQLException {
+        int result = -1;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(UPDATE_BY_DATE_AND_FLIGHT_NUMBER)) {
+            statement.setDouble(1, flight.getTicketPrice());
+            statement.setLong(2,flight.getSearchId());
+            statement.setString(3, flight.getFlightNumber());
+            statement.setString(4, flight.getDepartureTime().toLocalDate().toString() + "%");
+            result = statement.executeUpdate();
+            if (result == 0) {
+                create(flight);
+            }
+        }
+        return result;
     }
 }

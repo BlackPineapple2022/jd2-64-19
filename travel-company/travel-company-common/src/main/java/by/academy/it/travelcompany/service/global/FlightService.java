@@ -19,6 +19,11 @@ public interface FlightService {
 
     List <Flight> getAll();
 
-    public List<Flight> getAllFlightBySearchId(Long searchId);
+    List<Flight> getAllFlightBySearchId(Long searchId);
+
+    void updateByDateAndFlightNumberOrCreate(Flight flight);
+
+    void updateByDateAndFlightNumberOrCreate(List<Flight> list);
+
 
 }

@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.user;
+package by.academy.it.travelcompany.favourite;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

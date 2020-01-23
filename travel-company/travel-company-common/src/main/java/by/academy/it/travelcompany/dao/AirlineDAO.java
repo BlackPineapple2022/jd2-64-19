@@ -7,4 +7,5 @@ import java.sql.SQLException;
 public interface AirlineDAO extends DAO<Airline> {
 
     Long getIdByName(String name) throws SQLException;
+
 }

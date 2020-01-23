@@ -39,6 +39,8 @@ public class FlightServiceImpl implements FlightService {
         return null;
     }
 
+
+
     @Override
     public Optional<Flight> read(Long id) {
         return Optional.empty();
@@ -67,6 +69,24 @@ public class FlightServiceImpl implements FlightService {
             log.error("Error while getting all flight with search id: ", e);
         }
         return result;
+    }
+
+    @Override
+    public void updateByDateAndFlightNumberOrCreate(Flight flight) {
+        log.info("Creating or updating found flight to Base{}", flight);
+            try{
+                flightDAO.updateByDateAndFlightNumberOrCreate(flight);
+
+            }catch (SQLException e){
+                log.error("Error while creating or updating flight on Base{}");
+            }
+    }
+
+    @Override
+    public void updateByDateAndFlightNumberOrCreate(List<Flight> list) {
+        for (Flight f:list ) {
+            updateByDateAndFlightNumberOrCreate(f);
+        }
     }
 }
 

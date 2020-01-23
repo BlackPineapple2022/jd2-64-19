@@ -1,4 +1,3 @@
-
 package by.academy.it.travelcompany.scanner.tripscanner;
 
 import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
@@ -128,13 +127,14 @@ public class TripScannerImpl {
                                 price += f.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(f.getCurrency().getCurrencyCode());
                             }
                             Trip trip = new Trip(flights, price, searchId);
-                            TRIP_SERVICE.addTrip(trip);
+
+                            TRIP_SERVICE.addTrip(trip); //local!!!
                         }
 
                     }
                 }
                 log.info("Searching trip is finished, searchId: " + searchId);
-                tripRes = TRIP_SERVICE.getAllTripBySearchId(searchId);
+                tripRes = TRIP_SERVICE.getAllTripBySearchId(searchId);//local!!!
                 break;
             }
         }

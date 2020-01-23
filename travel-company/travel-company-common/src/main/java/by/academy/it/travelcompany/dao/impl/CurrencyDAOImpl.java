@@ -26,6 +26,8 @@ public class CurrencyDAOImpl extends AbstractDAO implements CurrencyDAO {
 
     private static final String SELECT_CURRENCY_BY_CODE = "SELECT * FROM currency WHERE currency_code = ?";
 
+//CRUD
+
     @Override
     public Long create(Currency currency) throws SQLException {
         return null;
@@ -45,6 +47,8 @@ public class CurrencyDAOImpl extends AbstractDAO implements CurrencyDAO {
     public int delete(Long id) throws SQLException {
         return 0;
     }
+
+//!CRUD
 
     @Override
     public List<Currency> getAll() throws SQLException {

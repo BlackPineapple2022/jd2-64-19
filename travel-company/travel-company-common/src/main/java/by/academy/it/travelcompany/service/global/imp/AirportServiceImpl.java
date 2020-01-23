@@ -97,12 +97,18 @@ public class AirportServiceImpl {
         return null;
     }
 
-    //TODO like AirlineServiceImpl
+
     public void installAllAirport(){
-        Set<Airport> allAirport = AirportInfoCentre.getAllAirports();
-        for (Airport a:allAirport ) {
-            create(a);
+        log.info("Installing all airport to Base{}");
+        try {
+            Set<Airport> allAirport = AirportInfoCentre.getAllAirports();
+            for (Airport a : allAirport) {
+                airportDAO.create(a);
+            }
+        }catch (SQLException e){
+            log.error("Error when installing all airport to Base{}");
         }
+        log.info("Installing all airport to Base{} successfully ended");
     }
 
 }

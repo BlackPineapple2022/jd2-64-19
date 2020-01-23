@@ -24,6 +24,10 @@ public class Schedule {
                 return l;
             }
         }
+        //danger using when base is empty
+        //for example first search 01.05.2020-15.05.2020
+        //second search 20.04.2020 - 01.05.2020 getting only one day: 01.05.2020
+
         return currentDay.plusDays(1);
     }
 

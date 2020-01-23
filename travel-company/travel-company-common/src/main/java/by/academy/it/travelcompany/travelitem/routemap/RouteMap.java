@@ -18,7 +18,7 @@ certain direction
 Useful override method toString() get:
 for example: RY-VNO-BVA-Direct
           or WIZZ-AES-KUN-Return
- */
+*/
 
 @Data
 @NoArgsConstructor

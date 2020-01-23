@@ -33,7 +33,6 @@ public class AirlineDAOImpl extends AbstractDAO implements AirlineDAO {
     private final String SELECT_ALL_AIRLINE = "SELECT * FROM airline ORDER BY id ASC";
     private final String SELECT_AIRLINE_BY_NAME = "SELECT * FROM airline WHERE airline_name = ?";
 
-
 //CRUD
 
     @Override

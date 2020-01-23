@@ -28,6 +28,8 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
 
     public static final String SELECT_ALL_TRIP_BY_SEARCH_ID = "SELECT r.id,r.direct_flight_id,r.return_flight_id,r.price FROM roundtrip r JOIN flight fd ON r.direct_flight_id = fd.id WHERE fd.search_id= ?";
 
+//CRUD
+
     @Override
     public Long create(Trip trip) throws SQLException {
         ResultSet resultSet = null;
@@ -72,6 +74,8 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
         return 0;
     }
 
+//!CRUD
+
     @Override
     public List<Trip> getAll() throws SQLException {
         return null;
@@ -85,7 +89,6 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
              PreparedStatement statement = connection.prepareStatement(SELECT_ALL_TRIP_BY_SEARCH_ID)) {
             statement.setLong(1, searchId);
             resultSet = statement.executeQuery();
-            System.out.println("Hi");
             while (resultSet.next()) {
                 Long id = resultSet.getLong(1);
                 Flight flightDirect = new Flight(resultSet.getLong(2),null,null,null,null,null,null);

@@ -7,7 +7,7 @@ import by.academy.it.travelcompany.service.global.imp.RouteMapServiceImpl;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 import by.academy.it.travelcompany.travelitem.trip.Trip;
-import by.academy.it.travelcompany.user.Favourite;
+import by.academy.it.travelcompany.favourite.Favourite;
 import by.academy.it.travelcompany.user.User;
 import lombok.extern.slf4j.Slf4j;
 

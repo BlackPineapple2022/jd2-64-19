@@ -1,10 +1,8 @@
 package by.academy.it.travelcompany.dao.impl;
 
 import by.academy.it.travelcompany.dao.AbstractDAO;
-import by.academy.it.travelcompany.dao.DirectionDAO;
 import by.academy.it.travelcompany.dao.FavouriteDAO;
-import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.user.Favourite;
+import by.academy.it.travelcompany.favourite.Favourite;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
@@ -26,6 +24,8 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
     public static String INSERT_NEW_USER = "INSERT INTO favourite (user_id,favourite_name) VALUE (?,?)";
     public static String SELECT_FAVOURITE = "SELECT * FROM favourite WHERE user_id = ?";
 
+//CRUD
+
     @Override
     public Long create(Favourite favourite) throws SQLException {
         return null;
@@ -45,6 +45,8 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
     public int delete(Long id) throws SQLException {
         return 0;
     }
+
+//!CRUD
 
     @Override
     public List<Favourite> getAll() throws SQLException {

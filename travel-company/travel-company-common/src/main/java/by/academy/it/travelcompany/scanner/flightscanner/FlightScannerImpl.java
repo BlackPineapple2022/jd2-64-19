@@ -38,7 +38,6 @@ import java.time.LocalTime;
 
 import java.util.*;
 
-
 @NoArgsConstructor
 @Data
 @Slf4j
@@ -122,9 +121,10 @@ public class FlightScannerImpl extends Thread {
         log.info("Flight scanning successfully ended");
         log.info("Finding flights going to Base{}");
         FlightService flightService = FlightServiceImpl.getInstance();
-        for (Flight f:result) {
+        flightService.updateByDateAndFlightNumberOrCreate(result);
+        /*for (Flight f:result) {//update, no add new!
             flightService.create(f);
-        }
+        }*/
         log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
@@ -147,7 +147,7 @@ public class FlightScannerImpl extends Thread {
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.5.0/Api/search/search");
+            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -160,7 +160,7 @@ public class FlightScannerImpl extends Thread {
             httpPost.setHeader("upgrade-insecure-requests", "1");
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-            httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken").get(0));
+            httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken"). get(0));
 
             for (int j = 0; j < authMap.get("Set-Cookie").size(); j++) {
                 httpPost.addHeader("cookie", authMap.get("Set-Cookie").get(j));
@@ -224,9 +224,10 @@ public class FlightScannerImpl extends Thread {
         }
         log.info("Finding flights going to Base{}");
         FlightService flightService = FlightServiceImpl.getInstance();
-        for (Flight f:result) {
+        /*for (Flight f:result) {//update, no add new!
             flightService.create(f);
-        }
+        }*/
+        flightService.updateByDateAndFlightNumberOrCreate(result);
         log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
@@ -251,7 +252,7 @@ public class FlightScannerImpl extends Thread {
 
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.5.0/Api/search/search");
+        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
 
         httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         httpPost.setHeader("accept-encoding", "gzip, deflate, br");

@@ -3,7 +3,7 @@ package by.academy.it.travelcompany.servlet;
 import by.academy.it.travelcompany.service.global.UserService;
 import by.academy.it.travelcompany.service.global.imp.FavouriteServiceImpl;
 import by.academy.it.travelcompany.service.global.imp.UserServiceImpl;
-import by.academy.it.travelcompany.user.Favourite;
+import by.academy.it.travelcompany.favourite.Favourite;
 import by.academy.it.travelcompany.user.User;
 
 import javax.servlet.ServletException;

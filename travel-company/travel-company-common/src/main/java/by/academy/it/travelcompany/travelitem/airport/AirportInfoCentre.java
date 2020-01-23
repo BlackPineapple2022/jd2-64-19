@@ -344,10 +344,13 @@ public class AirportInfoCentre {
                     }
                 }
             }
+
         }
+
         return traces;
     }
 
+    @Deprecated
     public static List<String> getRouteMapStringList(List<Airport> originAirports, List<Airport> destinationAirports) {
 
         List<String> traces = new ArrayList<>();

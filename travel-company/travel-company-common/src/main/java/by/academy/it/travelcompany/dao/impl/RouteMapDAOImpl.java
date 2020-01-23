@@ -37,6 +37,9 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
             " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE al.airline_name = ? AND apo.airport_code=? AND apd.airport_code = ? AND d.direction_name = ?";
     public static final String SELECT_ALL_ROUTEMAP_BY_ORIGIN_AND_DESTINATION = "SELECT r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name" +
             " FROM routemap r JOIN airline al ON r.airline_id = al.id JOIN airport apo ON r.origin_airport_id = apo.id JOIN airport apd ON r.destination_airport_id = apd.id JOIN direction d on r.direction_id=d.id WHERE apo.airport_code=? AND apd.airport_code = ?";
+
+//CRUD
+
     @Override
     public Long create(RouteMap r) throws SQLException {
         ResultSet resultSet = null;
@@ -107,6 +110,8 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
             return statement.executeUpdate();
         }
     }
+
+//!CRUD
 
     @Override
     public List<RouteMap> getAll() throws SQLException {
@@ -212,8 +217,5 @@ public class RouteMapDAOImpl extends AbstractDAO implements RouteMapDAO {
         return new RouteMap(id,airline,origin,destination,direction);
 
     }
-
-
-
 
 }

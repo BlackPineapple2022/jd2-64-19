@@ -4,19 +4,17 @@ import by.academy.it.travelcompany.dao.UserDAO;
 import by.academy.it.travelcompany.dao.impl.UserDAOImpl;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.service.global.UserService;
-import by.academy.it.travelcompany.user.Favourite;
 import by.academy.it.travelcompany.user.User;
 
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
 
+@Slf4j
 public class UserServiceImpl implements UserService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
     private static final UserService INSTANCE = new UserServiceImpl();
 
     private final UserDAO userDAO = UserDAOImpl.getInstance();
@@ -37,7 +35,7 @@ public class UserServiceImpl implements UserService {
                 }
             }
         } catch (SQLException e) {
-            LOGGER.error("Error find user by login and password " + login, e);
+            log.error("Error find user by login and password " + login, e);
         }
         return Optional.empty();
     }
@@ -47,21 +45,22 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.read(id);
         } catch (SQLException e) {
-            LOGGER.error("Error find user by id: " + id, e);
+            log.error("Error find user by id: " + id, e);
         }
         return Optional.empty();
     }
 
     @Override
     public User create(User user) {
-        LOGGER.info("add new user {}", user);
+        log.info("add new user {}", user);
         try {
             Long id = userDAO.create(user);
             user.setId(id);
             FavouriteServiceImpl.getInstance().newUser(user.getUserName(),id);
-            LOGGER.info("result {}", id);
+            //When user creating new favourite creating with name userName_favourite
+            log.info("result {}", id);
         } catch (SQLException e) {
-            LOGGER.error("Error while creating user " + user, e);
+            log.error("Error while creating user " + user, e);
         }
         return user;
     }
@@ -74,7 +73,7 @@ public class UserServiceImpl implements UserService {
                 return false;
             }
         } catch (SQLException e) {
-            LOGGER.error("Error find user by userName" + userName, e);
+            log.error("Error find user by userName" + userName, e);
         }
         return true;
     }

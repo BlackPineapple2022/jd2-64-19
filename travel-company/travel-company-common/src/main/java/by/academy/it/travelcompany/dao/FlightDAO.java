@@ -14,6 +14,5 @@ public interface FlightDAO extends DAO<Flight> {
 
     List<Flight> getAllFlightBySearchId(Long searchId) throws SQLException;
 
-
-
+    int updateByDateAndFlightNumberOrCreate(Flight flight) throws SQLException;
 }

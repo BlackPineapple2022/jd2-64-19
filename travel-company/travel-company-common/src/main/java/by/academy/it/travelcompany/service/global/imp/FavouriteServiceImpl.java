@@ -2,7 +2,7 @@ package by.academy.it.travelcompany.service.global.imp;
 
 import by.academy.it.travelcompany.dao.FavouriteDAO;
 import by.academy.it.travelcompany.dao.impl.FavouriteDAOImpl;
-import by.academy.it.travelcompany.user.Favourite;
+import by.academy.it.travelcompany.favourite.Favourite;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
