@@ -28,6 +28,7 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
 
     public static final String SELECT_ALL_TRIP_BY_SEARCH_ID = "SELECT r.id,r.direct_flight_id,r.return_flight_id,r.price FROM roundtrip r JOIN flight fd ON r.direct_flight_id = fd.id WHERE fd.search_id= ?";
 
+
 //CRUD
 
     @Override

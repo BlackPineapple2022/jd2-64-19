@@ -122,9 +122,6 @@ public class FlightScannerImpl extends Thread {
         log.info("Finding flights going to Base{}");
         FlightService flightService = FlightServiceImpl.getInstance();
         flightService.updateByDateAndFlightNumberOrCreate(result);
-        /*for (Flight f:result) {//update, no add new!
-            flightService.create(f);
-        }*/
         log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
@@ -224,9 +221,6 @@ public class FlightScannerImpl extends Thread {
         }
         log.info("Finding flights going to Base{}");
         FlightService flightService = FlightServiceImpl.getInstance();
-        /*for (Flight f:result) {//update, no add new!
-            flightService.create(f);
-        }*/
         flightService.updateByDateAndFlightNumberOrCreate(result);
         log.info("Going to Base{} finding flights successfully ended");
         return result;

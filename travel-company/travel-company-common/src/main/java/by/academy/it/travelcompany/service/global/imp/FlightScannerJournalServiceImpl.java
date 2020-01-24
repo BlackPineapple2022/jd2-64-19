@@ -35,6 +35,44 @@ public class FlightScannerJournalServiceImpl {
         return null;
     }
 
+    public void deleteDateOnJournalEntry(Long routeMapId) {
+        log.info("Deleting scanned date on entry", routeMapId);
+        try {
+            flightScannerJournalDAO.deleteCheckedDate(routeMapId);
+        } catch (SQLException e) {
+            log.error("Error while deleting date on entry " + routeMapId, e);
+        }
+    }
 
+    public void updateDateOnJournalEntry(Long routeMapId) {
+        log.info("Updating date on entry", routeMapId);
+        try {
+            flightScannerJournalDAO.updateJournalEntry(routeMapId);
+        } catch (SQLException e) {
+            log.error("Error while updating date on entry " + routeMapId, e);
+        }
+    }
+
+    public Long getFirstRouteMapIdWithNullDateTime(String airlineName) {
+        log.info("Getting entry with date time = null ", airlineName);
+        Long result = null;
+        try {
+           return flightScannerJournalDAO.getFirstNullDateTime(airlineName);
+        } catch (SQLException e) {
+            log.error("Error while getting entry with null date time " + airlineName, e);
+        }
+        return result;
+    }
+
+    public Long getOlderRouteMapId(String airlineName) {
+        log.info("Getting entry with older date time ", airlineName);
+        Long result = null;
+        try {
+            return flightScannerJournalDAO.getOlder(airlineName);
+        } catch (SQLException e) {
+            log.error("Error while getting entry with older date time" + airlineName, e);
+        }
+        return result;
+    }
 
 }

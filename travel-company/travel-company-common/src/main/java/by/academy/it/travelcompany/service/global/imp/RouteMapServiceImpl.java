@@ -42,6 +42,7 @@ public class RouteMapServiceImpl {
         try {
             Long id = routeMapDAO.create(routeMap);
             log.info("Result {}", id);
+            FlightScannerJournalServiceImpl.getInstance().createJournalEntry(id);
         } catch (SQLException e) {
             log.error("Error while creating routeMap " + routeMap, e);
         }
