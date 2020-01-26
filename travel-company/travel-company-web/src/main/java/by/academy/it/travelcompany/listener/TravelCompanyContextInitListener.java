@@ -4,6 +4,7 @@ import by.academy.it.travelcompany.dao.RoundTripDAO;
 import by.academy.it.travelcompany.dao.impl.RoundTripDAOImpl;
 import by.academy.it.travelcompany.db.connection.pool.TcDataSource;
 import by.academy.it.travelcompany.db.migration.DbMigration;
+import by.academy.it.travelcompany.scanner.robot.FlightRobot;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletContextEvent;
@@ -11,7 +12,10 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.*;
+
+import static java.lang.Thread.sleep;
 
 @Slf4j
 @WebListener()
@@ -31,8 +35,17 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
             throw new RuntimeException("Datasource initialisation error", e);
         }
 
-        /*new FlightRobot(LocalDate.now(),250,"RY").start();
-        new FlightRobot(LocalDate.now(),250,"WIZZ").start();*/
+        FlightRobot flightRobotRY = FlightRobot.getFlightRobotRY();
+        FlightRobot flightRobotWIZZ = FlightRobot.getFlightRobotWIZZ();
+
+        flightRobotRY.setActive(true);
+        flightRobotRY.setActive(true);
+        flightRobotWIZZ.setActive(true);
+        flightRobotWIZZ.start();
+
+
+
+
     }
 
 }

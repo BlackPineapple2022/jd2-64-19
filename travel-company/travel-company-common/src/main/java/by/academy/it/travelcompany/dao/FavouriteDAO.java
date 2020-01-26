@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.dao;
 
-import by.academy.it.travelcompany.favourite.Favourite;
+import by.academy.it.travelcompany.user.favourite.Favourite;
 
 import java.sql.SQLException;
 import java.util.List;

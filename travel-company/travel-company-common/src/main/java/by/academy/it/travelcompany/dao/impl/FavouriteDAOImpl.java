@@ -2,7 +2,7 @@ package by.academy.it.travelcompany.dao.impl;
 
 import by.academy.it.travelcompany.dao.AbstractDAO;
 import by.academy.it.travelcompany.dao.FavouriteDAO;
-import by.academy.it.travelcompany.favourite.Favourite;
+import by.academy.it.travelcompany.user.favourite.Favourite;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 

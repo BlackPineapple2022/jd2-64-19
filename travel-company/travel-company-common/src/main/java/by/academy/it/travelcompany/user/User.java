@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.user;
 
-import by.academy.it.travelcompany.favourite.Favourite;
+import by.academy.it.travelcompany.user.favourite.Favourite;
 
 import java.util.List;
 import java.util.Objects;
