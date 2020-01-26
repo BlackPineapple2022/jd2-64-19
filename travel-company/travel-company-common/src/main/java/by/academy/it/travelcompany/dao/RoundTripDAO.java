@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface RoundTripDAO extends DAO<Trip> {
 
-    List<Trip> getAllTripBySearchId(Long searchId) throws SQLException;
+    List<Trip> getAllBySearchId(Long searchId) throws SQLException;
+
+    void deleteAllBySearchIdButFavourite(List<Long> searchIdList) throws SQLException;
 
 }

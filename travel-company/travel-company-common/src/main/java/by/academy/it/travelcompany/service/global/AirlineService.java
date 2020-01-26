@@ -21,7 +21,7 @@ public interface AirlineService {
 
     List<Airline> getAll();
 
-    void installAllAirline();
+    void installAll();
 
     Long getIdByName(String airlineName);
 

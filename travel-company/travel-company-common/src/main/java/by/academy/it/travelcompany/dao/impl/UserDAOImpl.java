@@ -4,18 +4,20 @@ import by.academy.it.travelcompany.dao.AbstractDAO;
 import by.academy.it.travelcompany.dao.UserDAO;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.user.User;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class UserDAOImpl extends AbstractDAO implements UserDAO {
 
     private static final UserDAO INSTANCE = new UserDAOImpl();
 
-    public static final String SELECT_BY_USER_NAME = "SELECT  * FROM user u JOIN user_role r ON u.role_id = r.id WHERE u.user_name = ?";
-    public static final String INSERT_USER = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'2')";
+    private static final String SELECT_BY_USER_NAME = "SELECT  * FROM user u JOIN user_role r ON u.role_id = r.id WHERE u.user_name = ?";
+    private static final String INSERT_USER = "INSERT INTO user (user_name, password, salt, role_id) VALUE (?,?,?,'2')";
 
     private UserDAOImpl() {
         super(LoggerFactory.getLogger(UserDAOImpl.class));
@@ -31,8 +33,7 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         Long result = null;
 
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS))
-        {
+             PreparedStatement statement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
             String salt = EncryptUtils.generateSaltString();
             String password = EncryptUtils.getSHA256(user.getPassword(), salt);
 
@@ -96,4 +97,5 @@ public class UserDAOImpl extends AbstractDAO implements UserDAO {
         }
         return Optional.empty();
     }
+
 }

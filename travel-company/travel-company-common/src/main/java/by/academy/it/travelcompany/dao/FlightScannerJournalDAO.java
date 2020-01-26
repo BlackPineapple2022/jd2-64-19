@@ -2,17 +2,16 @@ package by.academy.it.travelcompany.dao;
 
 import java.sql.SQLException;
 
-public interface FlightScannerJournalDAO  {
+public interface FlightScannerJournalDAO {
 
     Long createJournalEntry(Long routeMapId) throws SQLException;
 
-    void deleteCheckedDate(Long routeMapId) throws SQLException;
+    void deleteCheckedDateTimeOnJournalEntry(Long routeMapId) throws SQLException;
 
-    void updateJournalEntry(Long routeMapId) throws SQLException;
+    void updateDateTimeOnJournalEntry(Long routeMapId) throws SQLException;
 
-    Long getFirstNullDateTime(String airlineName) throws SQLException;
+    Long getRouteMapIdWithNullDateTime(String airlineName) throws SQLException;
 
-    Long getOlder(String airlineName) throws SQLException;
-
+    Long getRouteMapIdWithOlderDateTime(String airlineName) throws SQLException;
 
 }

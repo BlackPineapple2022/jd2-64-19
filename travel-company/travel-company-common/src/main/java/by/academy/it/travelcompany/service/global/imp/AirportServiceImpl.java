@@ -2,7 +2,6 @@ package by.academy.it.travelcompany.service.global.imp;
 
 import by.academy.it.travelcompany.dao.AirportDAO;
 import by.academy.it.travelcompany.dao.impl.AirportDAOImpl;
-import by.academy.it.travelcompany.travelitem.airline.Airline;
 import by.academy.it.travelcompany.travelitem.airport.Airport;
 import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
 import lombok.extern.slf4j.Slf4j;
@@ -90,13 +89,12 @@ public class AirportServiceImpl {
     public Airport getAirportByCode(String code){
         log.info("Get airport by code");
         try{
-            return airportDAO.getAirportByCode(code);
+            return airportDAO.getByCode(code);
         } catch (SQLException e){
             log.error("Error while getting airport by code: "+code,e);
         }
         return null;
     }
-
 
     public void installAllAirport(){
         log.info("Installing all airport to Base{}");

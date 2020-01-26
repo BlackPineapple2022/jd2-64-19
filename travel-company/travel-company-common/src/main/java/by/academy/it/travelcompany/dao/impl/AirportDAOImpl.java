@@ -24,13 +24,13 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
         return INSTANCE;
     }
 
-    public static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
-    public static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
-    public static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =?";
-    public static final String DELETE_AIRPORT = "DELETE FROM airport WHERE id = ?";
+    private static final String INSERT_AIRPORT = "INSERT INTO airport (airport_code, country, city) VALUE (?,?,?)";
+    private static final String SELECT_AIRPORT = "SELECT * FROM airport WHERE id = ?";
+    private static final String UPDATE_AIRPORT = "UPDATE airport SET airport_code = ? , country = ?, city = ? WHERE id =?";
+    private static final String DELETE_AIRPORT = "DELETE FROM airport WHERE id = ?";
 
-    public static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
-    public static final String SELECT_AIRPORT_BY_CODE = "SELECT * FROM airport WHERE airport_code = ?";
+    private static final String SELECT_ALL_AIRPORT = "SELECT * FROM airport";
+    private static final String SELECT_AIRPORT_BY_CODE = "SELECT * FROM airport WHERE airport_code = ?";
 
 //CRUD
 
@@ -63,7 +63,7 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
         ResultSet resultSet = null;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_AIRPORT)) {
-            statement.setLong(1,id);
+            statement.setLong(1, id);
             resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 Airport result = mapAirport(resultSet);
@@ -119,12 +119,12 @@ public class AirportDAOImpl extends AbstractDAO implements AirportDAO {
     }
 
     @Override
-    public Airport getAirportByCode(String code) throws SQLException {
+    public Airport getByCode(String code) throws SQLException {
         ResultSet resultSet = null;
         Airport result = null;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_AIRPORT_BY_CODE)) {
-            statement.setString(1,code);
+            statement.setString(1, code);
             resultSet = statement.executeQuery();
 
             if (resultSet.next()) {

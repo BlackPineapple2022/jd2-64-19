@@ -5,6 +5,7 @@ import by.academy.it.travelcompany.dao.impl.CurrencyDAOImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+
 @Slf4j
 public class CurrencyServiceImpl {
 
@@ -28,6 +29,5 @@ public class CurrencyServiceImpl {
         }
         return null;
     }
-
 
 }

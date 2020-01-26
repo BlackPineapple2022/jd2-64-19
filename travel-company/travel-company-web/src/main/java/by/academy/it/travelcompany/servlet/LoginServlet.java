@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,9 +48,10 @@ public class LoginServlet extends HttpServlet {
             } else {
 
                 req.getSession(true).setAttribute("user", user.get());
-
                 List<Favourite> favourites = FavouriteServiceImpl.getInstance().getAllFavouriteByUserId(user.get().getId());
                 req.getSession(true).setAttribute("favourites",favourites);
+                List<Long> searchIdList = new ArrayList<>();
+                req.getSession(true).setAttribute("searchIdList",searchIdList);
             }
         }
 
@@ -60,6 +62,6 @@ public class LoginServlet extends HttpServlet {
         } else {
             resp.sendRedirect(req.getContextPath() + "/home");
         }
-
     }
+
 }

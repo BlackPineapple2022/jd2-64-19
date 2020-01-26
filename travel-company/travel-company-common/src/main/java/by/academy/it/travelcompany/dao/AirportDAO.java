@@ -6,6 +6,6 @@ import java.sql.SQLException;
 
 public interface AirportDAO extends DAO<Airport> {
 
-    Airport getAirportByCode(String code) throws SQLException;
+    Airport getByCode(String code) throws SQLException;
 
 }

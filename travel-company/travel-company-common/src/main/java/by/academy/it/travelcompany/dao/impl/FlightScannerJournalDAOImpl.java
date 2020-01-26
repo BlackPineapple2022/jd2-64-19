@@ -1,15 +1,13 @@
 package by.academy.it.travelcompany.dao.impl;
 
 import by.academy.it.travelcompany.dao.AbstractDAO;
-import by.academy.it.travelcompany.dao.AirlineDAO;
 import by.academy.it.travelcompany.dao.FlightScannerJournalDAO;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
-import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 
-
+@Slf4j
 public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightScannerJournalDAO {
 
     private static final FlightScannerJournalDAO INSTANCE = new FlightScannerJournalDAOImpl();
@@ -55,7 +53,7 @@ public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightSc
     }
 
     @Override
-    public void deleteCheckedDate(Long routeMapId) throws SQLException {
+    public void deleteCheckedDateTimeOnJournalEntry(Long routeMapId) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(DELETE_DATE_ON_ENTRY)) {
             statement.setLong(1, routeMapId);
@@ -64,7 +62,7 @@ public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightSc
     }
 
     @Override
-    public void updateJournalEntry(Long routeMapId) throws SQLException {
+    public void updateDateTimeOnJournalEntry(Long routeMapId) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(UPDATE_DATE_ON_ENTRY)) {
             statement.setLong(1, routeMapId);
@@ -73,7 +71,7 @@ public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightSc
     }
 
     @Override
-    public Long getFirstNullDateTime(String airlineName) throws SQLException {
+    public Long getRouteMapIdWithNullDateTime(String airlineName) throws SQLException {
         ResultSet resultSet = null;
         Long result = null;
         try (Connection connection = getConnection();
@@ -93,7 +91,7 @@ public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightSc
     }
 
     @Override
-    public Long getOlder(String airlineName) throws SQLException {
+    public Long getRouteMapIdWithOlderDateTime(String airlineName) throws SQLException {
         ResultSet resultSet = null;
         Long result = null;
         try (Connection connection = getConnection();

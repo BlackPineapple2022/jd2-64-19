@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 @Slf4j
 @Data
-public class FlightRobot extends Thread{
+public class FlightRobot extends Thread {
 
     private static final RouteMapServiceImpl ROUTE_MAP_SERVICE = RouteMapServiceImpl.getInstance();
     private static final FlightScannerJournalServiceImpl FLIGHT_SCANNER_JOURNAL_SERVICE = FlightScannerJournalServiceImpl.getInstance();
@@ -23,29 +23,29 @@ public class FlightRobot extends Thread{
     public FlightRobot(LocalDate startingDate, Integer dayCount, String airlineName) {
         this.startingDate = startingDate;
         this.dayCount = dayCount;
-        this.airlineName=airlineName;
+        this.airlineName = airlineName;
     }
 
     @Override
     public void run() {
-        while(true){
+        while (true) {
             log.info("Getting routeMap id from journal where scanned date is null ");
             Long routeMapId = FLIGHT_SCANNER_JOURNAL_SERVICE.getFirstRouteMapIdWithNullDateTime(airlineName);
-            if (routeMapId!=null){
-               RouteMap routeMap = ROUTE_MAP_SERVICE.read(routeMapId).get();
-               new FlightScannerImpl(routeMapId,routeMap,startingDate,dayCount).run();
-               FLIGHT_SCANNER_JOURNAL_SERVICE.updateDateOnJournalEntry(routeMapId);
-               continue;
+            if (routeMapId != null) {
+                RouteMap routeMap = ROUTE_MAP_SERVICE.read(routeMapId).get();
+                new FlightScannerImpl(routeMapId, routeMap, startingDate, dayCount).run();
+                FLIGHT_SCANNER_JOURNAL_SERVICE.updateDateOnJournalEntry(routeMapId);
+                continue;
             }
+            log.info("Getting routeMap id from journal where older scanned date");
             routeMapId = FLIGHT_SCANNER_JOURNAL_SERVICE.getOlderRouteMapId(airlineName);
-            if (routeMapId!=null){
+            if (routeMapId != null) {
                 RouteMap routeMap = ROUTE_MAP_SERVICE.read(routeMapId).get();
                 FLIGHT_SCANNER_JOURNAL_SERVICE.deleteDateOnJournalEntry(routeMapId);
-                new FlightScannerImpl(routeMapId,routeMap,startingDate,dayCount).run();
+                new FlightScannerImpl(routeMapId, routeMap, startingDate, dayCount).run();
                 FLIGHT_SCANNER_JOURNAL_SERVICE.updateDateOnJournalEntry(routeMapId);
             }
         }
     }
-
 
 }

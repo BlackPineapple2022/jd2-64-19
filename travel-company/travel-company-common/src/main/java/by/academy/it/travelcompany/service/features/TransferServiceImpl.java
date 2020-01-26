@@ -19,7 +19,6 @@ public class TransferServiceImpl implements TransferService {
         return INSTANCE;
     }
 
-
     @Override
     public List<Transfer> getAllTransfers() {
         return transfers;
@@ -43,4 +42,5 @@ public class TransferServiceImpl implements TransferService {
         transfers.add(transfer);
         return transfer;
     }
+
 }

@@ -22,9 +22,9 @@ public class TripServiceImpl implements TripService {
 
     private static final TripService INSTANCE = new TripServiceImpl();
     private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
+
     private final RoundTripDAO roundTripDAO = RoundTripDAOImpl.getInstance();
     private final FlightDAO flightDAO = FlightDAOImpl.getInstance();
-
 
     private TripServiceImpl() {
     }
@@ -52,7 +52,6 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void deleteTrip(Long id) {
-
     }
 
     @Override
@@ -64,7 +63,7 @@ public class TripServiceImpl implements TripService {
     public List<Trip> getAllTripBySearchId(Long searchId) {
         List<Trip>  resultTrip = null;
         try {
-            resultTrip = roundTripDAO.getAllTripBySearchId(searchId);
+            resultTrip = roundTripDAO.getAllBySearchId(searchId);
             for (Trip t: resultTrip) {
                 Flight directFlight = t.getFlights().get(0);
                 Flight returnFlight = t.getFlights().get(1);
@@ -99,6 +98,16 @@ public class TripServiceImpl implements TripService {
         }catch (SQLException e){
         }
         return resultTrip;
+    }
+
+    @Override
+    public void deleteAllBySearchIdButFavourite(List<Long> searchIdList) {
+        log.info ("User logout, delete all trip from base exclude favourite");
+            try{
+                roundTripDAO.deleteAllBySearchIdButFavourite(searchIdList);
+            }catch (SQLException e){
+                log.error("Error while delete all trip");
+            }
     }
 }
 

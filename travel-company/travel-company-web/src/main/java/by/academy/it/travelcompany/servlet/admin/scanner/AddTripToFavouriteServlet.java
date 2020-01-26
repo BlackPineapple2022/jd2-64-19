@@ -17,13 +17,16 @@ public class AddTripToFavouriteServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = (User)req.getSession().getAttribute("user");
-        String newFavourite = req.getParameter("newFavourite");
-        String favourite = req.getParameter("favourite");
+        User user = (User) req.getSession().getAttribute("user");
+        String newFavouriteName = req.getParameter("newFavourite");
+        String whatFavouriteToAddTrip = req.getParameter("favourite");
         Long tripId = Long.parseLong(req.getParameter("tripId"));
-            if (!favourite.equals("")){
-                FavouriteServiceImpl.getInstance().newFavourite(newFavourite,user.getId());
-            }
+        if ((!newFavouriteName.equals(""))) {
+            whatFavouriteToAddTrip = user.getUserName()+"_"+newFavouriteName;
+            FavouriteServiceImpl.getInstance().createFavourite(whatFavouriteToAddTrip, user.getId());
+
         }
+        FavouriteServiceImpl.getInstance().addTripToFavourite(user.getId(),whatFavouriteToAddTrip,tripId);
+    }
 
 }

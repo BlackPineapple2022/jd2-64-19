@@ -1,9 +1,9 @@
 package by.academy.it.travelcompany.dao.impl;
 
 import by.academy.it.travelcompany.dao.AbstractDAO;
-import by.academy.it.travelcompany.dao.AirportDAO;
 import by.academy.it.travelcompany.dao.DirectionDAO;
 import by.academy.it.travelcompany.travelitem.direction.Direction;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class DirectionDAOImpl extends AbstractDAO implements DirectionDAO {
 
     private static final DirectionDAO INSTANCE = new DirectionDAOImpl();
@@ -73,4 +74,5 @@ public class DirectionDAOImpl extends AbstractDAO implements DirectionDAO {
         }
         return result;
     }
+
 }

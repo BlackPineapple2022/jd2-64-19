@@ -3,6 +3,7 @@ package by.academy.it.travelcompany.dao.impl;
 import by.academy.it.travelcompany.dao.AbstractDAO;
 import by.academy.it.travelcompany.dao.CurrencyDAO;
 import by.academy.it.travelcompany.travelitem.currency.Currency;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class CurrencyDAOImpl extends AbstractDAO implements CurrencyDAO {
 
     private static final CurrencyDAO INSTANCE = new CurrencyDAOImpl();

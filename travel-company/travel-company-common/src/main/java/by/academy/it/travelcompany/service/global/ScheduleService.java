@@ -8,6 +8,7 @@ import by.academy.it.travelcompany.travelitem.schedule.Schedule;
 import java.time.LocalDate;
 
 public interface ScheduleService {
+
     @Deprecated
     Schedule getSchedule(AirlineEnum airlineEnum, Airport origin, Airport destination, LocalDate startingDate, Integer days);
 

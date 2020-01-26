@@ -3,6 +3,7 @@ package by.academy.it.travelcompany.dao.impl;
 import by.academy.it.travelcompany.dao.AbstractDAO;
 import by.academy.it.travelcompany.dao.FavouriteDAO;
 import by.academy.it.travelcompany.favourite.Favourite;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
     private static final FavouriteDAO INSTANCE = new FavouriteDAOImpl();
 
@@ -21,8 +23,8 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
         return INSTANCE;
     }
 
-    public static String INSERT_NEW_USER = "INSERT INTO favourite (user_id,favourite_name) VALUE (?,?)";
-    public static String SELECT_FAVOURITE = "SELECT * FROM favourite WHERE user_id = ?";
+    private static String INSERT_NEW_USER = "INSERT INTO favourite (user_id,favourite_name) VALUE (?,?)";
+    private static String SELECT_FAVOURITE = "SELECT * FROM favourite WHERE user_id = ?";
 
 //CRUD
 
@@ -54,17 +56,17 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
     }
 
     @Override
-    public int newUser(String userName, Long id) throws SQLException {
+    public int createDefaultFavouriteWhenCreatingNewUser(String userName, Long id) throws SQLException {
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(INSERT_NEW_USER)) {
             statement.setLong(1, id);
-            statement.setString(2, userName+"_favourite");
+            statement.setString(2, userName + "_favourite");
             return statement.executeUpdate();
         }
     }
 
     @Override
-    public Long newFavourite(String favouriteName, Long id) throws SQLException {
+    public Long createFavourite(String favouriteName, Long id) throws SQLException {
         ResultSet resultSet = null;
         Long result = null;
         try (Connection connection = getConnection();
@@ -76,7 +78,7 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
             while (resultSet.next()) {
                 result = resultSet.getLong(1);
             }
-        }finally {
+        } finally {
             closeQuietly(resultSet);
         }
         return result;
@@ -91,9 +93,9 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
             statement.setLong(1, userId);
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                result.add(new Favourite(resultSet.getLong(1),resultSet.getString(2)));
+                result.add(new Favourite(resultSet.getLong(1), resultSet.getString(2)));
             }
-        }finally {
+        } finally {
             closeQuietly(resultSet);
         }
         return result;

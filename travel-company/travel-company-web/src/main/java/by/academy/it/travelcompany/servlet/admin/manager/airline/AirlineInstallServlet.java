@@ -31,7 +31,7 @@ public class AirlineInstallServlet extends HttpServlet {
             for (Long l:allId){
                 airlineService.delete(l);
             }
-            airlineService.installAllAirline();
+            airlineService.installAll();
         }
         resp.sendRedirect(req.getContextPath()+"/admin/manager/airline");
     }

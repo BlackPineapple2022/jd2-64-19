@@ -157,7 +157,7 @@ public class FlightScannerImpl extends Thread {
             httpPost.setHeader("upgrade-insecure-requests", "1");
             httpPost.setHeader("Content-Type", "application/json");
             httpPost.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
-            httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken"). get(0));
+            httpPost.setHeader("x-requestverificationtoken", authMap.get("x-requestverificationtoken").get(0));
 
             for (int j = 0; j < authMap.get("Set-Cookie").size(); j++) {
                 httpPost.addHeader("cookie", authMap.get("Set-Cookie").get(j));
@@ -203,12 +203,12 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
-                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode),currencyCode);
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
 
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
 
-                    Flight f = new Flight(null, routeMap,departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
+                    Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
                     result.add(f);
                     log.info("Flight found: " + f);
@@ -228,10 +228,10 @@ public class FlightScannerImpl extends Thread {
 
     @Override
     public void run() {
-        if (routeMap.getAirline().equals(new Airline(null,"RY"))) {
+        if (routeMap.getAirline().equals(new Airline(null, "RY"))) {
             parseFlightsRY();
         }
-        if (routeMap.getAirline().equals(new Airline(null,"WIZZ"))) {
+        if (routeMap.getAirline().equals(new Airline(null, "WIZZ"))) {
             parseFlightsWIZZ();
         }
     }
@@ -334,7 +334,6 @@ public class FlightScannerImpl extends Thread {
     }
 
     private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime, String regexDayMonthYear, String regexMinHour) {
-
         String date = str.split(regexDateFromTime)[0];
         String year = date.split(regexDayMonthYear)[0];
         String month = date.split(regexDayMonthYear)[1];
@@ -346,4 +345,5 @@ public class FlightScannerImpl extends Thread {
                 LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
                 LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
+
 }

@@ -93,7 +93,7 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public void installAllAirline() {
+    public void installAll() {
         log.info("Installing all airline to Base{}");
         try {
             for (AirlineEnum aE : AirlineEnum.values()) {

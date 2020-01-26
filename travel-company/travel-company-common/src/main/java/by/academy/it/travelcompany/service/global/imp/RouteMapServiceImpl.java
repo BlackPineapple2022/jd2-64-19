@@ -1,12 +1,6 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.AirlineDAO;
-import by.academy.it.travelcompany.dao.AirportDAO;
-import by.academy.it.travelcompany.dao.DirectionDAO;
 import by.academy.it.travelcompany.dao.RouteMapDAO;
-import by.academy.it.travelcompany.dao.impl.AirlineDAOImpl;
-import by.academy.it.travelcompany.dao.impl.AirportDAOImpl;
-import by.academy.it.travelcompany.dao.impl.DirectionDAOImpl;
 import by.academy.it.travelcompany.dao.impl.RouteMapDAOImpl;
 
 import by.academy.it.travelcompany.travelitem.airline.Airline;
@@ -97,7 +91,7 @@ public class RouteMapServiceImpl {
     public Optional<RouteMap> getRouteMapByParam(String airlineStr, String originAirportCode, String destinationAirportCode, String directionStr) {
         log.info("Getting routeMap from Base{} by params");
         try {
-            return routeMapDAO.getRouteMapByParam(airlineStr,originAirportCode,destinationAirportCode,directionStr);
+            return routeMapDAO.getByParam(airlineStr,originAirportCode,destinationAirportCode,directionStr);
         } catch (SQLException e) {
             log.error("Error while getting routeMap", e);
         }
