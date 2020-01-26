@@ -33,6 +33,8 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
     private static final String SELECT_ALL_TRIP_NOT_IN_FAVOURITE_LIST_BY_SEARCH_ID = "SELECT r.id FROM roundtrip r JOIN flight f ON r.direct_flight_id = f.id " +
             "LEFT JOIN favourite_list f_l ON r.id=f_l.trip_id WHERE f_l.id IS NULL AND f.search_id = ?";
 
+    private static final String SELECT_ALL_TRIP_IN_FAVOURITE_LIST_BY_SEARCH_ID = "SELECT r.id FROM roundtrip r JOIN flight f ON r.direct_flight_id = f.id " +
+            "LEFT JOIN favourite_list f_l ON r.id=f_l.trip_id WHERE f_l.id IS NULL AND f.search_id = ?";
 
 //CRUD
 

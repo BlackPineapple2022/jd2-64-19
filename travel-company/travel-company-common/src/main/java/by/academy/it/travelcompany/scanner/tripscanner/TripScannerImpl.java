@@ -31,6 +31,7 @@ public class TripScannerImpl {
 
     private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
     private static final TripService TRIP_SERVICE = TripServiceImpl.getInstance();
+    private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
 
     private static final Integer DELAY_CHECK_ALL_TREADS_ARE_FINISHED = 1000;
     private static final Integer DELAY_FIRST_CHECK_ALL_TREADS_ARE_FINISHED = 10000;
@@ -72,7 +73,6 @@ public class TripScannerImpl {
         }
 
         while (true) {
-
             try {
                 Thread.sleep(DELAY_CHECK_ALL_TREADS_ARE_FINISHED);
             } catch (InterruptedException e) {
@@ -89,9 +89,7 @@ public class TripScannerImpl {
             }
 
             if (!isSearchActive) {
-
-                FlightService flightService = FlightServiceImpl.getInstance();
-                List<Flight> directsAndReturns = flightService.getAllFlightBySearchId(searchId);
+                List<Flight> directsAndReturns = FLIGHT_SERVICE.getAllFlightBySearchId(searchId);
 
                 List<Flight> directs = new ArrayList<>();
                 List<Flight> returns = new ArrayList<>();
@@ -127,14 +125,12 @@ public class TripScannerImpl {
                                 price += f.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(f.getCurrency().getCurrencyCode());
                             }
                             Trip trip = new Trip(flights, price, searchId);
-
-                            TRIP_SERVICE.addTrip(trip); //local!!!
+                            TRIP_SERVICE.addTrip(trip);
                         }
-
                     }
                 }
                 log.info("Searching trip is finished, searchId: " + searchId);
-                tripRes = TRIP_SERVICE.getAllTripBySearchId(searchId);//local!!!
+                tripRes = TRIP_SERVICE.getAllTripBySearchId(searchId);
                 break;
             }
         }
@@ -162,11 +158,10 @@ public class TripScannerImpl {
         if (isStartingSameCity) {
             tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getOriginAirport().getCity().split("--")[0].equals(
                     t.getFlights().get(1).getRouteMap().getDestinationAirport().getCity().split("--")[0]));
-            }
+        }
         if (isStartingSameAirport) {
             tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getOriginAirport().equals(t.getFlights().get(1).getRouteMap().getDestinationAirport()));
         }
-
         return tripList;
     }
 

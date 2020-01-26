@@ -75,10 +75,10 @@ public class FlightScannerImpl extends Thread {
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
 
         List<Flight> result = new ArrayList<>();
+
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
-
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
@@ -111,17 +111,16 @@ public class FlightScannerImpl extends Thread {
                     f.setSearchId(searchId);
                     result.add(f);
                     log.info("Flight found: " + f);
-
                 }
             } catch (Exception e) {
+                log.error("Error getting flight, this date RY doesn't fly by this route: "+currentLocalDate, e);
             } finally {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         log.info("Flight scanning successfully ended");
         log.info("Finding flights going to Base{}");
-        FlightService flightService = FlightServiceImpl.getInstance();
-        flightService.updateByDateAndFlightNumberOrCreate(result);
+        FLIGHT_SERVICE.updateByDateAndFlightNumberOrCreate(result);
         log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
@@ -215,13 +214,13 @@ public class FlightScannerImpl extends Thread {
                 }
 
             } catch (Exception e) {
+                log.error("Error getting flight, this date WIZZ doesn't fly by this route: "+currentLocalDate, e);
             } finally {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
         log.info("Finding flights going to Base{}");
-        FlightService flightService = FlightServiceImpl.getInstance();
-        flightService.updateByDateAndFlightNumberOrCreate(result);
+        FLIGHT_SERVICE.updateByDateAndFlightNumberOrCreate(result);
         log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
@@ -278,7 +277,7 @@ public class FlightScannerImpl extends Thread {
             }
 
         } catch (Exception e) {
-
+            log.error("ERROR getting cookie from WIZZ");
         }
         return result;
     }

@@ -145,18 +145,16 @@ public class ManualScannerServlet extends HttpServlet {
                 isStartingSameAirport = true;
                 break;
             }
-
             case "cityFilter": {
                 isStartingSameCity = true;
                 break;
             }
-
             case "countryFilter": {
                 isStartingSameCountry = true;
                 break;
             }
-
         }
+
         TripScannerImpl tripScanner = new TripScannerImpl(routeMapSet, localDateL, deep, min, max);
         List<Trip> trips = tripScanner.searchRoundTrip(isStartingSameCountry, isStartingSameCity, isStartingSameAirport, isEndingSameCountry, isEndingSameCity, isEndingSameAirport);
 
@@ -164,15 +162,10 @@ public class ManualScannerServlet extends HttpServlet {
 
         if (trips != null && trips.get(0) != null && trips.get(0).getFlights() != null && trips.get(0).getFlights().get(0) != null) {
             Long searchId = trips.get(0).getSearchId();
-            System.out.println("1 " + searchId);
             List<Long> searchIdList = (List<Long>) req.getSession().getAttribute("searchIdList");
-            System.out.println("2 " + searchIdList);
             searchIdList.add(searchId);
-            System.out.println("3 " + searchIdList);
             req.getSession().setAttribute("searchIdList", searchIdList);
         }
-
-        System.out.println("hi 2");
 
         req.setAttribute("trips", trips);
         User user = (User) req.getSession().getAttribute("user");
@@ -180,6 +173,5 @@ public class ManualScannerServlet extends HttpServlet {
         req.setAttribute("favourites", favourites);
         req.getRequestDispatcher("/WEB-INF/jsp/admin/manualScannerResultSearch.jsp").
                 forward(req, resp);
-
     }
 }
