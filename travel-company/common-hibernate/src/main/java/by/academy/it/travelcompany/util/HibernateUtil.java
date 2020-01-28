@@ -1,24 +1,31 @@
 package by.academy.it.travelcompany.util;
 
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
 
 public class HibernateUtil {
-    private static final EntityManagerFactory ENTITY_MANAGER_FACTORY;
 
-    static{
-        ENTITY_MANAGER_FACTORY = Persistence.createEntityManagerFactory("by.academy.it");
 
+    private static final SessionFactory sessionFactory = buildSessionFactory();
+
+    private static SessionFactory buildSessionFactory() {
+        try {
+            return new Configuration().configure().buildSessionFactory();
+        } catch (Throwable t) {
+            System.err.println("Failed to create sessionFactory object." + t);
+            throw new ExceptionInInitializerError(t);
+        }
     }
 
-    public static EntityManager getEntityManager(){
-
-        return ENTITY_MANAGER_FACTORY.createEntityManager();
+    public static SessionFactory getSessionFactory() {
+        return sessionFactory;
     }
 
-    public static void close(){
-        ENTITY_MANAGER_FACTORY.close();
+    public static void shutdown() {
+        // Close caches and connection pools
+        getSessionFactory().close();
     }
+
 }
+
+
