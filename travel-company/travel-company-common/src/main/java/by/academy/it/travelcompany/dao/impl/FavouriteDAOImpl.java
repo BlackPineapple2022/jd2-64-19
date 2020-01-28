@@ -23,8 +23,11 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
         return INSTANCE;
     }
 
-    private static String INSERT_NEW_USER = "INSERT INTO favourite (user_id,favourite_name) VALUE (?,?)";
-    private static String SELECT_FAVOURITE = "SELECT * FROM favourite WHERE user_id = ?";
+    private static final String INSERT_FAVOURITE = "INSERT INTO favourite (user_id,favourite_name) VALUE (?,?)";
+    private static final String SELECT_FAVOURITE = "SELECT * FROM favourite WHERE user_id = ?";
+
+    private static final String SELECT_FAVOURITE_ID_BY_FAVOURITE_NAME = "SELECT id FROM favourite WHERE favourite_name = ?";
+    private static final String DELETE_FAVOURITE_BY_USER_ID_AND_FAVOURITE_NAME = "DELETE FROM favourite WHERE favourite_name = ? AND user_id = ?";
 
 //CRUD
 
@@ -58,7 +61,7 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
     @Override
     public int createDefaultFavouriteWhenCreatingNewUser(String userName, Long id) throws SQLException {
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_NEW_USER)) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_FAVOURITE)) {
             statement.setLong(1, id);
             statement.setString(2, userName + "_favourite");
             return statement.executeUpdate();
@@ -70,7 +73,7 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
         ResultSet resultSet = null;
         Long result = null;
         try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(INSERT_NEW_USER, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement statement = connection.prepareStatement(INSERT_FAVOURITE, Statement.RETURN_GENERATED_KEYS)) {
             statement.setLong(1, id);
             statement.setString(2, favouriteName);
             statement.executeUpdate();
@@ -99,5 +102,33 @@ public class FavouriteDAOImpl extends AbstractDAO implements FavouriteDAO {
             closeQuietly(resultSet);
         }
         return result;
+    }
+
+    @Override
+    public Long getIdByFavouriteName(String favouriteName) throws SQLException {
+        Long result = null;
+        ResultSet resultSet = null;
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_FAVOURITE_ID_BY_FAVOURITE_NAME)) {
+            statement.setString(1, favouriteName);
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                result = resultSet.getLong(1);
+                return result;
+            }
+        } finally {
+            closeQuietly(resultSet);
+        }
+        return result;
+    }
+
+    @Override
+    public void deleteFavouriteByNameAndUserId(String favouriteName, Long userId) throws SQLException {
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(DELETE_FAVOURITE_BY_USER_ID_AND_FAVOURITE_NAME)) {
+            statement.setString(1, favouriteName);
+            statement.setLong(2, userId);
+            statement.executeUpdate();
+        }
     }
 }

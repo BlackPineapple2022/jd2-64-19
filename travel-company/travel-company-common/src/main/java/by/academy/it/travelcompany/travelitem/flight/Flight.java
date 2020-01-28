@@ -33,6 +33,10 @@ public class Flight {
         this.flightNumber = flightNumber;
     }
 
+    public Flight(Long id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

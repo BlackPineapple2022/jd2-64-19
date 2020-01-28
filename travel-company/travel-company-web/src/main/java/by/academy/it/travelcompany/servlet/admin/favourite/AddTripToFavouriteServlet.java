@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.servlet.admin.scanner;
+package by.academy.it.travelcompany.servlet.admin.favourite;
 
 import by.academy.it.travelcompany.service.global.imp.FavouriteServiceImpl;
 import by.academy.it.travelcompany.user.User;

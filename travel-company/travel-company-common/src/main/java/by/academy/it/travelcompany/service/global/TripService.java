@@ -2,7 +2,9 @@ package by.academy.it.travelcompany.service.global;
 
 import by.academy.it.travelcompany.travelitem.trip.Trip;
 
+import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Trip service
@@ -47,4 +49,9 @@ public interface TripService {
 
     void deleteAllBySearchIdButFavourite(List<Long> searchIdList);
 
+    Map<Long,List<Trip>> getFavouriteTripsByUserId(Long userId);
+
+    Trip getTripById(Long id);
+
+    void updatePrice(Long tripId, Double price);
 }

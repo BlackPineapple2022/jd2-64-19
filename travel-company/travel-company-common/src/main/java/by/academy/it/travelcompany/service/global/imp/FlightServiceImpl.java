@@ -43,6 +43,12 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public Optional<Flight> read(Long id) {
+        log.info("Getting Flight by id from base");
+        try{
+            return flightDAO.read(id);
+        }catch (SQLException e){
+            log.error("Error while getting flight from base",e);
+        }
         return Optional.empty();
     }
 

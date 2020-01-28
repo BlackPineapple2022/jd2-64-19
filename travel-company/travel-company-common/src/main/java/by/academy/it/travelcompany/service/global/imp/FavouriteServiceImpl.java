@@ -4,6 +4,7 @@ import by.academy.it.travelcompany.dao.FavouriteDAO;
 import by.academy.it.travelcompany.dao.impl.FavouriteDAOImpl;
 import by.academy.it.travelcompany.dao.impl.FavouriteListDAOImpl;
 import by.academy.it.travelcompany.user.favourite.Favourite;
+import com.sun.javafx.binding.StringFormatter;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
@@ -61,6 +62,35 @@ public class FavouriteServiceImpl {
             log.error("Error when adding trip to favourite List");
         }
 
+    }
+
+    public Long getIdByFavouriteName(String favouriteName){
+        log.info("Getting favourite id by name");
+        Long result =null;
+        try{
+            result = favouriteDAO.getIdByFavouriteName(favouriteName);
+        }catch (SQLException e){
+            log.error("Error while getting id by favourite name", e);
+        }
+        return result;
+    }
+
+    public void deleteTripFromFavouriteList(Long favouriteId, Long tripId){
+        log.info("Deleting trip from favourite list");
+        try {
+            FavouriteListDAOImpl.getInstance().deleteTripFromFavouriteList(favouriteId, tripId);
+        }catch (SQLException e){
+            log.error("Error while deleting from favourite list", e);
+        }
+    }
+
+    public void deleteFavouriteByNameAndUserId(String favouriteName,Long userId){
+        log.info("Deleting favourite by favourite name and user id");
+        try{
+            favouriteDAO.deleteFavouriteByNameAndUserId(favouriteName,userId);
+        }catch (SQLException e){
+            log.error("Error while deleting favourite");
+        }
     }
 
 }

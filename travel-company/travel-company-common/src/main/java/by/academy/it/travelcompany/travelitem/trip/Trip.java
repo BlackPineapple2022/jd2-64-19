@@ -25,6 +25,13 @@ public class Trip {
         this.searchId = searchId;
     }
 
+    public Trip(Long id, List<Flight> flights, Double price, Long searchId) {
+        this.id = id;
+        this.flights = flights;
+        this.price = price;
+        this.searchId = searchId;
+    }
+
     public Trip(Long id, List<Flight> flights, List<Accommodation> accommodations, List<Transfer> transfers) {
         this.id = id;
         this.flights = flights;

@@ -35,14 +35,14 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
             "(routemap_id, departure_date_time,arrive_date_time, flight_number, currency_id, price, search_id)" +
             "VALUE (?,?,?,?,?,?,?)";
     private static final String SELECT_FLIGHT =
-            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code" +
+            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code,f.checked_date, f.search_id" +
                     " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
                     " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.id = ?";
 
     private static final String SELECT_ALL_FLIGHT_WITH_SAME_ROUTE_MAP = "SELECT * FROM flight WHERE routemap_id = ?";
 
     private static final String SELECT_ALL_FLIGHT_WITH_SAME_SEARCH_ID =
-            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code" +
+            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code,f.checked_date,f.search_id" +
                     " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
                     " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE f.search_id = ?";
 
@@ -88,7 +88,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
     }
 
     @Override
-    public Optional read(Long id) throws SQLException {
+    public Optional<Flight> read(Long id) throws SQLException {
         ResultSet resultSet = null;
         try (Connection connection = getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_FLIGHT)) {
@@ -117,7 +117,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
 //!CRUD
 
     @Override
-    public List getAll() throws SQLException {
+    public List<Flight> getAll() throws SQLException {
         return null;
     }
 
@@ -194,6 +194,8 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
         Double price = resultSet.getDouble(18);
         Long currencyId = resultSet.getLong(19);
         String currencyCode = resultSet.getString(20);
+        String checkedTimeStr = resultSet.getString(21);
+        Long searchId = resultSet.getLong(22);
 
         RouteMap routeMap = new RouteMap(
                 routeMapId,
@@ -206,23 +208,12 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
         Currency currency = new Currency(currencyId, currencyCode);
         LocalDateTime departureDateTime = getLocalDateTimeFromString(departureDateTimeStr, " ", "-", ":");
         LocalDateTime arriveDateTime = getLocalDateTimeFromString(arriveDateTimeStr, " ", "-", ":");
+        LocalDateTime checkedTime = getLocalDateTimeFromString(checkedTimeStr, " ", "-", ":");
 
         Flight f = new Flight(flightId, routeMap, departureDateTime, arriveDateTime, currency, price, flightNumber);
+        f.setCheckedTime(checkedTime);
+        f.setSearchId(searchId);
         return f;
-
-    }
-
-    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime, String regexDayMonthYear, String regexMinHour) {
-        String date = str.split(regexDateFromTime)[0];
-        String year = date.split(regexDayMonthYear)[0];
-        String month = date.split(regexDayMonthYear)[1];
-        String day = date.split(regexDayMonthYear)[2];
-        String time = str.split(regexDateFromTime)[1];
-        String hour = time.split(regexMinHour)[0];
-        String min = time.split(regexMinHour)[1];
-        return LocalDateTime.of(
-                LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
-                LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
 
     @Override
@@ -240,6 +231,19 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
             }
         }
         return result;
+    }
+
+    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime, String regexDayMonthYear, String regexMinHour) {
+        String date = str.split(regexDateFromTime)[0];
+        String year = date.split(regexDayMonthYear)[0];
+        String month = date.split(regexDayMonthYear)[1];
+        String day = date.split(regexDayMonthYear)[2];
+        String time = str.split(regexDateFromTime)[1];
+        String hour = time.split(regexMinHour)[0];
+        String min = time.split(regexMinHour)[1];
+        return LocalDateTime.of(
+                LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
+                LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
 
 }

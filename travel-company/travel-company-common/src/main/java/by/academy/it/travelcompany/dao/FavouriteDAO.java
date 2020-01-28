@@ -13,5 +13,8 @@ public interface FavouriteDAO extends DAO<Favourite> {
 
     List<Favourite> getAllByUserId(Long userId) throws SQLException;
 
+    Long getIdByFavouriteName(String favouriteName) throws SQLException;
+
+    void deleteFavouriteByNameAndUserId(String favouriteName, Long userId) throws SQLException;
 
 }

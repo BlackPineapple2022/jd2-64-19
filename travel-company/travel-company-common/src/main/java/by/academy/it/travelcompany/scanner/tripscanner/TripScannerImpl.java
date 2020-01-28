@@ -165,5 +165,7 @@ public class TripScannerImpl {
         return tripList;
     }
 
+
+
 }
 

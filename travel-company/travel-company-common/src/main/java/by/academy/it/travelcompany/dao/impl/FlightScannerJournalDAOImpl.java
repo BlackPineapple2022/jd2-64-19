@@ -23,10 +23,12 @@ public class FlightScannerJournalDAOImpl extends AbstractDAO implements FlightSc
     private final static String INSERT_ENTRY = "INSERT INTO flight_scanner_journal (routemap_id, is_active) VALUE (?,?)";
     private final static String DELETE_DATE_ON_ENTRY = "UPDATE flight_scanner_journal SET scanned_time = null WHERE routemap_id = ?";
     private final static String UPDATE_DATE_ON_ENTRY = "UPDATE flight_scanner_journal SET scanned_time = now() WHERE routemap_id = ? ";
+
     private final static String SELECT_FIRST_NULL_BY_AIRLINE = "SELECT f_s_j.routemap_id FROM flight_scanner_journal f_s_j " +
             "JOIN routemap r ON f_s_j.routemap_id = r.id " +
             "JOIN airline a ON r.airline_id=a.id " +
             "WHERE a.airline_name = ? AND f_s_j.scanned_time is null LIMIT 1";
+
     private final static String SELECT_OLDER_BY_AIRLINE = "SELECT f_s_j.routemap_id FROM flight_scanner_journal f_s_j " +
             "JOIN routemap r ON f_s_j.routemap_id = r.id " +
             "JOIN airline a ON r.airline_id=a.id " +
