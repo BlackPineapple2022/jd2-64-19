@@ -12,6 +12,7 @@
     <a href="${pageContext.request.contextPath}/admin/manager/airport">[airport Manager]</a>
     <a href="${pageContext.request.contextPath}/admin/manager/routemap">[routeMap Manager]</a>
     <a href="${pageContext.request.contextPath}/admin/scanner/manual">[manual Trip Scanner]</a>
+    <a href="${pageContext.request.contextPath}/admin/favourite">[favourite Trips]</a>
     <br>
     <br>
 </div>

@@ -2,10 +2,8 @@ package by.academy.it.travelcompany.dao.impl;
 
 import by.academy.it.travelcompany.dao.AbstractDAO;
 import by.academy.it.travelcompany.dao.RoundTripDAO;
-import by.academy.it.travelcompany.travelitem.airline.Airline;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.travelitem.trip.Trip;
-import com.mysql.cj.protocol.Resultset;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 
@@ -147,7 +145,7 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
 
     }
 
-    // ONLY id in flight, and no searchId, get it by service!
+    // ONLY id in flight!
     @Override
     public Map<Long, List<Trip>> getFavouriteTripsByUserId(Long userId) throws SQLException {
         ResultSet resultSet = null;
@@ -166,8 +164,8 @@ public class RoundTripDAOImpl extends AbstractDAO implements RoundTripDAO {
                 Long favouriteId = resultSet.getLong(8);
 
                 List<Flight> flights = new ArrayList<>();
-                flights.add(new Flight(directFlightId, null, null, null, null, null, null));
-                flights.add(new Flight(returnFlightId, null, null, null, null, null, null));
+                flights.add(new Flight(directFlightId));
+                flights.add(new Flight(returnFlightId));
 
                 if (!result.containsKey(favouriteId)) {
                     result.put(favouriteId, new ArrayList<Trip>());

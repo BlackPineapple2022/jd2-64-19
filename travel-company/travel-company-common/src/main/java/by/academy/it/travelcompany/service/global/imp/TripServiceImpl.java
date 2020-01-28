@@ -133,6 +133,7 @@ public class TripServiceImpl implements TripService {
         return result;
     }
 
+    //Only flight id in flight
     @Override
     public Trip getTripById(Long id) {
         log.info("Getting trip by id",id);

@@ -158,8 +158,6 @@ public class ManualScannerServlet extends HttpServlet {
         TripScannerImpl tripScanner = new TripScannerImpl(routeMapSet, localDateL, deep, min, max);
         List<Trip> trips = tripScanner.searchRoundTrip(isStartingSameCountry, isStartingSameCity, isStartingSameAirport, isEndingSameCountry, isEndingSameCity, isEndingSameAirport);
 
-        System.out.println("hi 1");
-
         if (trips != null && trips.get(0) != null && trips.get(0).getFlights() != null && trips.get(0).getFlights().get(0) != null) {
             Long searchId = trips.get(0).getSearchId();
             List<Long> searchIdList = (List<Long>) req.getSession().getAttribute("searchIdList");
