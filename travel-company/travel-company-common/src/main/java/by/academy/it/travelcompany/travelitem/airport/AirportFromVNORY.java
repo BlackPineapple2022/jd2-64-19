@@ -29,8 +29,7 @@ public enum AirportFromVNORY {
     MLA("Malta","Malta"),
     OSL("Norway","Oslo"),
     BCN("Spain","Barcelona"),
-    MAD("Spain","Madrid"),
-    AGP("Spain","Malaga");
+    MAD("Spain","Madrid");
 
     private String country;
     private String city;

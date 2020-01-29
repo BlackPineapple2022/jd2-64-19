@@ -8,9 +8,9 @@
 
 <div style="text-align: center">
     <br>
-    <a href="${pageContext.request.contextPath}/about"><fmt:message key="menu.about"/></a> |
-    <a href="${pageContext.request.contextPath}/allin"><fmt:message key="menu.allin"/></a> |
-    <a href="${pageContext.request.contextPath}/spec"><fmt:message key="menu.spec"/></a>
+    <a href="${pageContext.request.contextPath}/about">О проекте</a> |
+    <a href="${pageContext.request.contextPath}/specific">Хочу что-то</a> |
+    <a href="${pageContext.request.contextPath}/all">Хочу всё</a>
     <br>
     <br>
 </div>

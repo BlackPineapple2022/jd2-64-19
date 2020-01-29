@@ -8,6 +8,7 @@
 
 
 <div style="background: #000000;height: 60px; color:#8c62ff; text-align: center; padding: 15px; margin-top: 10px;">
-<fmt:message key="footer.copyright"/>
+<br>
+    Чёрный Ананас, большинство прав защищено
 
 </div>
