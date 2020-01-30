@@ -1,5 +1,8 @@
 package by.academy.it.travelcompany.user;
 
+import by.academy.it.travelcompany.user.favourite.Favourite;
+
+import java.util.List;
 import java.util.Objects;
 
 public class User {
@@ -9,6 +12,8 @@ public class User {
     private String password;
     private String role;
     private String salt;
+
+    private List<Favourite> favouriteList;
 
     public User() {
     }
@@ -72,6 +77,14 @@ public class User {
 
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public List<Favourite> getFavouriteList() {
+        return favouriteList;
+    }
+
+    public void setFavouriteList(List<Favourite> favouriteList) {
+        this.favouriteList = favouriteList;
     }
 
     @Override

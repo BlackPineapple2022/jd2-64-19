@@ -1,3 +1,4 @@
+<%--
 <%@ page buffer="8192kb" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -10,12 +11,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>BlackPineapple.by | <fmt:message key="home.page.title"/></title>
+    <title>BlackPineapple.by | manual scanner result search</title>
 </head>
 
 <body>
-<%@include file="include/header.jsp" %>
-<%@include file="include/menu.jsp" %>
+
 
 
 <table align="center">
@@ -31,12 +31,12 @@
         <tr>
             <td>Аэропорт вылета:</td>
             <td>
-                <c:out value="${trip.flights[0].originAirport.country}"/>
+                <c:out value="${trip.flights[0].routeMap.originAirport.country}"/>
             </td>
 
             <td>Аэропорт вылета:</td>
             <td>
-                <c:out value="${trip.flights[1].originAirport.country}"/>
+                <c:out value="${trip.flights[1].routeMap.originAirport.country}"/>
             </td>
         </tr>
         <tr>
@@ -44,13 +44,13 @@
 
             </td>
             <td>
-                <c:out value="${trip.flights[0].originAirport.city}"/>
+                <c:out value="${trip.flights[0].routeMap.originAirport.city}"/>
             </td>
             <td>
 
             </td>
             <td>
-                <c:out value="${trip.flights[1].originAirport.city}"/>
+                <c:out value="${trip.flights[1].routeMap.originAirport.city}"/>
             </td>
         </tr>
         <tr>
@@ -58,52 +58,52 @@
 
             </td>
             <td>
-                <c:out value="${trip.flights[0].originAirport.code}"/>
+                <c:out value="${trip.flights[0].routeMap.originAirport.code}"/>
             </td>
             <td>
 
             </td>
             <td>
-                <c:out value="${trip.flights[1].originAirport.code}"/>
+                <c:out value="${trip.flights[1].routeMap.originAirport.code}"/>
             </td>
         </tr>
 
         <tr>
             <td>Аэропорт прилёта:</td>
             <td>
-                <c:out value="${trip.flights[0].destinationAirport.country}"/>
+                <c:out value="${trip.flights[0].routeMap.destinationAirport.country}"/>
             </td>
             <td>Аэропорт прилёта:</td>
             <td>
-                <c:out value="${trip.flights[1].destinationAirport.country}"/>
+                <c:out value="${trip.flights[1].routeMap.destinationAirport.country}"/>
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
-                <c:out value="${trip.flights[0].destinationAirport.city}"/>
+                <c:out value="${trip.flights[0].routeMap.destinationAirport.city}"/>
             </td>
             <td></td>
             <td>
-                <c:out value="${trip.flights[1].destinationAirport.city}"/>
+                <c:out value="${trip.flights[1].routeMap.destinationAirport.city}"/>
             </td>
         </tr>
         <tr>
             <td></td>
             <td>
-                <c:out value="${trip.flights[0].destinationAirport.code}"/>
+                <c:out value="${trip.flights[0].routeMap.destinationAirport.code}"/>
             </td>
             <td></td>
             <td>
-                <c:out value="${trip.flights[1].destinationAirport.code}"/>
+                <c:out value="${trip.flights[1].routeMap.destinationAirport.code}"/>
             </td>
         </tr>
         <tr>
-            <td><c:out value="${trip.flights[0].currency}"/></td>
+            <td><c:out value="${trip.flights[0].currency.currencyCode}"/></td>
             <td>
                 <c:out value="${trip.flights[0].ticketPrice}"/>
             </td>
-            <td><c:out value="${trip.flights[1].currency}"/></td>
+            <td><c:out value="${trip.flights[1].currency.currencyCode}"/></td>
             <td>
                 <c:out value="${trip.flights[1].ticketPrice}"/>
             </td>
@@ -111,11 +111,11 @@
         <tr>
             <td>Авиакомпания</td>
             <td>
-                <c:out value="${trip.flights[0].airline}"/>
+                <c:out value="${trip.flights[0].routeMap.airline.airlineName}"/>
             </td>
             <td>Авиакомпания</td>
             <td>
-                <c:out value="${trip.flights[1].airline}"/>
+                <c:out value="${trip.flights[1].routeMap.airline.airlineName}"/>
             </td>
         </tr>
         <tr>
@@ -173,4 +173,4 @@
 <%@include file="include/footer.jsp" %>
 </body>
 
-</html>
+</html>--%>

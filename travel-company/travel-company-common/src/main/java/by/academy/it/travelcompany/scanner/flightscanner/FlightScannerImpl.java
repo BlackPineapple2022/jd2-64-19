@@ -1,14 +1,19 @@
 package by.academy.it.travelcompany.scanner.flightscanner;
 
 import by.academy.it.travelcompany.service.global.ScheduleService;
-import by.academy.it.travelcompany.service.global.ScheduleServiceImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airline;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.service.global.imp.CurrencyServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.ScheduleServiceImpl;
+import by.academy.it.travelcompany.travelitem.airline.Airline;
+import by.academy.it.travelcompany.travelitem.currency.Currency;
 import by.academy.it.travelcompany.travelitem.flight.Flight;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
 import by.academy.it.travelcompany.travelitem.schedule.Schedule;
-import by.academy.it.travelcompany.service.local.FlightServiceLocal;
-import by.academy.it.travelcompany.service.local.FlightServiceLocalImpl;
+import by.academy.it.travelcompany.service.global.FlightService;
+import by.academy.it.travelcompany.service.global.imp.FlightServiceImpl;
 
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -20,9 +25,6 @@ import org.apache.http.impl.client.HttpClients;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 
@@ -36,104 +38,47 @@ import java.time.LocalTime;
 
 import java.util.*;
 
+@NoArgsConstructor
+@Data
+@Slf4j
 public class FlightScannerImpl extends Thread {
 
-    private static final int DELAY_REQ_RY = 100;
-    private static final int DELAY_REQ_RY_SYNC = 1000;
+    private static final int DELAY_REQ_RY = 1000;
+    private static final int DELAY_REQ_RY_SYNC = 1500;
     private static final int DELAY_REQ_WIZZ = 100;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FlightScannerImpl.class);
-    private static final FlightServiceLocal FLIGHT_SERVICE = FlightServiceLocalImpl.getInstance();
+    private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
     private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
 
     private static final Object SYNC_RY = new Object();
+    private static final Object SYNC_WIZZ = new Object();
 
     private Long searchId;
-    private Airline airline;
-    private Airport originAirport;
-    private Airport destinationAirport;
+    private RouteMap routeMap;
     private LocalDate startingDate;
     private Integer dayQuantity;
-    private String direction;
 
-    public FlightScannerImpl(Long searchId, Airline airline, Airport originAirport, Airport destinationAirport, LocalDate startingDate, Integer dayQuantity, String direction) {
+    public FlightScannerImpl(Long searchId, RouteMap routeMap, LocalDate startingDate, Integer dayQuantity) {
         this.searchId = searchId;
-        this.airline = airline;
-        this.originAirport = originAirport;
-        this.destinationAirport = destinationAirport;
+        this.routeMap = routeMap;
         this.startingDate = startingDate;
         this.dayQuantity = dayQuantity;
-        this.direction = direction;
-    }
-
-    public Long getSearchId() {
-        return searchId;
-    }
-
-    public void setSearchId(Long searchId) {
-        this.searchId = searchId;
-    }
-
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
-    }
-
-    public Airport getOriginAirport() {
-        return originAirport;
-    }
-
-    public void setOriginAirport(Airport originAirport) {
-        this.originAirport = originAirport;
-    }
-
-    public Airport getDestinationAirport() {
-        return destinationAirport;
-    }
-
-    public void setDestinationAirport(Airport destinationAirport) {
-        this.destinationAirport = destinationAirport;
-    }
-
-    public LocalDate getStartingDate() {
-        return startingDate;
-    }
-
-    public void setStartingDate(LocalDate startingDate) {
-        this.startingDate = startingDate;
-    }
-
-    public Integer getDayQuantity() {
-        return dayQuantity;
-    }
-
-    public void setDayQuantity(Integer dayQuantity) {
-        this.dayQuantity = dayQuantity;
-    }
-
-    public String getDirection() {
-        return direction;
-    }
-
-    public void setDirection(String direction) {
-        this.direction = direction;
     }
 
     public List<Flight> parseFlightsRY() {
-        LOGGER.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
-                + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
+        log.info("Start parsing on Ryanair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
+                + " originAirport: " + routeMap.getOriginAirport().getCode() + " destinationAirport: " + routeMap.getDestinationAirport().getCode() + " direction: " + routeMap.getDirection() + " searchId: " + searchId);
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.RY, originAirport, destinationAirport, startingDate, dayQuantity);
+
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
+
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
 
         List<Flight> result = new ArrayList<>();
+
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
                 Thread.sleep(DELAY_REQ_RY);
-
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
@@ -141,7 +86,8 @@ public class FlightScannerImpl extends Thread {
                     Thread.sleep(DELAY_REQ_RY_SYNC);
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
-                String currency = (String) json.get("currency");
+                String currencyStr = (String) json.get("currency");
+                Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyStr), currencyStr);
                 JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
                 JSONArray jsonDates = jsonTrip.getJSONArray("dates");
                 JSONObject jsonDate = (JSONObject) jsonDates.get(0);
@@ -158,30 +104,33 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonFare = (JSONObject) jsonFares.get(0);
                     Double amount = (Double) (jsonFare.get("amount"));
 
-                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
-                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
+                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
+                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
 
-                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.RY, currency, amount, flightNumber);
-                    f.setDirection(direction);
+                    Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
-                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
-                    LOGGER.info("Flight found: " + f);
+                    log.info("Flight found: " + f);
                 }
             } catch (Exception e) {
+                log.error("Error getting flight, this date RY doesn't fly by this route: "+currentLocalDate, e);
             } finally {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
+        log.info("Flight scanning successfully ended");
+        log.info("Finding flights going to Base{}");
+        FLIGHT_SERVICE.updateByDateAndFlightNumberOrCreate(result);
+        log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
 
     public List<Flight> parseFlightsWIZZ() {
-        LOGGER.info("Start parsing on Wizzair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
-                + " originAirport: " + originAirport + " destinationAirport: " + destinationAirport + " direction: " + direction + " searchId: " + searchId);
+        log.info("Start parsing on Wizzair.com, Starting date:" + startingDate + " dayQuantity: " + dayQuantity
+                + " originAirport: " + routeMap.getOriginAirport().getCode() + " destinationAirport: " + routeMap.getDestinationAirport().getCode() + " direction: " + routeMap.getDirection() + " searchId: " + searchId);
 
         final LocalDate finishLocalDate = startingDate.plusDays(dayQuantity);
-        Schedule schedule = SCHEDULE_SERVICE.getSchedule(Airline.WIZZ, originAirport, destinationAirport, startingDate, dayQuantity);
+        Schedule schedule = SCHEDULE_SERVICE.getSchedule(routeMap);
         List<Flight> result = new ArrayList<>();
         Map<String, List<String>> authMap = getWizzAirCookiesAndTokens();
 
@@ -194,7 +143,7 @@ public class FlightScannerImpl extends Thread {
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
+            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -216,9 +165,9 @@ public class FlightScannerImpl extends Thread {
             HttpEntity httpEntity;
 
             String stringEntity = "{\"isFlightChange\":false,\"isSeniorOrStudent\":false,\"flightList\":[{\"departureStation\":\"" +
-                    originAirport.getCode() +
+                    routeMap.getOriginAirport().getCode() +
                     "\",\"arrivalStation\":\"" +
-                    destinationAirport.getCode() +
+                    routeMap.getDestinationAirport().getCode() +
                     "\",\"departureDate\":\"" +
                     getDateStringWIZZ(currentLocalDate) +
                     "\"}],\"adultCount\":1,\"childCount\":0,\"infantCount\":0,\"wdc\":true}";
@@ -253,41 +202,38 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
 
-                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime,"T","-",":");
-                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime,"T","-",":");
+                    LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
+                    LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
 
-                    Flight f = new Flight(null, originAirport, destinationAirport, departureLocalDateTime, arriveLocalDateTime, Airline.WIZZ, currencyCode, amount, flightNumber);
-                    f.setDirection(direction);
+                    Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
-                    FLIGHT_SERVICE.updateOrCreate(f);
                     result.add(f);
-                    LOGGER.info("Flight found: " + f);
+                    log.info("Flight found: " + f);
                 }
 
             } catch (Exception e) {
+                log.error("Error getting flight, this date WIZZ doesn't fly by this route: "+currentLocalDate, e);
             } finally {
                 currentLocalDate = schedule.getNextDate(currentLocalDate);
             }
         }
+        log.info("Finding flights going to Base{}");
+        FLIGHT_SERVICE.updateByDateAndFlightNumberOrCreate(result);
+        log.info("Going to Base{} finding flights successfully ended");
         return result;
     }
 
     @Override
     public void run() {
-        if (airline.equals(Airline.RY)) {
+        if (routeMap.getAirline().equals(new Airline(null, "RY"))) {
             parseFlightsRY();
         }
-        if (airline.equals(Airline.WIZZ)) {
+        if (routeMap.getAirline().equals(new Airline(null, "WIZZ"))) {
             parseFlightsWIZZ();
         }
     }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//*************************************PRIVATE METHODS****************************************************************//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private Map<String, List<String>> getWizzAirCookiesAndTokens() {
         Map<String, List<String>> result = new HashMap<>();
@@ -299,21 +245,21 @@ public class FlightScannerImpl extends Thread {
 
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        final HttpUriRequest httpGet = new HttpPost("https://be.wizzair.com/10.3.0/Api/search/search");
+        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
 
-        httpGet.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
-        httpGet.setHeader("accept-encoding", "gzip, deflate, br");
-        httpGet.setHeader("accept-language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7");
-        httpGet.setHeader("cache-control", "no-cache");
-        httpGet.setHeader("pragma", "no-cache");
-        httpGet.setHeader("sec-fetch-mode", "navigate");
-        httpGet.setHeader("sec-fetch-site", "none");
-        httpGet.setHeader("sec-fetch-user", "?1");
-        httpGet.setHeader("upgrade-insecure-requests", "1");
-        httpGet.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
+        httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
+        httpPost.setHeader("accept-encoding", "gzip, deflate, br");
+        httpPost.setHeader("accept-language", "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7");
+        httpPost.setHeader("cache-control", "no-cache");
+        httpPost.setHeader("pragma", "no-cache");
+        httpPost.setHeader("sec-fetch-mode", "navigate");
+        httpPost.setHeader("sec-fetch-site", "none");
+        httpPost.setHeader("sec-fetch-user", "?1");
+        httpPost.setHeader("upgrade-insecure-requests", "1");
+        httpPost.setHeader("user-agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.88 Safari/537.36");
 
         try (
-                CloseableHttpResponse response1 = httpClient.execute(httpGet)
+                CloseableHttpResponse response1 = httpClient.execute(httpPost)
         ) {
 
             Header[] headersResp = response1.getAllHeaders();
@@ -331,7 +277,7 @@ public class FlightScannerImpl extends Thread {
             }
 
         } catch (Exception e) {
-
+            log.error("ERROR getting cookie from WIZZ");
         }
         return result;
     }
@@ -341,12 +287,12 @@ public class FlightScannerImpl extends Thread {
         String req = "https://www.ryanair.com/api/booking/v4/en-gb/availability?" +
                 "ADT=1&TEEN=0&CHD=0&INF=0&" +
                 "DateOut=" + dateOfSearchFormatted +
-                "&DateIn=&Origin=" + originAirport.getCode() +
-                "&Destination=" + destinationAirport.getCode() +
+                "&DateIn=&Origin=" + routeMap.getOriginAirport().getCode() +
+                "&Destination=" + routeMap.getDestinationAirport().getCode() +
                 "&isConnectedFlight=false&RoundTrip=false&Discount=0&tpAdults=1&tpTeens=0&tpChildren=0&tpInfants=0&" +
                 "tpStartDate=" + dateOfSearchFormatted +
-                "&tpEndDate=&tpOriginIata=" + originAirport.getCode() +
-                "&tpDestinationIata=" + destinationAirport.getCode() +
+                "&tpEndDate=&tpOriginIata=" + routeMap.getOriginAirport().getCode() +
+                "&tpDestinationIata=" + routeMap.getDestinationAirport().getCode() +
                 "&ToUs=AGREED" +
                 "&tpIsConnectedFlight=false&tpIsReturn=false&tpDiscount=0";
         return req;
@@ -386,8 +332,7 @@ public class FlightScannerImpl extends Thread {
         return result.toString(StandardCharsets.UTF_8.name());
     }
 
-    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime,String regexDayMonthYear, String regexMinHour){
-
+    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime, String regexDayMonthYear, String regexMinHour) {
         String date = str.split(regexDateFromTime)[0];
         String year = date.split(regexDayMonthYear)[0];
         String month = date.split(regexDayMonthYear)[1];
@@ -399,4 +344,5 @@ public class FlightScannerImpl extends Thread {
                 LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
                 LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
+
 }

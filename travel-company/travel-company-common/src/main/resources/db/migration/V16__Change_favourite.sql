@@ -1,0 +1,1 @@
+ALTER TABLE favourite DROP INDEX favourite_name;

@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.servlet;
 
 import by.academy.it.travelcompany.service.global.UserService;
-import by.academy.it.travelcompany.service.global.UserServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.UserServiceImpl;
 import by.academy.it.travelcompany.user.User;
 
 import javax.servlet.ServletException;
@@ -42,7 +42,7 @@ public class RegisterServlet extends HttpServlet {
             hasError = true;
             errorCode = 4;
         } else {
-            userService.add(new User(null,userName,password));
+            userService.create(new User(null,userName,password));
         }
 
         if (hasError) {

@@ -6,10 +6,11 @@ package by.academy.it.travelcompany.travelitem.airport;
  * to prepare information to make correct request to Wizzair or Ryanair web site
  */
 
+import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
+
 import java.util.*;
 
 public class AirportInfoCentre {
-
 
     private static Set<Airport> allStartAirports = new TreeSet<>();
     private static Set<Airport> allAirports = new TreeSet<>();
@@ -76,6 +77,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all start airport
+     *
      * @return set of all start airport
      */
 
@@ -85,6 +87,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport
+     *
      * @return set of all airport
      */
 
@@ -94,6 +97,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from all starting airport
+     *
      * @return set of all airport that you can get to from all starting airport
      */
 
@@ -103,6 +107,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports)
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports)
      */
 
@@ -112,6 +117,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports) by Ryanair company
      */
 
@@ -121,6 +127,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from VNO (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from VNO (one of starting airports) by Wizzair company
      */
 
@@ -130,6 +137,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports)
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports)
      */
 
@@ -139,6 +147,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports) by Ryanair company
      */
 
@@ -148,6 +157,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from KUN (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from KUN (one of starting airports) by Wizzair company
      */
 
@@ -157,6 +167,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WAW (one of starting airports)
+     *
      * @return set of all airport that you can get to from WAW (one of starting airports)
      */
 
@@ -166,6 +177,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WAW (one of starting airports) by Wizzair company
+     *
      * @return set of all airport that you can get to from WAW (one of starting airports) by Wizzair company
      */
 
@@ -175,6 +187,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WMI (one of starting airports)
+     *
      * @return set of all airport that you can get to from WMI (one of starting airports)
      */
 
@@ -184,6 +197,7 @@ public class AirportInfoCentre {
 
     /**
      * Get all airport that you can get to from WMI (one of starting airports) by Ryanair company
+     *
      * @return set of all airport that you can get to from WMI (one of starting airports) by Ryanair company
      */
 
@@ -225,82 +239,83 @@ public class AirportInfoCentre {
 
     /**
      * Get all airports that you can get to and companies from @param airport
+     *
      * @return HashMap, where key is Company enum (Company.java) and value is
      * Treeset of Airport
      */
 
-    public static Map<Airline, Set<Airport>> getAllDestinationsAndCompany(Airport airport) {
-        Map<Airline, Set<Airport>> allDestinationsAndCompany = new HashMap<>();
+    public static Map<AirlineEnum, Set<Airport>> getAllDestinationsAndCompany(Airport airport) {
+        Map<AirlineEnum, Set<Airport>> allDestinationsAndCompany = new HashMap<>();
         if (airport.equals(new Airport("VNO"))) {
-            allDestinationsAndCompany.put(Airline.RY, allAirportsFromVNORY);
-            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromVNOWIZZ);
+            allDestinationsAndCompany.put(AirlineEnum.RY, allAirportsFromVNORY);
+            allDestinationsAndCompany.put(AirlineEnum.WIZZ, allAirportsFromVNOWIZZ);
         } else if (airport.equals(new Airport("KUN"))) {
-            allDestinationsAndCompany.put(Airline.RY, allAirportsFromKUNRY);
-            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromKUNWIZZ);
+            allDestinationsAndCompany.put(AirlineEnum.RY, allAirportsFromKUNRY);
+            allDestinationsAndCompany.put(AirlineEnum.WIZZ, allAirportsFromKUNWIZZ);
         } else if (airport.equals(new Airport("WMI"))) {
-            allDestinationsAndCompany.put(Airline.RY, allAirportsFromWMIRY);
+            allDestinationsAndCompany.put(AirlineEnum.RY, allAirportsFromWMIRY);
         } else if (airport.equals(new Airport("WAW"))) {
-            allDestinationsAndCompany.put(Airline.WIZZ, allAirportsFromWAWWIZZ);
+            allDestinationsAndCompany.put(AirlineEnum.WIZZ, allAirportsFromWAWWIZZ);
         } else {
 
             if (allAirportsFromVNORY.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.RY)) {
                     Set<Airport> airports1 = new TreeSet<>();
                     airports1.add(new Airport("VNO"));
-                    allDestinationsAndCompany.put(Airline.RY, airports1);
+                    allDestinationsAndCompany.put(AirlineEnum.RY, airports1);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("VNO"));
+                    allDestinationsAndCompany.get(AirlineEnum.RY).add(new Airport("VNO"));
                 }
             }
 
             if (allAirportsFromVNOWIZZ.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.WIZZ)) {
                     Set<Airport> airports2 = new TreeSet<>();
                     airports2.add(new Airport("VNO"));
-                    allDestinationsAndCompany.put(Airline.WIZZ, airports2);
+                    allDestinationsAndCompany.put(AirlineEnum.WIZZ, airports2);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("VNO"));
+                    allDestinationsAndCompany.get(AirlineEnum.WIZZ).add(new Airport("VNO"));
                 }
             }
 
             if (allAirportsFromKUNRY.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.RY)) {
                     Set<Airport> airports3 = new TreeSet<>();
                     airports3.add(new Airport("KUN"));
-                    allDestinationsAndCompany.put(Airline.RY, airports3);
+                    allDestinationsAndCompany.put(AirlineEnum.RY, airports3);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("KUN"));
+                    allDestinationsAndCompany.get(AirlineEnum.RY).add(new Airport("KUN"));
                 }
 
             }
 
             if (allAirportsFromKUNWIZZ.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.WIZZ)) {
                     Set<Airport> airports4 = new TreeSet<>();
                     airports4.add(new Airport("KUN"));
-                    allDestinationsAndCompany.put(Airline.WIZZ, airports4);
+                    allDestinationsAndCompany.put(AirlineEnum.WIZZ, airports4);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("KUN"));
+                    allDestinationsAndCompany.get(AirlineEnum.WIZZ).add(new Airport("KUN"));
                 }
             }
 
             if (allAirportsFromWAWWIZZ.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.WIZZ)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.WIZZ)) {
                     Set<Airport> airports5 = new TreeSet<>();
                     airports5.add(new Airport("WAW"));
-                    allDestinationsAndCompany.put(Airline.WIZZ, airports5);
+                    allDestinationsAndCompany.put(AirlineEnum.WIZZ, airports5);
                 } else {
-                    allDestinationsAndCompany.get(Airline.WIZZ).add(new Airport("WAW"));
+                    allDestinationsAndCompany.get(AirlineEnum.WIZZ).add(new Airport("WAW"));
                 }
             }
 
             if (allAirportsFromWMIRY.contains(airport)) {
-                if (!allDestinationsAndCompany.containsKey(Airline.RY)) {
+                if (!allDestinationsAndCompany.containsKey(AirlineEnum.RY)) {
                     Set<Airport> airports6 = new TreeSet<>();
                     airports6.add(new Airport("WMI"));
-                    allDestinationsAndCompany.put(Airline.RY, airports6);
+                    allDestinationsAndCompany.put(AirlineEnum.RY, airports6);
                 } else {
-                    allDestinationsAndCompany.get(Airline.RY).add(new Airport("WMI"));
+                    allDestinationsAndCompany.get(AirlineEnum.RY).add(new Airport("WMI"));
                 }
             }
 
@@ -308,21 +323,49 @@ public class AirportInfoCentre {
         return allDestinationsAndCompany;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirports, List<Airport> destinationAirports) {
+    @Deprecated
+    public static Set<String> getRouteMapStringSet(List<Airport> originAirports, List<Airport> destinationAirports) {
 
         Set<String> traces = new TreeSet<>();
 
         for (int i = 0; i < originAirports.size(); i++) {
 
-            Map<Airline, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
+            Map<AirlineEnum, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
 
-            for (Airline airline : searchMapLocal.keySet()) {
-                for (Airport airport : searchMapLocal.get(airline)) {
+            for (AirlineEnum airlineEnum : searchMapLocal.keySet()) {
+                for (Airport airport : searchMapLocal.get(airlineEnum)) {
                     for (Airport airportGlobal : destinationAirports) {
                         if (airportGlobal.equals(airport)) {
-                            String trace = airline + "--" + originAirports.get(i).getCode() + "--" + airport.getCode() + "--Direct";
+                            String trace = airlineEnum + "--" + originAirports.get(i).getCode() + "--" + airport.getCode() + "--Direct";
                             traces.add(trace);
-                            String traceReturn = airline + "--" + airport.getCode() + "--" + originAirports.get(i).getCode() + "--Return";
+                            String traceReturn = airlineEnum + "--" + airport.getCode() + "--" + originAirports.get(i).getCode() + "--Return";
+                            traces.add(traceReturn);
+                        }
+                    }
+                }
+            }
+
+        }
+
+        return traces;
+    }
+
+    @Deprecated
+    public static List<String> getRouteMapStringList(List<Airport> originAirports, List<Airport> destinationAirports) {
+
+        List<String> traces = new ArrayList<>();
+
+        for (int i = 0; i < originAirports.size(); i++) {
+
+            Map<AirlineEnum, Set<Airport>> searchMapLocal = AirportInfoCentre.getAllDestinationsAndCompany(originAirports.get(i));
+
+            for (AirlineEnum airlineEnum : searchMapLocal.keySet()) {
+                for (Airport airport : searchMapLocal.get(airlineEnum)) {
+                    for (Airport airportGlobal : destinationAirports) {
+                        if (airportGlobal.equals(airport)) {
+                            String trace = airlineEnum + "--" + originAirports.get(i).getCode() + "--" + airport.getCode() + "--Direct";
+                            traces.add(trace);
+                            String traceReturn = airlineEnum + "--" + airport.getCode() + "--" + originAirports.get(i).getCode() + "--Return";
                             traces.add(traceReturn);
                         }
                     }
@@ -332,19 +375,20 @@ public class AirportInfoCentre {
         return traces;
     }
 
-    public static Set<String> getRouteMap(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
+    @Deprecated
+    public static Set<String> getRouteMapStringSet(List<Airport> originAirportsDirect, List<Airport> destinationAirportsDirect, List<Airport> destinationAirportsReturn, List<Airport> originAirportsReturn) {
 
         Set<String> traces = new TreeSet<>();
 
         for (int i = 0; i < originAirportsDirect.size(); i++) {
 
-            Map<Airline, Set<Airport>> searchMapLocalDirect = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsDirect.get(i));
+            Map<AirlineEnum, Set<Airport>> searchMapLocalDirect = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsDirect.get(i));
 
-            for (Airline airline : searchMapLocalDirect.keySet()) {
-                for (Airport airport : searchMapLocalDirect.get(airline)) {
+            for (AirlineEnum airlineEnum : searchMapLocalDirect.keySet()) {
+                for (Airport airport : searchMapLocalDirect.get(airlineEnum)) {
                     for (Airport airportGlobal : destinationAirportsDirect) {
                         if (airportGlobal.equals(airport)) {
-                            String trace = airline + "--" + originAirportsDirect.get(i).getCode() + "--" + airport.getCode() + "--Direct";
+                            String trace = airlineEnum + "--" + originAirportsDirect.get(i).getCode() + "--" + airport.getCode() + "--Direct";
                             traces.add(trace);
                         }
                     }
@@ -355,13 +399,13 @@ public class AirportInfoCentre {
 
         for (int i = 0; i < originAirportsReturn.size(); i++) {
 
-            Map<Airline, Set<Airport>> searchMapLocalReturn = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsReturn.get(i));
+            Map<AirlineEnum, Set<Airport>> searchMapLocalReturn = AirportInfoCentre.getAllDestinationsAndCompany(originAirportsReturn.get(i));
 
-            for (Airline airline : searchMapLocalReturn.keySet()) {
-                for (Airport airport : searchMapLocalReturn.get(airline)) {
+            for (AirlineEnum airlineEnum : searchMapLocalReturn.keySet()) {
+                for (Airport airport : searchMapLocalReturn.get(airlineEnum)) {
                     for (Airport airportGlobal : destinationAirportsReturn) {
                         if (airportGlobal.equals(airport)) {
-                            String trace = airline + "--" + airport.getCode() + "--" + originAirportsReturn.get(i).getCode() + "--Return";
+                            String trace = airlineEnum + "--" + airport.getCode() + "--" + originAirportsReturn.get(i).getCode() + "--Return";
                             traces.add(trace);
                         }
                     }
@@ -371,8 +415,6 @@ public class AirportInfoCentre {
 
         return traces;
     }
-
-
 
 
 }

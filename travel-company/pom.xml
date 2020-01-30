@@ -21,6 +21,7 @@
         <mysql-connector-java.version>8.0.18</mysql-connector-java.version>
         <flyway-core.version>6.1.2</flyway-core.version>
         <HikariCP.version>3.4.1</HikariCP.version>
+        <lombok.version>1.18.10</lombok.version>
 
     </properties>
 
@@ -80,6 +81,12 @@
                 <groupId>com.zaxxer</groupId>
                 <artifactId>HikariCP</artifactId>
                 <version>${HikariCP.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
             </dependency>
 
         </dependencies>

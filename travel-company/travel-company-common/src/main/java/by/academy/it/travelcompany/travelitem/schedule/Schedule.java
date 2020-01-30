@@ -1,74 +1,21 @@
 package by.academy.it.travelcompany.travelitem.schedule;
 
-import by.academy.it.travelcompany.travelitem.airport.Airline;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
+@NoArgsConstructor
+@Data
 public class Schedule {
-    private Airline airline;
-    private Airport origin;
-    private Airport destination;
-    private LocalDate startingDate;
-    private Integer days;
+    private RouteMap routeMap;
     private Set<LocalDate> scheduleSet = new TreeSet<>();
 
-    public Airline getAirline() {
-        return airline;
-    }
-
-    public void setAirline(Airline airline) {
-        this.airline = airline;
-    }
-
-    public Airport getOrigin() {
-        return origin;
-    }
-
-    public void setOrigin(Airport origin) {
-        this.origin = origin;
-    }
-
-    public Airport getDestination() {
-        return destination;
-    }
-
-    public void setDestination(Airport destination) {
-        this.destination = destination;
-    }
-
-    public LocalDate getStartingDate() {
-        return startingDate;
-    }
-
-    public void setStartingDate(LocalDate startingDate) {
-        this.startingDate = startingDate;
-    }
-
-    public Integer getDays() {
-        return days;
-    }
-
-    public void setDays(Integer days) {
-        this.days = days;
-    }
-
-    public Set<LocalDate> getScheduleSet() {
-        return scheduleSet;
-    }
-
-    public void setScheduleSet(Set<LocalDate> scheduleSet) {
-        this.scheduleSet = scheduleSet;
-    }
-
-    public Schedule(Airline airline, Airport origin, Airport destination, LocalDate startingDate, Integer days) {
-        this.airline = airline;
-        this.origin = origin;
-        this.destination = destination;
-        this.startingDate = startingDate;
-        this.days = days;
+    public Schedule(RouteMap routeMap) {
+        this.routeMap = routeMap;
     }
 
     public LocalDate getNextDate(LocalDate currentDay) {
@@ -77,6 +24,10 @@ public class Schedule {
                 return l;
             }
         }
+        //danger using when base is empty
+        //for example first search 01.05.2020-15.05.2020
+        //second search 20.04.2020 - 01.05.2020 getting only one day: 01.05.2020
+
         return currentDay.plusDays(1);
     }
 

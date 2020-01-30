@@ -7,24 +7,30 @@ package by.academy.it.travelcompany.travelitem.airport;
  * country and city fields only for additional information
  */
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 import java.util.Set;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Airport implements Comparable<Airport> {
     private Long id;
     private String code;
     private String country;
     private String city;
 
-    public Airport() {
-    }
-
+    @Deprecated
     public Airport(String code, String country, String city) {
         this.code = code;
         this.country = country;
         this.city = city;
     }
 
+    @Deprecated
     public Airport(String code) {
         this.code = code;
         Set<Airport> airports = AirportInfoCentre.getAllAirports();
@@ -34,45 +40,6 @@ public class Airport implements Comparable<Airport> {
                 this.country = a.getCountry();
             }
         }
-    }
-
-    public Airport(Long id, String code, String country, String city) {
-        this.id = id;
-        this.code = code;
-        this.country = country;
-        this.city = city;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     @Override
@@ -90,7 +57,7 @@ public class Airport implements Comparable<Airport> {
 
     @Override
     public String toString() {
-        return country + " | " + city + " | " + code + "|"+id;
+        return country + " | " + city + " | " + code + " | "+id;
     }
 
     @Override

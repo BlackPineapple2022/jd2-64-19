@@ -1,21 +1,20 @@
 package by.academy.it.travelcompany.scanner.currencyscaner;
 
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.net.URL;
 
+@Slf4j
 public class CurrencyScannerImpl implements CurrencyScanner {
 
-    private static final String SITE_ADDRESS ="http://localhost:8080/myapp";
+    private static final String SITE_ADDRESS ="http://localhost:8080/myapp"; //TODO change site address before deployment!
 
-    private static final String ACCESS_KEY = "1eb5276f5726efc74fbf3799adcf7973";
+    private static final String ACCESS_KEY = "872986e602ba0f07b2dfceea07408ea1";
     private static final String CURRENCY_RATE_SOURCE = "http://data.fixer.io/api/latest";
 
     private static final CurrencyScanner INSTANCE = new CurrencyScannerImpl();
-    private static final Logger LOGGER = LoggerFactory.getLogger(CurrencyScannerImpl.class);
 
     private static JSONObject currencyRateJson = getCurrencyRateJson();
     private static JSONObject currencyRateJsonLocal = getCurrencyRateJsonLocal();
@@ -42,43 +41,37 @@ public class CurrencyScannerImpl implements CurrencyScanner {
     @Override
     public void update() {
         try {
-            LOGGER.info("Currency rate updating");
+            log.info("Currency rate updating");
             JSONObject jsonObject = new JSONObject(readUrl(CURRENCY_RATE_SOURCE + "?access_key=" + ACCESS_KEY));
             JSONObject jsonRates = jsonObject.getJSONObject("rates");
-            LOGGER.info("Currency rate updated successful");
+            log.info("Currency rate updated successful");
             currencyRateJson = jsonObject;
         } catch (Exception e) {
-            LOGGER.error("Updating currency rate error", e);
+            log.error("Updating currency rate error", e);
         }
     }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//*************************************PRIVATE METHODS****************************************************************//
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
     private static JSONObject getCurrencyRateJson() {
         try {
-            LOGGER.info("Currency rate initializing");
+            log.info("Currency rate initializing");
             JSONObject jsonObject = new JSONObject(readUrl(CURRENCY_RATE_SOURCE + "?access_key=" + ACCESS_KEY));
             JSONObject jsonRates = jsonObject.getJSONObject("rates");
-            LOGGER.info("Currency rate initialized successful");
+            log.info("Currency rate initialized successful");
             return jsonObject;
         } catch (Exception e) {
-            LOGGER.error("Initializing currency rate error", e);
+            log.error("Initializing currency rate error", e);
         }
         return null;
     }
 
     private static JSONObject getCurrencyRateJsonLocal() {
         try {
-            LOGGER.info("Local currency rate initializing");
+            log.info("Local currency rate initializing");
             JSONObject jsonObject = new JSONObject((readUrl(SITE_ADDRESS+"/resources/currency_local_json.txt")));
             JSONObject jsonRates = jsonObject.getJSONObject("rates");
-            LOGGER.info("Local currency rate initialized successful");
+            log.info("Local currency rate initialized successful");
         } catch (Exception e) {
-            LOGGER.error("Initializing local currency rate error", e);
+            log.error("Initializing local currency rate error", e);
         }
         return null;
     }

@@ -6,14 +6,13 @@ import org.slf4j.Logger;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class AbstractDAO{
+public abstract class AbstractDAO {
 
     protected final Logger logger;
 
     protected AbstractDAO(Logger logger) {
         this.logger = logger;
     }
-
 
     protected Connection getConnection() throws SQLException {
         return TcDataSource.getConnection();
