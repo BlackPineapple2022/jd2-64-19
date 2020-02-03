@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:if test="${param.lang != null}">
-    <% session.setAttribute("lang",request.getParameter("lang")); %>
+    <% session.setAttribute("lang", request.getParameter("lang")); %>
 </c:if>
 
 <c:if test="${sessionScope.lang != null}">
@@ -13,37 +13,65 @@
 
 <fmt:setBundle basename="messages"/>
 
-<div style="background:#FFFCFC; color: #000000; float: right; padding: 5px; padding-right: 30px; text-align: right;">
+<style>
 
-    <c:if test="${user != null && user.role eq 'ADMIN'}">
-        <a href="${pageContext.request.contextPath}/admin">[<img src="${pageContext.request.contextPath}/resources/pic/smallBlackPineApple.png" width="18px">]</a>
+    .a-top{
+        border: #FFFFFF 1px solid;
+        border-radius: 3px;
+        padding: 5px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 5px;
+        margin-left: 5px;
+        color: #FFFFFF;
+        font-size: 18px;
+        text-decoration: none;
+        font-family: Arial,serif;
+    }
 
+    .a-top:hover{
+        border: #FFFFFF 1px solid;
+        color: #1E96FA;
+        background: #FFFFFF;
+    }
+
+</style>
+
+
+<div style="background: #1E96FA; color: #FFFFFF; text-align: right; padding-top: 20px; padding-right: 5px">
+
+    <c:if test="${user == null}"><a class="a-top" href="${pageContext.request.contextPath}/login"> Войти </a>
+        <a class="a-top" href="${pageContext.request.contextPath}/signup"> Регистрация </a>
     </c:if>
 
-    <c:if test="${user != null}"> Добро пожаловать  <b>${user.userName}</b>
 
-        <a href="${pageContext.request.contextPath}/logout">Выход</a>
-
-    </c:if>
-
-</div>
-
-<div style="background:#FFFCFC; text-align: right; font-size: 14px; padding: 40px;" >
-    <a href="${pageContext.request.contextPath}/login"> Войти </a> |
-    <a href="${pageContext.request.contextPath}/signup"> Регистрация </a>|
     <%--<a href="?lang=en"> en </a> |
     <a href="?lang=ru"> ru </a>--%>
+</div>
+
+<div style="background:#1E96FA; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #FFFFFF">
+
+    <c:if test="${user != null && user.role eq 'ADMIN'}">
+        <a class="a-top" href="${pageContext.request.contextPath}/admin">
+            admin Panel
+        </a>
+    </c:if>
+
+    <c:if test="${user != null}">Добро пожаловать, <b>${user.userName}</b>
+        <a class="a-top" href="${pageContext.request.contextPath}/logout">Выход</a>
+    </c:if>
 
 </div>
 
-<div style="background: #FFFCFC; text-align: center; height: 350px">
+
+
+<div style="background: #1E96FA; text-align: center; padding-top: 10px">
     <a href="${pageContext.request.contextPath}/home">
-        <img src="${pageContext.request.contextPath}/resources/pic/logo.png">
+        <img src="${pageContext.request.contextPath}/resources/pic/logoblack.png" width="800px">
     </a>
 </div>
 
 
-<div style="background: #5371ff; height:2px"></div>
 
 
 

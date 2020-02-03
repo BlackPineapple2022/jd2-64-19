@@ -46,6 +46,7 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
         flightRobotRY.setActive(true);
         flightRobotWIZZ.setActive(true);
 
+
         //flightRobotRY.start();
         //flightRobotWIZZ.start();
 

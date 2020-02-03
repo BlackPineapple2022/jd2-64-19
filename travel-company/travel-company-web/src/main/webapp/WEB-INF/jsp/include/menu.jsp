@@ -5,16 +5,34 @@
 
 
 <fmt:setBundle basename="messages"/>
+<style>
 
-<div style="text-align: center">
-    <br>
-    <a href="${pageContext.request.contextPath}/about">О проекте</a> |
-    <a href="${pageContext.request.contextPath}/specific">Хочу что-то</a> |
-    <a href="${pageContext.request.contextPath}/all">Хочу всё</a>
-    <br>
-    <br>
+    .a-head {
+        outline: none;
+        border-radius: 5px;
+        border: solid #FFFFFF 1px;
+        font-family: 'Google Sans', Roboto, Arial, sans-serif;
+
+        color: #FFFFFF;
+        font-size: 24px;
+        background: #1E96FA;
+        padding: 8px 20px 8px 20px;
+        text-decoration: none;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-left: 2px;
+        margin-right: 2px;
+    }
+
+    .a-head:hover {
+        border: solid #FFFFFF 1px;
+        color: #1E96FA;
+        background: #FFFFFF;
+    }
+</style>
+<div style="background: #1E96FA; padding-bottom: 30px; alignment: center; text-align: center">
+    <a href="${pageContext.request.contextPath}/about" class="a-head">О проекте </a> <a href="${pageContext.request.contextPath}/specific" class="a-head">Поиск авиабилетов </a> <a href="${pageContext.request.contextPath}/all" class="a-head">Всё и сразу</a>
 </div>
 
-<div style="background: #5371ff; height:2px"></div>
 
 

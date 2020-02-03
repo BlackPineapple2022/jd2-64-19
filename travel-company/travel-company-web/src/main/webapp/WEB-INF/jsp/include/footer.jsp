@@ -7,8 +7,8 @@
 <fmt:setBundle basename="messages"/>
 
 
-<div style="background: #000000;height: 60px; color:#8c62ff; text-align: center; padding: 15px; margin-top: 10px;">
-<br>
-    Чёрный Ананас, большинство прав защищено
+<div style="background: #000000; font-size: 18px; color:#6496fa; text-align: center; padding: 15px; font-family: 'Google Sans', Roboto, Arial, sans-serif;">
+
+    © Чёрный Ананас, большинство прав защищено
 
 </div>

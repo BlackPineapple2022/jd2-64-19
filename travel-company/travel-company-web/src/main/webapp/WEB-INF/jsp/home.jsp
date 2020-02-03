@@ -5,17 +5,19 @@
 <fmt:setBundle basename="messages"/>
 
 <!DOCTYPE html >
+
 <html>
 
-<head>
-    <meta charset="UTF-8">
-    <title>BlackPineapple.by | <fmt:message key="home.page.title" /></title>
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <title>BlackPineapple.by | <fmt:message key="home.page.title"/></title>
+        <link href="white-site.css" rel="stylesheet" type="text/css"/>
+    </head>
 
-<body>
-<%@include file="include/header.jsp" %>
-<%@include file="include/menu.jsp" %>
-<%@include file="include/footer.jsp" %>
-</body>
+    <body>
+        <%@include file="include/header.jsp" %>
+        <%@include file="include/menu.jsp" %>
+        <%@include file="include/footer.jsp" %>
+    </body>
 
 </html>
