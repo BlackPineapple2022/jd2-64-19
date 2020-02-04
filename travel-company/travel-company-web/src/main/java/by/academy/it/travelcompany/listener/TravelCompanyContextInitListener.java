@@ -46,9 +46,11 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
         flightRobotRY.setActive(true);
         flightRobotWIZZ.setActive(true);
 
+        flightRobotRY.setDayCount(300);
+        flightRobotWIZZ.setDayCount(300);
 
-        //flightRobotRY.start();
-        //flightRobotWIZZ.start();
+        flightRobotRY.start();
+        flightRobotWIZZ.start();
 
     }
 

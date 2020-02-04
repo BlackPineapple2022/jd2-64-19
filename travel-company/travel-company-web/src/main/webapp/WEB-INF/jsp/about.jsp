@@ -87,10 +87,10 @@
         .a-reg {
             outline: none;
             border-radius: 5px;
-            border: solid #1E96FA 1px;
+            border: solid #303030 1px;
             font-family: Arial, serif;
 
-            color: #1E96FA;
+            color: #303030;
             font-size: 30px;
             background: #FFFFFF;
             padding: 16px 50px 16px 50px;
@@ -104,7 +104,8 @@
         .a-reg:hover {
             border: solid #FFFFFF 1px;
             color: #FFFFFF;
-            background: #1E96FA;
+            /*background: #1E96FA;*/
+            background: #303030
         }
 
         .a-log {

@@ -15,7 +15,7 @@
 
         color: #FFFFFF;
         font-size: 24px;
-        background: #1E96FA;
+        background: #303030;
         padding: 8px 20px 8px 20px;
         text-decoration: none;
         margin-top: 20px;
@@ -26,11 +26,11 @@
 
     .a-head:hover {
         border: solid #FFFFFF 1px;
-        color: #1E96FA;
+        color: #303030;
         background: #FFFFFF;
     }
 </style>
-<div style="background: #1E96FA; padding-bottom: 30px; alignment: center; text-align: center">
+<div style="background: #303030; padding-bottom: 30px; alignment: center; text-align: center">
     <a href="${pageContext.request.contextPath}/about" class="a-head">О проекте </a> <a href="${pageContext.request.contextPath}/specific" class="a-head">Поиск авиабилетов </a> <a href="${pageContext.request.contextPath}/all" class="a-head">Всё и сразу</a>
 </div>
 

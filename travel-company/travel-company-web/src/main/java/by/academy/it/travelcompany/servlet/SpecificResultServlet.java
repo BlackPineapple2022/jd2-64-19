@@ -1,7 +1,19 @@
 package by.academy.it.travelcompany.servlet;
 
+import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
+import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
+import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
+import by.academy.it.travelcompany.service.global.TripService;
+import by.academy.it.travelcompany.service.global.imp.FavouriteServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.FlightServiceImpl;
 import by.academy.it.travelcompany.service.global.imp.RouteMapServiceImpl;
+import by.academy.it.travelcompany.service.global.imp.TripServiceImpl;
+import by.academy.it.travelcompany.travelitem.flight.Flight;
 import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
+import by.academy.it.travelcompany.travelitem.trip.Trip;
+import by.academy.it.travelcompany.user.User;
+import by.academy.it.travelcompany.user.favourite.Favourite;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,16 +21,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalTime;
+import java.util.*;
 
+@Slf4j
 @WebServlet(urlPatterns = "/specificResult")
 public class SpecificResultServlet extends HttpServlet {
 
+    private static final CurrencyScanner CURRENCY_SCANNER = CurrencyScannerImpl.getInstance();
+
+    private static final TripService TRIP_SERVICE = TripServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + LocalTime.now().getHour() + "" + LocalTime.now().getMinute() + "" + (int) (Math.random() * 100000));
 
         Set<String> originAirportDirectCodeSet = new HashSet<>();
         Set<String> destinationAirportDirectCodeSet = new HashSet<>();
@@ -88,14 +107,63 @@ public class SpecificResultServlet extends HttpServlet {
 
         String localDateStart = req.getParameter("startingDate");
         String localDateEnd = req.getParameter("endingDate");
-        String regex = "-";
+        String regex = "/";
         String[] localDateArrStart = localDateStart.split(regex);
         String[] localDateArrEnd = localDateEnd.split(regex);
 
-        LocalDate localDateStartL = LocalDate.of(Integer.parseInt(localDateArrStart[0]), Integer.parseInt(localDateArrStart[1]), Integer.parseInt(localDateArrStart[2]));
-        LocalDate localDateEndL = LocalDate.of(Integer.parseInt(localDateArrEnd[0]), Integer.parseInt(localDateArrEnd[1]), Integer.parseInt(localDateArrEnd[2]));
+        LocalDate localDateStartL = LocalDate.of(Integer.parseInt(localDateArrStart[2]), Integer.parseInt(localDateArrStart[0]), Integer.parseInt(localDateArrStart[1]));
+        LocalDate localDateEndL = LocalDate.of(Integer.parseInt(localDateArrEnd[2]), Integer.parseInt(localDateArrEnd[0]), Integer.parseInt(localDateArrEnd[1]));
+
         Integer min = Integer.parseInt(req.getParameter("minDay"));
         Integer max = Integer.parseInt(req.getParameter("maxDay"));
+
+        List<Flight> allDirectFlights = new ArrayList<>();
+        List<Flight> allReturnFlights = new ArrayList<>();
+
+        for (RouteMap r : routeMapSet) {
+            if (r.getDirection().getDirectionName().equals("Direct")) {
+                List<Flight> flights = FlightServiceImpl.getInstance().getFlightListByRouteMapIdAndDates(r.getId(), localDateStartL, localDateEndL);
+                allDirectFlights.addAll(flights);
+            }
+
+            if (r.getDirection().getDirectionName().equals("Return")) {
+                List<Flight> flights = FlightServiceImpl.getInstance().getFlightListByRouteMapIdAndDates(r.getId(), localDateStartL.plusDays(min), localDateEndL.plusDays(max));
+                allReturnFlights.addAll(flights);
+            }
+        }
+
+        Comparator<Flight> flightComparator = (o1, o2) -> {
+            Double price1 = o1.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(o1.getCurrency().getCurrencyCode());
+            Double price2 = o2.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(o2.getCurrency().getCurrencyCode());
+            return price1.compareTo(price2);
+        };
+
+        allDirectFlights.sort(flightComparator);
+        allReturnFlights.sort(flightComparator);
+
+        List<Trip> tripList = new ArrayList<>();
+
+        for (Flight d : allDirectFlights) {
+            LocalDate directDate = d.getDepartureTime().toLocalDate();
+            for (Flight r : allReturnFlights) {
+                LocalDate returnDate = r.getDepartureTime().toLocalDate();
+                if (returnDate.isAfter(directDate.plusDays(min - 2)) && returnDate.isBefore(directDate.plusDays(max))) {
+                    List<Flight> flights = new ArrayList<>();
+                    flights.add(d);
+                    flights.add(r);
+                    Double price = 0.0;
+                    for (Flight f : flights) {
+                        price += f.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(f.getCurrency().getCurrencyCode());
+                    }
+                    Trip trip = new Trip(flights, price, searchId);
+                    tripList.add(trip);
+                }
+            }
+        }
+
+        log.info("Searching trip is finished, searchId: " + searchId);
+
+        System.out.println("1" + " " + tripList);
 
         Boolean isStartingSameAirport = false;
         Boolean isStartingSameCity = false;
@@ -138,23 +206,60 @@ public class SpecificResultServlet extends HttpServlet {
             }
         }
 
+        if (isEndingSameCountry) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getDestinationAirport().getCountry().equals(t.getFlights().get(1).getRouteMap().getOriginAirport().getCountry()));
+        }
 
-        System.out.println(routeMapSet);
+        if (isEndingSameCity) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getDestinationAirport().getCity().split("--")[0].equals(
+                    t.getFlights().get(1).getRouteMap().getOriginAirport().getCity().split("--")[0]));
+        }
+        if (isEndingSameAirport) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getDestinationAirport().equals(t.getFlights().get(1).getRouteMap().getOriginAirport()));
+        }
+        if (isStartingSameCountry) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getOriginAirport().getCountry().equals(t.getFlights().get(1).getRouteMap().getDestinationAirport().getCountry()));
+        }
+        if (isStartingSameCity) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getOriginAirport().getCity().split("--")[0].equals(
+                    t.getFlights().get(1).getRouteMap().getDestinationAirport().getCity().split("--")[0]));
+        }
+        if (isStartingSameAirport) {
+            tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getOriginAirport().equals(t.getFlights().get(1).getRouteMap().getDestinationAirport()));
+        }
 
-        System.out.println(localDateStart);
-        System.out.println(localDateEnd);
+        List<Trip> resultTripList = new ArrayList<>();
 
-        System.out.println(min);
-        System.out.println(max);
 
-        System.out.println(isStartingSameAirport);
-        System.out.println(isStartingSameCity);
-        System.out.println(isStartingSameCountry);
 
-        System.out.println(isEndingSameAirport);
-        System.out.println(isEndingSameCity);
-        System.out.println(isEndingSameCountry);
+        Collections.sort(tripList, new Comparator<Trip>() {
+            @Override
+            public int compare(Trip o1, Trip o2) {
+                List<Flight> flightso1 = o1.getFlights();
+                List<Flight> flightso2 = o2.getFlights();
+                Double priceo1 = 0.0;
+                for (Flight flight : flightso1) {
+                    priceo1 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency().getCurrencyCode());
+                }
 
+                Double priceo2 = 0.0;
+                for (Flight flight : flightso2) {
+                    priceo2 += flight.getTicketPrice() * CURRENCY_SCANNER.getEURMultiplier(flight.getCurrency().getCurrencyCode());
+                }
+
+                return priceo1.compareTo(priceo2);
+            }
+        });
+
+        for (int i = 0; i < tripList.size(); i++) {
+            if (i < 20) {
+                resultTripList.add(tripList.get(i));
+            }
+        }
+
+        req.setAttribute("trips", resultTripList);
+        req.getRequestDispatcher("/WEB-INF/jsp/specificResultSearch.jsp").
+                forward(req, resp);
 
     }
 }

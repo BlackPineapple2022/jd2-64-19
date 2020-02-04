@@ -1,0 +1,378 @@
+<%@ page import="java.time.LocalDateTime" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<fmt:setBundle basename="messages"/>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>BlackPineapple.by | Поиск авиабилетов</title>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <style>
+
+        /*td {
+            width: 400px;
+            margin: 5px;
+            border: transparent 5px solid;
+        }*/
+
+
+        .welcome {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 40px;
+            font-weight: 400;
+            line-height: 1.5;
+            word-break: break-word;
+            word-wrap: break-word;
+            color: #202124;
+            text-align: center;
+            margin: 10px;
+        }
+
+        table {
+            margin-left: auto;
+            margin-right: auto;
+
+        }
+
+        .label-1 {
+            border: #dcdcdc solid 1px;
+            border-radius: 5px;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            font-size: 30px;
+            font-weight: 400;
+            line-height: 1.5;
+            word-break: break-word;
+            word-wrap: break-word;
+            color: #111111;
+            padding: 10px;
+            background: #FAFAFA;
+        }
+
+        .label-1:hover{
+            background: #FFFFFF;
+        }
+
+        .small24 {
+            font-size: 22px;
+            color: #444444;
+        }
+
+        .list {
+            width: 800px;
+            height: 30px;
+            font-size: 22px;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            line-height: 1.5;
+            color: #444444;
+        }
+
+        .my_button3 {
+            outline: none;
+            border: solid #ffffff 1px;
+            border-radius: 5px;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            color: #ffffff;
+            font-size: 22px;
+            background: #32aa50;
+            padding: 6px 7px 6px 7px;
+            text-decoration: none;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .my_button3:hover {
+            border: solid #32aa50 1px;
+        }
+
+        .my_button4 {
+            outline: none;
+            border: solid #ffffff 1px;
+            border-radius: 5px;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            color: #ffffff;
+            font-size: 22px;
+            background: #fa6464;
+            padding: 6px 7px 6px 7px;
+            text-decoration: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .my_button4:hover {
+            border: solid #fa6464 1px;
+
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<%@include file="include/header.jsp" %>
+<%@include file="include/menu.jsp" %>
+
+    <div class="welcome">
+        Результаты поиска
+    </div>
+
+    <c:forEach items="${trips}" var="trip">
+
+        <table>
+
+            <tr>
+                <td width="850px">
+                    <div style="border: #C0C0C0 1px solid; border-radius: 5px; margin: 10px">
+                    <table>
+
+
+                        <tr>
+                            <td width="100px">
+                                <c:if test="${trip.flights[0].routeMap.airline.airlineName=='RY'}">
+                                    <img width="100px"
+                                         src="${pageContext.request.contextPath}/resources/pic/ryanair.png"/>
+                                </c:if>
+
+                                <c:if test="${trip.flights[0].routeMap.airline.airlineName=='WIZZ'}">
+                                    <img width="100px"
+                                         src="${pageContext.request.contextPath}/resources/pic/wizzair.png"/>
+                                </c:if>
+                            </td>
+
+                            <td width="300px">
+
+                                <div class="welcome" style="font-size: 40px; color: #505050; margin-bottom: 5px; margin-top: 0px">
+                                    Туда<br/>
+                                    <fmt:parseDate value="${trip.flights[0].departureTime}" pattern="yyyy-MM-dd'T'HH:mm"
+                                                   var="parsedDateTimeDirectDeparture" type="both"/>
+                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeDirectDeparture }"/>
+                                </div>
+                            </td>
+
+
+                            <td width="100px">
+
+                                <c:if test="${trip.flights[1].routeMap.airline.airlineName=='RY'}">
+                                    <img width="100px"
+                                         src="${pageContext.request.contextPath}/resources/pic/ryanair.png"/>
+                                </c:if>
+
+                                <c:if test="${trip.flights[1].routeMap.airline.airlineName=='WIZZ'}">
+                                    <img width="100px"
+                                         src="${pageContext.request.contextPath}/resources/pic/wizzair.png"/>
+                                </c:if>
+                            </td>
+
+                            <td width="300px">
+
+                                <div class="welcome" style="font-size: 40px; color: #505050; margin-bottom: 5px; margin-top: 0px">
+                                    Обратно<br/>
+                                    <fmt:parseDate value="${trip.flights[1].departureTime}" pattern="yyyy-MM-dd'T'HH:mm"
+                                                   var="parsedDateTimeReturnDeparture" type="both"/>
+                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeReturnDeparture}"/>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td width="403px">
+                                <div class="label-1">
+                                    <div style="font-size: 50px; text-align: center">
+                                        <fmt:parseDate value="${trip.flights[0].arriveTime}"
+                                                       pattern="yyyy-MM-dd'T'HH:mm"
+                                                       var="parsedDateTimeDirectArrive" type="both"/>
+                                        <fmt:formatDate pattern="HH:mm " value="${ parsedDateTimeDirectDeparture }"/>
+                                        -
+                                        <fmt:formatDate pattern="HH:mm " value="${ parsedDateTimeDirectArrive }"/>
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <td width="200px">
+                                                <div style="font-size: 20px; color: #505050; border: #505050 1px solid; border-radius: 5px;text-align: center">
+                                                    <div style="color: black"><fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                                              value="${ parsedDateTimeDirectDeparture }"/></div>
+                                                    <c:out value="${trip.flights[0].routeMap.originAirport.country}"/><br/>
+                                                    <c:out value="${trip.flights[0].routeMap.originAirport.city}"/><br/>
+                                                    <b><c:out
+                                                            value="${trip.flights[0].routeMap.originAirport.code}"/></b>
+                                                </div>
+                                            </td>
+
+                                            <td width="200px">
+                                                <div style="font-size: 20px; color: #505050; border: #505050 1px solid; border-radius: 5px; text-align: center">
+                                                    <div style="color: black"><fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                                              value="${ parsedDateTimeDirectArrive }"/></div>
+                                                    <c:out value="${trip.flights[0].routeMap.destinationAirport.country}"/><br/>
+                                                    <c:out value="${trip.flights[0].routeMap.destinationAirport.city}"/><br/>
+                                                    <b><c:out
+                                                            value="${trip.flights[0].routeMap.destinationAirport.code}"/></b>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="welcome"
+                                                     style="color: #505050; font-size: 20px; margin: 5px">
+                                                    Номер рейса:
+                                                    <c:out value="${trip.flights[0].flightNumber}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="welcome"
+                                                     style="color: #505050; font-size: 20px; margin: 5px">
+                                                    Цена:
+                                                    <b><c:out value="${trip.flights[0].ticketPrice}"/></b>
+                                                    <c:out value="${trip.flights[0].currency.currencyCode}"/>
+                                                    <fmt:parseDate value="${trip.flights[0].checkedTime}"
+                                                                   pattern="yyyy-MM-dd'T'HH:mm"
+                                                                   var="parsedDateTimeDirectChecked" type="both"/>
+                                                    <div style="font-size: 16px">(актуальна на <fmt:formatDate
+                                                            pattern="dd.MM.yyyy HH:mm"
+                                                            value="${ parsedDateTimeDirectChecked }"/>)
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+                                </div>
+                            </td>
+                            <td width="403px">
+                                <div class="label-1">
+                                    <div style="font-size: 50px; text-align: center">
+                                        <fmt:parseDate value="${trip.flights[1].arriveTime}"
+                                                       pattern="yyyy-MM-dd'T'HH:mm"
+                                                       var="parsedDateTimeReturnArrive" type="both"/>
+                                        <fmt:formatDate pattern="HH:mm " value="${ parsedDateTimeReturnDeparture }"/>
+                                        -
+                                        <fmt:formatDate pattern="HH:mm " value="${ parsedDateTimeReturnArrive }"/>
+
+                                    </div>
+                                    <table>
+                                        <tr>
+                                            <td width="200px">
+                                                <div style="font-size: 20px; color: #505050; border: #505050 1px solid; border-radius: 5px; text-align: center">
+                                                    <div style="color: black"><fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                                              value="${ parsedDateTimeReturnDeparture }"/></div>
+                                                    <c:out value="${trip.flights[1].routeMap.originAirport.country}"/><br/>
+                                                    <c:out value="${trip.flights[1].routeMap.originAirport.city}"/><br/>
+                                                    <b><c:out
+                                                            value="${trip.flights[1].routeMap.originAirport.code}"/></b>
+                                                </div>
+                                            </td>
+
+                                            <td width="200px">
+                                                <div style="font-size: 20px; color: #505050; border: #505050 1px solid; border-radius: 5px; text-align: center">
+                                                    <div style="color: black"><fmt:formatDate pattern="dd.MM.yyyy HH:mm"
+                                                                                              value="${ parsedDateTimeReturnArrive }"/></div>
+                                                    <c:out value="${trip.flights[1].routeMap.destinationAirport.country}"/><br/>
+                                                    <c:out value="${trip.flights[1].routeMap.destinationAirport.city}"/><br/>
+                                                    <b><c:out
+                                                            value="${trip.flights[1].routeMap.destinationAirport.code}"/></b>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="welcome"
+                                                     style="color: #505050; font-size: 20px; margin: 5px">
+                                                    Номер рейса:
+                                                    <c:out value="${trip.flights[1].flightNumber}"/>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="welcome"
+                                                     style="color: #505050; font-size: 20px; margin: 5px">
+                                                    Цена:
+                                                    <b><c:out value="${trip.flights[1].ticketPrice}"/></b>
+                                                    <c:out value="${trip.flights[1].currency.currencyCode}"/>
+                                                    <fmt:parseDate value="${trip.flights[1].checkedTime}"
+                                                                   pattern="yyyy-MM-dd'T'HH:mm"
+                                                                   var="parsedDateTimeReturnChecked" type="both"/>
+                                                    <div style="font-size: 16px">(актуальна на <fmt:formatDate
+                                                            pattern="dd.MM.yyyy HH:mm"
+                                                            value="${ parsedDateTimeReturnChecked }"/>)
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+
+
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="2">
+                                <div class="welcome" style="margin: 10px; margin-bottom: 0px; font-size: 40px; color: black">
+                                Итоговая цена:
+                                <fmt:formatNumber type = "number"
+                                                  maxFractionDigits = "2" value = "${trip.price}" /> EUR
+
+                            </td>
+                        </tr>
+
+                        <c:if test="${user != null}">
+
+                        <tr>
+                            <td colspan="2" style="text-align: right; margin-left: 10px; margin-top: 0px; margin-bottom: 0px">
+                                <form method="POST" action="${pageContext.request.contextPath}/user/favourite/add" target="iframe1">
+                                    <input type="hidden" name = "flightDirectId" value = "${trip.flights[0].id}">
+                                    <input type="hidden" name = "flightReturnId" value = "${trip.flights[1].id}">
+                                <button class="my_button3" >
+                                    Добавить в избранное
+                                </button>
+                                </form>
+                            </td>
+                        </tr>
+                        </c:if>
+
+                    </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+    </c:forEach>
+
+
+    <iframe name="iframe1" style="position: absolute; left: -9999px;"></iframe>
+
+
+</body>
+
+
+
+
+<%@include file="include/footer.jsp" %>
+
+
+</html>

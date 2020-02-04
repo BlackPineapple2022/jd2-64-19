@@ -339,14 +339,14 @@
             <td>
                 <div class="label-1">Самая ранняя дата начала путешествия
                     <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
-                    <input type="text" autocomplete="false" name="startingDate" id="datepicker"
+                    <input type="text" autocomplete="off" name="startingDate" id="datepicker"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
                 </div>
             </td>
             <td>
-                <div class="label-1">Самая ранняя дата начала путешествия
+                <div class="label-1">Самая поздняя дата начала путешествия
                     <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
-                    <input type="text" autocomplete="false" name="endingDate" id="datepickerR"
+                    <input type="text" autocomplete="off" name="endingDate" id="datepickerR"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
                 </div>
             </td>
@@ -367,7 +367,7 @@
 
         <tr>
             <td colspan="2">
-                <button type="submit" class="my_button3" style="margin-top: 0px">Поиск</button>
+                <button type="submit" class="my_button3" style="margin-top: 0px; padding-left: 40px; padding-right: 40px">Поиск</button>
             </td>
         </tr>
 

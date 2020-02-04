@@ -7,7 +7,9 @@ import by.academy.it.travelcompany.travelitem.flight.Flight;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -93,6 +95,17 @@ public class FlightServiceImpl implements FlightService {
         for (Flight f:list ) {
             updateByDateAndFlightNumberOrCreate(f);
         }
+    }
+
+    @Override
+    public List<Flight> getFlightListByRouteMapIdAndDates(Long routeMapId, LocalDate firstDate, LocalDate secondDate) {
+        log.info("Getting all flight by routeMap id between 2 localDate ", routeMapId);
+        try {
+            return flightDAO.getFlightListByRouteMapIdAndDates(routeMapId,firstDate,secondDate);
+        }catch (SQLException e){
+            log.error("Error while getting all flight by routemap id", e);
+        }
+        return Collections.emptyList();
     }
 }
 

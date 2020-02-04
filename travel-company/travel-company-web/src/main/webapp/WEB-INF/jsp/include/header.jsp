@@ -31,14 +31,14 @@
 
     .a-top:hover{
         border: #FFFFFF 1px solid;
-        color: #1E96FA;
+        color: #303030;
         background: #FFFFFF;
     }
 
 </style>
 
 
-<div style="background: #1E96FA; color: #FFFFFF; text-align: right; padding-top: 20px; padding-right: 5px">
+<div style="background: #303030; color: #FFFFFF; text-align: right; padding-top: 20px; padding-right: 5px">
 
     <c:if test="${user == null}"><a class="a-top" href="${pageContext.request.contextPath}/login"> Войти </a>
         <a class="a-top" href="${pageContext.request.contextPath}/signup"> Регистрация </a>
@@ -49,7 +49,7 @@
     <a href="?lang=ru"> ru </a>--%>
 </div>
 
-<div style="background:#1E96FA; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #FFFFFF">
+<div style="background:#303030; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #FFFFFF">
 
     <c:if test="${user != null && user.role eq 'ADMIN'}">
         <a class="a-top" href="${pageContext.request.contextPath}/admin">
@@ -65,7 +65,7 @@
 
 
 
-<div style="background: #1E96FA; text-align: center; padding-top: 10px">
+<div style="background: #303030; text-align: center; padding-top: 10px; padding-bottom: 30px">
     <a href="${pageContext.request.contextPath}/home">
         <img src="${pageContext.request.contextPath}/resources/pic/logoblack.png" width="800px">
     </a>
