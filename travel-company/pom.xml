@@ -29,6 +29,7 @@
         <module>travel-company-common</module>
         <module>travel-company-web</module>
         <module>common-hibernate</module>
+        <module>common-spring</module>
     </modules>
 
     <dependencyManagement>
