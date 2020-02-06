@@ -18,8 +18,31 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+    <script>
+
+
+        function deleteTrip(tripId) {
+
+            var t = tripId + "b";
+            var y = document.getElementById(t);
+            y.style.display="none";
+            var f = document.getElementById(t+"d");
+            f.style.display="inline";
+            setTimeout(deleteTable,1000,tripId);
+
+        }
+
+        function deleteTable(tripId) {
+            var x = document.getElementById(tripId);
+            x.style.display = "none";
+        }
+
+
+    </script>
+
 
     <style>
+
 
         /*td {
             width: 400px;
@@ -85,7 +108,7 @@
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
             color: #ffffff;
             font-size: 22px;
-            background: #66A33B;
+            background: #E55747;
             padding: 6px 7px 6px 7px;
             text-decoration: none;
             margin-top: 10px;
@@ -93,7 +116,7 @@
         }
 
         .my_button3:hover {
-            border: solid #66A33B 1px;
+            border: solid #E55747 1px;
         }
 
         .my_button4 {
@@ -126,26 +149,24 @@
 <%@include file="include/menu.jsp" %>
 
 <div class="welcome">
-    Результаты поиска
+    Избранное
 </div>
-
 
 <c:if test="${trips == null}">
     <br/>
     <br/>
     <div class="welcome" style="color: #E55747;font-size: 26px; border: #E55747 1px solid; border-radius: 5px; margin-right: 20%; margin-left: 20%; padding: 20px">
-        К сожалению, ничего не найдено, попробуйте задать другие парамметры <b><a
-            href="${pageContext.request.contextPath}/specific" style="color: #66A33B">поиска</a></b>
+        К сожалению, список избранного пуст, воспользуйтесь <b><a
+            href="${pageContext.request.contextPath}/specific" style="color: #66A33B">поиском</a></b>, чтобы это исправить
     </div>
     <br/>
     <br/>
     <br/>
 </c:if>
 
-
 <c:forEach items="${trips}" var="trip">
 
-    <table>
+    <table id="${trip.id}" style="display: table">
 
         <tr>
             <td width="850px">
@@ -360,21 +381,17 @@
                             <tr>
                                 <td colspan="2"
                                     style="text-align: right; margin-left: 10px; margin-top: 0px; margin-bottom: 0px">
-                                    <form method="POST" action="${pageContext.request.contextPath}/user/favourite/add"
+                                    <form method="POST"
+                                          action="${pageContext.request.contextPath}/user/favourite/delete"
                                           target="iframe1">
-                                        <input type="hidden" name="flightDirectId" value="${trip.flights[0].id}">
-                                        <input type="hidden" name="flightReturnId" value="${trip.flights[1].id}">
-                                        <input type="hidden" name="price" value="${trip.price}">
-
-                                        <button class="my_button3" id="${trip.id}bd" onclick=addToFav(${trip.id})>
-                                            Добавить в избранное
+                                        <input type="hidden" name="tripId" value="${trip.id}">
+                                        <button class="my_button3" id="${trip.id}b" onclick=deleteTrip(${trip.id})>
+                                            Удалить
                                         </button>
 
-                                        <button class="my_button3" id="${trip.id}b" type="button"
-                                                style="background: #FFFFFF; border: #66A33B 1px solid; color: #66A33B; display: none ">
-                                            Добавлено
+                                        <button class="my_button3" id="${trip.id}bd" type="button" style="text-align: right;alignment:right; display: none; background: #FFFFFF; color: #E55747; border: #E55747 1px solid">
+                                            Удалено
                                         </button>
-
 
                                     </form>
                                 </td>
@@ -395,17 +412,6 @@
 
 
 </body>
-
-<script>
-
-    function addToFav(t) {
-        var x = document.getElementById(t + "bd");
-        var y = document.getElementById(t + "b");
-        x.style.display = "none";
-        y.style.display = "inline";
-    }
-
-</script>
 
 
 <%@include file="include/footer.jsp" %>

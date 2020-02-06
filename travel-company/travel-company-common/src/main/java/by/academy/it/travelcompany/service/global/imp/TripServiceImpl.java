@@ -39,7 +39,8 @@ public class TripServiceImpl implements TripService {
     public Trip addTrip(Trip trip) {
         log.info("Adding trip to Base{}, trip:", trip);
         try {
-            roundTripDAO.create(trip);
+            Long id = roundTripDAO.create(trip);
+            trip.setId(id);
             return trip;
         } catch (SQLException e) {
             log.error("Error while adding trip to Base", e);

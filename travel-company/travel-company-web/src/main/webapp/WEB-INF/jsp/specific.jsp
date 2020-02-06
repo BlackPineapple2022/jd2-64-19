@@ -79,7 +79,7 @@
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
             color: #ffffff;
             font-size: 22px;
-            background: #32aa50;
+            background: #66A33B;
             padding: 6px 7px 6px 7px;
             text-decoration: none;
             margin-top: 20px;
@@ -87,7 +87,7 @@
         }
 
         .my_button3:hover {
-            border: solid #32aa50 1px;
+            border: solid #66A33B 1px;
         }
 
         .my_button4 {
@@ -97,7 +97,7 @@
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
             color: #ffffff;
             font-size: 22px;
-            background: #fa6464;
+            background: #E55747;
             padding: 6px 7px 6px 7px;
             text-decoration: none;
             margin-top: 20px;
@@ -105,7 +105,7 @@
         }
 
         .my_button4:hover {
-            border: solid #fa6464 1px;
+            border: solid #E55747 1px;
 
         }
 

@@ -16,32 +16,43 @@
 <style>
 
     .a-top{
-        border: #FFFFFF 1px solid;
+        border: #F2BD1D 1px solid;
         border-radius: 3px;
         padding: 5px;
         margin-top: 20px;
         margin-bottom: 20px;
         margin-right: 5px;
         margin-left: 5px;
-        color: #FFFFFF;
+        color: #F2BD1D;
         font-size: 18px;
         text-decoration: none;
         font-family: Arial,serif;
     }
 
     .a-top:hover{
-        border: #FFFFFF 1px solid;
-        color: #303030;
-        background: #FFFFFF;
+        border: #F2BD1D 1px solid;
+        color: #404040;
+        background: #F2BD1D;
+    }
+
+    .a-top.green{
+        border: #88D94E 1px solid;
+        color: #88D94E;
+    }
+
+    .a-top.green:hover{
+        border: #88D94E 1px solid;
+        color: #404040;
+        background: #88D94E;
     }
 
 </style>
 
 
-<div style="background: #303030; color: #FFFFFF; text-align: right; padding-top: 20px; padding-right: 5px">
+<div style="background: #404040; color: #F2BD1D; text-align: right; padding-top: 20px; padding-right: 5px">
 
-    <c:if test="${user == null}"><a class="a-top" href="${pageContext.request.contextPath}/login"> Войти </a>
-        <a class="a-top" href="${pageContext.request.contextPath}/signup"> Регистрация </a>
+    <c:if test="${user == null}">
+         <a class="a-top green" href="${pageContext.request.contextPath}/login"> Войти </a> <a class="a-top " href="${pageContext.request.contextPath}/signup"> Регистрация </a>
     </c:if>
 
 
@@ -49,7 +60,7 @@
     <a href="?lang=ru"> ru </a>--%>
 </div>
 
-<div style="background:#303030; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #FFFFFF">
+<div style="background:#404040; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #F2BD1D">
 
     <c:if test="${user != null && user.role eq 'ADMIN'}">
         <a class="a-top" href="${pageContext.request.contextPath}/admin">
@@ -65,7 +76,7 @@
 
 
 
-<div style="background: #303030; text-align: center; padding-top: 10px; padding-bottom: 30px">
+<div style="background: #404040; text-align: center; padding-top: 30px; padding-bottom: 50px">
     <a href="${pageContext.request.contextPath}/home">
         <img src="${pageContext.request.contextPath}/resources/pic/logoblack.png" width="800px">
     </a>

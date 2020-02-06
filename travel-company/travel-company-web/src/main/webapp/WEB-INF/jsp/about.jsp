@@ -131,9 +131,9 @@
         <tr>
             <td width="300px"><img src="${pageContext.request.contextPath}/resources/pic/What.png" width="300px">
             </td>
-            <td colspan="2" width="600px" align="justify">
+            <td colspan="2" width="600px" align="left">
                 <div style="font-size: 44px; font-family: Arial,serif">Что такое лоукосты?</div>
-
+<br/>
                 <div style="font-size: 24px; font-family: Arial,serif; line-height: 1.5 ">
                     Лоукосты или лоукостеры - это авиакомпании, которые продают билеты на свои рейсы за суммы,
                     которые в
@@ -152,9 +152,9 @@
 <div class="div-middle">
     <table align="center" class="tr2">
         <tr>
-            <td colspan="2" width="600px" align="justify">
+            <td colspan="2" width="600px" align="left">
                 <div style="font-size: 44px; font-family: Arial,serif">Что такое Чёрный Ананас?</div>
-                <br>
+                <br/>
                 <div style="font-size: 24px; line-height: 1.5; font-family: Arial,serif">
                     <b>Чёрный ананас</b> - это мощный сервис по планированию авиапутешествий по Европе с вылетом из
                     Литвы и Польши, что очень актуально для беларусов.
@@ -176,15 +176,6 @@
 
 </div>
 
-<div class="div-register">
-    <tr>
-        <td>
-            <a class="a-reg" href="${pageContext.request.contextPath}/signup">Регистрация </a>
-            <a class="a-reg a-log" href="${pageContext.request.contextPath}/login">Вход </a>
-        </td>
-    </tr>
-
-</div>
 <%@include file="include/footer.jsp" %>
 </body>
 

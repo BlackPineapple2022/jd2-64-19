@@ -11,16 +11,17 @@ import java.time.LocalDate;
 @Slf4j
 public class FlightRobot extends Thread {
 
-    private static final FlightRobot FLIGHT_ROBOT_RY = new FlightRobot(250, "RY");
-    private static final FlightRobot FLIGHT_ROBOT_WIZZ = new FlightRobot(250, "WIZZ");
+    private static final FlightRobot FLIGHT_ROBOT_RY = new FlightRobot(300, "RY");
+    private static final FlightRobot FLIGHT_ROBOT_WIZZ = new FlightRobot(300, "WIZZ");
 
     private static final RouteMapServiceImpl ROUTE_MAP_SERVICE = RouteMapServiceImpl.getInstance();
     private static final FlightScannerJournalServiceImpl FLIGHT_SCANNER_JOURNAL_SERVICE = FlightScannerJournalServiceImpl.getInstance();
 
-    Integer dayCount;
-    String airlineName;
+    private Integer dayCount;
+    private String airlineName;
 
-    Boolean isActive = false;
+    private Boolean isActive = false;
+    private Boolean isWorking = false;
 
     private FlightRobot(Integer dayCount, String airlineName) {
         this.dayCount = dayCount;
@@ -51,8 +52,17 @@ public class FlightRobot extends Thread {
         isActive = active;
     }
 
+    public Boolean getWorking() {
+        return isWorking;
+    }
+
+    public void setWorking(Boolean working) {
+        isWorking = working;
+    }
+
     @Override
     public void run() {
+        isWorking=true;
         while (isActive) {
             log.info("Getting routeMap id from journal where scanned date is null ");
             Long routeMapId = FLIGHT_SCANNER_JOURNAL_SERVICE.getFirstRouteMapIdWithNullDateTime(airlineName);
@@ -71,6 +81,7 @@ public class FlightRobot extends Thread {
                 FLIGHT_SCANNER_JOURNAL_SERVICE.updateDateOnJournalEntry(routeMapId);
             }
         }
+        isWorking=false;
     }
 
 }

@@ -253,8 +253,14 @@ public class SpecificResultServlet extends HttpServlet {
 
         for (int i = 0; i < tripList.size(); i++) {
             if (i < 20) {
-                resultTripList.add(tripList.get(i));
+                Trip trip = tripList.get(i);
+                trip.setId(Long.parseLong(""+i));
+                resultTripList.add(trip);
             }
+        }
+
+        if (resultTripList.size()==0){
+            resultTripList = null;
         }
 
         req.setAttribute("trips", resultTripList);
