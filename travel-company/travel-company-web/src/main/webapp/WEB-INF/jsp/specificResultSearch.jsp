@@ -169,11 +169,12 @@
                             <td width="300px">
 
                                 <div class="welcome"
-                                     style="font-size: 40px; color: #505050; margin-bottom: 5px; margin-top: 0px">
+                                     style="font-size: 34px; color: #505050; margin-bottom: 5px; margin-top: 0px">
                                     Туда<br/>
                                     <fmt:parseDate value="${trip.flights[0].departureTime}" pattern="yyyy-MM-dd'T'HH:mm"
                                                    var="parsedDateTimeDirectDeparture" type="both"/>
-                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeDirectDeparture }"/>
+                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeDirectDeparture }"/><br/>
+                                    <fmt:formatDate pattern="E" value="${ parsedDateTimeDirectDeparture }"/>
                                 </div>
                             </td>
 
@@ -194,11 +195,12 @@
                             <td width="300px">
 
                                 <div class="welcome"
-                                     style="font-size: 40px; color: #505050; margin-bottom: 5px; margin-top: 0px">
+                                     style="font-size: 34px; color: #505050; margin-bottom: 5px; margin-top: 0px">
                                     Обратно<br/>
                                     <fmt:parseDate value="${trip.flights[1].departureTime}" pattern="yyyy-MM-dd'T'HH:mm"
                                                    var="parsedDateTimeReturnDeparture" type="both"/>
-                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeReturnDeparture}"/>
+                                    <fmt:formatDate pattern="dd.MM.yyyy " value="${ parsedDateTimeReturnDeparture}"/><br/>
+                                    <fmt:formatDate pattern="E" value="${ parsedDateTimeReturnDeparture }"/>
                                 </div>
                             </td>
 
