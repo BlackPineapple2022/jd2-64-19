@@ -6,6 +6,10 @@
 
 <html >
 <head>
+
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
     <meta charset="UTF-8">
     <title>BlackPineapple.by | Вход </title>
 
@@ -37,8 +41,9 @@
 <%@include file="include/header.jsp" %>
 <%@include file="include/menu.jsp" %>
 
-<c:if test ="${errorCode==1}"><p style="color: red; text-align: center"><fmt:message key="error.code.1"/></p></c:if>
-<c:if test ="${errorCode==2}"><p style="color: red; text-align: center"><fmt:message key="error.code.2"/></p></c:if>
+<c:if test ="${errorCode==1}"><p style="color: red; text-align: center">Имя пользователя и пароль не должны быть пустыми</p></c:if>
+<c:if test ="${errorCode==2}"><p style="color: red; text-align: center">Неверное имя пользователя и пароль</p></c:if>
+<c:if test ="${errorCode==3}"><p style="color: red; text-align: center">Доступ на сайт роботам запрещён</p></c:if>
 
 <form method="POST" action="${pageContext.request.contextPath}/login">
 
@@ -55,13 +60,24 @@
         </tr>
 
         <tr>
+            <td colspan="2" >
+                <div style="padding-top: 20px; padding-left: 10px" class="g-recaptcha" data-sitekey="6Lfjm9YUAAAAANtQ7_03wFReNkPIFxhWD1YGx3Dz"></div>
+            </td>
+
+        </tr>
+
+        <tr>
             <td style="margin: 10px; padding: 10px; alignment: center; text-align: center" colspan="2">
                 <input class="my_button-log" type="submit" value="Войти"/>
             </td>
         </tr>
 
+
+
     </table>
 </form>
+
+
 
 <%@include file="include/footer.jsp" %>
 </body>

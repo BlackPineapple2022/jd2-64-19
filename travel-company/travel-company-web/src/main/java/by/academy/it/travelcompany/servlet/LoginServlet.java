@@ -33,11 +33,15 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         String rememberMeStr = req.getParameter("rememberMe");
         boolean remeberMeboolean = "Y".equals(rememberMeStr);
+        String googleRecaptcha = req.getParameter("g-recaptcha-response");
 
         Integer errorCode = 0;
         boolean hasError = false;
 
-        if (userName == null || userName.length() == 0 || password == null || password.length() == 0) {
+        if (googleRecaptcha==null||googleRecaptcha.length()==0){
+            hasError=true;
+            errorCode=3;
+        }else if (userName == null || userName.length() == 0 || password == null || password.length() == 0) {
             hasError = true;
             errorCode = 1;
         } else {

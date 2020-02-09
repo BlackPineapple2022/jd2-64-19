@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>BlackPineapple.by | <fmt:message key="signup.page.title"/></title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <style>
 
         .my_button-reg {
@@ -33,9 +34,11 @@
 <%@include file="include/header.jsp" %>
 <%@include file="include/menu.jsp" %>
 
-<c:if test ="${errorCode==1}"><p style="color: red; text-align: center"><fmt:message key="error.code.1"/></p></c:if>
-<c:if test ="${errorCode==3}"><p style="color: red; text-align: center"><fmt:message key="error.code.3"/></p></c:if>
-<c:if test ="${errorCode==4}"><p style="color: red; text-align: center"><fmt:message key="error.code.4"/></p></c:if>
+<c:if test ="${errorCode==1}"><p style="color: red; text-align: center">Имя пользователя и пароль не должны быть пустыми</p></c:if>
+<c:if test ="${errorCode==3}"><p style="color: red; text-align: center">Пользователь с таким именем уже существует</p></c:if>
+<c:if test ="${errorCode==4}"><p style="color: red; text-align: center">Пароли не совпадают</p></c:if>
+<c:if test ="${errorCode==5}"><p style="color: red; text-align: center">Доступ на сайт роботам запрещён</p></c:if>
+<c:if test ="${errorCode==6}"><p style="color: red; text-align: center">Имя пользователя должно быть от 3 до 20 латинских символов или цифр, пароль от 5 до 20 любых символов</p></c:if>
 
 <form method="POST" action="${pageContext.request.contextPath}/signup">
     <div align="center" style="font-size: 40px;font-family: Arial,serif; margin: 10px; padding-top: 20px">Регистрация</div>
@@ -46,12 +49,19 @@
         </tr>
 
         <tr>
-            <td style="margin: 10px; padding: 10px"><fmt:message key="signup.page.user.password"/></td>
+            <td style="margin: 10px; padding: 10px">Пароль</td>
             <td style="margin: 10px; padding: 10px"><input style="height: 30px; width: 300px; font-size: 24px; font-family: Arial,serif" type="password" name="password" value=""/></td>
         </tr>
         <tr>
-            <td style="margin: 10px; padding: 10px"><fmt:message key="signup.page.user.password.repeat"/></td>
+            <td style="margin: 10px; padding: 10px">Повторите пароль</td>
             <td style="margin: 10px; padding: 10px"><input style="height: 30px; width: 300px; font-size: 24px; font-family: Arial,serif" type="password" name="passwordRepeat" value=""/></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" >
+                <div style="padding-top: 20px; padding-left: 10px" class="g-recaptcha" data-sitekey="6Lfjm9YUAAAAANtQ7_03wFReNkPIFxhWD1YGx3Dz"></div>
+            </td>
+
         </tr>
 
 

@@ -13,20 +13,20 @@ package by.academy.it.travelcompany.travelitem.airport;
 
 public enum AirportFromVNOWIZZ {
 
-    LCA("Cyprus","Larnaca"),
-    BLL("Denmark","Billund"),
-    NCE("France","Nice"),
-    BVA("France","Paris Beauvais"),
-    KUT("Georgia","Kutaisi"),
-    DTM("Germany","Dortmund"),
-    ATH("Greece","Athens"),
-    KEF("Iceland","Reykjavik"),
-    ETM("Israel","Eilat"),
-    TLV("Israel","Tel-Aviv"),
-    MXP("Italy","Milan--Malpensa"),
-    EIN("Netherlands","Eindhoven"),
-    TRF("Norway","Oslo--Torp"),
-    BCN("Spain","Barcelona");
+    LCA("Кипр","Ларнака"),
+    BLL("Дания","Биллунн"),
+    NCE("Франция","Ницца"),
+    BVA("Франция","Париж--Бове"),
+    KUT("Грузия","Кутаиси"),
+    DTM("Германия","Дортмунд"),
+    ATH("Греция","Афины"),
+    KEF("Исландия","Рейкьявик"),
+    ETM("Израиль","Эйлат"),
+    TLV("Израиль","Тель-Авив"),
+    MXP("Италия","Милан--Мальпенса"),
+    EIN("Нидерланды","Эйндховен"),
+    TRF("Норвегия","Осло--Торп"),
+    BCN("Испания","Барселона");
 
     private String country;
     private String city;

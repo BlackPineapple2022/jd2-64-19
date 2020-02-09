@@ -40,18 +40,6 @@ public class TravelCompanyContextInitListener implements ServletContextListener 
             throw new RuntimeException("Datasource initialisation error", t);
         }
 
-        FlightRobot flightRobotRY = FlightRobot.getFlightRobotRY();
-        FlightRobot flightRobotWIZZ = FlightRobot.getFlightRobotWIZZ();
-
-        flightRobotRY.setActive(true);
-        flightRobotWIZZ.setActive(true);
-
-        flightRobotRY.setDayCount(300);
-        flightRobotWIZZ.setDayCount(300);
-
-        //flightRobotRY.start();
-        //flightRobotWIZZ.start();
-
     }
 
 }

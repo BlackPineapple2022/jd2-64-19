@@ -11,18 +11,18 @@ package by.academy.it.travelcompany.travelitem.airport;
  */
 
 public enum AirportFromKUNRY {
-    PFO("Cyprus","Paphos"),
-    CPH("Denmark", "Copenhagen"),
-    CGN("Germany", "Cologne"),
-    NUE("Germany","Nuremberg"),
-    RHO("Greece","Rhodes"),
-    ETM("Israel","Eilat"),
-    BLQ("Italy","Bologna"),
-    MXP("Italy","Milan--Malpensa"),
-    NAP("Italy","Naples"),
-    RMI("Italy","Rimini"),
-    ALC("Spain","Alicante"),
-    PMI("Spain","Palma de Mallorca");
+    PFO("Кипр","Пафос"),
+    CPH("Дания", "Копенгаген"),
+    CGN("Германия", "Кёльн"),
+    NUE("Германия","Нюрнберг"),
+    RHO("Греция","Родос"),
+    ETM("Израиль","Эйлат"),
+    BLQ("Италия","Болонья"),
+    MXP("Италия","Милан--Мальпенса"),
+    NAP("Италия","Неаполь"),
+    RMI("Италия","Римини"),
+    ALC("Испания","Аликанте"),
+    PMI("Испания","Пальма-де-Мальорка");
 
     private String country;
     private String city;

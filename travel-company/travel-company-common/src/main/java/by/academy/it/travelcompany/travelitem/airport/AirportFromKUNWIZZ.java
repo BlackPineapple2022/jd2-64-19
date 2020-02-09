@@ -11,11 +11,11 @@ package by.academy.it.travelcompany.travelitem.airport;
  */
 
 public enum AirportFromKUNWIZZ {
-    EIN("Netherlands","Eindhoven"),
-    BGO("Norway","Bergen"),
-    AES("Norway","Alesund"),
-    SVG("Norway","Stavanger"),
-    TKU("Finland","Turku");
+    EIN("Нидерланды","Эйндховен"),
+    BGO("Норвегия","Берген"),
+    AES("Норвегия","Олесунн"),
+    SVG("Норвегия","Ставангер"),
+    TKU("Финляндия","Турку");
 
     private String country;
     private String city;

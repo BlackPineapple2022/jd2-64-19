@@ -119,6 +119,42 @@
 <%@include file="include/header.jsp" %>
 <%@include file="include/menu.jsp" %>
 
+<c:if test="${errorCodeSet != null}">
+    <br/>
+    <br/>
+    <br/>
+    <div style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 30px; border: #E55747 1px solid; border-radius: 5px; margin-left: 20%; margin-right: 20%">
+        <br/>
+        УПС. Что-то пошло не так...:
+
+
+    <c:forEach var="error" items="${errorCodeSet}">
+
+        <c:if test="${error == 1}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
+            не выбрали, откуда начинается путешествие</p></c:if>
+        <c:if test="${error == 2}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
+            не выбрали, где завершается путешествие</p></c:if>
+        <c:if test="${error == 3}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Неверно указана самая ранняя дата начала путешествия</p></c:if>
+        <c:if test="${error == 4}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Неверно указана самая поздняя дата начала путешествия</p></c:if>
+        <c:if test="${error == 5}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Самая поздняя дата начала путешествия не может быть раньше самой ранней</p></c:if>
+        <c:if test="${error == 6}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Неверно указана минимальная продолжительность путешествия (не может быть мень 2-х дней и более 30-ти)</p></c:if>
+        <c:if test="${error == 7}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Неверно указана максимальная продолжительность путешествия (не может быть мень 2-х дней и более
+            30-ти)</p></c:if>
+        <c:if test="${error == 8}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+            Самая поздняя дата начала путешествия не может быть позднее, чем через 300 дней от текущей даты</p></c:if>
+
+    </c:forEach>
+        <br/>
+    </div>
+</c:if>
+
+
+
 <form method="POST" action="${pageContext.request.contextPath}/specificResult">
 
     <div class="welcome">
@@ -235,7 +271,7 @@
                     <button class="my_button3" type="button" onclick="airportDirect()">
                         Добавить
                     </button>
-                    <button class="my_button4" type="button" onclick="airportDirectDelete()"> Удалить </button>
+                    <button class="my_button4" type="button" onclick="airportDirectDelete()"> Удалить</button>
 
                 </div>
 
@@ -308,13 +344,12 @@
                         Добавить
                     </button>
                     <button class="my_button4" type="button" onclick="airportReturnDelete()">
-                       Удалить
+                        Удалить
                     </button>
 
                 </div>
             </td>
         </tr>
-
 
 
         <tr>
@@ -356,18 +391,20 @@
 
             <td colspan="2">
                 <div class="label-1">Количество дней в путешествии (от 2-х до 30-ти):
-                <div class="small24">от <input type="text" name="minDay" height="30px"
-                                               style=" width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
-                    до <input type="text" name="maxDay" height="30px"
-                              style="width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
-                </div>
+                    <div class="small24">от <input type="text" name="minDay" height="30px"
+                                                   style=" width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
+                        до <input type="text" name="maxDay" height="30px"
+                                  style="width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
+                    </div>
                 </div>
             </td>
         </tr>
 
         <tr>
             <td colspan="2">
-                <button type="submit" class="my_button3" style="margin-top: 0px; padding-left: 40px; padding-right: 40px">Поиск</button>
+                <button type="submit" class="my_button3"
+                        style="margin-top: 0px; padding-left: 40px; padding-right: 40px">Поиск
+                </button>
             </td>
         </tr>
 
