@@ -1,5 +1,3 @@
-https://vertex-academy.com/tutorials/ru/java-8-optional/
-https://www.mobilefish.com/services/unicode_escape_sequence_converter/unicode_escape_sequence_converter.php
 
 API key fixer.io
 1eb5276f5726efc74fbf3799adcf7973
@@ -9,15 +7,12 @@ From 01/01/2020
 http://data.fixer.io/api/latest?access_key=872986e602ba0f07b2dfceea07408ea1
 872986e602ba0f07b2dfceea07408ea1
 
-https://stackoverflow.com/questions/31503674/neterr-incomplete-chunked-encoding-spring-mvc-application-using-jsp
-
 TODO
 1. Updater currency rate
-2. Parser flight considering schedule, schedule to mysql!
-3. Button "-" in searchFlight
-4. Check on spec search
-5. In spec search when press "+" existing select to default value:(
-6. Recent searches are working without special filter:(
-7. If no finding flight no display "Недавние поиски: "
-
-
+2. Check on spec search max day can not be less than min day
+3. User friendly and understandable interface (specify search (Полша, Литва), flag to chose all starting airports, button for copy all destinations to return origins and other)
+4. Pictures where no find problem
+5. Нумерация при поиске, нумерация в избранных
+6. Белорусский язык
+7. Кастомные списки.
+8. Телеграм бот
