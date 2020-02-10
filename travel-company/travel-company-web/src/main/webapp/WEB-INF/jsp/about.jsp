@@ -68,8 +68,8 @@
             padding-top: 10px;
             padding-bottom: 10px;
 
-            margin-left: 20%;
-            margin-right: 20%;
+            /*margin-left: 10%;
+            margin-right: 10%;*/
         }
 
         .div-register {

@@ -128,31 +128,40 @@
         УПС. Что-то пошло не так...:
 
 
-    <c:forEach var="error" items="${errorCodeSet}">
+        <c:forEach var="error" items="${errorCodeSet}">
 
-        <c:if test="${error == 1}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
-            не выбрали, откуда начинается путешествие</p></c:if>
-        <c:if test="${error == 2}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
-            не выбрали, где завершается путешествие</p></c:if>
-        <c:if test="${error == 3}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Неверно указана самая ранняя дата начала путешествия</p></c:if>
-        <c:if test="${error == 4}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Неверно указана самая поздняя дата начала путешествия</p></c:if>
-        <c:if test="${error == 5}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Самая поздняя дата начала путешествия не может быть раньше самой ранней</p></c:if>
-        <c:if test="${error == 6}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Неверно указана минимальная продолжительность путешествия (не может быть мень 2-х дней и более 30-ти)</p></c:if>
-        <c:if test="${error == 7}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Неверно указана максимальная продолжительность путешествия (не может быть мень 2-х дней и более
-            30-ти)</p></c:if>
-        <c:if test="${error == 8}"><p style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-            Самая поздняя дата начала путешествия не может быть позднее, чем через 300 дней от текущей даты</p></c:if>
+            <c:if test="${error == 1}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
+                не выбрали, откуда начинается путешествие</p></c:if>
+            <c:if test="${error == 2}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
+                не выбрали, где завершается путешествие</p></c:if>
+            <c:if test="${error == 3}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Неверно указана самая ранняя дата начала путешествия</p></c:if>
+            <c:if test="${error == 4}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Неверно указана самая поздняя дата начала путешествия</p></c:if>
+            <c:if test="${error == 5}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Самая поздняя дата начала путешествия не может быть раньше самой ранней</p></c:if>
+            <c:if test="${error == 6}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Неверно указана минимальная продолжительность путешествия (не может быть мень 2-х дней и более
+                30-ти)</p></c:if>
+            <c:if test="${error == 7}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Неверно указана максимальная продолжительность путешествия (не может быть мень 2-х дней и более
+                30-ти)</p></c:if>
+            <c:if test="${error == 8}"><p
+                    style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
+                Самая поздняя дата начала путешествия не может быть позднее, чем через 300 дней от текущей
+                даты</p></c:if>
 
-    </c:forEach>
+        </c:forEach>
         <br/>
     </div>
 </c:if>
-
 
 
 <form method="POST" action="${pageContext.request.contextPath}/specificResult">
@@ -164,19 +173,19 @@
     <table>
         <tr>
             <td>
-                <div class="label-1">Вылет из:
+                <div class="label-1">Старт:
                     <div class="small24">
-                        <input type="checkbox" name="originDirectIsVNO" value="Y"/> Вильнюса<br/>
-                        <input type="checkbox" name="originDirectIsKUN" value="Y"/> Каунаса<br/>
-                        <input type="checkbox" name="originDirectIsWMI" value="Y"/> Варшавы Модлин<br/>
-                        <input type="checkbox" name="originDirectIsWAW" value="Y"/> Варшавы Шопен<br/>
+                        <input type="checkbox" name="originDirectIsVNO" value="Y"/> Вильнюс<br/>
+                        <input type="checkbox" name="originDirectIsKUN" value="Y"/> Каунас<br/>
+                        <input type="checkbox" name="originDirectIsWMI" value="Y"/> Варшава Модлин<br/>
+                        <input type="checkbox" name="originDirectIsWAW" value="Y"/> Варшава Шопен<br/>
                     </div>
                 </div>
             </td>
 
             <td>
                 <div class="label-1">
-                    Возврат в:
+                    Финиш:
                     <div class="small24">
                         <input type="checkbox" name="originReturnIsVNO" value="Y"/> Вильнюс<br/>
                         <input type="checkbox" name="originReturnIsKUN" value="Y"/> Каунас<br/>
@@ -194,21 +203,66 @@
                         <input name="startingFilter" type="radio" value="noFilter" checked>
                         Без ограничений<br/>
                         <input name="startingFilter" type="radio" value="countryFilter">
-                        Вылет и прилёт в одну страну<br/>
+                        Вылет (старт) и прилёт (финиш) в одну страну<br/>
                         <input name="startingFilter" type="radio" value="cityFilter">
-                        Вылет и прилёт в один город<br/>
+                        Вылет (старт) и прилёт (финиш) в один город<br/>
                         <input name="startingFilter" type="radio" value="airportFilter">
-                        Вылет и прилёт в один аэропорт<br/>
+                        Вылет (старт) и прилёт (финиш) в один аэропорт<br/>
                     </div>
+
+                    <button class="my_button3" type="button" onclick="about1()" style="margin-top: 0px; margin-bottom: 0px">
+                        Подробнее
+                    </button>
+
+
+                </div>
+
+            </td>
+
+
+        </tr>
+
+        <tr >
+            <td colspan="2">
+
+
+
+                <div id="about1" style="color: #444444; text-align: left; font-family: Arial, serif; font-size: 20px; border: #E55747 1px solid; border-radius: 5px; padding: 10px; line-height: 1.5; display: none">
+                    <div style="font-size: 30px">ПОДРОБНЕЕ:</div>
+
+                    <br/>
+                    1. Выберете <b>Без ограничений</b>, если: <br/>
+                    Вы хотите, чтобы были отображены все результаты поиска, без исключений;
+                    <br/>
+                    <br/>
+                    2. Выберете <b>Вылет и прилёт в одну страну</b>, если: <br/>
+                    Вы хотите видеть варианты, в которых стартовая страна (Литва или Польша) совпадает
+                    с финишной страной (опять же Литвой или Польшей). <br/>
+                    <b>Зачем это может быть нужно?</b> Например, Вы не хотите, что бы отправляясь в путешествие и покидая
+                    Беларусь Вам в паспорт поставили штамп одной страны, а по возвращению - другой.
+                    <br/>
+                    <br/>
+                    3. Выберете <b>Вылет и прилёт в один город</b>, если: <br/>
+                    Вы хотите видеть варианты, в которых стартовый город (Вильнюс, Каунас, Варшава) совпадает
+                    с финишным (опять же Вильнюсом, Каунасом, Варшавой).
+                    <br/>
+                    <b>Зачем это может быть нужно?</b>Например, Вы выезжаете из Беларуси на авто и
+                    хотите его припарковать на городской стоянке, или же оставить что-то в общественных камерах хранения.
+                    <br/>
+                    <br/>
+                    4. Выберете <b>Вылет и прилёт в один аэропорт</b>, если: <br/>
+                    Вы выезжаете из Бераруси на авто и хотите припарковаться на стоянке в аэропорту, или же оставить
+                    вещи в камерах хранения аэропорта.
                 </div>
             </td>
+
         </tr>
 
         <tr>
 
             <td colspan="2">
 
-                <div class="label-1">Куда(не более 5-ти аэропортов):
+                <div class="label-1">Куда отправимся(не более 5-ти аэропортов):
                     <select name="airportDestinationDirect1" class="list">
                         <c:forEach items="${allStartedAirports}" var="airport">
                             <option value="${airport.code}">
@@ -268,10 +322,10 @@
                         </select>
                     </div>
 
-                    <button class="my_button3" type="button" onclick="airportDirect()">
+                    <button class="my_button3" type="button" onclick="airportDirect()" style="margin-bottom: 0px; margin-top: 0px">
                         Добавить
                     </button>
-                    <button class="my_button4" type="button" onclick="airportDirectDelete()"> Удалить</button>
+                    <button class="my_button4" type="button" onclick="airportDirectDelete()" style="margin-bottom: 0px; margin-top: 0px"> Удалить</button>
 
                 </div>
 
@@ -280,7 +334,7 @@
 
         <tr>
             <td colspan="2">
-                <div class="label-1">Откуда(не более 5-ти аэропортов):
+                <div class="label-1" id="returnAirportBlock">Откуда будем возвращаться назад(не более 5-ти аэропортов):
                     <select name="airportDestinationReturn1" class="list">
                         <c:forEach items="${allStartedAirports}" var="airport">
                             <option value="${airport.code}">
@@ -340,10 +394,10 @@
                             </c:forEach>
                         </select>
                     </div>
-                    <button class="my_button3" type="button" onclick="airportReturn()">
+                    <button class="my_button3" type="button" onclick="airportReturn()" style="margin-bottom: 0px; margin-top: 0px">
                         Добавить
                     </button>
-                    <button class="my_button4" type="button" onclick="airportReturnDelete()">
+                    <button class="my_button4" type="button" onclick="airportReturnDelete()" style="margin-bottom: 0px; margin-top: 0px"">
                         Удалить
                     </button>
 
@@ -366,7 +420,48 @@
                         <input name="endingFilter" type="radio" value="airportFilter">
                         Прилёт и возврат из из одного аэропорта<br/>
                     </div>
+                    <button class="my_button3" type="button" onclick="about2()" style="margin-top: 0px; margin-bottom: 0px">
+                    Подробнее
+                    </button>
                 </div>
+
+            </td>
+        </tr>
+
+        <tr >
+            <td colspan="2">
+
+        <div id="about2" style="color: #444444; text-align: left; font-family: Arial, serif; font-size: 20px; border: #E55747 1px solid; border-radius: 5px; padding: 10px; line-height: 1.5; display: none">
+            <div style="font-size: 30px">ПОДРОБНЕЕ:</div>
+
+            <br/>
+            1. Вы можете искать одно конкретное направление. Например, выберите - куда: Австрия,Вена и откуда - Австрия,Вена соответственно.<br/>
+            2. Вы можете искать один составной маршрут, например с прилётом в Барселону, или Мадрид а вылетом из Лиссабона.
+            (Не забудьте подумать, как добраться из Испании в Португалию)<br/>
+            3. Вы можете искать сразу пять направлений туда, и пять обратно, например туда:
+            Италия - Турин, Милан-Бергамо, Милан-Мальпенса, Верона, Венеция, откуда - Рим-Фьюмичино, Рим-Чампино, Неаполь.
+            <br/>
+            <br/>
+
+            1. Выберете <b>Без ограничений</b>, если: <br/>
+            Вы хотите, чтобы были отображены все результаты поиска, без исключений;
+            <br/>
+            <br/>
+            2. Выберете <b>Прилёт и возврат из одной страны</b>, если: <br/>
+            Вы хотите видеть варианты, в которых страна в которую Вы прилетаете совпадает с той, из которой Вы вылетаете.<br/>
+            <b>Зачем это может быть нужно?</b> Например, Вы сразу ищете несколько вариантов на 5-7 дней,
+            например Францию, Италию и Испанию и не против поперемещаться внутри страны. Или же Вы выбрали оба аэропорта Кипра,
+            и не против проехаться от Ларнаки до Пафоса.
+            <br/>
+            <br/>
+            3. Выберете <b>Вылет и прилёт в один город</b>, если: <br/>
+            В некоторых городах несколько аэропортов, например в Риме, Милане, Париже. Вы планируете недолгий трип и не планируете
+            перемещаться внутри страны назначения.
+            <br/>
+            <br/>
+            4. Выберете <b>Вылет и прилёт в один аэропорт</b>, если: <br/>
+            Этот вариант лучше всего подходит при аренде авто в аэропорту.
+        </div>
             </td>
         </tr>
 
@@ -435,6 +530,24 @@
         } else {
             schotD = 5;
             alert("Хватит!")
+        }
+    }
+
+    function about1() {
+        var x = document.getElementById('about1');
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    function about2() {
+        var x = document.getElementById('about2');
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
         }
     }
 
