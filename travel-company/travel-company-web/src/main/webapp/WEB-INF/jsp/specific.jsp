@@ -175,10 +175,10 @@
             <td>
                 <div class="label-1">Старт:
                     <div class="small24">
-                        <input type="checkbox" name="originDirectIsVNO" value="Y"/> Вильнюс<br/>
-                        <input type="checkbox" name="originDirectIsKUN" value="Y"/> Каунас<br/>
-                        <input type="checkbox" name="originDirectIsWMI" value="Y"/> Варшава Модлин<br/>
-                        <input type="checkbox" name="originDirectIsWAW" value="Y"/> Варшава Шопен<br/>
+                        <input type="checkbox" name="originDirectIsVNO" value="Y" ${checkedVNOStart}/> Вильнюс<br/>
+                        <input type="checkbox" name="originDirectIsKUN" ${checkedKUNStart} value="Y"/> Каунас<br/>
+                        <input type="checkbox" name="originDirectIsWMI" ${checkedWMIStart} value="Y"/> Варшава Модлин<br/>
+                        <input type="checkbox" name="originDirectIsWAW" ${checkedWAWStart} value="Y"/> Варшава Шопен<br/>
                     </div>
                 </div>
             </td>
@@ -187,10 +187,10 @@
                 <div class="label-1">
                     Финиш:
                     <div class="small24">
-                        <input type="checkbox" name="originReturnIsVNO" value="Y"/> Вильнюс<br/>
-                        <input type="checkbox" name="originReturnIsKUN" value="Y"/> Каунас<br/>
-                        <input type="checkbox" name="originReturnIsWMI" value="Y"/> Варшаву Модлин<br/>
-                        <input type="checkbox" name="originReturnIsWAW" value="Y"/> Варшаву Шопен<br/>
+                        <input type="checkbox" name="originReturnIsVNO" ${checkedVNOFinish} value="Y"/> Вильнюс<br/>
+                        <input type="checkbox" name="originReturnIsKUN" ${checkedKUNFinish} value="Y"/> Каунас<br/>
+                        <input type="checkbox" name="originReturnIsWMI" ${checkedWMIFinish} value="Y"/> Варшаву Модлин<br/>
+                        <input type="checkbox" name="originReturnIsWAW" ${checkedWAWFinish} value="Y"/> Варшаву Шопен<br/>
                     </div>
                 </div>
             </td>
@@ -200,13 +200,13 @@
             <td colspan="2">
                 <div class="label-1">Дополнительные параметры поиска:
                     <div class="small24">
-                        <input name="startingFilter" type="radio" value="noFilter" checked>
+                        <input name="startingFilter" type="radio" value="noFilter" ${checkedNoFilter} >
                         Без ограничений<br/>
-                        <input name="startingFilter" type="radio" value="countryFilter">
+                        <input name="startingFilter" type="radio" value="countryFilter" ${checkedCountryFilter} >
                         Вылет (старт) и прилёт (финиш) в одну страну<br/>
-                        <input name="startingFilter" type="radio" value="cityFilter">
+                        <input name="startingFilter" type="radio" value="cityFilter" ${checkedCityFilter}>
                         Вылет (старт) и прилёт (финиш) в один город<br/>
-                        <input name="startingFilter" type="radio" value="airportFilter">
+                        <input name="startingFilter" type="radio" value="airportFilter" ${checkedAirportFilter}>
                         Вылет (старт) и прилёт (финиш) в один аэропорт<br/>
                     </div>
 
@@ -271,7 +271,7 @@
                         </c:forEach>
                     </select>
 
-                    <div id="myDIV2" style="display: none">
+                    <div id="myDIV2" style="display: ${displayDiv2}">
                         <select id="select2" name="airportDestinationDirect2" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -284,7 +284,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIV3" style="display: none">
+                    <div id="myDIV3" style="display: ${displayDiv3}">
                         <select id="select3" name="airportDestinationDirect3" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -297,7 +297,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIV4" style="display: none">
+                    <div id="myDIV4" style="display: ${displayDiv4}">
                         <select id="select4" name="airportDestinationDirect4" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -310,7 +310,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIV5" style="display: none">
+                    <div id="myDIV5" style="display: ${displayDiv5}">
                         <select id="select5" name="airportDestinationDirect5" class="list">
                             <option value="NONE" selected="selected">-
                             </option>
@@ -343,7 +343,7 @@
                         </c:forEach>
                     </select>
 
-                    <div id="myDIVR2" style="display: none">
+                    <div id="myDIVR2" style="display: ${displayDivR2}">
                         <select id="selectR2" name="airportDestinationReturn2" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -356,7 +356,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIVR3" style="display: none">
+                    <div id="myDIVR3" style="display: ${displayDivR3}">
                         <select id="selectR3" name="airportDestinationReturn3" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -369,7 +369,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIVR4" style="display: none">
+                    <div id="myDIVR4" style="display: ${displayDivR4}">
                         <select id="selectR4" name="airportDestinationReturn4" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -382,7 +382,7 @@
                         </select>
                     </div>
 
-                    <div id="myDIVR5" style="display: none">
+                    <div id="myDIVR5" style="display: ${displayDivR5}">
                         <select id="selectR5" name="airportDestinationReturn5" class="list">
                             <option value="NONE" selected="selected">
                                 -
@@ -411,13 +411,13 @@
             <td colspan="2">
                 <div class="label-1">Дополнительные параметры:
                     <div class="small24">
-                        <input name="endingFilter" type="radio" value="noFilter" checked>
+                        <input name="endingFilter" type="radio" value="noFilter" ${checkedNoFilterR}>
                         Без ограничений <br/>
-                        <input name="endingFilter" type="radio" value="countryFilter">
+                        <input name="endingFilter" type="radio" value="countryFilter" ${checkedCountryFilterR}>
                         Прилёт и возврат из одной страны<br/>
-                        <input name="endingFilter" type="radio" value="cityFilter">
+                        <input name="endingFilter" type="radio" value="cityFilter" ${checkedCityFilterR}>
                         Прилёт и возврат из из одного города<br/>
-                        <input name="endingFilter" type="radio" value="airportFilter">
+                        <input name="endingFilter" type="radio" value="airportFilter" ${checkedAirportFilterR}>
                         Прилёт и возврат из из одного аэропорта<br/>
                     </div>
                     <button class="my_button3" type="button" onclick="about2()" style="margin-top: 0px; margin-bottom: 0px">
@@ -469,14 +469,16 @@
             <td>
                 <div class="label-1">Самая ранняя дата начала путешествия
                     <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
-                    <input type="text" autocomplete="off" name="startingDate" id="datepicker"
+                    <div style="font-size: 30px">ММ/ДД/ГГГГ</div>
+                    <input type="text" autocomplete="off" name="startingDate" id="datepicker" value="${defaultStartDate}"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
                 </div>
             </td>
             <td>
                 <div class="label-1">Самая поздняя дата начала путешествия
                     <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
-                    <input type="text" autocomplete="off" name="endingDate" id="datepickerR"
+                    <div style="font-size: 30px">ММ/ДД/ГГГГ</div>
+                    <input type="text" autocomplete="off" name="endingDate" id="datepickerR" value="${defaultFinishDate}"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
                 </div>
             </td>
@@ -486,9 +488,9 @@
 
             <td colspan="2">
                 <div class="label-1">Количество дней в путешествии (от 2-х до 30-ти):
-                    <div class="small24">от <input type="text" name="minDay" height="30px"
+                    <div class="small24">от <input type="text" name="minDay" height="30px" value ="${minDay}"
                                                    style=" width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
-                        до <input type="text" name="maxDay" height="30px"
+                        до <input type="text" name="maxDay" height="30px" value="${maxDay}"
                                   style="width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
                     </div>
                 </div>

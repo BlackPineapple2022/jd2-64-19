@@ -44,8 +44,21 @@
     <div align="center" style="font-size: 40px;font-family: Arial,serif; margin: 10px; padding-top: 20px">Регистрация</div>
     <table align="center" border="0" style="font-family: Arial,serif; font-size: 24px; padding: 10px; margin-bottom: 10px;margin-left: auto;margin-right: auto" >
         <tr>
-            <td style="margin: 10px; padding: 10px">Имя пользователя</td>
+            <td style="margin: 10px; padding: 10px">Имя пользователя
+
+
+            </td>
             <td style="margin: 10px; padding: 10px"><input style="height: 30px; width: 300px; font-size: 24px; font-family: Arial,serif" type="text" name="userName" value="${userName}"/></td>
+
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <div style="color: #E55747; font-size: 18px; padding-left: 10px">
+                    (Строчные или прописные латинские символы или цифры, от 3-х до 20-ти)
+                </div>
+
+            </td>
         </tr>
 
         <tr>
@@ -55,6 +68,15 @@
         <tr>
             <td style="margin: 10px; padding: 10px">Повторите пароль</td>
             <td style="margin: 10px; padding: 10px"><input style="height: 30px; width: 300px; font-size: 24px; font-family: Arial,serif" type="password" name="passwordRepeat" value=""/></td>
+        </tr>
+
+        <tr>
+        <td colspan="2">
+            <div style="color: #E55747; font-size: 18px; padding-left: 10px; ">
+                (Любые символы или цифры, от 5-ти до 20-ти)
+            </div>
+
+        </td>
         </tr>
 
         <tr>
