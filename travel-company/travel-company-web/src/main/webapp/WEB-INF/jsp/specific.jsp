@@ -264,21 +264,27 @@
 
                 <div class="label-1">Куда отправимся(не более 5-ти аэропортов):
                     <select name="airportDestinationDirect1" class="list">
+                        <option value="${defaultAirport1.code}" selected="selected">
+                            ${defaultAirport1.country} &nbsp ${defaultAirport1.city} &nbsp ${defaultAirport1.code}
+                        </option>
                         <c:forEach items="${allStartedAirports}" var="airport">
                             <option value="${airport.code}">
-                                    ${airport.country} | ${airport.city} | ${airport.code}
+                                    ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                             </option>
                         </c:forEach>
                     </select>
 
                     <div id="myDIV2" style="display: ${displayDiv2}">
                         <select id="select2" name="airportDestinationDirect2" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirport2.code}" selected="selected">
+                                ${defaultAirport2.country} &nbsp ${defaultAirport2.city} &nbsp ${defaultAirport2.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -286,12 +292,15 @@
 
                     <div id="myDIV3" style="display: ${displayDiv3}">
                         <select id="select3" name="airportDestinationDirect3" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirport3.code}" selected="selected">
+                                ${defaultAirport3.country} &nbsp ${defaultAirport3.city} &nbsp ${defaultAirport3.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -299,12 +308,15 @@
 
                     <div id="myDIV4" style="display: ${displayDiv4}">
                         <select id="select4" name="airportDestinationDirect4" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirport4.code}" selected="selected">
+                                ${defaultAirport4.country} &nbsp ${defaultAirport4.city} &nbsp ${defaultAirport4.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -312,11 +324,15 @@
 
                     <div id="myDIV5" style="display: ${displayDiv5}">
                         <select id="select5" name="airportDestinationDirect5" class="list">
-                            <option value="NONE" selected="selected">-
+                            <option value="${defaultAirport5.code}" selected="selected">
+                                ${defaultAirport5.country} &nbsp ${defaultAirport5.city} &nbsp ${defaultAirport5.code}
+                            </option>
+                            <option value="NONE">
+                                -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -336,21 +352,29 @@
             <td colspan="2">
                 <div class="label-1" id="returnAirportBlock">Откуда будем возвращаться назад(не более 5-ти аэропортов):
                     <select name="airportDestinationReturn1" class="list">
+
+                        <option value="${defaultAirportReturn1.code}" selected="selected">
+                            ${defaultAirportReturn1.country} &nbsp ${defaultAirportReturn1.city} &nbsp ${defaultAirportReturn1.code}
+                        </option>
+
                         <c:forEach items="${allStartedAirports}" var="airport">
                             <option value="${airport.code}">
-                                    ${airport.country} | ${airport.city} | ${airport.code}
+                                    ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                             </option>
                         </c:forEach>
                     </select>
 
                     <div id="myDIVR2" style="display: ${displayDivR2}">
                         <select id="selectR2" name="airportDestinationReturn2" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirportReturn2.code}" selected="selected">
+                                ${defaultAirportReturn2.country} &nbsp ${defaultAirportReturn2.city} &nbsp ${defaultAirportReturn2.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -358,12 +382,15 @@
 
                     <div id="myDIVR3" style="display: ${displayDivR3}">
                         <select id="selectR3" name="airportDestinationReturn3" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirportReturn3.code}" selected="selected">
+                                ${defaultAirportReturn3.country} &nbsp ${defaultAirportReturn3.city} &nbsp ${defaultAirportReturn3.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -371,12 +398,15 @@
 
                     <div id="myDIVR4" style="display: ${displayDivR4}">
                         <select id="selectR4" name="airportDestinationReturn4" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirportReturn4.code}" selected="selected">
+                                ${defaultAirportReturn4.country} &nbsp ${defaultAirportReturn4.city} &nbsp ${defaultAirportReturn4.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -384,12 +414,15 @@
 
                     <div id="myDIVR5" style="display: ${displayDivR5}">
                         <select id="selectR5" name="airportDestinationReturn5" class="list">
-                            <option value="NONE" selected="selected">
+                            <option value="${defaultAirportReturn5.code}" selected="selected">
+                                ${defaultAirportReturn5.country} &nbsp ${defaultAirportReturn5.city} &nbsp ${defaultAirportReturn5.code}
+                            </option>
+                            <option value="NONE">
                                 -
                             </option>
                             <c:forEach items="${allStartedAirports}" var="airport">
                                 <option value="${airport.code}">
-                                        ${airport.country} | ${airport.city} | ${airport.code}
+                                        ${airport.country} &nbsp ${airport.city} &nbsp ${airport.code}
                                 </option>
                             </c:forEach>
                         </select>
@@ -515,26 +548,6 @@
 
 <script>
 
-    schotD = 1;
-
-    function airportDirect() {
-        schotD++;
-        if (schotD < 6) {
-            var x = document.getElementById('myDIV' + schotD);
-            if (x.style.display === "none") {
-                x.style.display = "block";
-                document.getElementById('select' + schotD).options[0].selected = true;
-            } else {
-
-                x.style.display = "none";
-                document.getElementById('select' + schotD).options[0].selected = true;
-            }
-        } else {
-            schotD = 5;
-            alert("Хватит!")
-        }
-    }
-
     function about1() {
         var x = document.getElementById('about1');
         if (x.style.display === "none") {
@@ -553,16 +566,41 @@
         }
     }
 
+
+
+    schotD = ${schotD};
+
+    function airportDirect() {
+        schotD++;
+        if (schotD < 6) {
+            var x = document.getElementById('myDIV' + schotD);
+            if (x.style.display === "none") {
+
+                document.getElementById('select' + schotD).options[1].selected = true;
+                x.style.display = "block";
+            } else {
+                alert("NEVER!")
+                /*x.style.display = "none";*/
+                /*document.getElementById('select' + schotD).options[0].selected = true;*/
+            }
+        } else {
+            schotD = 5;
+            alert("Хватит!")
+        }
+    }
+
+
+
     function airportDirectDelete() {
         if (schotD > 1) {
             var x = document.getElementById('myDIV' + schotD);
             if (x.style.display === "block") {
                 x.style.display = "none";
-                document.getElementById('select' + schotD).options[0].selected = true;
+                document.getElementById('select' + schotD).options[1].selected = true;
             } else {
-
-                x.style.display = "none";
-                document.getElementById('select' + schotD).options[0].selected = true;
+                alert("NEVER!")
+                /*x.style.display = "none";
+                document.getElementById('select' + schotD).options[0].selected = true;*/
             }
         } else {
             schotD = 2;
@@ -570,7 +608,7 @@
         schotD--;
     }
 
-    schotR = 1;
+    schotR = ${schotR};
 
     function airportReturn() {
         schotR++;
@@ -578,11 +616,11 @@
             var x = document.getElementById('myDIVR' + schotR);
             if (x.style.display === "none") {
                 x.style.display = "block";
-                document.getElementById('selectR' + schotR).options[0].selected = true;
+                document.getElementById('selectR' + schotR).options[1].selected = true;
             } else {
-
-                x.style.display = "none";
-                document.getElementById('selectR' + schotR).options[0].selected = true;
+                alert("NEVER!")
+                /*x.style.display = "none";
+                document.getElementById('selectR' + schotR).options[0].selected = true;*/
             }
         } else {
             schotR = 5;
@@ -595,11 +633,11 @@
             var x = document.getElementById('myDIVR' + schotR);
             if (x.style.display === "block") {
                 x.style.display = "none";
-                document.getElementById('selectR' + schotR).options[0].selected = true;
+                document.getElementById('selectR' + schotR).options[1].selected = true;
             } else {
-
-                x.style.display = "none";
-                document.getElementById('selectR' + schotR).options[0].selected = true;
+                alert("NEVER!")
+                /*x.style.display = "none";
+                document.getElementById('selectR' + schotR).options[0].selected = true;*/
             }
         } else {
             schotR = 2;

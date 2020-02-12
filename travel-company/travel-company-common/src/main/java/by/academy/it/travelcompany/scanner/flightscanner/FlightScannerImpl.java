@@ -44,7 +44,7 @@ import java.util.*;
 public class FlightScannerImpl extends Thread {
 
     private static final int DELAY_REQ_RY = 1000;
-    private static final int DELAY_REQ_RY_SYNC = 1500;
+    private static final int DELAY_REQ_RY_SYNC = 10000;
     private static final int DELAY_REQ_WIZZ = 100;
 
     private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();

@@ -69,11 +69,12 @@ public class SpecificServlet extends HttpServlet {
         req.setAttribute("minDay", "10");
         req.setAttribute("maxDay", "15");
 
+        req.setAttribute("schotD", "1");
+        req.setAttribute("schotR", "1");
 
-
-
-
-
+        Airport airport = AirportServiceImpl.getInstance().getAirportByCode("BVA");
+        req.setAttribute("defaultAirport1", airport);
+        req.setAttribute("defaultAirportReturn1", airport);
 
         req.getRequestDispatcher("/WEB-INF/jsp/specific.jsp").forward(req, resp);
     }

@@ -35,6 +35,13 @@ public class SpecificResultServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        Integer schotD = 1;
+        Integer schotR = 1;
+
+        List <Airport> airportDirectList = new ArrayList<>();
+        List <Airport> airportReturnList = new ArrayList<>();
+
+
 
         Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + LocalTime.now().getHour() + "" + LocalTime.now().getMinute() + "" + (int) (Math.random() * 100000));
 
@@ -66,89 +73,178 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("originDirectIsVNO") != null && req.getParameter("originDirectIsVNO").equals("Y")) {
             originAirportDirectCodeSet.add("VNO");
+            req.setAttribute("checkedVNOStart","checked");
         }
         if (req.getParameter("originDirectIsKUN") != null && req.getParameter("originDirectIsKUN").equals("Y")) {
             originAirportDirectCodeSet.add("KUN");
+            req.setAttribute("checkedKUNStart","checked");
         }
         if (req.getParameter("originDirectIsWMI") != null && req.getParameter("originDirectIsWMI").equals("Y")) {
             originAirportDirectCodeSet.add("WMI");
+            req.setAttribute("checkedWMIStart","checked");
         }
         if (req.getParameter("originDirectIsWAW") != null && req.getParameter("originDirectIsWAW").equals("Y")) {
             originAirportDirectCodeSet.add("WAW");
+            req.setAttribute("checkedWAWStart","checked");
         }
 
 
         if (req.getParameter("originReturnIsVNO") != null && req.getParameter("originReturnIsVNO").equals("Y")) {
             originAirportReturnCodeSet.add("VNO");
+            req.setAttribute("checkedVNOFinish","checked");
         }
         if (req.getParameter("originReturnIsKUN") != null && req.getParameter("originReturnIsKUN").equals("Y")) {
             originAirportReturnCodeSet.add("KUN");
+            req.setAttribute("checkedKUNFinish","checked");
         }
         if (req.getParameter("originReturnIsWMI") != null && req.getParameter("originReturnIsWMI").equals("Y")) {
             originAirportReturnCodeSet.add("WMI");
+            req.setAttribute("checkedWMIFinish","checked");
         }
         if (req.getParameter("originReturnIsWAW") != null && req.getParameter("originReturnIsWAW").equals("Y")) {
             originAirportReturnCodeSet.add("WAW");
+            req.setAttribute("checkedWAWFinish","checked");
+        }
+
+        Boolean isStartingSameAirport = false;
+        Boolean isStartingSameCity = false;
+        Boolean isStartingSameCountry = false;
+
+        Boolean isEndingSameAirport = false;
+        Boolean isEndingSameCity = false;
+        Boolean isEndingSameCountry = false;
+
+        String endingFilter = req.getParameter("endingFilter");
+        String startingFilter = req.getParameter("startingFilter");
+
+        switch (startingFilter) {
+            case "airportFilter": {
+                isStartingSameAirport = true;
+                req.setAttribute("checkedAirportFilter","checked");
+                break;
+            }
+            case "cityFilter": {
+                isStartingSameCity = true;
+                req.setAttribute("checkedCityFilter","checked");
+                break;
+            }
+            case "countryFilter": {
+                isStartingSameCountry = true;
+                req.setAttribute("checkedCountryFilter","checked");
+                break;
+            }
+            default:{
+                req.setAttribute("checkedNoFilter","checked");
+                break;
+            }
+        }
+
+        switch (endingFilter) {
+            case "airportFilter": {
+                isEndingSameAirport = true;
+                req.setAttribute("checkedAirportFilterR","checked");
+                break;
+            }
+            case "cityFilter": {
+                isEndingSameCity = true;
+                req.setAttribute("checkedCityFilterR","checked");
+
+                break;
+            }
+            case "countryFilter": {
+                isEndingSameCountry = true;
+                req.setAttribute("checkedCountryFilterR","checked");
+                break;
+            }
+            default:{
+                req.setAttribute("checkedNoFilterR","checked");
+                break;
+            }
         }
 
         if (req.getParameter("airportDestinationDirect1") != null
-                && !req.getParameter("airportDestinationDirect1").equals("NONE")
+                && !req.getParameter("airportDestinationDirect1").equals("")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect1"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect1"));
+            req.setAttribute("defaultAirport1",airport);
         }
 
         if (req.getParameter("airportDestinationDirect2") != null
-                && !req.getParameter("airportDestinationDirect2").equals("NONE")
+                && !req.getParameter("airportDestinationDirect2").equals("")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect2"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect2"));
+            airportDirectList.add(airport);
         }
 
+
         if (req.getParameter("airportDestinationDirect3") != null
-                && !req.getParameter("airportDestinationDirect3").equals("NONE")
+                && !req.getParameter("airportDestinationDirect3").equals("")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect3"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect3"));
+            airportDirectList.add(airport);
         }
 
         if (req.getParameter("airportDestinationDirect4") != null
-                && !req.getParameter("airportDestinationDirect4").equals("NONE")
+                && !req.getParameter("airportDestinationDirect4").equals("")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect4"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect4"));
+            airportDirectList.add(airport);
         }
 
         if (req.getParameter("airportDestinationDirect5") != null
-                && !req.getParameter("airportDestinationDirect5").equals("NONE")
+                && !req.getParameter("airportDestinationDirect5").equals("")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect5"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect5"));
+            airportDirectList.add(airport);
         }
 
+
+
+
         if (req.getParameter("airportDestinationReturn1") != null
-                && !req.getParameter("airportDestinationReturn1").equals("NONE")
+                && !req.getParameter("airportDestinationReturn1").equals("")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn1"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn1"));
+            req.setAttribute("defaultAirportReturn1",airport);
+
         }
 
         if (req.getParameter("airportDestinationReturn2") != null
-                && !req.getParameter("airportDestinationReturn2").equals("NONE")
+                && !req.getParameter("airportDestinationReturn2").equals("")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn2"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn2"));
+            airportReturnList.add(airport);
         }
 
         if (req.getParameter("airportDestinationReturn3") != null
-                && !req.getParameter("airportDestinationReturn3").equals("NONE")
+                && !req.getParameter("airportDestinationReturn3").equals("")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn3"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn3"));
+            airportReturnList.add(airport);
         }
 
         if (req.getParameter("airportDestinationReturn4") != null
-                && !req.getParameter("airportDestinationReturn4").equals("NONE")
+                && !req.getParameter("airportDestinationReturn4").equals("")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn4"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn4"));
+            airportReturnList.add(airport);
         }
 
         if (req.getParameter("airportDestinationReturn5") != null
-                && !req.getParameter("airportDestinationReturn5").equals("NONE")
+                && !req.getParameter("airportDestinationReturn5").equals("")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn5"));
+            Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn5"));
+            airportReturnList.add(airport);
         }
 
         Set<RouteMap> routeMapSet = RouteMapServiceImpl.getInstance().getRouteMapSetByAirportCodeSets(
@@ -231,6 +327,43 @@ public class SpecificResultServlet extends HttpServlet {
             }
             req.setAttribute("allStartedAirports", allStartedAirports);
 
+
+            for (int i = 2; i<6; i++){
+                String setAttributeValueDiv = "displayDiv" +(i);
+                req.setAttribute(setAttributeValueDiv,"none");
+            }
+
+
+            for (int i = 2; i<6; i++){
+                String setAttributeValueDiv = "displayDiv" +(i);
+                String setAttributeValueDivR = "displayDivR" +(i);
+                req.setAttribute(setAttributeValueDiv,"none");
+                req.setAttribute(setAttributeValueDivR,"none");
+            }
+
+            for (int i = 0;i<airportDirectList.size();i++){
+                schotD++;
+                String setAttributeValueAirport = "defaultAirport" +(2+i);
+                String setAttributeValueDiv = "displayDiv" +(2+i);
+                req.setAttribute(setAttributeValueAirport,airportDirectList.get(i));
+                req.setAttribute(setAttributeValueDiv,"block");
+            }
+
+            for (int i = 0;i<airportReturnList.size();i++){
+                schotR++;
+                String setAttributeValueAirport = "defaultAirportReturn" +(2+i);
+                String setAttributeValueDiv = "displayDivR" +(2+i);
+                req.setAttribute(setAttributeValueAirport,airportReturnList.get(i));
+                req.setAttribute(setAttributeValueDiv,"block");
+            }
+
+            System.out.println(schotD);
+            System.out.println(schotR);
+
+
+            req.setAttribute("schotD",schotD);
+            req.setAttribute("schotR",schotR);
+
             req.getRequestDispatcher("/WEB-INF/jsp/specific.jsp").forward(req, resp);
         } else {
 
@@ -281,48 +414,7 @@ public class SpecificResultServlet extends HttpServlet {
 
             log.info("Searching trip is finished, searchId: " + searchId);
 
-            System.out.println("1" + " " + tripList);
 
-            Boolean isStartingSameAirport = false;
-            Boolean isStartingSameCity = false;
-            Boolean isStartingSameCountry = false;
-
-            Boolean isEndingSameAirport = false;
-            Boolean isEndingSameCity = false;
-            Boolean isEndingSameCountry = false;
-
-            String endingFilter = req.getParameter("endingFilter");
-            String startingFilter = req.getParameter("startingFilter");
-
-            switch (endingFilter) {
-                case "airportFilter": {
-                    isEndingSameAirport = true;
-                    break;
-                }
-                case "cityFilter": {
-                    isEndingSameCity = true;
-                    break;
-                }
-                case "countryFilter": {
-                    isEndingSameCountry = true;
-                    break;
-                }
-            }
-
-            switch (startingFilter) {
-                case "airportFilter": {
-                    isStartingSameAirport = true;
-                    break;
-                }
-                case "cityFilter": {
-                    isStartingSameCity = true;
-                    break;
-                }
-                case "countryFilter": {
-                    isStartingSameCountry = true;
-                    break;
-                }
-            }
 
             if (isEndingSameCountry) {
                 tripList.removeIf(t -> !t.getFlights().get(0).getRouteMap().getDestinationAirport().getCountry().equals(t.getFlights().get(1).getRouteMap().getOriginAirport().getCountry()));
