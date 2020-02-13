@@ -382,7 +382,7 @@ public class SpecificResultServlet extends HttpServlet {
                 }
 
                 if (r.getDirection().getDirectionName().equals("Return")) {
-                    List<Flight> flights = FlightServiceImpl.getInstance().getFlightListByRouteMapIdAndDates(r.getId(), localDateStartL.plusDays(min), localDateEndL.plusDays(max));
+                    List<Flight> flights = FlightServiceImpl.getInstance().getFlightListByRouteMapIdAndDates(r.getId(), localDateStartL.plusDays(min-1), localDateEndL.plusDays(max-1));
                     allReturnFlights.addAll(flights);
                 }
             }
