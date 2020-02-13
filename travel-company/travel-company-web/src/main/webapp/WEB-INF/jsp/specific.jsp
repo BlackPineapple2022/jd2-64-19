@@ -26,6 +26,8 @@
             border: transparent 5px solid;
         }
 
+
+
         .welcome {
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
             font-size: 40px;
@@ -107,6 +109,7 @@
         .my_button4:hover {
             border: solid #E55747 1px;
 
+
         }
 
 
@@ -132,31 +135,103 @@
 
             <c:if test="${error == 1}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
-                не выбрали, откуда начинается путешествие</p></c:if>
+                не выбрали, откуда начинается путешествие</p>
+            <style>
+                .red-label-1{
+                    border: solid #E55747 1px;
+                    background: #FFE4E4;
+                }
+            </style>
+            </c:if>
             <c:if test="${error == 2}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">Вы
-                не выбрали, где завершается путешествие</p></c:if>
+                не выбрали, где завершается путешествие</p>
+
+                <style>
+                .red-label-2{
+                border: solid #E55747 1px;
+                background: #FFE4E4;
+                }
+                </style>
+
+
+            </c:if>
             <c:if test="${error == 3}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-                Неверно указана самая ранняя дата начала путешествия</p></c:if>
+                Неверно указана самая ранняя дата начала путешествия</p>
+                <style>
+                    .red-date-1{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+
+            </c:if>
             <c:if test="${error == 4}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-                Неверно указана самая поздняя дата начала путешествия</p></c:if>
+                Неверно указана самая поздняя дата начала путешествия</p>
+
+                <style>
+                    .red-date-2{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+            </c:if>
             <c:if test="${error == 5}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-                Самая поздняя дата начала путешествия не может быть раньше самой ранней</p></c:if>
+                Самая поздняя дата начала путешествия не может быть раньше самой ранней</p>
+
+                <style>
+                    .red-date-2{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+            </c:if>
             <c:if test="${error == 6}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
                 Неверно указана минимальная продолжительность путешествия (не может быть мень 2-х дней и более
-                30-ти)</p></c:if>
+                30-ти)</p>
+
+                <style>
+                    .red-count{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+            </c:if>
             <c:if test="${error == 7}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
                 Неверно указана максимальная продолжительность путешествия (не может быть мень 2-х дней и более
-                30-ти)</p></c:if>
-            <c:if test="${error == 8}"><p
+                30-ти)</p>
+                <style>
+                    .red-count{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+            </c:if>
+
+            <c:if test="${error == 9}"><p
                     style="color: #E55747; text-align: center; font-family: Arial, serif; font-size: 20px">
-                Самая поздняя дата начала путешествия не может быть позднее, чем через 300 дней от текущей
-                даты</p></c:if>
+                Максимальная продолжительность путешествия не может быть меньше минимальной
+                </p>
+
+                <style>
+                    .red-count{
+                        border: solid #E55747 1px;
+                        background: #FFE4E4;
+                    }
+                </style>
+
+            </c:if>
+
 
         </c:forEach>
         <br/>
@@ -173,7 +248,7 @@
     <table>
         <tr>
             <td>
-                <div class="label-1">Старт:
+                <div class="label-1 red-label-1">Старт:
                     <div class="small24">
                         <input type="checkbox" name="originDirectIsVNO" value="Y" ${checkedVNOStart}/> Вильнюс<br/>
                         <input type="checkbox" name="originDirectIsKUN" ${checkedKUNStart} value="Y"/> Каунас<br/>
@@ -184,7 +259,7 @@
             </td>
 
             <td>
-                <div class="label-1">
+                <div class="label-1 red-label-2">
                     Финиш:
                     <div class="small24">
                         <input type="checkbox" name="originReturnIsVNO" ${checkedVNOFinish} value="Y"/> Вильнюс<br/>
@@ -500,16 +575,14 @@
 
         <tr>
             <td>
-                <div class="label-1">Самая ранняя дата начала путешествия
-                    <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
+                <div class="label-1 red-date-1">Самая ранняя дата начала путешествия
                     <div style="font-size: 30px">ММ/ДД/ГГГГ</div>
                     <input type="text" autocomplete="off" name="startingDate" id="datepicker" value="${defaultStartDate}"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
                 </div>
             </td>
             <td>
-                <div class="label-1">Самая поздняя дата начала путешествия
-                    <div style="font-size: 16px">(Не позднее 300 дней от текущей даты):</div>
+                <div class="label-1 red-date-2">Самая поздняя дата начала путешествия
                     <div style="font-size: 30px">ММ/ДД/ГГГГ</div>
                     <input type="text" autocomplete="off" name="endingDate" id="datepickerR" value="${defaultFinishDate}"
                            style="font-family: 'Google Sans', Roboto, Arial, sans-serif; font-size: 22px; width: 380px">
@@ -520,7 +593,7 @@
         <tr>
 
             <td colspan="2">
-                <div class="label-1">Количество дней в путешествии (от 2-х до 30-ти):
+                <div class="label-1 red-count">Количество дней в путешествии (от 2-х до 30-ти):
                     <div class="small24">от <input type="text" name="minDay" height="30px" value ="${minDay}"
                                                    style=" width: 200px; height: 30px; font-size: 22px; font-family: 'Google Sans', Roboto, Arial, sans-serif">
                         до <input type="text" name="maxDay" height="30px" value="${maxDay}"

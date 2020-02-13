@@ -41,8 +41,6 @@ public class SpecificResultServlet extends HttpServlet {
         List <Airport> airportDirectList = new ArrayList<>();
         List <Airport> airportReturnList = new ArrayList<>();
 
-
-
         Long searchId = Long.parseLong("" + LocalDate.now().getYear() + "" + LocalDate.now().getMonthValue() + "" + LocalDate.now().getDayOfMonth() + "" + LocalTime.now().getHour() + "" + LocalTime.now().getMinute() + "" + (int) (Math.random() * 100000));
 
         Set<String> originAirportDirectCodeSet = new HashSet<>();
@@ -172,6 +170,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationDirect2") != null
                 && !req.getParameter("airportDestinationDirect2").equals("")
+                && !req.getParameter("airportDestinationDirect2").equals("NONE")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect2"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect2"));
@@ -181,6 +180,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationDirect3") != null
                 && !req.getParameter("airportDestinationDirect3").equals("")
+                && !req.getParameter("airportDestinationDirect3").equals("NONE")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect3"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect3"));
@@ -189,6 +189,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationDirect4") != null
                 && !req.getParameter("airportDestinationDirect4").equals("")
+                && !req.getParameter("airportDestinationDirect4").equals("NONE")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect4"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect4"));
@@ -197,14 +198,12 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationDirect5") != null
                 && !req.getParameter("airportDestinationDirect5").equals("")
+                && !req.getParameter("airportDestinationDirect5").equals("NONE")
         ) {
             destinationAirportDirectCodeSet.add(req.getParameter("airportDestinationDirect5"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationDirect5"));
             airportDirectList.add(airport);
         }
-
-
-
 
         if (req.getParameter("airportDestinationReturn1") != null
                 && !req.getParameter("airportDestinationReturn1").equals("")
@@ -217,6 +216,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationReturn2") != null
                 && !req.getParameter("airportDestinationReturn2").equals("")
+                && !req.getParameter("airportDestinationReturn2").equals("NONE")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn2"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn2"));
@@ -225,6 +225,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationReturn3") != null
                 && !req.getParameter("airportDestinationReturn3").equals("")
+                && !req.getParameter("airportDestinationReturn3").equals("NONE")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn3"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn3"));
@@ -233,6 +234,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationReturn4") != null
                 && !req.getParameter("airportDestinationReturn4").equals("")
+                && !req.getParameter("airportDestinationReturn4").equals("NONE")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn4"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn4"));
@@ -241,6 +243,7 @@ public class SpecificResultServlet extends HttpServlet {
 
         if (req.getParameter("airportDestinationReturn5") != null
                 && !req.getParameter("airportDestinationReturn5").equals("")
+                && !req.getParameter("airportDestinationReturn5").equals("NONE")
         ) {
             destinationAirportReturnCodeSet.add(req.getParameter("airportDestinationReturn5"));
             Airport airport = AirportServiceImpl.getInstance().getAirportByCode(req.getParameter("airportDestinationReturn5"));
@@ -252,6 +255,10 @@ public class SpecificResultServlet extends HttpServlet {
 
         String localDateStart = req.getParameter("startingDate");
         String localDateEnd = req.getParameter("endingDate");
+
+        req.setAttribute("defaultStartDate",localDateStart);
+        req.setAttribute("defaultFinishDate",localDateEnd);
+
         String regex = "/";
         String[] localDateArrStart = localDateStart.split(regex);
         String[] localDateArrEnd = localDateEnd.split(regex);
@@ -280,21 +287,14 @@ public class SpecificResultServlet extends HttpServlet {
             }
         }
 
-        if (localDateEndL != null && localDateStartL != null) {
-            if (localDateEndL.isAfter(LocalDate.now().plusDays(300))) {
-                hasError = true;
-                errorCodeSet.add(8);//Конечная дата поиска не более 300
-            }
-        }
-
-
-        Integer min = 0;
+                Integer min = 0;
         try {
             min = Integer.parseInt(req.getParameter("minDay"));
         }catch (Exception e){
             hasError = true;
             errorCodeSet.add(6);//Минимальное количество дней в путешествии не может быть меньше 2 и более 30
         }
+        req.setAttribute("minDay",min);
         if (min < 2 || min > 30) {
             hasError = true;
             errorCodeSet.add(6);//Минимальное количество дней в путешествии не может быть меньше 2 и более 30
@@ -307,10 +307,18 @@ public class SpecificResultServlet extends HttpServlet {
             hasError = true;
             errorCodeSet.add(7);//Максимальное количество дней в путешествии не может быть меньше 2 и более 30
         }
+        req.setAttribute("maxDay",max);
         if (max < 2 || max > 30) {
             hasError = true;
             errorCodeSet.add(7);//Максимальное количество дней в путешествии не может быть меньше 2 и более 30
         }
+
+        if(max<min){
+            hasError = true;
+            errorCodeSet.add(9);//Максимальное количество дней в путешествии не может быть меньше минимального
+        }
+
+
 
         if (hasError) {
             req.setAttribute("errorCodeSet", errorCodeSet);
@@ -356,10 +364,6 @@ public class SpecificResultServlet extends HttpServlet {
                 req.setAttribute(setAttributeValueAirport,airportReturnList.get(i));
                 req.setAttribute(setAttributeValueDiv,"block");
             }
-
-            System.out.println(schotD);
-            System.out.println(schotR);
-
 
             req.setAttribute("schotD",schotD);
             req.setAttribute("schotR",schotR);

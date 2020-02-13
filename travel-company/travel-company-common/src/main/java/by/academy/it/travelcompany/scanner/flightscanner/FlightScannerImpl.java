@@ -44,8 +44,9 @@ import java.util.*;
 public class FlightScannerImpl extends Thread {
 
     private static final int DELAY_REQ_RY = 1000;
-    private static final int DELAY_REQ_RY_SYNC = 10000;
-    private static final int DELAY_REQ_WIZZ = 100;
+    private static final int DELAY_REQ_RY_SYNC = 5000;
+    private static final int DELAY_REQ_WIZZ = 1000;
+    private static final int DELAY_REQ_WIZZ_SYNC = 5000;
 
     private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
     private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
@@ -78,7 +79,6 @@ public class FlightScannerImpl extends Thread {
 
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
-                Thread.sleep(DELAY_REQ_RY);
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
@@ -137,9 +137,11 @@ public class FlightScannerImpl extends Thread {
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
 
-            try {
-                Thread.sleep(DELAY_REQ_WIZZ);
-            } catch (InterruptedException e) {
+            synchronized (SYNC_WIZZ) {
+                try {
+                    Thread.sleep(DELAY_REQ_WIZZ_SYNC);
+                } catch (InterruptedException e) {
+                }
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
