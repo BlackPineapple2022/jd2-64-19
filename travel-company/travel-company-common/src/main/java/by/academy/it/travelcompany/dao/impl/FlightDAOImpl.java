@@ -260,7 +260,7 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
 
             statement.setLong(1, routeMapId);
             statement.setString(2, firstDate.atStartOfDay().toString());
-            statement.setString(3, secondDate.atStartOfDay().toString());
+            statement.setString(3, secondDate.plusDays(1).atStartOfDay().toString());
             resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Flight f = mapFlight(resultSet);
