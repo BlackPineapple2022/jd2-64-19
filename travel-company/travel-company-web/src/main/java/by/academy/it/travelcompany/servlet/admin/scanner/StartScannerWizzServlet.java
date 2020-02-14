@@ -14,7 +14,7 @@ import java.io.IOException;
 public class StartScannerWizzServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("STARTING WIZZ ROBOT!");
         FlightRobot wizz = FlightRobot.getFlightRobotWIZZ();
 
@@ -34,5 +34,6 @@ public class StartScannerWizzServlet extends HttpServlet {
         wizz.setDayCount(300);
         wizz.setActive(true);
         wizz.start();
+        resp.sendRedirect(req.getContextPath()+"/about");
     }
 }

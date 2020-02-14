@@ -87,7 +87,7 @@ public class FlightScannerImpl extends Thread {
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
                 String currencyStr = (String) json.get("currency");
-                Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyStr), currencyStr);
+
                 JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
                 JSONArray jsonDates = jsonTrip.getJSONArray("dates");
                 JSONObject jsonDate = (JSONObject) jsonDates.get(0);
@@ -104,9 +104,10 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonFare = (JSONObject) jsonFares.get(0);
                     Double amount = (Double) (jsonFare.get("amount"));
 
+
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
-
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyStr), currencyStr);
                     Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
                     result.add(f);
@@ -204,11 +205,11 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
-                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
+
 
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
-
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
                     Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
                     result.add(f);

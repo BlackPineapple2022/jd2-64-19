@@ -16,7 +16,7 @@ public class StartScannerRyServlet extends HttpServlet {
 
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("STARTING RY ROBOT!");
         FlightRobot ry = FlightRobot.getFlightRobotRY();
 
@@ -36,5 +36,6 @@ public class StartScannerRyServlet extends HttpServlet {
         ry.setDayCount(300);
         ry.setActive(true);
         ry.start();
+        resp.sendRedirect(req.getContextPath()+"/about");
     }
 }

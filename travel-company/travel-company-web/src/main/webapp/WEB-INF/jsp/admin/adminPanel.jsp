@@ -13,6 +13,22 @@
 <body>
 <%@include file="include/adminheader.jsp" %>
 
+<form method="POST" action="${pageContext.request.contextPath}/admin/scanner/ry/start">
+    <input type="submit" value="Ry Start"/>
+</form>
+
+<form method="POST" action="${pageContext.request.contextPath}/admin/scanner/ry/deactivate">
+    <input type="submit" value="Ry Deactivate"/>
+</form>
+
+<form method="POST" action="${pageContext.request.contextPath}/admin/scanner/wizz/start">
+    <input type="submit" value="WIZZ Start"/>
+</form>
+
+<form method="POST" action="${pageContext.request.contextPath}/admin/scanner/wizz/deactivate">
+    <input type="submit" value="WIZZ deactivate"/>
+</form>
+
 </body>
 
 </html>

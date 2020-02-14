@@ -14,11 +14,11 @@ import java.io.IOException;
 public class StopScannerWizzServlet extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("STOPPING WIZZ ROBOT!");
         FlightRobot wizz = FlightRobot.getFlightRobotWIZZ();
         wizz.setActive(false);
-
+        resp.sendRedirect(req.getContextPath()+"/about");
     }
 
 }
