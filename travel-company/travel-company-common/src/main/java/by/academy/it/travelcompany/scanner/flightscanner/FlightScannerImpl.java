@@ -82,8 +82,8 @@ public class FlightScannerImpl extends Thread {
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
-                    json = new JSONObject(readUrl(req));
                     Thread.sleep(DELAY_REQ_RY_SYNC);
+                    json = new JSONObject(readUrl(req));
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
                 String currencyStr = (String) json.get("currency");

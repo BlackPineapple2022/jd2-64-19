@@ -101,10 +101,12 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getFlightListByRouteMapIdAndDates(Long routeMapId, LocalDate firstDate, LocalDate secondDate) {
         log.info("Getting all flight by routeMap id between 2 localDate ", routeMapId);
         try {
+            log.info("FLIGHTS from base: "+ flightDAO.getFlightListByRouteMapIdAndDates(routeMapId,firstDate,secondDate));
             return flightDAO.getFlightListByRouteMapIdAndDates(routeMapId,firstDate,secondDate);
         }catch (SQLException e){
             log.error("Error while getting all flight by routemap id", e);
         }
+
         return Collections.emptyList();
     }
 }
