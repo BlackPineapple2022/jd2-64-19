@@ -239,7 +239,7 @@
 </c:if>
 
 
-<form method="POST" action="${pageContext.request.contextPath}/specificResult">
+<form autocomplete="off" method="POST" action="${pageContext.request.contextPath}/specificResult">
 
     <div class="welcome">
         Поиск авиабилетов
