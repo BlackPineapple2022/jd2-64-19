@@ -17,6 +17,7 @@ public class StartScannerRyServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        log.info("STARTING RY ROBOT!");
         FlightRobot ry = FlightRobot.getFlightRobotRY();
 
         while (true){
