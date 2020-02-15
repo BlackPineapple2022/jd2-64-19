@@ -44,8 +44,9 @@ import java.util.*;
 public class FlightScannerImpl extends Thread {
 
     private static final int DELAY_REQ_RY = 1000;
-    private static final int DELAY_REQ_RY_SYNC = 1500;
-    private static final int DELAY_REQ_WIZZ = 100;
+    private static final int DELAY_REQ_RY_SYNC = 5000;
+    private static final int DELAY_REQ_WIZZ = 1000;
+    private static final int DELAY_REQ_WIZZ_SYNC = 5000;
 
     private static final FlightService FLIGHT_SERVICE = FlightServiceImpl.getInstance();
     private static final ScheduleService SCHEDULE_SERVICE = ScheduleServiceImpl.getInstance();
@@ -78,16 +79,15 @@ public class FlightScannerImpl extends Thread {
 
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
             try {
-                Thread.sleep(DELAY_REQ_RY);
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
-                    json = new JSONObject(readUrl(req));
                     Thread.sleep(DELAY_REQ_RY_SYNC);
+                    json = new JSONObject(readUrl(req));
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
                 String currencyStr = (String) json.get("currency");
-                Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyStr), currencyStr);
+
                 JSONObject jsonTrip = (JSONObject) jsonTrips.get(0);
                 JSONArray jsonDates = jsonTrip.getJSONArray("dates");
                 JSONObject jsonDate = (JSONObject) jsonDates.get(0);
@@ -104,9 +104,10 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonFare = (JSONObject) jsonFares.get(0);
                     Double amount = (Double) (jsonFare.get("amount"));
 
+
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
-
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyStr), currencyStr);
                     Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
                     result.add(f);
@@ -137,13 +138,15 @@ public class FlightScannerImpl extends Thread {
         LocalDate currentLocalDate = LocalDate.of(startingDate.getYear(), startingDate.getMonthValue(), startingDate.getDayOfMonth());
         while (currentLocalDate.isBefore(finishLocalDate.plusDays(1))) {
 
-            try {
-                Thread.sleep(DELAY_REQ_WIZZ);
-            } catch (InterruptedException e) {
+            synchronized (SYNC_WIZZ) {
+                try {
+                    Thread.sleep(DELAY_REQ_WIZZ_SYNC);
+                } catch (InterruptedException e) {
+                }
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
+            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.10.0/Api/search/search");
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -202,11 +205,11 @@ public class FlightScannerImpl extends Thread {
                     JSONObject jsonBasePrice = jsonFare.getJSONObject("basePrice");
                     Double amount = (Double) jsonBasePrice.get("amount");
                     String currencyCode = (String) jsonBasePrice.get("currencyCode");
-                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
+
 
                     LocalDateTime departureLocalDateTime = getLocalDateTimeFromString(departureDateTime, "T", "-", ":");
                     LocalDateTime arriveLocalDateTime = getLocalDateTimeFromString(arriveDateTime, "T", "-", ":");
-
+                    Currency currency = new Currency(CurrencyServiceImpl.getInstance().getIdByName(currencyCode), currencyCode);
                     Flight f = new Flight(null, routeMap, departureLocalDateTime, arriveLocalDateTime, currency, amount, flightNumber);
                     f.setSearchId(searchId);
                     result.add(f);
@@ -245,7 +248,7 @@ public class FlightScannerImpl extends Thread {
 
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.6.0/Api/search/search");
+        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.10.0/Api/search/search");
 
         httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         httpPost.setHeader("accept-encoding", "gzip, deflate, br");

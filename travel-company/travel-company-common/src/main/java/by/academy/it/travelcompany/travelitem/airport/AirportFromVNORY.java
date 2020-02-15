@@ -12,25 +12,24 @@ package by.academy.it.travelcompany.travelitem.airport;
 
 public enum AirportFromVNORY {
 
-    VIE("Austria","Vienna"),
-    CRL("Belgium","Brussels Charleroi"),
-    BVA("France","Paris Beauvais"),
-    SXF("Germany","Berlin Schonefeld"),
-    BRE("Germany","Bremen"),
-    HHN("Germany","Frankfurt Hahn"),
-    ATH("Greece","Athens"),
-    CHQ("Greece","Chania"),
-    CFU("Greece","Corfu"),
-    TLV("Israel","Tel-Aviv"),
-    BGY("Italy","Milan--Bergamo"),
-    CIA("Italy","Rome--Ciampino"),
-    TSF("Italy","Venice Treviso"),
-    AMM("Jordan","Amman"),
-    MLA("Malta","Malta"),
-    OSL("Norway","Oslo"),
-    BCN("Spain","Barcelona"),
-    MAD("Spain","Madrid"),
-    AGP("Spain","Malaga");
+    VIE("Австрия","Вена"),
+    CRL("Бельгия","Брюссель--Шарлеруа"),
+    BVA("Франция","Париж--Бове"),
+    SXF("Германия","Берлин--Шёнефельд"),
+    BRE("Германия","Бремен"),
+    HHN("Германия","Франкфурт--Хан"),
+    ATH("Греция","Афины"),
+    CHQ("Греция","Ханья"),
+    CFU("Греция","Корфу"),
+    TLV("Израиль","Тель-Авив"),
+    BGY("Италия","Милан--Бергамо"),
+    CIA("Италия","Рим--Чампино"),
+    TSF("Италия","Венеция--Тревизо"),
+    AMM("Иордания","Амман"),
+    MLA("Мальта","Мальта"),
+    OSL("Норвегия","Осло"),
+    BCN("Испания","Барселона"),
+    MAD("Испания","Мадрид");
 
     private String country;
     private String city;

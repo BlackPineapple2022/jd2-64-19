@@ -8,6 +8,4 @@ CREATE TABLE favourite
 );
 
 INSERT INTO favourite(favourite_name, user_id)
-VALUES ('black_favourite',1),
-       ('black_june',1),
-       ('white_favourite',2);
+VALUES ('skibidi_favourite',1);

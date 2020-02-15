@@ -16,8 +16,10 @@ ALTER TABLE user
     AUTO_INCREMENT = 100;
 
 INSERT INTO user (id, user_name, password, salt, role_id)
-VALUES (1, 'black', 'ac7fe33f3adc323e9949361a877ecca6d674f061673b9e36256518e0f1e43802', 'sV39oJk7cYORM3xqjoKTcghKeW0=',
+VALUES (1, 'skibidi', '89f797f47ee2032b7d5580025401e4386c00a00d2666bb08b8c298669b0e0918', 'lCyS0M+S8RXNrgAe2VPtQdp6lsA=',
         1),
-       (2, 'white', 'e93c5efc1973d20ce69d8552dc97d4f8e3f78c12195985a08c8b380a6781031b', '6wUzpfEfsb9G61jX2gjvmlnTUT8=',
+       (2, 'black', 'e93c5efc1922220ce69d8552dc97d4f8e3f78c12195985a08c8b380a6781031b', '6wU222Efsb9G61jX2gjvmlnTUT8=',
+        2),
+       (3, 'admin', 'e22c5ef22973d20ce69d8222dc97d4f8e3f78c12195985a08c8b380a6781031b', '6wUzpf22b9G61jX2gjvmlnTUT8=',
         2);
 

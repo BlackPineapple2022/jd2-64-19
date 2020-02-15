@@ -9,7 +9,7 @@ import java.net.URL;
 @Slf4j
 public class CurrencyScannerImpl implements CurrencyScanner {
 
-    private static final String SITE_ADDRESS ="http://localhost:8080/myapp"; //TODO change site address before deployment!
+    private static final String SITE_ADDRESS ="http://blackpineapple.by/travel"; //TODO change site address before deployment!
 
     private static final String ACCESS_KEY = "872986e602ba0f07b2dfceea07408ea1";
     private static final String CURRENCY_RATE_SOURCE = "http://data.fixer.io/api/latest";

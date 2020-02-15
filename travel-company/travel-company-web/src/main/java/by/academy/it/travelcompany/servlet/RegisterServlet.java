@@ -26,15 +26,24 @@ public class RegisterServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         String userName = req.getParameter("userName");
+        String nameRegex = "^[a-zA-Z0-9_-]{3,20}$";
         String password = req.getParameter("password");
         String passwordRepeat = req.getParameter("passwordRepeat");
-
+        String googleRecaptcha = req.getParameter("g-recaptcha-response");
         Integer errorCode = 0;
         boolean hasError = false;
 
-        if (userName == null || userName.length() == 0 || password == null || password.length() == 0 || passwordRepeat == null || passwordRepeat.length() == 0) {
+
+        if (googleRecaptcha == null || googleRecaptcha.length() == 0) {
+            hasError = true;
+            errorCode = 5;
+        } else if (userName == null || userName.length() == 0 || password == null || password.length() == 0 || passwordRepeat == null || passwordRepeat.length() == 0) {
             hasError = true;
             errorCode = 1;
+        } else if (!userName.matches(nameRegex) || password.length()<5) {
+            hasError = true;
+            errorCode = 6;
+
         } else if (!userService.isUserNameFree(userName)) {
             hasError = true;
             errorCode = 3;
@@ -42,7 +51,7 @@ public class RegisterServlet extends HttpServlet {
             hasError = true;
             errorCode = 4;
         } else {
-            userService.create(new User(null,userName,password));
+            userService.create(new User(null, userName, password));
         }
 
         if (hasError) {

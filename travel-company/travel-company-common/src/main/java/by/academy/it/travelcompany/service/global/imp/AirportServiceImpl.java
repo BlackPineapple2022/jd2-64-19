@@ -100,13 +100,15 @@ public class AirportServiceImpl {
         log.info("Installing all airport to Base{}");
         try {
             Set<Airport> allAirport = AirportInfoCentre.getAllAirports();
+            System.out.println("Set size " +allAirport.size());
             for (Airport a : allAirport) {
+                System.out.println(a);
                 airportDAO.create(a);
             }
         }catch (SQLException e){
             log.error("Error when installing all airport to Base{}");
         }
-        log.info("Installing all airport to Base{} successfully ended");
+
     }
 
 }

@@ -9,46 +9,172 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>BlackPineapple.by | <fmt:message key="home.page.title" /></title>
+    <title>BlackPineapple.by | О проекте</title>
+
+    <style>
+
+        body {
+            background: #FFFFFF;
+        }
+
+        .welcome {
+            padding: 10px;
+            font-family: Arial, serif;
+            font-size: 50px;
+            text-align: center;
+            color: #000000;
+            margin: 10px;
+        }
+
+        .div-top {
+            font-family: "Times New Roman", Arial, serif;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-right: 10px;
+            padding-left: 10px;
+
+            margin-right: auto;
+            margin-left: auto;
+
+
+        }
+
+        .tr1 {
+
+            padding: 10px;
+            border-right: #dcdcdc 1px solid;
+            border-top: #dcdcdc 1px solid;
+            border-bottom: #dcdcdc 1px solid;
+
+            border-top-right-radius: 5px;
+            border-bottom-right-radius: 5px;
+
+        }
+
+        .tr2 {
+
+            padding: 10px;
+            border-left: #dcdcdc 1px solid;
+            border-top: #dcdcdc 1px solid;
+            border-bottom: #dcdcdc 1px solid;
+
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+
+        }
+
+        .div-middle {
+            font-family: "Times New Roman", Arial, serif;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            /*margin-left: 10%;
+            margin-right: 10%;*/
+        }
+
+        .div-register {
+            text-align: center;
+            font-size: 50px;
+            font-family: Arial, serif;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            color: #FFFFFF;
+            background: #FFFFFF;
+            margin-bottom: 30px;
+        }
+
+
+        .a-reg {
+            outline: none;
+            border-radius: 5px;
+            border: solid #303030 1px;
+            font-family: Arial, serif;
+
+            color: #303030;
+            font-size: 30px;
+            background: #FFFFFF;
+            padding: 16px 50px 16px 50px;
+            text-decoration: none;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 20px;
+            margin-right: 5px;
+        }
+
+        .a-reg:hover {
+            border: solid #FFFFFF 1px;
+            color: #FFFFFF;
+            /*background: #1E96FA;*/
+            background: #303030
+        }
+
+        .a-log {
+            padding: 16px 100px 16px 100px;
+        }
+
+    </style>
+
 </head>
 
+
 <body>
+
 <%@include file="include/header.jsp" %>
 <%@include file="include/menu.jsp" %>
 
-<p><b>О ПРОЕКТЕ:</b></p>
-<p>С каждым годом всё больше белорусов начинает путешествовать самостоятельно, и в качестве отправных точек выбирают соседние Литву и Польшу.
-В этом нет ничего удивительного, ведь такие лоукостеры, как Ryanair и Wizzair предлагают полёты в более чем 80 европейских городов из Литовского
-Вильнюса и Каунаса а также из Варшавы. Цены на такие путешествия в среднем колеблются от 7 до 50 евро за перелёт в одну сторону на человека что
-в среднем в 10! раз меньше, чем полёты из Национального Аэропорта Минск-2.</p>
-<p><b>Чёрный ананас</b> - это мощный сервис по планированию авиапутешествий по Европе </p>
-<p>Переходите по вкладке ХОЧУ ЧТО ТО КОНКРЕТНОЕ и ...</p>
-
-<p>Если Вы хотите подобрать сложный и дешёвый трип на 10-12 дней, с прилётом на север Италии и возвратом из Рима?</p>
-<p>Выберите в поиске вылет и возврат во все аэропорты(Вильнюс, Каунас, Варшава Модлен, Варшава Шопен), Дополнительные условия: без ограничений.</p>
-<p>Выберите прилёт в Милан Бергамо, и Милан Мальпенса, а вылет из Рим Фьюмичино и Рим Чампино. Дополнительные условия: без ограничений.</p>
-<p>Укажите начальную дата, глубину поиска, минимальное и максимальное количество дней отдыха и нажмите поиск!</p>
-
-<p>А если Вы хотите вылетать/прилетать из той же страны/города/аэропорта - укажите это в дополнительных условиях поиска.</p>
-<p>Вам необходимо подобрать короткий трип - на 3-4 дня, тогда Вильнюс намного удобнее для старта и финиша</p>
-<p>Вы планируете брать в Европе автомобиль в аренду?</p>
-<p>Укажите что аэропорт прилёта и вылета должны совпадать </p>
-<p>Вы планируете добираться из Беларуси до аэропорта на собственном авто?</p>
-<p>Укажите что стартовый аэропорт вылета и возврата должны совпадать.</p>
-<p>Вы просто хотите погреться на солнышке в Португалии или Греции без всяких переездов?</p>
-<p>Выберите Португалтьское ФАРО, ПОРТО и ЛИСАБОН и укажите прилёт и вылет из того-же аэропорта</p>
-<p>Или Гречиские Салоники, Радос и Корфу и укажите прилёт и вылет из того-же аэропорта</p>
-<p>А может Вы хотите прилететь в Барселону, а улететь из Лисабона?</p>
-<p>Или прилететь в Венецию, а улететь из Римини?</p>
-
-<p>Не определились? Переходите по вкладке ХОЧУ ВСЁ И СРАЗУ и выбирайте готовые варианты!</p>
-<p>У зарегестрированных пользователей есть возможность искать сразу до пяти аэропортов(три у незарегистрированных) сохранять и удалять поиски, обновлять цены на выбранные трипы прямо с сайта, сравнивать
-путешествия по различным критериям и много других функций. Присоединяйтесь!
-</p>
+<div class="welcome">Добро пожаловать на <b>BlackPineapple.by</b></div>
 
 
+<div class="div-top">
+    <table class="tr1" align="center">
+
+        <tr>
+            <td width="300px"><img src="${pageContext.request.contextPath}/resources/pic/What.png" width="300px">
+            </td>
+            <td colspan="2" width="600px" align="left">
+                <div style="font-size: 44px; font-family: Arial,serif">Что такое лоукосты?</div>
+<br/>
+                <div style="font-size: 24px; font-family: Arial,serif; line-height: 1.5 ">
+                    Лоукосты или лоукостеры - это авиакомпании, которые продают билеты на свои рейсы за суммы,
+                    которые в
+                    разы, а то и в десятки раз меньше, чем у основных национальных авиаперевозчиков.
+                    Лоукосты существуют в Европе, Азии, Америке.
+                    Как правило они продают билеты без багажа, питания и возможности выбора места.
+                    Эти и другие услуги оказываются за дополнительную плату.
+                    Основные лоукост компании в Европе - это <b>Ryanair</b> и <b>Wizzair</b>.
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
 
 
+<div class="div-middle">
+    <table align="center" class="tr2">
+        <tr>
+            <td colspan="2" width="600px" align="left">
+                <div style="font-size: 44px; font-family: Arial,serif">Что такое Чёрный Ананас?</div>
+                <br/>
+                <div style="font-size: 24px; line-height: 1.5; font-family: Arial,serif">
+                    <b>Чёрный ананас</b> - это мощный сервис по планированию авиапутешествий по Европе с вылетом из
+                    Литвы и Польши, что очень актуально для беларусов.
+                    Вы можете искать дешёвые авиабилеты с отправлением и возвратом в аэропорты Вильнюса, Каунаса и
+                    Варшавы: Модлина и Шопена.
+                    Возможен одновременный поиск более чем по 120 направлениям.
+                    Зарегистрированные пользователи могут сохранять найденные билеты и обновлять цены прямо из личного
+                    кабинета.
+                    Система фильтров по начальным и конечным точкам позволит планировать по настоящему увлекательные
+                    путешествия!
+                </div>
+            </td>
+            <td width="300px"><img src="${pageContext.request.contextPath}/resources/pic/pineapple_about.png"
+                                   width="300px">
+            </td>
+        </tr>
+    </table>
+
+
+</div>
 
 <%@include file="include/footer.jsp" %>
 </body>

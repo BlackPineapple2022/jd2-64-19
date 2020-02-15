@@ -15,7 +15,5 @@ public class SessionListener implements HttpSessionListener {
 
     @Override
     public void sessionDestroyed(HttpSessionEvent se) {
-        List<Long> searchIdList = (List<Long>) se.getSession().getAttribute("searchIdList");
-        TripServiceImpl.getInstance().deleteAllBySearchIdButFavourite(searchIdList);
     }
 }

@@ -23,6 +23,7 @@ public class AirportInstallServlet extends HttpServlet {
         if (install.equals("INSTALL")){
             AirportServiceImpl airportService = AirportServiceImpl.getInstance();
             List<Airport> allAirport = airportService.getAll();
+
             List<Long> allId = new ArrayList<>();
             for (Airport a: allAirport) {
                 allId.add(a.getId());

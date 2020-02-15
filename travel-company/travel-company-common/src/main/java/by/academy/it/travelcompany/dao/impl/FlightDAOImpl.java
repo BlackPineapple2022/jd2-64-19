@@ -48,6 +48,11 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
 
     private static final String UPDATE_BY_DATE_AND_FLIGHT_NUMBER = "UPDATE flight SET price = ?, checked_date = now(),search_id = ? WHERE flight_number = ? AND departure_date_time LIKE ?";
 
+    private static final String SELECT_ALL_FLIGHT_BY_ROUTEMAP_ID_AND_DATES =
+            "SELECT f.id,r.id,al.id,al.airline_name,apo.id,apo.airport_code,apo.country,apo.city,apd.id,apd.airport_code,apd.country,apd.city,d.id,d.direction_name,f.departure_date_time,f.arrive_date_time,f.flight_number,f.price,c.id,c.currency_code,f.checked_date,f.search_id" +
+                    " FROM flight f JOIN routemap r ON f.routemap_id = r.id JOIN currency c ON f.currency_id = c.id JOIN airport apo ON r.origin_airport_id = apo.id " +
+                    " JOIN airport apd ON r.destination_airport_id = apd.id JOIN airline al ON r.airline_id = al.id JOIN direction d ON r.direction_id = d.id WHERE r.id = ? AND f.departure_date_time BETWEEN ? AND ?";
+
 //CRUD
 
     @Override
@@ -245,5 +250,27 @@ public class FlightDAOImpl extends AbstractDAO implements FlightDAO {
                 LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
                 LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
     }
+
+    @Override
+    public List<Flight> getFlightListByRouteMapIdAndDates(Long routeMapId, LocalDate firstDate, LocalDate secondDate) throws SQLException {
+        ResultSet resultSet = null;
+        List<Flight> result = new ArrayList<>();
+        try (Connection connection = getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_ALL_FLIGHT_BY_ROUTEMAP_ID_AND_DATES)) {
+
+            statement.setLong(1, routeMapId);
+            statement.setString(2, firstDate.atStartOfDay().toString());
+            statement.setString(3, secondDate.plusDays(1).atStartOfDay().toString());
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Flight f = mapFlight(resultSet);
+                result.add(f);
+            }
+            return result;
+        } finally {
+            closeQuietly(resultSet);
+        }
+    }
+
 
 }
