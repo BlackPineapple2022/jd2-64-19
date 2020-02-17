@@ -18,14 +18,14 @@ public class Department {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DEPARTMENT_ID", unique = true)
     private Long departmentId;
-    private String DepartmentName;
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private String departmentName;
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Employee> employeeList;
 
     @Override
     public String toString() {
         return "Department{" +
-                "DepartmentName='" + DepartmentName + '\'' +
+                "DepartmentName='" + departmentName + '\'' +
                 '}';
     }
 }

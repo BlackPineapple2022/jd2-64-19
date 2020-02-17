@@ -7,9 +7,12 @@ import by.academy.it.travelcompany.entity.homework.orm.Meeting;
 import by.academy.it.travelcompany.util.HibernateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
+
 @Slf4j
 public class App {
     public static void main(String[] args) {
@@ -19,8 +22,8 @@ public class App {
 
         //ONE TO ONE RELATIONS
 
-        Employee employee = new Employee(null,"Vladiko ", "Dart Veider ", null, null,null);
-        EmployeeDetail employeeDetail = new EmployeeDetail(null,"Tatuin ", LocalDate.now(), LocalDate.of(1989,4,3),employee);
+        Employee employee = new Employee(null,"Vladiko", "Dart Veider", null, null,null);
+        EmployeeDetail employeeDetail = new EmployeeDetail(null,"Tatuin", LocalDate.now(), LocalDate.of(1989,4,3),employee);
         employee.setEmployeeDetail(employeeDetail);
 
         session.saveOrUpdate(employee);
@@ -85,6 +88,47 @@ public class App {
         session.getTransaction().commit();
         session.close();
 
+        //HQL HOMEWORK
+
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+
+        Query<Employee> selectFromEmployee = session.createQuery("from Employee", Employee.class);
+        List<Employee> employeeList = selectFromEmployee.list();
+        log.debug("Employees in DB : "+employeeList);
+
+        Query<String> selectByAddress = session.createQuery("select e.lastName from Employee as e where e.employeeDetail.address = 'Tatuin'", String.class);
+        List <String> employeesLastNames = selectByAddress.list();
+        log.debug("Employees from Tatuin : "+employeesLastNames);
+
+        Query<Employee> selectByDepartment = session.createQuery("select e from Employee as e where e.department.departmentName = 'Witcher guild'", Employee.class);
+        List <Employee> employees = selectByDepartment.list();
+        log.debug("Employees from Witcher guild: "+employees);
+
+
+        Query<String> selectAllDepartmentName = session.createQuery("select d.departmentName from Department as d", String.class);
+        List<String> departmentNames = selectAllDepartmentName.list();
+
+
+        for (String s: departmentNames ) {
+            Query<Long> selectCountOfEmployeeInDepartment = session.createQuery("select count(e) from Employee e where department.departmentName = :name",Long.class);
+            selectCountOfEmployeeInDepartment.setParameter("name",s);
+            log.debug("In department: " + s + " count of employee: "+selectCountOfEmployeeInDepartment.list().get(0));
+        }
+
+        Department department1 = new Department(null,"Siths",new ArrayList<>());
+        session.saveOrUpdate(department1);
+        session.getTransaction().commit();
+
+        session.beginTransaction();
+        Query updateEmployyeDepartment = session.createQuery("update Employee e set e.department.id =: newDepartmentId where e.lastName =: lastName");
+
+        department1 = session.find(Department.class,3L);
+        updateEmployyeDepartment.setParameter("newDepartmentId", department1.getDepartmentId());
+        updateEmployyeDepartment.setParameter("lastName", "Dart Veider");
+        updateEmployyeDepartment.executeUpdate();
+
+        session.getTransaction().commit();
         HibernateUtil.shutdown();
 
     }
