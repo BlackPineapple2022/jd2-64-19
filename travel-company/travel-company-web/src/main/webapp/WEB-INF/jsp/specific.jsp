@@ -524,9 +524,9 @@
                         <input name="endingFilter" type="radio" value="countryFilter" ${checkedCountryFilterR}>
                         Прилёт и возврат из одной страны<br/>
                         <input name="endingFilter" type="radio" value="cityFilter" ${checkedCityFilterR}>
-                        Прилёт и возврат из из одного города<br/>
+                        Прилёт и возврат из одного города<br/>
                         <input name="endingFilter" type="radio" value="airportFilter" ${checkedAirportFilterR}>
-                        Прилёт и возврат из из одного аэропорта<br/>
+                        Прилёт и возврат из одного аэропорта<br/>
                     </div>
                     <button class="my_button3" type="button" onclick="about2()" style="margin-top: 0px; margin-bottom: 0px">
                     Подробнее
