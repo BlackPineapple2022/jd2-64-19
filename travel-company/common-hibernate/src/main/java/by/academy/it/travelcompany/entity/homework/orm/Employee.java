@@ -21,10 +21,12 @@ public class Employee {
     private String firstName;
     private String lastName;
 
+    private Double salary;
+
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "employee", cascade = CascadeType.ALL)
     private EmployeeDetail employeeDetail;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DEPARTMENT_ID")
     private Department department;
 
