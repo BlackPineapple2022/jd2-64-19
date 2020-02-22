@@ -19,7 +19,7 @@ public class Department {
     @Column(name = "DEPARTMENT_ID", unique = true)
     private Long departmentId;
     private String departmentName;
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employeeList;
 
     @Override
