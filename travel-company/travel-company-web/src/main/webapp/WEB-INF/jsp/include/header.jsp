@@ -15,8 +15,8 @@
 
 
 <head>
-    <link rel="icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon">
-     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.png" type="image/x-icon">
+    <link rel="icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
+     <link rel="shortcut icon" href="${pageContext.request.contextPath}/favicon.ico" type="image/x-icon">
 </head>
 <style>
 
