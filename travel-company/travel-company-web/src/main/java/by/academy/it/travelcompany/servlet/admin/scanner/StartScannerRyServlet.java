@@ -33,9 +33,9 @@ public class StartScannerRyServlet extends HttpServlet {
                 break;
             }
         }
-        ry.setDayCount(300);
+        ry.setDayCount(270);
         ry.setActive(true);
-        ry.start();
-        resp.sendRedirect(req.getContextPath()+"/about");
+        ry.run();
+        //resp.sendRedirect(req.getContextPath()+"/about");
     }
 }

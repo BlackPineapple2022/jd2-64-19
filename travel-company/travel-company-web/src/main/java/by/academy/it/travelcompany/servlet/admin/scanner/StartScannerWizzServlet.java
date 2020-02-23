@@ -31,9 +31,9 @@ public class StartScannerWizzServlet extends HttpServlet {
                 break;
             }
         }
-        wizz.setDayCount(300);
+        wizz.setDayCount(270);
         wizz.setActive(true);
-        wizz.start();
-        resp.sendRedirect(req.getContextPath()+"/about");
+        wizz.run();
+        //resp.sendRedirect(req.getContextPath()+"/about");
     }
 }
