@@ -20,10 +20,9 @@ public interface EmployeeDAO {
 
     List<Employee> getByAgeBetween(Integer from, Integer to);
 
-    List<Employee> getByAgeAndName(String name, Integer age);
+    List<Employee> getByAgeAndName(String firstName, String lastName,  Integer age);
 
-    List<Employee> getByAgeOrName(String name, Integer age);
-
+    List<Employee> getByAgeOrName(String firstName, String lastName,  Integer age);
 
     // aggregation
 

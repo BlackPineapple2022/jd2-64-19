@@ -21,7 +21,9 @@ public class EmployeeDetail {
     @Column (name = "EMPLOYEE_ID") @Access(AccessType.PROPERTY)
     private Long id;
     private String address;
+    @Column
     private LocalDate entranceLocalDate;
+    @Column
     private LocalDate birthdayLocalDate;
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
