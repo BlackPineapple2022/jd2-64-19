@@ -44,7 +44,7 @@ import java.util.*;
 public class FlightScannerImpl extends Thread {
 
     private static final int DELAY_REQ_RY = 1000;
-    private static final int DELAY_REQ_RY_SYNC = 5000;
+    private static final int DELAY_REQ_RY_SYNC = 10000;
     private static final int DELAY_REQ_WIZZ = 1000;
     private static final int DELAY_REQ_WIZZ_SYNC = 5000;
 
@@ -82,7 +82,7 @@ public class FlightScannerImpl extends Thread {
                 String req = getReqStringRY(currentLocalDate);
                 JSONObject json = null;
                 synchronized (SYNC_RY) {
-                    Thread.sleep((long)(DELAY_REQ_RY_SYNC*(1.0+Math.random())));
+                    Thread.sleep((long)(DELAY_REQ_RY_SYNC*(1.0+(2*Math.random()))));
                     json = new JSONObject(readUrl(req));
                 }
                 JSONArray jsonTrips = json.getJSONArray("trips");
