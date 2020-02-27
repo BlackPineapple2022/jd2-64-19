@@ -8,16 +8,6 @@
 
 
 
-    <bean class="by.academy.it.travelcompany.ConsolePrinter" id="consolePrinter"></bean>
-
-    <bean class="by.academy.it.travelcompany.PrintService" id="printService">
-
-        <property name="printer" ref="consolePrinter"/>
-    </bean>
-
-    <context:annotation-config/>
-    <context:component-scan base-package="by.academy.it.travelcompany"/>
-
 
 </beans>
 
