@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Slf4j
-@Component
+@Component("person")
 public class Person {
     @Autowired
     @Qualifier("companyAddress")
