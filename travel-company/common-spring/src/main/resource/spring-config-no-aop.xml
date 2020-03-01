@@ -14,17 +14,9 @@
     <context:annotation-config/>
     <context:component-scan base-package=" by.academy.it.aop"/>
 
+    <aop:aspectj-autoproxy/>
 
 
-    <aop:config>
-        <aop:pointcut id="performance" expression="execution(* by.academy.it.aop.TaskService.performJob())"/>
-        <aop:pointcut id="performanceException" expression="execution(* by.academy.it.aop.TaskService.performExceptionJob())"/>
-        <aop:aspect ref="work">
-            <aop:before pointcut-ref="performance" method="beforeWork"/>
-            <aop:after-returning pointcut-ref="performance" method="afterWork"/>
-            <aop:after-throwing pointcut-ref="performanceException" method="afterWorkProblems"/>
-        </aop:aspect>
-    </aop:config>
 
 
 </beans>
