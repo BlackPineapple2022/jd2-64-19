@@ -1,9 +1,6 @@
 package by.academy.it.travelcompany.orm.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -15,9 +12,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @ToString(exclude = {"employee"})
 @Entity
+@Table(name= "EMPLOYEE_DETAIL")
+@EqualsAndHashCode(exclude = {"employee"})
 public class EmployeeDetail {
     @Id
     @GenericGenerator(name = "one-one", strategy = "foreign", parameters = @Parameter(name = "property", value = "employee"))
+    @Column(name = "EMPLOYEE_DETAIL_ID")
     private Long id;
     private String country;
     private String city;
@@ -25,5 +25,6 @@ public class EmployeeDetail {
     private LocalDate dateOfBirthDay;
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
+    @Access(AccessType.PROPERTY)
     private Employee employee;
 }
