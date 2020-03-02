@@ -3,6 +3,7 @@ package by.academy.it.travelcompany.orm.dao.impl;
 import by.academy.it.travelcompany.orm.dao.DAO;
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import java.io.Serializable;
@@ -12,8 +13,8 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     private final Class<E> clazz;
     ThreadLocal<EntityManager> em = new ThreadLocal<>();
 
-    @Autowired
-    private EntityManagerFactory factory;
+    @Autowired(required = true)
+    private EntityManagerFactory entityManagerFactory;
 
     protected AbstractDAO(Class<E> clazz) {
         this.clazz = clazz;
@@ -44,7 +45,7 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 
     public EntityManager getEm() {
         if (em.get() == null) {
-            em.set(factory.createEntityManager());
+            em.set(entityManagerFactory.createEntityManager());
         }
         return em.get();
     }

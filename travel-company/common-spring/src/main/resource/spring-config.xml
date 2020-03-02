@@ -42,6 +42,8 @@
         <property name="packagesToScan">
             <list>
                 <value>by.academy.it.travelcompany.orm.entity</value>
+                <value>by.academy.it.travelcompany.orm.dao</value>
+                <value>by.academy.it.travelcompany.orm.dao.impl</value>
             </list>
         </property>
 
