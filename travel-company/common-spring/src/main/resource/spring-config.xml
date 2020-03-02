@@ -1,11 +1,39 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
 
+
+    <bean id="person" class="by.academy.it.travelcompany.beans.Person"
+          p:id="1" p:name="Uladzimir" p:surname="Dubouski" p:personInfo-ref="personInfo"
+          p:meetings-ref="meetings" p:department-ref="department"/>
+
+    <bean id="personInfo" class="by.academy.it.travelcompany.beans.PersonInfo"
+          p:id="1" p:salary="1000" p:person-ref="person" p:dayOfBirth="#{T(java.time.LocalDate).of(1989,4,3)}"
+          p:dayOfJoinCompany="#{T(java.time.LocalDate).now()}"/>
+
+    <bean id="meetings" class="by.academy.it.travelcompany.beans.Meeting" 
+          p:id="1" p:name="Spring as framework VS Spring as time of year">
+        <property name="personList">
+            <list>
+                <ref bean="person"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="department" class="by.academy.it.travelcompany.beans.Department"
+          p:id="1" p:name="back-end">
+        <property name="personList">
+            <list>
+                <ref bean="person"/>
+            </list>
+        </property>
+    </bean>
 
 
 
