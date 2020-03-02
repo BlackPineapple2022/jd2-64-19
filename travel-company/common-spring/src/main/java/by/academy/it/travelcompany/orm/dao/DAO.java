@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.orm.dao;
 
 import java.io.Serializable;
@@ -13,3 +14,4 @@ public interface DAO<E> {
     void delete(Serializable id);
 
 }
+*/

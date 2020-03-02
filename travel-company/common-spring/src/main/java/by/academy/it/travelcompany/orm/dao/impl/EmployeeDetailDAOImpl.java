@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.orm.dao.impl;
 
 import by.academy.it.travelcompany.orm.dao.EmployeeDetailDAO;
@@ -9,3 +10,4 @@ public class EmployeeDetailDAOImpl extends AbstractDAO<EmployeeDetail> implement
         super(clazz);
     }
 }
+*/

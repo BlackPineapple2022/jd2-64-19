@@ -9,9 +9,7 @@
         https://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:annotation-config/>
-    <context:component-scan base-package="by.academy.it.travelcompany.orm.dao"/>
-    <context:component-scan base-package="by.academy.it.travelcompany.orm.dao.impl"/>
-    <context:component-scan base-package="by.academy.it.travelcompany.orm.entity"/>
+    <context:component-scan base-package="by.academy.it"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="springHikariCP"/>
@@ -42,8 +40,6 @@
         <property name="packagesToScan">
             <list>
                 <value>by.academy.it.travelcompany.orm.entity</value>
-                <value>by.academy.it.travelcompany.orm.dao</value>
-                <value>by.academy.it.travelcompany.orm.dao.impl</value>
             </list>
         </property>
 

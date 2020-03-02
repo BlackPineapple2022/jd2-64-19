@@ -1,3 +1,4 @@
+/*
 package by.academy.it.travelcompany.orm.dao.impl;
 
 import by.academy.it.travelcompany.orm.dao.DAO;
@@ -13,8 +14,10 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     private final Class<E> clazz;
     ThreadLocal<EntityManager> em = new ThreadLocal<>();
 
-    @Autowired(required = true)
-    private EntityManagerFactory entityManagerFactory;
+    //@Autowired
+    */
+/*private EntityManagerFactory entityManagerFactory;*//*
+
 
     protected AbstractDAO(Class<E> clazz) {
         this.clazz = clazz;
@@ -22,15 +25,19 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 
     @Override
     public E get(Serializable id) {
-        return getEm().find(clazz, id);
+        return null;
+        //return getEm().find(clazz, id);
     }
 
     @Override
     public E add(E e) {
-        begin();
+        */
+/*begin();
         getEm().persist(e);
         commit();
-        return e;
+        return e;*//*
+
+        return null;
     }
 
     @Override
@@ -44,18 +51,26 @@ public abstract class AbstractDAO<E> implements DAO<E> {
     }
 
     public EntityManager getEm() {
-        if (em.get() == null) {
+        */
+/*if (em.get() == null) {
             em.set(entityManagerFactory.createEntityManager());
         }
-        return em.get();
+        return em.get();*//*
+
+        return null;
     }
 
-    public void begin() {
+   */
+/* public void begin() {
         getEm().getTransaction().begin();
-    }
+    }*//*
 
-    public void commit() {
+
+    */
+/*public void commit() {
         getEm().getTransaction().commit();
-    }
+    }*//*
+
 
 }
+*/
