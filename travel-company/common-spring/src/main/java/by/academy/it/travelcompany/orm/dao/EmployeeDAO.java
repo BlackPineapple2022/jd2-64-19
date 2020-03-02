@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 
-
 public interface EmployeeDAO extends DAO<Employee> {
 }
