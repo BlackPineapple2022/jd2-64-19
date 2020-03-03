@@ -14,6 +14,7 @@ import java.util.List;
 @Table(name = "MEETING")
 @EqualsAndHashCode(exclude = {"id","employeeList"})
 @ToString(exclude = {"employeeList"})
+@Entity
 public class Meeting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +22,7 @@ public class Meeting {
     private Long id;
     private String meetingSubj;
     private LocalDateTime meetingDateTime;
-    @ManyToMany(mappedBy = "meetings",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "meetingList",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Employee> employeeList = new ArrayList<>();
 
 }

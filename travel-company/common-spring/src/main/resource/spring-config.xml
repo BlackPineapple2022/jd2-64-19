@@ -1,32 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-        http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/data/jpa
+https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="by.academy.it"/>
+    <jpa:repositories base-package="by.academy.it.travelcompany.orm.repository"/>
 
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="springHikariCP"/>
-        <property name="dataSourceClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="maximumPoolSize" value="8"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springhibernatedatabasepractice?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>
         <property name="dataSourceProperties">
             <props>
-                <prop key="url">jdbc:mysql://localhost:3306/springhibernatedatebasepractice</prop>
                 <prop key="user">root</prop>
                 <prop key="password">1234</prop>
             </props>
         </property>
     </bean>
 
-    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-          destroy-method="close">
-        <constructor-arg ref="hikariConfig"/>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
     </bean>
 
     <bean id="entityManagerFactory"
@@ -38,11 +43,8 @@
                     class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
         </property>
         <property name="packagesToScan">
-            <list>
-                <value>by.academy.it.travelcompany.orm.entity</value>
-            </list>
+            <list> <value>by.academy.it.travelcompany.orm.entity</value> </list>
         </property>
-
         <property name="jpaProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
@@ -52,6 +54,13 @@
             </props>
         </property>
     </bean>
+
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+          id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
 
 
 

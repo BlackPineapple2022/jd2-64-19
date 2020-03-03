@@ -22,15 +22,19 @@ public class Employee {
     private Long id;
     private String firstName;
     private String lastName;
+
     @CreationTimestamp
     private LocalDate joinDate;
+
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Access(AccessType.PROPERTY)
     private EmployeeDetail employeeDetail;
+
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "DEPARTMENT_ID")
     @Access(AccessType.PROPERTY)
     private Department department;
+
     @Access(AccessType.PROPERTY)
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Meeting> meetingList = new ArrayList<>();
