@@ -16,26 +16,27 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 public class App {
 
     public static void main(String[] args) {
 
-        Department dev = new Department(null,"developer",new ArrayList<>());
-        Department qa = new Department(null,"qa",new ArrayList<>());
+        Department dev = new Department(null, "developer", new ArrayList<>());
+        Department qa = new Department(null, "qa", new ArrayList<>());
 
-        Employee vova = new Employee(null,"Vova","Dubovskiy", LocalDate.now(),null,dev,new ArrayList<>());
-        EmployeeDetail vovaDetail = new EmployeeDetail(null,"Belarus","Minsk","Puskina sq",LocalDate.of(1989,4,3),null);
+        Employee vova = new Employee(null, "Vova", "Dubovskiy", LocalDate.now(), null, dev, new ArrayList<>());
+        EmployeeDetail vovaDetail = new EmployeeDetail(null, "Belarus", "Minsk", "Puskina sq", LocalDate.of(1989, 4, 3), null);
 
-        Employee ivan = new Employee(null,"Ivan","Grozniy", LocalDate.now(),null,qa,new ArrayList<>());
-        EmployeeDetail ivanDetail = new EmployeeDetail(null,"Russia","Moscow","",LocalDate.of(1530,8,25),null);
+        Employee ivan = new Employee(null, "Ivan", "Grozniy", LocalDate.now(), null, qa, new ArrayList<>());
+        EmployeeDetail ivanDetail = new EmployeeDetail(null, "Russia", "Moscow", "", LocalDate.of(1530, 8, 25), null);
 
-        Employee petr = new Employee(null,"Petr","Perviy",LocalDate.now(),null,qa,new ArrayList<>());
-        EmployeeDetail petrDetail = new EmployeeDetail(null,"Russia","St.Petersburg","",LocalDate.of(1672,5,30),null);
+        Employee petr = new Employee(null, "Petr", "Perviy", LocalDate.now(), null, qa, new ArrayList<>());
+        EmployeeDetail petrDetail = new EmployeeDetail(null, "Russia", "St.Petersburg", "", LocalDate.of(1672, 5, 30), null);
 
-        Meeting firstConference = new Meeting(null,"Introduction into Spring-orm and Spring DATA JPA", LocalDateTime.now().plusDays(1),new ArrayList<>());
-        Meeting secondConference = new Meeting(null,"Russian private King festival", LocalDateTime.now().plusDays(7),new ArrayList<>());
+        Meeting firstConference = new Meeting(null, "Introduction into Spring-orm and Spring DATA JPA", LocalDateTime.now().plusDays(1), new ArrayList<>());
+        Meeting secondConference = new Meeting(null, "Russian private King festival", LocalDateTime.now().plusDays(7), new ArrayList<>());
 
         dev.getEmployeeList().add(vova);
         qa.getEmployeeList().add(ivan);
@@ -67,38 +68,62 @@ public class App {
 
         Employee vovaFromDB = employeeService.get(1L);
         Serializable vovaId = vovaFromDB.getId();
-        vovaDetail.setId((Long)vovaId);
+        vovaDetail.setId((Long) vovaId);
         employeeDetailService.add(vovaDetail);
 
         Employee ivanFromDB = employeeService.get(2L);
         Serializable ivanId = ivanFromDB.getId();
-        ivanDetail.setId((Long)ivanId);
+        ivanDetail.setId((Long) ivanId);
         employeeDetailService.add(ivanDetail);
 
         Employee petrFromDB = employeeService.get(3L);
         Serializable petrId = petrFromDB.getId();
-        petrDetail.setId((Long)petrId);
+        petrDetail.setId((Long) petrId);
         employeeDetailService.add(petrDetail);
 
-
-        Meeting thirdMeeting = new Meeting(null,"Pineapple big conference",LocalDateTime.now().plusDays(12),new ArrayList<>());
+        Meeting thirdMeeting = new Meeting(null, "Pineapple big conference", LocalDateTime.now().plusDays(12), new ArrayList<>());
         Employee newVovaFromDB = employeeService.get(1L);
         thirdMeeting.getEmployeeList().add(newVovaFromDB);
         newVovaFromDB.getMeetingList().add(thirdMeeting);
         employeeService.update(newVovaFromDB);
 
-        Iterable<Meeting> meetingIterable= meetingRepository.findAll();
+        Iterable<Meeting> meetingIterable = meetingRepository.findAll();
         for (Meeting meeting : meetingIterable) {
-           log.info(""+meeting);
+            log.info("" + meeting);
         }
 
+        Department dep1 = departmentRepository.findByDepartmentName("qa");
+        Department dep2 = departmentRepository.findByDepartmentName("dev");
+        Department dep3 = departmentRepository.findByDepartmentName("developer");
+
+        System.err.println(dep1);
+        System.err.println(dep2);
+        System.err.println(dep3);
+
+        Employee employee = employeeService.get(2L);
+        Department dep4 = departmentRepository.findByEmployeeListContains(employee);
+        System.err.println(dep4);
+
+        String metingSubject = "Introduction into Spring-orm and Spring DATA JPA";
+        List<Meeting> meetingList = meetingRepository.getAllByMeetingSubjEquals(metingSubject);
+        System.err.println(meetingList);
+
+        LocalDateTime firstDate = LocalDate.now().plusDays(2).atStartOfDay();
+        LocalDateTime secondDate = LocalDate.now().plusDays(12).atStartOfDay();
+
+        List<Meeting> meetingListBefore = meetingRepository.getAllByMeetingDateTimeBefore(firstDate);
+        List<Meeting> meetingListAfter = meetingRepository.getAllByMeetingDateTimeAfter(firstDate);
+        List<Meeting> meetingListBetween = meetingRepository.getAllByMeetingDateTimeBetween(firstDate, secondDate);
+
+        List<Meeting> meetingListWithIvan =
+                meetingRepository.getAllByEmployeeListContains(employeeService.get(2L));
+
+        System.err.println(meetingListBefore);
+        System.err.println(meetingListAfter);
+        System.err.println(meetingListBetween);
+        System.err.println(meetingListWithIvan);
 
     }
-
-
-
-
-
 
 }
 
