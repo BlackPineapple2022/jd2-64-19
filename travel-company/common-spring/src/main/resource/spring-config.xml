@@ -1,39 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:p="http://www.springframework.org/schema/p"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
-        http://www.springframework.org/schema/context
-        https://www.springframework.org/schema/context/spring-context.xsd">
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/data/jpa
+https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
+    <context:annotation-config/>
+    <context:component-scan base-package="by.academy.it"/>
+    <jpa:repositories base-package="by.academy.it.travelcompany.orm.repository"/>
 
-    <bean id="person" class="by.academy.it.travelcompany.beans.Person"
-          p:id="1" p:name="Uladzimir" p:surname="Dubouski" p:personInfo-ref="personInfo"
-          p:meetings-ref="meetings" p:department-ref="department"/>
-
-    <bean id="personInfo" class="by.academy.it.travelcompany.beans.PersonInfo"
-          p:id="1" p:salary="1000" p:person-ref="person" p:dayOfBirth="#{T(java.time.LocalDate).of(1989,4,3)}"
-          p:dayOfJoinCompany="#{T(java.time.LocalDate).now()}"/>
-
-    <bean id="meetings" class="by.academy.it.travelcompany.beans.Meeting" 
-          p:id="1" p:name="Spring as framework VS Spring as time of year">
-        <property name="personList">
-            <list>
-                <ref bean="person"/>
-            </list>
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <property name="poolName" value="springHikariCP"/>
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="maximumPoolSize" value="8"/>
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/springhibernatedatabasepractice?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="dataSourceProperties">
+            <props>
+                <prop key="user">root</prop>
+                <prop key="password">1234</prop>
+            </props>
         </property>
     </bean>
 
-    <bean id="department" class="by.academy.it.travelcompany.beans.Department"
-          p:id="1" p:name="back-end">
-        <property name="personList">
-            <list>
-                <ref bean="person"/>
-            </list>
+    <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig" />
+    </bean>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="persistenceUnitName" value="jpa-unit"/>
+        <property name="jpaVendorAdapter">
+            <bean
+                    class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+        </property>
+        <property name="packagesToScan">
+            <list> <value>by.academy.it.travelcompany.orm.entity</value> </list>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQL55Dialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+                <prop key="hibernate.format_sql">false</prop>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
         </property>
     </bean>
+
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager"
+          id="transactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+
+    <tx:annotation-driven/>
+
 
 
 
