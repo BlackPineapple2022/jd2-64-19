@@ -1,0 +1,24 @@
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+             http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
+             http://www.springframework.org/schema/security
+             http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <http auto-config="true">
+        <intercept-url pattern="/" access="permitAll"/>
+        <intercept-url pattern="/employees/**" access="hasAnyRole('ADMIN', 'USER')"/>
+        <intercept-url pattern="/departments/**" access="hasAnyRole('ADMIN', 'USER')"/>
+        <intercept-url pattern="/api/**" access="hasAnyRole('ADMIN', 'USER')"/>
+    </http>
+
+    <user-service id="detailsManager">
+        <user name="skibidi" authorities="ADMIN" password="{noop} pass"/>
+        <user name="paintitblack" authorities="USER" password="{noop}pass"/>
+    </user-service>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="detailsManager"/>
+    </authentication-manager>
+</beans:beans>
