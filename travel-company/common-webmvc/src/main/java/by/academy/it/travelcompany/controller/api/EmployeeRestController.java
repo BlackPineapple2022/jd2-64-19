@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,27 +48,19 @@ public class EmployeeRestController {
         if (newEmployee.getFirstName()!=null) {
             employee.setFirstName(newEmployee.getFirstName());
         }
-
         if (newEmployee.getLastName()!=null) {
             employee.setLastName(newEmployee.getLastName());
         }
-
         if(newEmployee.getJoinDate()!=null){
             employee.setJoinDate(newEmployee.getJoinDate());
         }
-
         newEmployee = employeeService.update(employee);
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/{id}")
+    @PostMapping
     public ResponseEntity<Employee> createEmployee(
-            @PathVariable("id") Long id,
             @RequestBody Employee newEmployee) {
-
-        if (employeeService.get(id) != null) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
         newEmployee = employeeService.add(newEmployee);
         return new ResponseEntity<>(newEmployee, HttpStatus.OK);
     }

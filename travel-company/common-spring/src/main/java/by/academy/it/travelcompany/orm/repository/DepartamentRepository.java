@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 public interface DepartamentRepository extends CrudRepository<Department, Serializable> {
 
+
+
 }
