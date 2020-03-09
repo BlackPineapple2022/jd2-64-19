@@ -21,7 +21,6 @@ public class Department {
 
     private String departmentName;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "department")
-    @Access(AccessType.PROPERTY)
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Employee> employeeList = new ArrayList<>();
 }

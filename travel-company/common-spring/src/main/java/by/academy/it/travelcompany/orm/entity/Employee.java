@@ -27,16 +27,14 @@ public class Employee {
     private LocalDate joinDate;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Access(AccessType.PROPERTY)
     private EmployeeDetail employeeDetail;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "DEPARTMENT_ID")
-    @Access(AccessType.PROPERTY)
     private Department department;
 
     @Access(AccessType.PROPERTY)
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY)
     private List<Meeting> meetingList = new ArrayList<>();
 
 }

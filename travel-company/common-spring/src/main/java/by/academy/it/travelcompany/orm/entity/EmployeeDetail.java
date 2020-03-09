@@ -16,8 +16,10 @@ import java.time.LocalDate;
 @EqualsAndHashCode(exclude = {"employee"})
 public class EmployeeDetail {
     @Id
-    @GenericGenerator(name = "one-one", strategy = "foreign", parameters = @Parameter(name = "property", value = "employee"))
     @Column(name = "EMPLOYEE_DETAIL_ID")
+    @GenericGenerator(name = "one-one", strategy = "foreign",
+            parameters = @Parameter(name = "property", value = "employee"))
+    @GeneratedValue(generator = "one-one")
     private Long id;
     private String country;
     private String city;
@@ -25,6 +27,5 @@ public class EmployeeDetail {
     private LocalDate dateOfBirthDay;
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
-    @Access(AccessType.PROPERTY)
     private Employee employee;
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "MEETING")
-@EqualsAndHashCode(exclude = {"id","employeeList"})
+@EqualsAndHashCode(exclude = {"id","employeeList","meetingDateTime"})
 @ToString(exclude = {"employeeList"})
 @Entity
 public class Meeting {
@@ -22,7 +22,7 @@ public class Meeting {
     private Long id;
     private String meetingSubj;
     private LocalDateTime meetingDateTime;
-    @ManyToMany(mappedBy = "meetingList",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "meetingList",fetch = FetchType.LAZY)
     private List<Employee> employeeList = new ArrayList<>();
 
 }
