@@ -1,5 +1,6 @@
 package by.academy.it.travelcompany.orm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -27,5 +28,6 @@ public class EmployeeDetail {
     private LocalDate dateOfBirthDay;
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
+    @JsonIgnore
     private Employee employee;
 }

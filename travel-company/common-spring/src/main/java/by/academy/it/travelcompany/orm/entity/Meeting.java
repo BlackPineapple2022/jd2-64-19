@@ -1,5 +1,6 @@
 package by.academy.it.travelcompany.orm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,6 +23,7 @@ public class Meeting {
     private Long id;
     private String meetingSubj;
     private LocalDateTime meetingDateTime;
+    @JsonIgnore
     @ManyToMany(mappedBy = "meetingList",fetch = FetchType.LAZY)
     private List<Employee> employeeList = new ArrayList<>();
 

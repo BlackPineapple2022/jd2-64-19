@@ -1,5 +1,9 @@
 package by.academy.it.travelcompany.orm.entity;
 
+import by.academy.it.serializer.LocalDateDeserializer;
+import by.academy.it.serializer.LocalDateSerializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -23,6 +27,8 @@ public class Employee {
     private String firstName;
     private String lastName;
 
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     @CreationTimestamp
     private LocalDate joinDate;
 

@@ -62,8 +62,5 @@ https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <tx:annotation-driven/>
 
-
-
-
 </beans>
 
