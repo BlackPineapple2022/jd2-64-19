@@ -4,9 +4,12 @@ import by.academy.it.travelcompany.entity.Airline;
 import by.academy.it.travelcompany.entity.Direction;
 import by.academy.it.travelcompany.install.airline.AirlineInstaller;
 import by.academy.it.travelcompany.install.airport.AirportInstaller;
+import by.academy.it.travelcompany.install.currency.CurrencyInstaller;
 import by.academy.it.travelcompany.install.direction.DirectionInstaller;
+import by.academy.it.travelcompany.install.role.RoleInstaller;
 import by.academy.it.travelcompany.install.routemap.RouteMapInstaller;
 import by.academy.it.travelcompany.service.AirlineService;
+import by.academy.it.travelcompany.service.CurrencyService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -27,7 +30,11 @@ public class BlackPineappleCoreTest {
         RouteMapInstaller routeMapInstaller = context.getBean(RouteMapInstaller.class);
         routeMapInstaller.install();
 
+        CurrencyInstaller currencyInstaller = context.getBean(CurrencyInstaller.class);
+        currencyInstaller.install();
 
+        RoleInstaller roleInstaller = context.getBean(RoleInstaller.class);
+        roleInstaller.install();
 
 
     }

@@ -32,15 +32,12 @@ public class RouteMapInstallerImpl implements RouteMapInstaller {
     @Override
     public void install() {
       log.info("Starting install route map");
-        List<String> routeMapStringSet = AirportInfoCentre.getRouteMapStringList(
+        List<String> routeMapStringList = AirportInfoCentre.getRouteMapStringList(
                 new ArrayList<>(AirportInfoCentre.getAllStartAirports()),
                 new ArrayList<>(AirportInfoCentre.getAllAirportsFromStart())
         );
 
-        System.err.println(AirportInfoCentre.getAllStartAirports());
-        System.err.println(AirportInfoCentre.getAllAirportsFromStart());
-
-        for (String s : routeMapStringSet) {
+        for (String s : routeMapStringList) {
             String airlineName = s.split("--")[0];
             String originAirportCode = s.split("--")[1];
             String destinationAirportCode = s.split("--")[2];
@@ -52,8 +49,7 @@ public class RouteMapInstallerImpl implements RouteMapInstaller {
             Direction direction = directionService.getByName(directionName);
 
             RouteMap routeMap = new RouteMap(airline, origin, destination, direction);
-            System.err.println(routeMap);
-            //routeMapService.create(routeMap);
+            routeMapService.create(routeMap);
         }
     }
 }

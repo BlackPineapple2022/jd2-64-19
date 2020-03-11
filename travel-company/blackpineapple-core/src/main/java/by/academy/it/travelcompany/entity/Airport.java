@@ -8,7 +8,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @ToString(exclude = {"routeMapOriginList", "routeMapDestinationList"})
-@EqualsAndHashCode(exclude = {"id", "routeMapOriginList", "routeMapDestinationList"})
+@EqualsAndHashCode(exclude = {"id", "routeMapOriginList", "routeMapDestinationList","city","country"})
 @Entity
 @Table(name = "AIRPORT")
 

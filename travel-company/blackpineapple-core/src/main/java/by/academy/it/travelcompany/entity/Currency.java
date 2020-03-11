@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @ToString(exclude = {"id","flightList"})
 @EqualsAndHashCode(exclude = {"id","flightList"})
@@ -22,4 +21,8 @@ public class Currency {
 
     @OneToMany(mappedBy = "currency", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Flight> flightList;
+
+    public Currency(String code) {
+        this.code = code;
+    }
 }
