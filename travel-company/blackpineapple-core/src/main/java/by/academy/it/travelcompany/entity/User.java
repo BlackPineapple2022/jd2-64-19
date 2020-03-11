@@ -1,0 +1,31 @@
+package by.academy.it.travelcompany.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+@EqualsAndHashCode
+@ToString
+@Entity
+@Table(name = "USER")
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "USER_ID")
+    private Long id;
+    @Column(name = "USER_NAME")
+    private String name;
+    @Column(name = "USER_PASSWORD")
+    private String password;
+    @Column(name = "USER_SALT")
+    private String salt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ROLE_ID")
+    private Role role;
+
+    @OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Favourite favourite;
+}
