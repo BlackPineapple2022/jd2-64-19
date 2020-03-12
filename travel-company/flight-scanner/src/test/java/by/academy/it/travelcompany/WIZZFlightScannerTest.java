@@ -56,5 +56,4 @@ public class WIZZFlightScannerTest {
         Assert.assertTrue(jsonObjects.size()>0);
     }
 
-
 }

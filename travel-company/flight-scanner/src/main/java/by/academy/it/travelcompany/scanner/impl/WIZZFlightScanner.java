@@ -23,7 +23,6 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.*;
 
-
 @Slf4j
 public class WIZZFlightScanner implements FlightScanner {
 
@@ -70,7 +69,6 @@ public class WIZZFlightScanner implements FlightScanner {
 
     @Override
     public List<JSONObject> parse(Long requestTimeout, Integer multiplierTimeout) {
-
 
         List<JSONObject> result = new ArrayList<>();
         Map<String, List<String>> authMap = new HashMap<>();

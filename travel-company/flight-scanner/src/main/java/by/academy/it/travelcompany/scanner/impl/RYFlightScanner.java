@@ -95,13 +95,13 @@ public class RYFlightScanner implements FlightScanner {
                         JSONObject jsonFare = (JSONObject) jsonFares.get(0);
                         Double amount = (Double) (jsonFare.get("amount"));
 
-                        Map<String,String> map = new HashMap();
-                        map.put("routeMap",routeMap);
-                        map.put("departureDateTime",departureDateTime);
-                        map.put("arriveDateTime",arriveDateTime);
-                        map.put("flightNumber",flightNumber);
-                        map.put("currency",currencyStr);
-                        map.put("amount",amount.toString());
+                        Map<String, String> map = new HashMap();
+                        map.put("routeMap", routeMap);
+                        map.put("departureDateTime", departureDateTime);
+                        map.put("arriveDateTime", arriveDateTime);
+                        map.put("flightNumber", flightNumber);
+                        map.put("currency", currencyStr);
+                        map.put("amount", amount.toString());
                         JSONObject foundFlight = new JSONObject(map);
 
                         result.add(foundFlight);

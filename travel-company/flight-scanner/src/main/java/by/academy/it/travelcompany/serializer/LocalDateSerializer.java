@@ -1,6 +1,5 @@
 package by.academy.it.travelcompany.serializer;
 
-
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.SerializerProvider;
@@ -22,4 +21,5 @@ public class LocalDateSerializer extends StdSerializer<LocalDate> {
     public void serialize(LocalDate value, JsonGenerator gen, SerializerProvider sp) throws IOException, JsonProcessingException {
         gen.writeString(value.format(DateTimeFormatter.ISO_LOCAL_DATE));
     }
+
 }

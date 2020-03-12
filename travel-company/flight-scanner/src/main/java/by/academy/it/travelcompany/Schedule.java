@@ -9,7 +9,6 @@ import java.time.LocalDate;
 import java.util.Set;
 import java.util.TreeSet;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -26,4 +25,5 @@ public class Schedule {
         }
         return currentDay.plusDays(1);
     }
+
 }

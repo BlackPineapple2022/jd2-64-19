@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 @Slf4j
 public class FlightSenderServiceImpl implements FlightSenderService {
