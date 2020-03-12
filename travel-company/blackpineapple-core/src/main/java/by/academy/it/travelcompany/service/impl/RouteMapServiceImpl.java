@@ -44,4 +44,6 @@ public class RouteMapServiceImpl implements RouteMapService {
        String destination = routeMapString.split("--")[2];
        return routeMapRepository.findByAirline_NameAndAirportOrigin_CodeAndAirportDestination_Code(airline,origin,destination);
     }
+
+
 }
