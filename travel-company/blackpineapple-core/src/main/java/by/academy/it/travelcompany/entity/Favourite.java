@@ -8,7 +8,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name ="FAVOURITE")
 @EqualsAndHashCode
@@ -17,13 +16,13 @@ import java.util.List;
 public class Favourite {
     @Id
     @Column(name = "FAVOURITE_ID")
-    @GenericGenerator(name = "one-one", strategy = "foreign",
+    @GenericGenerator(name = "one-one-favourite", strategy = "foreign",
             parameters = @Parameter(name = "property", value = "user"))
-    @GeneratedValue(generator = "one-one")
+    @GeneratedValue(generator = "one-one-favourite")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn(name = "USER_ID")
+    @PrimaryKeyJoinColumn
     private User user;
 
     @ManyToMany
@@ -32,4 +31,7 @@ public class Favourite {
             inverseJoinColumns = {@JoinColumn(name = "ROUND_TRIP_ID")})
     private List<RoundTrip> roundTripList;
 
+    public Favourite(User user) {
+        this.user = user;
+    }
 }

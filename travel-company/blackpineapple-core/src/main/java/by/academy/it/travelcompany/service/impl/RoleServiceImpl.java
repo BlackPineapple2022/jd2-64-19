@@ -19,4 +19,10 @@ public class RoleServiceImpl implements RoleService {
         log.info("Creating role "+ role);
         roleRepository.save(role);
     }
+
+    @Override
+    public Role getByName(String name) {
+        log.info("Getting role by name");
+        return roleRepository.findByName(name);
+    }
 }

@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 @EqualsAndHashCode
 @ToString
@@ -28,4 +27,10 @@ public class User {
 
     @OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Favourite favourite;
+
+    public User(String name,String password,Role role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
 }

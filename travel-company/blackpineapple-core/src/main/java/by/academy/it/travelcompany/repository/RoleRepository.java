@@ -7,4 +7,6 @@ import java.io.Serializable;
 
 public interface RoleRepository extends CrudRepository<Role, Serializable> {
 
+    Role findByName(String name);
+
 }

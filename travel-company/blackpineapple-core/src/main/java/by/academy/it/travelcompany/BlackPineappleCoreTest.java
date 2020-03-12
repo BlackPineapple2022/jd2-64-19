@@ -1,17 +1,22 @@
 package by.academy.it.travelcompany;
 
-import by.academy.it.travelcompany.entity.Airline;
-import by.academy.it.travelcompany.entity.Direction;
+import by.academy.it.travelcompany.entity.*;
 import by.academy.it.travelcompany.install.airline.AirlineInstaller;
 import by.academy.it.travelcompany.install.airport.AirportInstaller;
 import by.academy.it.travelcompany.install.currency.CurrencyInstaller;
 import by.academy.it.travelcompany.install.direction.DirectionInstaller;
+import by.academy.it.travelcompany.install.flightjournal.FlightJournalInstaller;
 import by.academy.it.travelcompany.install.role.RoleInstaller;
 import by.academy.it.travelcompany.install.routemap.RouteMapInstaller;
+import by.academy.it.travelcompany.install.user.UserInstaller;
 import by.academy.it.travelcompany.service.AirlineService;
 import by.academy.it.travelcompany.service.CurrencyService;
+import by.academy.it.travelcompany.service.FlightService;
+import by.academy.it.travelcompany.service.RouteMapService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import java.time.LocalDateTime;
 
 public class BlackPineappleCoreTest {
 
@@ -35,6 +40,12 @@ public class BlackPineappleCoreTest {
 
         RoleInstaller roleInstaller = context.getBean(RoleInstaller.class);
         roleInstaller.install();
+
+        FlightJournalInstaller flightJournalInstaller = context.getBean(FlightJournalInstaller.class);
+        flightJournalInstaller.install();
+
+        UserInstaller userInstaller = context.getBean(UserInstaller.class);
+        userInstaller.install();
 
 
     }

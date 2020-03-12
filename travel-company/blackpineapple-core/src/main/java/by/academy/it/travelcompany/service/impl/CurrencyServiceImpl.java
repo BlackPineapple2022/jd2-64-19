@@ -19,4 +19,10 @@ public class CurrencyServiceImpl implements CurrencyService {
         log.info("Creating currency" + currency);
         currencyRepository.save(currency);
     }
+
+    @Override
+    public Currency findByCode(String code) {
+       log.info("Finding currency by code" + code);
+       return currencyRepository.findByCode(code);
+    }
 }

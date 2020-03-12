@@ -7,4 +7,6 @@ public interface RoleService {
 
     void create(Role role);
 
+    Role getByName(String name);
+
 }

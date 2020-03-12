@@ -23,5 +23,6 @@ public enum CurrencyEnum {
     RUB,
     UAH,
     GEL,
-    ILS;
+    ILS,
+    USD;
 }
