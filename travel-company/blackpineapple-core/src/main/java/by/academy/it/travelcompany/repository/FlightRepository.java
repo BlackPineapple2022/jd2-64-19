@@ -6,9 +6,12 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public interface FlightRepository extends CrudRepository<Flight, Serializable> {
 
-    Flight getByRouteMapAndDepartureDateTimeAndFlightNumber(RouteMap routeMap, LocalDateTime departureDateTime,String flightNumber);
+    Flight getByRouteMapAndDepartureDateTimeAndFlightNumber(RouteMap routeMap, LocalDateTime departureDateTime, String flightNumber);
+
+    List<Flight> getAllByRouteMap(RouteMap routeMap);
 
 }

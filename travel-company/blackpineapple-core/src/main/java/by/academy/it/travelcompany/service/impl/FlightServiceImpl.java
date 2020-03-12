@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -34,4 +35,12 @@ public class FlightServiceImpl implements FlightService {
         }
 
     }
+
+    @Override
+    public List<Flight> getAllByRouteMap(RouteMap routeMap) {
+        log.info("Getting all flight by route map" + routeMap);
+        return flightRepository.getAllByRouteMap(routeMap);
+    }
+
+
 }

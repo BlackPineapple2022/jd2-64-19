@@ -5,7 +5,6 @@ import by.academy.it.travelcompany.dto.FlightDTO;
 import by.academy.it.travelcompany.entity.Currency;
 import by.academy.it.travelcompany.entity.Flight;
 import by.academy.it.travelcompany.entity.RouteMap;
-import by.academy.it.travelcompany.serializer.LocalDateTimeSerializer;
 import by.academy.it.travelcompany.service.CurrencyService;
 import by.academy.it.travelcompany.service.RouteMapService;
 import lombok.extern.slf4j.Slf4j;

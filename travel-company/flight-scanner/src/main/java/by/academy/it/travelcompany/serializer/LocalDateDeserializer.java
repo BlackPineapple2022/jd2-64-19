@@ -6,22 +6,21 @@ import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
-public class LocalDateTimeDeserializer extends StdDeserializer<LocalDateTime> {
+public class LocalDateDeserializer extends StdDeserializer<LocalDate> {
 
     private static final long serialVersionUID = 1L;
 
-    protected LocalDateTimeDeserializer() {
-        super(LocalDateTime.class);
+    protected LocalDateDeserializer() {
+        super(LocalDate.class);
     }
 
 
     @Override
-    public LocalDateTime deserialize(JsonParser jp, DeserializationContext ctxt)
+    public LocalDate deserialize(JsonParser jp, DeserializationContext ctxt)
             throws IOException, JsonProcessingException {
-        return LocalDateTime.parse(jp.readValueAs(String.class));
+        return LocalDate.parse(jp.readValueAs(String.class));
     }
 
 }
-

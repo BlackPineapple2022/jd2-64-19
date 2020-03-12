@@ -1,7 +1,5 @@
 package by.academy.it.travelcompany.entity;
 
-import by.academy.it.travelcompany.serializer.LocalDateDeserializer;
-import by.academy.it.travelcompany.serializer.LocalDateSerializer;
 import by.academy.it.travelcompany.serializer.LocalDateTimeDeserializer;
 import by.academy.it.travelcompany.serializer.LocalDateTimeSerializer;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;

@@ -1,6 +1,5 @@
 package by.academy.it.travelcompany.controller.rest;
 
-import by.academy.it.travelcompany.entity.FlightJournal;
 import by.academy.it.travelcompany.entity.RouteMap;
 import by.academy.it.travelcompany.service.FlightJournalService;
 import lombok.extern.slf4j.Slf4j;
