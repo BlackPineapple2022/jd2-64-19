@@ -8,4 +8,6 @@ public interface FlightScanner {
 
     List<JSONObject> parse(Long timeOut, Integer multiplier);
 
+
+
 }

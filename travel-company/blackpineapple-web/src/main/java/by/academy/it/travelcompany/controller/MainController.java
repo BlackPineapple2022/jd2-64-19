@@ -12,7 +12,7 @@ public class MainController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {
         log.debug("home controller");
-        return "home";
+        return "about";
     }
 
 }

@@ -8,7 +8,7 @@
         </layout>
     </appender>
 
-    <property name="HOME_LOG" value="logs/blackpineapple.log"/>
+    <property name="HOME_LOG" value="logs/flightupdater.log"/>
 
     <appender name="FILE-ROLLING" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${HOME_LOG}</file>
