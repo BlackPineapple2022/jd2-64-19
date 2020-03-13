@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.io.Serializable;
+import java.util.List;
 
 @Transactional
 @Service
@@ -41,4 +42,8 @@ public abstract class AbstractCRUDService<E> implements CRUDService<E> {
         abstractDAO.delete(id);
     }
 
+    @Override
+    public List<E> findAll() {
+        return abstractDAO.findAll();
+    }
 }

@@ -1,6 +1,7 @@
 package by.academy.it.travelcompany.orm.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface DAO<E> {
 
@@ -12,5 +13,6 @@ public interface DAO<E> {
 
     void delete(Serializable id);
 
+    List<E> findAll();
 }
 

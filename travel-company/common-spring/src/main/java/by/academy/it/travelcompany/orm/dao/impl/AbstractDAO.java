@@ -9,23 +9,27 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
+import java.util.List;
 
 @Repository
 public abstract class AbstractDAO<E> implements DAO<E> {
 
     private final Class<E> clazz;
     ThreadLocal<EntityManager> em = new ThreadLocal<>();
+    private final String GET_ALL;
 
     @Autowired
     private EntityManagerFactory entityManagerFactory;
 
     protected AbstractDAO(Class<E> clazz) {
         this.clazz = clazz;
+        this.GET_ALL = "FROM " + clazz.getSimpleName();
     }
 
     @Override
     public E get(Serializable id) {
-        return getEm().find(clazz, id);
+        E e = getEm().find(clazz, id);
+        return e;
     }
 
     @Override
@@ -54,6 +58,14 @@ public abstract class AbstractDAO<E> implements DAO<E> {
         commit();
     }
 
+    @Override
+    public List<E> findAll() {
+        begin();
+        List<E> es =  getEm().createQuery(GET_ALL,clazz).getResultList();
+        commit();
+        return es;
+    }
+
     public EntityManager getEm() {
 
         if (em.get() == null) {
@@ -63,11 +75,9 @@ public abstract class AbstractDAO<E> implements DAO<E> {
 
     }
 
-
     public void begin() {
         getEm().getTransaction().begin();
     }
-
 
     public void commit() {
         getEm().getTransaction().commit();

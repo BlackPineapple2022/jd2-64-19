@@ -1,5 +1,6 @@
 package by.academy.it.travelcompany.orm.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,8 +21,7 @@ public class Department {
     private Long id;
 
     private String departmentName;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "department")
-    @Access(AccessType.PROPERTY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Employee> employeeList = new ArrayList<>();
 }
