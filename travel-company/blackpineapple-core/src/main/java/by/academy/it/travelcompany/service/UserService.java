@@ -6,4 +6,8 @@ public interface UserService {
 
     void create(User user);
 
+    User findByUserNameAndPassword(String userName, String password);
+
+    Boolean isExist(String userName);
+
 }

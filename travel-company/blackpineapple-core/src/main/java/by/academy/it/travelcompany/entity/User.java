@@ -21,7 +21,7 @@ public class User {
     private String password;
     @Column(name = "USER_SALT")
     private String salt;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 

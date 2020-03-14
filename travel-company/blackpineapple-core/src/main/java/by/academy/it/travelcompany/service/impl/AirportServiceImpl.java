@@ -7,6 +7,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Slf4j
 public class AirportServiceImpl implements AirportService {
@@ -23,5 +26,22 @@ public class AirportServiceImpl implements AirportService {
     @Override
     public Airport getByCode(String code) {
         return airportRepository.getByCode(code);
+    }
+
+    @Override
+    public List<Airport> getStartedAirportList() {
+        Iterable<Airport> airports = airportRepository.findAll();
+        List<Airport> result = new ArrayList<>();
+        for (Airport airport : airports) {
+            if(
+                    !airport.getCode().equals("VNO")||
+                    !airport.getCode().equals("KUN")||
+                    !airport.getCode().equals("WAW")||
+                    !airport.getCode().equals("WMI")
+            ){
+                result.add(airport);
+            }
+        }
+        return result;
     }
 }

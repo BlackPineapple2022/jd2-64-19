@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -40,6 +41,13 @@ public class FlightServiceImpl implements FlightService {
     public List<Flight> getAllByRouteMap(RouteMap routeMap) {
         log.info("Getting all flight by route map" + routeMap);
         return flightRepository.getAllByRouteMap(routeMap);
+    }
+
+    @Override
+    public List<Flight> getAllByRouteMapBetweenDateTime(RouteMap routeMap, LocalDate localDateStartL, LocalDate localDateEndL) {
+        log.info(String.format("Getting all flight by %s between date %s and %s ",routeMap,localDateStartL,localDateEndL));
+        return flightRepository.getAllByRouteMapAndArriveDateTimeIsAfterAndArriveDateTimeIsBefore(
+                routeMap,localDateStartL.atStartOfDay(),localDateEndL.atStartOfDay());
     }
 
 

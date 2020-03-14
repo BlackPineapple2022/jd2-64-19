@@ -7,4 +7,6 @@ import java.io.Serializable;
 
 public interface UserRepository extends CrudRepository<User, Serializable> {
 
+    User getUserByName(String userName);
+
 }

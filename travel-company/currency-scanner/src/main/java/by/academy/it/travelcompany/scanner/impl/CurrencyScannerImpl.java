@@ -3,12 +3,14 @@ package by.academy.it.travelcompany.scanner.impl;
 import by.academy.it.travelcompany.CurrencyScanner;
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 
 @Slf4j
+@Service
 public class CurrencyScannerImpl implements CurrencyScanner {
 
     private static final String ACCESS_KEY = "872986e602ba0f07b2dfceea07408ea1";

@@ -67,13 +67,7 @@
 
 <div style="background:#404040; text-align: right; font-size: 18px; text-decoration: none; font-family: Arial,serif; padding: 10px; color: #F2BD1D">
 
-    <c:if test="${user != null && user.role eq 'ADMIN'}">
-        <a class="a-top" href="${pageContext.request.contextPath}/admin">
-            admin Panel
-        </a>
-    </c:if>
-
-    <c:if test="${user != null}">Добро пожаловать, <b>${user.userName}</b>
+    <c:if test="${user != null}">Добро пожаловать, <b>${user.name}</b>
         <a class="a-top" href="${pageContext.request.contextPath}/logout">Выход</a>
     </c:if>
 

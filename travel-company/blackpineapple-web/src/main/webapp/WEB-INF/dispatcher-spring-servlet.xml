@@ -17,6 +17,8 @@
 ">
 
     <mvc:annotation-driven/>
+
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
     <context:annotation-config/>
     <context:component-scan base-package="by.academy.it"/>
     <tx:annotation-driven/>

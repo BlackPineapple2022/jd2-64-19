@@ -6,9 +6,8 @@ import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
-@ToString
+@ToString(exclude = {"favouriteList"})
 @Entity
 @Table(name = "ROUND_TRIP")
 public class RoundTrip {
@@ -27,4 +26,13 @@ public class RoundTrip {
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roundTripList")
     private List<Favourite> favouriteList;
+
+    @Transient
+    private Double price;
+
+    public RoundTrip(Flight directFlight, Flight returnFlight, Double price) {
+        this.directFlight = directFlight;
+        this.returnFlight = returnFlight;
+        this.price = price;
+    }
 }
