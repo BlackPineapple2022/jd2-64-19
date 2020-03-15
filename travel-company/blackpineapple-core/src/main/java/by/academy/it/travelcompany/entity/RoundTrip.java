@@ -10,6 +10,7 @@ import java.util.List;
 @ToString(exclude = {"favouriteList"})
 @Entity
 @Table(name = "ROUND_TRIP")
+@EqualsAndHashCode(exclude = {"id","favouriteList","price"})
 public class RoundTrip {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +36,6 @@ public class RoundTrip {
         this.returnFlight = returnFlight;
         this.price = price;
     }
+
+
 }

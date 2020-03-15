@@ -57,8 +57,8 @@
 <div style="background: #404040; padding-bottom: 30px; alignment: center; text-align: center">
     <a href="${pageContext.request.contextPath}/about" class="a-head">О проекте </a> <a
         href="${pageContext.request.contextPath}/specific" class="a-head">Поиск авиабилетов </a> <a
-        href="${pageContext.request.contextPath}/user/favourite" class="a-head green">Избранное</a><a
-        href="${pageContext.request.contextPath}/user/favourite/updateInfo" class="a-head red">Обновление цен</a>
+        href="${pageContext.request.contextPath}/favourite" class="a-head green">Избранное</a><a
+        href="${pageContext.request.contextPath}/favourite/update" class="a-head red">Обновление цен</a>
 </div>
 
 

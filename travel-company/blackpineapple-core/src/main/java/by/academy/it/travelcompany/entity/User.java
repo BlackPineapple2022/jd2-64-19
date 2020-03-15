@@ -25,7 +25,7 @@ public class User {
     @JoinColumn(name = "ROLE_ID")
     private Role role;
 
-    @OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne (mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Favourite favourite;
 
     public User(String name,String password,Role role) {

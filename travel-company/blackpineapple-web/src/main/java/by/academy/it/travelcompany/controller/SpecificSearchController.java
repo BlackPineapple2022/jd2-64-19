@@ -531,12 +531,23 @@ public class SpecificSearchController {
 
         tripList.sort(Comparator.comparing(RoundTrip::getPrice));
 
-        if (tripList.size()==0){
-            tripList=null;
+
+
+        List<RoundTrip> returnList = new ArrayList<>();
+
+        for (int i = 0; i < tripList.size(); i++) {
+            if (i < 20) {
+                tripList.get(i).setId(Long.parseLong("" + i));
+                returnList.add(tripList.get(i));
+            }
         }
 
-        httpSession.setAttribute("trips",tripList);
-        System.err.println(tripList);
+        if (returnList.size()==0){
+            returnList=null;
+        }
+
+        httpSession.setAttribute("trips",returnList);
+        System.err.println(returnList);
         return "specificresult";
 
     }
