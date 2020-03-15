@@ -58,7 +58,7 @@
     <a href="${pageContext.request.contextPath}/about" class="a-head">О проекте </a> <a
         href="${pageContext.request.contextPath}/specific" class="a-head">Поиск авиабилетов </a> <a
         href="${pageContext.request.contextPath}/favourite" class="a-head green">Избранное</a><a
-        href="${pageContext.request.contextPath}/favourite/update" class="a-head red">Обновление цен</a>
+        href="${pageContext.request.contextPath}/update" class="a-head red">Обновление цен</a>
 </div>
 
 

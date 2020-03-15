@@ -40,4 +40,16 @@ public class FlightConverterImpl implements FlightConverter {
 
 
     }
+
+    @Override
+    public FlightDTO convert(Flight flight) {
+        FlightDTO flightDTO = new FlightDTO();
+        flightDTO.setAmount(flight.getPrice());
+        flightDTO.setDepartureDateTime(flight.getDepartureDateTime().toString());
+        flightDTO.setArriveDateTime(flight.getArriveDateTime().toString());
+        flightDTO.setFlightNumber(flight.getFlightNumber());
+        flightDTO.setCurrency(flight.getCurrency().getCode());
+        flightDTO.setRouteMap(flight.getRouteMap().toString());
+        return flightDTO;
+    }
 }

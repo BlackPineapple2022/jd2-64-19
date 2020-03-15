@@ -25,7 +25,7 @@ public class FlightRestController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<JSONObject> updateFlight(
+    public String updateFlight(
             @RequestBody List<FlightDTO> flightDTOs) {
 
         List<JSONObject> response = new ArrayList<>();
@@ -50,7 +50,6 @@ public class FlightRestController {
                 LocalDate localDate = LocalDateTime.parse(flightDTO.getDepartureDateTime()).toLocalDate();
                 wizzDataList.add(new FlightScannerData(routeMap, 0, localDate));
                 wizzFlightDTO.add(flightDTO);
-
             }
         }
 
@@ -77,6 +76,6 @@ public class FlightRestController {
         response.addAll(ryRespDirty);
         response.addAll(wizzRespDirty);
         log.info("updating flight are completed: "+ response);
-        return response;
+        return response.toString();
     }
 }

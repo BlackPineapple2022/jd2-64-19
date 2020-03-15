@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name ="FAVOURITE")
-@EqualsAndHashCode
+@EqualsAndHashCode (exclude = {"id","roundTripList"})
 @ToString
 @Data
 public class Favourite {

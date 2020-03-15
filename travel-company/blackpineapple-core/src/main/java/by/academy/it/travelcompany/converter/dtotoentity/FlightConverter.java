@@ -7,4 +7,6 @@ public interface FlightConverter {
 
     Flight convert(FlightDTO flightDTO);
 
+    FlightDTO convert(Flight flight);
+
 }

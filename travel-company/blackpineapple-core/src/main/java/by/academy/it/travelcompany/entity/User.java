@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode
+@EqualsAndHashCode(exclude = {"id","password","salt","role","favourite"})
 @ToString
 @Entity
 @Table(name = "USER")
