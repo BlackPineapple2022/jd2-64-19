@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.service.features;
 
-import by.academy.it.travelcompany.travelitem.features.transfer.Transfer;
+import by.academy.it.travelcompany.travelcompany.travelitem.features.transfer.Transfer;
 
 import java.util.List;
 

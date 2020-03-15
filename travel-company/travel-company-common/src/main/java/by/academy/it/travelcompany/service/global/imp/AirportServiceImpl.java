@@ -1,9 +1,9 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.AirportDAO;
-import by.academy.it.travelcompany.dao.impl.AirportDAOImpl;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.airport.AirportInfoCentre;
+import by.academy.it.travelcompany.travelcompany.dao.AirportDAO;
+import by.academy.it.travelcompany.travelcompany.dao.impl.AirportDAOImpl;
+import by.academy.it.travelcompany.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelcompany.travelitem.airport.AirportInfoCentre;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;

@@ -1,12 +1,12 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.FlightDAO;
-import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
+import by.academy.it.travelcompany.travelcompany.dao.FlightDAO;
+import by.academy.it.travelcompany.travelcompany.dao.impl.FlightDAOImpl;
 import by.academy.it.travelcompany.service.global.ScheduleService;
-import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
-import by.academy.it.travelcompany.travelitem.schedule.Schedule;
+import by.academy.it.travelcompany.travelcompany.travelitem.airline.AirlineEnum;
+import by.academy.it.travelcompany.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelcompany.travelitem.routemap.RouteMap;
+import by.academy.it.travelcompany.travelcompany.travelitem.schedule.Schedule;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;

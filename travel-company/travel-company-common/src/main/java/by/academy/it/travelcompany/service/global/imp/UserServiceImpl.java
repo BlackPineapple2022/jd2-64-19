@@ -1,10 +1,10 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.UserDAO;
-import by.academy.it.travelcompany.dao.impl.UserDAOImpl;
+import by.academy.it.travelcompany.travelcompany.dao.UserDAO;
+import by.academy.it.travelcompany.travelcompany.dao.impl.UserDAOImpl;
 import by.academy.it.travelcompany.security.EncryptUtils;
 import by.academy.it.travelcompany.service.global.UserService;
-import by.academy.it.travelcompany.user.User;
+import by.academy.it.travelcompany.travelcompany.user.User;
 
 import java.util.Optional;
 

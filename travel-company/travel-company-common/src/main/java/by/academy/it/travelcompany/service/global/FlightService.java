@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.service.global;
 
-import by.academy.it.travelcompany.travelitem.flight.Flight;
+import by.academy.it.travelcompany.travelcompany.travelitem.flight.Flight;
 
 import java.time.LocalDate;
 import java.util.List;

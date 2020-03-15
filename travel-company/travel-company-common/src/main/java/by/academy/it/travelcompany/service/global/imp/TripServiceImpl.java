@@ -1,14 +1,14 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.FlightDAO;
-import by.academy.it.travelcompany.dao.RoundTripDAO;
-import by.academy.it.travelcompany.dao.impl.FlightDAOImpl;
-import by.academy.it.travelcompany.dao.impl.RoundTripDAOImpl;
-import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScanner;
-import by.academy.it.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
+import by.academy.it.travelcompany.travelcompany.dao.FlightDAO;
+import by.academy.it.travelcompany.travelcompany.dao.RoundTripDAO;
+import by.academy.it.travelcompany.travelcompany.dao.impl.FlightDAOImpl;
+import by.academy.it.travelcompany.travelcompany.dao.impl.RoundTripDAOImpl;
+import by.academy.it.travelcompany.travelcompany.scanner.currencyscaner.CurrencyScanner;
+import by.academy.it.travelcompany.travelcompany.scanner.currencyscaner.CurrencyScannerImpl;
 import by.academy.it.travelcompany.service.global.TripService;
-import by.academy.it.travelcompany.travelitem.flight.Flight;
-import by.academy.it.travelcompany.travelitem.trip.Trip;
+import by.academy.it.travelcompany.travelcompany.travelitem.flight.Flight;
+import by.academy.it.travelcompany.travelcompany.travelitem.trip.Trip;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;

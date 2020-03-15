@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.service.global;
 
-import by.academy.it.travelcompany.travelitem.airline.Airline;
+import by.academy.it.travelcompany.travelcompany.travelitem.airline.Airline;
 
 import java.util.List;
 import java.util.Optional;

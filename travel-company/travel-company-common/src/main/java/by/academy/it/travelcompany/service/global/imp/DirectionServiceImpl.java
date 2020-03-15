@@ -1,7 +1,7 @@
 package by.academy.it.travelcompany.service.global.imp;
 
-import by.academy.it.travelcompany.dao.DirectionDAO;
-import by.academy.it.travelcompany.dao.impl.DirectionDAOImpl;
+import by.academy.it.travelcompany.travelcompany.dao.DirectionDAO;
+import by.academy.it.travelcompany.travelcompany.dao.impl.DirectionDAOImpl;
 import lombok.extern.slf4j.Slf4j;
 
 import java.sql.SQLException;

@@ -1,8 +1,7 @@
 package by.academy.it.travelcompany.service.global;
 
-import by.academy.it.travelcompany.travelitem.trip.Trip;
+import by.academy.it.travelcompany.travelcompany.travelitem.trip.Trip;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 

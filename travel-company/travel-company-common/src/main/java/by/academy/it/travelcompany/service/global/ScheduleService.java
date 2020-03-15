@@ -1,9 +1,9 @@
 package by.academy.it.travelcompany.service.global;
 
-import by.academy.it.travelcompany.travelitem.airline.AirlineEnum;
-import by.academy.it.travelcompany.travelitem.airport.Airport;
-import by.academy.it.travelcompany.travelitem.routemap.RouteMap;
-import by.academy.it.travelcompany.travelitem.schedule.Schedule;
+import by.academy.it.travelcompany.travelcompany.travelitem.airline.AirlineEnum;
+import by.academy.it.travelcompany.travelcompany.travelitem.airport.Airport;
+import by.academy.it.travelcompany.travelcompany.travelitem.routemap.RouteMap;
+import by.academy.it.travelcompany.travelcompany.travelitem.schedule.Schedule;
 
 import java.time.LocalDate;
 

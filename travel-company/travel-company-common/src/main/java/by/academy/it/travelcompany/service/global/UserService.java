@@ -1,6 +1,6 @@
 package by.academy.it.travelcompany.service.global;
 
-import by.academy.it.travelcompany.user.User;
+import by.academy.it.travelcompany.travelcompany.user.User;
 
 import java.util.Optional;
 

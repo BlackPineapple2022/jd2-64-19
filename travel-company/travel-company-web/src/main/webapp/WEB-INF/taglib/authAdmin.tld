@@ -8,7 +8,7 @@
     <short-name>authAdmin</short-name>
     <tag>
         <name>authAdminTag</name>
-        <tag-class>by.academy.it.travelcompany.tags.custom.AuthAdminTag</tag-class>
+        <tag-class>by.academy.it.travelcompany.travelcompany.tags.custom.AuthAdminTag</tag-class>
         <body-content>JSP</body-content>
         <attribute>
             <name>path</name>
