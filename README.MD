@@ -47,7 +47,7 @@
 
 ### 2 Установка blackpineapple-installer
 
-2.1 Откройте файл `src/main/resources/spring-config.xml` из модуля blackpineapple-core и отредактируйте аттрибуты для доступа к БД:
+2.1 Откройте файл `src/main/resources/spring-config.xml` из модуля **blackpineapple-core** и отредактируйте аттрибуты для доступа к БД:
 
  - **jdbcUrl**
 
@@ -74,15 +74,15 @@ _INSTALL OR UPDATE STARTING DATE_, по завершению установки 
 
 ### 4 Установка blackpineapple-web
 
-4.1 Откройте файл `src/main/webapp/WEB-INF/dispatcher-spring-servlet.xml` из модуля blackpineapple-web и повторите п 2.1 
+4.1 Откройте файл `src/main/webapp/WEB-INF/dispatcher-spring-servlet.xml` из модуля **blackpineapple-web** и повторите п. 2.1 
 
-4.2 Откройте файл `src/main/resources/blackpineapple.properties` из модуля blackpineapple-web и пропишите контекстный путь к fligh-updater 
+4.2 Откройте файл `src/main/resources/blackpineapple.properties` из модуля **blackpineapple-web** и пропишите контекстный путь к **flight-updater** 
 
 **flight.updater.path**
 
 пример для работы на локальной машине: `flight.updater.path=http://localhost:8080/flightupdater/`
 
-4.2 Скомпилируйте blackpineapple-web, разверните
+4.2 Скомпилируйте **blackpineapple-web.war**, разверните
 
 ### 5 Установка flight-finder
 
@@ -92,5 +92,7 @@ _INSTALL OR UPDATE STARTING DATE_, по завершению установки 
 
 пример для работы на локальной машине: `main.web.project.path=http://localhost:8080/blackpineapple/`
 
-5.2 Скомпилируйте flight-finder, разверните, на главной странице активируйте сканеры.
+5.2 Скомпилируйте **flight-finder.war**, разверните, на главной странице активируйте сканеры.
+
+
 
