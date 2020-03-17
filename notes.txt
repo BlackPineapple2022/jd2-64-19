@@ -1,18 +1,6 @@
-
 API key fixer.io
 1eb5276f5726efc74fbf3799adcf7973
 http://data.fixer.io/api/latest?access_key=1eb5276f5726efc74fbf3799adcf7973
 
-From 01/01/2020
 http://data.fixer.io/api/latest?access_key=872986e602ba0f07b2dfceea07408ea1
 872986e602ba0f07b2dfceea07408ea1
-
-TODO
-1. Updater currency rate
-2. Check on spec search max day can not be less than min day
-3. User friendly and understandable interface (specify search (Полша, Литва), flag to chose all starting airports, button for copy all destinations to return origins and other)
-4. Pictures where no find problem
-5. Нумерация при поиске, нумерация в избранных
-6. Белорусский язык
-7. Кастомные списки.
-8. Телеграм бот
