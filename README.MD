@@ -44,9 +44,9 @@
 
 Категорически не рекомендуется размещать flight-finder и flight-updater а одном сервере
 
-1. Создайте новую БД MySql 
+1 Создайте новую БД MySql 
 
-2.1. Откройте файл src/main/resources/spring-config.xml из модуля blackpineapple-core и установите:
+2.1 Откройте файл src/main/resources/spring-config.xml из модуля blackpineapple-core и отредактируйте аттрибуты:
 
 **jdbcUrl**
 
@@ -64,9 +64,9 @@
 2.2 Скомпилируйте **blackpineapple-installer-war**, разверните, на главной странице нажмите на кнопку: 
 _INSTALL OR UPDATE STARTING DATE_ по завершению установки Вы увидите сообщение: _Thanks for installing data_
 
-2.3. Выключите приложение **blackpineapple-installer-war**, затем удалите, во избежания случайной инициализации при перезапуске сервера.
+2.3 Выключите приложение **blackpineapple-installer-war**, затем удалите, во избежания случайной инициализации при перезапуске сервера.
 
-3. Скомпилируете **flight-updater-web.war**, разверните, на главной странице Вы увидите сообщение: _Welcome to flight updater web module_
+3 Скомпилируете **flight-updater-web.war**, разверните, на главной странице Вы увидите сообщение: _Welcome to flight updater web module_
 
 
 
