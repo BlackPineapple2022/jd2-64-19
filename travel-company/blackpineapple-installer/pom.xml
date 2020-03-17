@@ -104,6 +104,6 @@
   </dependencies>
 
   <build>
-    <finalName>flight-finder-web</finalName>
+    <finalName>blackpineapple-intaller</finalName>
   </build>
 </project>

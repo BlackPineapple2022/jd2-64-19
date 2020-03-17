@@ -26,10 +26,10 @@
 Варшавы-Модлен, Варшавы-Шопен. 
 
 ## blackpineapple-installer
-Самостоятельное веб приложение для создания структуры БД и заполнения начальными значениями
+Самостоятельное веб приложение для создания структуры БД и заполнения начальными значениями.
 
 ## blackpineapple-core
-Модуль содержит дао, сервисы, репозитории, модели, утилиты и реализовывет логику проекта
+Модуль содержит дао, сервисы, репозитории, модели, утилиты и реализовывет логику проекта.
 
 ## blackpineapple-web 
 Основное веб приложение проекта, также содержит REST API сервис для взаимодействия с другими модулями. 
@@ -38,12 +38,27 @@
 
 Все веб приложения могут быть размещены как на одном, так и на различных серверах, рекомендуемая конфигурация: 
 
-1. Первый сервер: blackpineapple-web + blackpineapple-installer + база данных 
-2. Второй сервер: flight-finder
-3. Третий сервер: flight-updater.
+Первый сервер: blackpineapple-web + blackpineapple-installer + база данных 
+Второй сервер: flight-finder
+Третий сервер: flight-updater.
 
 Категорически не рекомендуется размещать flight-finder и flight-updater а одном сервере
 
-
+1. Создайте новую БД MySql 
+2.1. Откройте файл src/main/resources/spring-config.xml из модуля blackpineapple-core и установите:
+2.2. jdbcUrl
+Пример для работы на локальной машине: 
+`<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/blackpineapple?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>`
+2.3. user
+Пример для работы на локальной машине: 
+`<prop key="user">root</prop>`
+2.4. password
+Пример для работы на локальной машине: 
+`<prop key="password">1234</prop>`
+2.5 Скомпилируйте blackpineapple-installer-war, разверните, на главной странице нажмите на кнопку: 
+**INSTALL OR UPDATE STARTING DATE** по завершению установки Вы увидите сообщение: **Thanks for installing data**
+2.6. Выключите приложение blackpineapple-installer-war, затем удалите, во избежания случайной инициализации при перезапуске сервера.
+3. Скомпилируете flight-updater-web.war, разверните, на главной странице Вы увидите сообщение: **Welcome to flight updater web module**
+4.1.  
 
 
