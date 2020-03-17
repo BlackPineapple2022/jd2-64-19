@@ -6,4 +6,5 @@ import org.json.JSONObject;
 public interface CurrencyScanner {
 
     JSONObject parse();
+
 }

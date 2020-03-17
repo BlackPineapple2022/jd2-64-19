@@ -1,4 +1,4 @@
-package by.academy.it.travelcompany.controller;
+package by.academy.it.travelcompany.sender;
 
 public interface SenderService {
 
