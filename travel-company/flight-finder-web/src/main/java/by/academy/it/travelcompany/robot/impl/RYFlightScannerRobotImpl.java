@@ -36,22 +36,26 @@ public class RYFlightScannerRobotImpl implements RYFlightScannerRobot {
 
     @Override
     public void start(Integer dayCount, Long timeOut, Integer multiplier) {
-        if (isActive) {
-            return;
-        }
-        isActive = true;
-        while (isActive) {
-            log.info("RY Robot activated");
-            String routeMapString = routeMapStringProvider.getRouteMapStringWithOlderScanningByAirline("RY");
-            Schedule schedule = scheduleProvider.getScheduleByRouteMapString(routeMapString);
-            FlightScannerData data = new FlightScannerData(routeMapString, dayCount, LocalDate.now());
-            FlightScanner flightScanner = new RYFlightScanner(data, schedule);
-            List<JSONObject> result = flightScanner.parse(timeOut, multiplier);
-            flightSenderService.sendData(result);
-        }
-        isActive = false;
+        try{
+            if (isActive) {
+                return;
+            }
+            isActive = true;
+            while (isActive) {
 
+                log.info("RY Robot activated");
+                String routeMapString = routeMapStringProvider.getRouteMapStringWithOlderScanningByAirline("RY");
+                Schedule schedule = scheduleProvider.getScheduleByRouteMapString(routeMapString);
+                FlightScannerData data = new FlightScannerData(routeMapString, dayCount, LocalDate.now());
+                FlightScanner flightScanner = new RYFlightScanner(data, schedule);
+                List<JSONObject> result = flightScanner.parse(timeOut, multiplier);
+                flightSenderService.sendData(result);
+            }
+            isActive = false;
+        }catch (Exception e ){
+            isActive = false;
+            log.error("Error while RY robot is working");
+        }
     }
-
 
 }

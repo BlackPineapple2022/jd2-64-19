@@ -37,20 +37,28 @@ public class WIZZFlightScannerRobotImpl implements WIZZFlightScannerRobot {
 
     @Override
     public void start(Integer dayCount, Long timeOut, Integer multiplier) {
-        if (isActive) {
-            return;
+
+        try {
+
+            if (isActive) {
+                return;
+            }
+            isActive = true;
+            while (isActive) {
+                log.info("WIZZ Robot activated");
+                String routeMapString = routeMapStringProvider.getRouteMapStringWithOlderScanningByAirline("WIZZ");
+                Schedule schedule = scheduleProvider.getScheduleByRouteMapString(routeMapString);
+                FlightScannerData data = new FlightScannerData(routeMapString, dayCount, LocalDate.now());
+                FlightScanner flightScanner = new WIZZFlightScanner(data, schedule);
+                List<JSONObject> result = flightScanner.parse(timeOut, multiplier);
+                flightSenderService.sendData(result);
+            }
+            isActive = false;
+
+        }catch (Exception e){
+            isActive = false;
+            log.error("Error while WIZZ ROBOT working");
         }
-        isActive = true;
-        while (isActive) {
-            log.info("WIZZ Robot activated");
-            String routeMapString = routeMapStringProvider.getRouteMapStringWithOlderScanningByAirline("WIZZ");
-            Schedule schedule = scheduleProvider.getScheduleByRouteMapString(routeMapString);
-            FlightScannerData data = new FlightScannerData(routeMapString, dayCount, LocalDate.now());
-            FlightScanner flightScanner = new WIZZFlightScanner(data, schedule);
-            List<JSONObject> result = flightScanner.parse(timeOut, multiplier);
-            flightSenderService.sendData(result);
-        }
-        isActive = false;
 
     }
 

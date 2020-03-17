@@ -40,6 +40,8 @@ public class BlackPineappleCoreInstaller {
         UserInstaller userInstaller = context.getBean(UserInstaller.class);
         userInstaller.install();
 
+        ((ClassPathXmlApplicationContext)context).close();
+
 
     }
 

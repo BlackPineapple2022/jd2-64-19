@@ -51,6 +51,7 @@
         <module>currency-scanner</module>
         <module>blackpineapple-web</module>
         <module>blackpineapple-core</module>
+        <module>blackpineapple-installer</module>
     </modules>
 
     <dependencyManagement>
