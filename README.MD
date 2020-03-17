@@ -45,20 +45,29 @@
 Категорически не рекомендуется размещать flight-finder и flight-updater а одном сервере
 
 1. Создайте новую БД MySql 
+
 2.1. Откройте файл src/main/resources/spring-config.xml из модуля blackpineapple-core и установите:
-2.2. jdbcUrl
-Пример для работы на локальной машине: 
+
+**jdbcUrl**
+
+пример для работы на локальной машине: 
 `<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/blackpineapple?useUnicode=true&amp;characterEncoding=UTF-8&amp;useSSL=false&amp;serverTimezone=UTC"/>`
-2.3. user
-Пример для работы на локальной машине: 
-`<prop key="user">root</prop>`
-2.4. password
-Пример для работы на локальной машине: 
-`<prop key="password">1234</prop>`
-2.5 Скомпилируйте blackpineapple-installer-war, разверните, на главной странице нажмите на кнопку: 
-**INSTALL OR UPDATE STARTING DATE** по завершению установки Вы увидите сообщение: **Thanks for installing data**
-2.6. Выключите приложение blackpineapple-installer-war, затем удалите, во избежания случайной инициализации при перезапуске сервера.
-3. Скомпилируете flight-updater-web.war, разверните, на главной странице Вы увидите сообщение: **Welcome to flight updater web module**
-4.1.  
+
+**user**
+
+пример для работы на локальной машине:`<prop key="user">root</prop>`
+
+**password**
+
+пример для работы на локальной машине:`<prop key="password">1234</prop>`
+
+2.2 Скомпилируйте **blackpineapple-installer-war**, разверните, на главной странице нажмите на кнопку: 
+_INSTALL OR UPDATE STARTING DATE_ по завершению установки Вы увидите сообщение: _Thanks for installing data_
+
+2.3. Выключите приложение **blackpineapple-installer-war**, затем удалите, во избежания случайной инициализации при перезапуске сервера.
+
+3. Скомпилируете **flight-updater-web.war**, разверните, на главной странице Вы увидите сообщение: _Welcome to flight updater web module_
+
+
 
 
