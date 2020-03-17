@@ -21,13 +21,13 @@ import java.util.List;
 @Slf4j
 public class FlightRestController {
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
     @Autowired
-    FlightConverter flightConverter;
+    private FlightConverter flightConverter;
     @Autowired
-    RouteMapService routeMapService;
+    private RouteMapService routeMapService;
     @Autowired
-    FlightJournalService flightJournalService;
+    private FlightJournalService flightJournalService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)

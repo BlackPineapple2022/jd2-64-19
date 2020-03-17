@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 public class MainController {
 
     @Autowired
-    RYFlightScannerRobot ryFlightScannerRobot;
+    private RYFlightScannerRobot ryFlightScannerRobot;
 
     @Autowired
-    WIZZFlightScannerRobot wizzFlightScannerRobot;
+    private WIZZFlightScannerRobot wizzFlightScannerRobot;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String home() {

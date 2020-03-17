@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class DirectionInstallerImpl implements DirectionInstaller {
 
     @Autowired
-    DirectionService directionService;
+    private DirectionService directionService;
 
     @Override
     public void install() {

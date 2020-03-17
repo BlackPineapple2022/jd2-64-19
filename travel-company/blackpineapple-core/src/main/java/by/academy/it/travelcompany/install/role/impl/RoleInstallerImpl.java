@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class RoleInstallerImpl implements RoleInstaller {
 
     @Autowired
-    RoleService roleService;
+    private RoleService roleService;
 
     @Override
     public void install() {

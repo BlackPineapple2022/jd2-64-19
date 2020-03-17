@@ -20,14 +20,15 @@ import java.util.List;
 @Service
 @Slf4j
 public class RouteMapInstallerImpl implements RouteMapInstaller {
+
     @Autowired
-    RouteMapService routeMapService;
+    private RouteMapService routeMapService;
     @Autowired
-    AirlineService airlineService;
+    private AirlineService airlineService;
     @Autowired
-    DirectionService directionService;
+    private DirectionService directionService;
     @Autowired
-    AirportService airportService;
+    private AirportService airportService;
 
     @Override
     public void install() {

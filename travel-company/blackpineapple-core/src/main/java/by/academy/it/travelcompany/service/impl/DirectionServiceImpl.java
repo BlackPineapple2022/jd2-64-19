@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class DirectionServiceImpl implements DirectionService {
 
     @Autowired
-    DirectionRepository directionRepository;
+    private DirectionRepository directionRepository;
 
     @Override
     public void create(Direction direction) {

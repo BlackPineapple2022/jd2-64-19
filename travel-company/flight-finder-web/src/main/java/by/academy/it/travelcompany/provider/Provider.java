@@ -1,7 +1,9 @@
 package by.academy.it.travelcompany.provider;
 
+import java.util.ResourceBundle;
+
 public interface Provider {
 
-    String apiAddress = "http://localhost:8080/blackpineapple/";
+    String apiAddress = ResourceBundle.getBundle("flightfinder").getString("main.web.project.path");
 
 }

@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 public class CurrencyServiceImpl implements CurrencyService {
 
     @Autowired
-    CurrencyRepository currencyRepository;
+    private CurrencyRepository currencyRepository;
 
     @Autowired
-    CurrencyJSONProvider currencyJSONProvider;
+    private CurrencyJSONProvider currencyJSONProvider;
 
     @Override
     public void create(Currency currency) {

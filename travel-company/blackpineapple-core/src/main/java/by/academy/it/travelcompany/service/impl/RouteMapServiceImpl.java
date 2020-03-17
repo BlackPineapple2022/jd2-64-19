@@ -19,7 +19,7 @@ import java.util.Set;
 public class RouteMapServiceImpl implements RouteMapService {
 
     @Autowired
-    RouteMapRepository routeMapRepository;
+    private RouteMapRepository routeMapRepository;
 
     @Override
     public void create(RouteMap routeMap) {

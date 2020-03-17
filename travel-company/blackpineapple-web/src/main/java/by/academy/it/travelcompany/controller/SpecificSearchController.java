@@ -21,25 +21,19 @@ import java.util.*;
 public class SpecificSearchController {
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
 
     @Autowired
-    UserService userService;
+    private AirportService airportService;
 
     @Autowired
-    RoleService roleService;
+    private RouteMapService routeMapService;
 
     @Autowired
-    AirportService airportService;
+    private CurrencyService currencyService;
 
     @Autowired
-    RouteMapService routeMapService;
-
-    @Autowired
-    CurrencyService currencyService;
-
-    @Autowired
-    FlightService flightService;
+    private FlightService flightService;
 
     @RequestMapping(value = "/specific", method = RequestMethod.GET)
     public String specificSearch() {
@@ -531,8 +525,6 @@ public class SpecificSearchController {
 
         tripList.sort(Comparator.comparing(RoundTrip::getPrice));
 
-
-
         List<RoundTrip> returnList = new ArrayList<>();
 
         for (int i = 0; i < tripList.size(); i++) {
@@ -547,7 +539,6 @@ public class SpecificSearchController {
         }
 
         httpSession.setAttribute("trips",returnList);
-        System.err.println(returnList);
         return "specificresult";
 
     }

@@ -15,7 +15,7 @@ import java.util.List;
 public class AirportServiceImpl implements AirportService {
 
     @Autowired
-    AirportRepository airportRepository;
+    private AirportRepository airportRepository;
 
     @Override
     public void create(Airport airport) {

@@ -17,7 +17,7 @@ import java.util.List;
 public class FlightServiceImpl implements FlightService {
 
     @Autowired
-    FlightRepository flightRepository;
+    private FlightRepository flightRepository;
 
     @Override
     public Flight createOrUpdate(Flight flight) {

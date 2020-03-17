@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 public class AirlineServiceImpl implements AirlineService {
 
     @Autowired
-    AirlineRepository airlineRepository;
+    private AirlineRepository airlineRepository;
 
     @Override
     public void create(Airline airline) {

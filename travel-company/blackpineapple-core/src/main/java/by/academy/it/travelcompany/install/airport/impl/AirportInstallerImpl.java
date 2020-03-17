@@ -12,8 +12,9 @@ import java.util.Set;
 @Service
 @Slf4j
 public class AirportInstallerImpl implements AirportInstaller {
+
     @Autowired
-    AirportService airportService;
+    private AirportService airportService;
 
     @Override
     public void install() {

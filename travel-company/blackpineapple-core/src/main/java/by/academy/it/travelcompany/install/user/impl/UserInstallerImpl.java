@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class UserInstallerImpl implements UserInstaller {
-    @Autowired
-    UserService userService;
 
     @Autowired
-    RoleService roleService;
+    private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @Override
     public void install() {

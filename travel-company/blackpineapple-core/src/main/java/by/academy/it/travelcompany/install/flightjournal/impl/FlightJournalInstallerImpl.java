@@ -16,10 +16,10 @@ import java.util.List;
 public class FlightJournalInstallerImpl implements FlightJournalInstaller {
 
     @Autowired
-    FlightJournalService flightJournalService;
+    private FlightJournalService flightJournalService;
 
     @Autowired
-    RouteMapService routeMapService;
+    private RouteMapService routeMapService;
 
     @Override
     public void install() {

@@ -20,13 +20,13 @@ import java.util.Optional;
 public class RoundTripServiceImpl implements RoundTripService {
 
     @Autowired
-    RoundTripRepository roundTripRepository;
+    private RoundTripRepository roundTripRepository;
 
     @Autowired
-    FavouriteRepository favouriteRepository;
+    private FavouriteRepository favouriteRepository;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     public void addToFavourite(RoundTrip roundTrip, User user) {

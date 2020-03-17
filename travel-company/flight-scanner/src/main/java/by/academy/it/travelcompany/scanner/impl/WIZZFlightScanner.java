@@ -34,7 +34,7 @@ public class WIZZFlightScanner implements FlightScanner {
 
     private List<FlightScannerData> flightScannerDataList;
 
-    private static String parseURL = "https://be.wizzair.com/10.15.1/Api/search/search";
+    private static String parseURL = ResourceBundle.getBundle("flightscanner").getString("wizzair.api");
 
     public static String getParseURL() {
         return parseURL;

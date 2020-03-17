@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AirlineInstallerImpl implements AirlineInstaller {
     @Autowired
-    AirlineService airlineService;
+    private AirlineService airlineService;
 
     @Override
     public void install(){

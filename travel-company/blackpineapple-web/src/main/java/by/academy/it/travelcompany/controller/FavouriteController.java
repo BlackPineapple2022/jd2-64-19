@@ -1,16 +1,13 @@
 package by.academy.it.travelcompany.controller;
 
-import by.academy.it.travelcompany.entity.Favourite;
 import by.academy.it.travelcompany.entity.Flight;
 import by.academy.it.travelcompany.entity.RoundTrip;
 import by.academy.it.travelcompany.entity.User;
 import by.academy.it.travelcompany.service.CurrencyService;
-import by.academy.it.travelcompany.service.FavouriteService;
 import by.academy.it.travelcompany.service.RoundTripService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,16 +22,13 @@ import java.util.List;
 public class FavouriteController {
 
     @Autowired
-    RoundTripService roundTripService;
+    private RoundTripService roundTripService;
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
 
     @Autowired
-    FavouriteService favouriteService;
-
-    @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
 
     @RequestMapping(value = "/favourite", method = RequestMethod.POST)
     public void add(@RequestParam String id){
@@ -86,6 +80,5 @@ public class FavouriteController {
         }
         roundTripService.removeFromFavourite(r,user);
     }
-
 
 }

@@ -14,14 +14,18 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @RestController
 @Slf4j
 @RequestMapping(value = "flights/")
+
 public class FlightRestController {
 
-    private static final Long timeout = 2000L;
-    private static final Integer multiplier = 0;
+    private static final Long TIMEOUT = Long.parseLong(
+            ResourceBundle.getBundle("flightupdater").getString("timeout"));
+    private static final Integer MULTIPLIER = Integer.parseInt(
+            ResourceBundle.getBundle("flightupdater").getString("multiplier"));
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
@@ -56,8 +60,8 @@ public class FlightRestController {
         FlightScanner ry = new RYFlightScanner(ryDataList);
         FlightScanner wizz = new WIZZFlightScanner(wizzDataList);
 
-        List<JSONObject> ryRespDirty = ry.parse(timeout, multiplier);
-        List<JSONObject> wizzRespDirty = wizz.parse(timeout, multiplier);
+        List<JSONObject> ryRespDirty = ry.parse(TIMEOUT, MULTIPLIER);
+        List<JSONObject> wizzRespDirty = wizz.parse(TIMEOUT, MULTIPLIER);
 
         for (FlightDTO f : ryFlightDTO) {
             ryRespDirty.removeIf(j ->

@@ -15,10 +15,10 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    FavouriteRepository favouriteRepository;
+    private FavouriteRepository favouriteRepository;
 
     @Override
     public void create(User user) {

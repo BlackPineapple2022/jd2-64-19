@@ -18,9 +18,9 @@ import java.time.LocalDateTime;
 public class FlightConverterImpl implements FlightConverter {
 
     @Autowired
-    RouteMapService routeMapService;
+    private RouteMapService routeMapService;
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
 
     @Override
     public Flight convert(FlightDTO flightDTO) {

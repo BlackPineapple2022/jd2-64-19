@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class FavouriteServiceImpl implements FavouriteService {
 
     @Autowired
-    FavouriteRepository favouriteRepository;
+    private FavouriteRepository favouriteRepository;
 
     @Override
     public Favourite create(Favourite favourite) {

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 public class CurrencyInstallerImpl implements CurrencyInstaller {
 
     @Autowired
-    CurrencyService currencyService;
+    private CurrencyService currencyService;
 
     @Override
     public void install() {

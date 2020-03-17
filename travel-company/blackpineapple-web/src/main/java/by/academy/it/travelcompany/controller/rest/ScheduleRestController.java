@@ -22,10 +22,11 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "schedule/")
 public class ScheduleRestController {
+
     @Autowired
-    RouteMapService routeMapService;
+    private RouteMapService routeMapService;
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
 
     @GetMapping(value = "/{routemap}")
     public ResponseEntity<ScheduleDTO> getSchedule(@PathVariable("routemap") String routeMapString) {

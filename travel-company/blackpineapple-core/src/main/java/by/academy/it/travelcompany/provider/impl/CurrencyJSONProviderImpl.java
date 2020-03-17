@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class CurrencyJSONProviderImpl implements CurrencyJSONProvider {
 
     @Autowired
-    CurrencyScanner currencyScanner;
+    private CurrencyScanner currencyScanner;
 
     private JSONObject currencyJson = new CurrencyScannerImpl().parse();
 

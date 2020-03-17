@@ -23,11 +23,11 @@ public class RYFlightScannerRobotImpl implements RYFlightScannerRobot {
     private Boolean isActive = false;
 
     @Autowired
-    ScheduleProvider scheduleProvider;
+    private ScheduleProvider scheduleProvider;
     @Autowired
-    RouteMapStringProvider routeMapStringProvider;
+    private RouteMapStringProvider routeMapStringProvider;
     @Autowired
-    FlightSenderService flightSenderService;
+    private FlightSenderService flightSenderService;
 
     @Override
     public void stop() {

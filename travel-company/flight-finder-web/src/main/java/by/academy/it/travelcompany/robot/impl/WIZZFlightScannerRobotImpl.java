@@ -24,11 +24,11 @@ public class WIZZFlightScannerRobotImpl implements WIZZFlightScannerRobot {
     private Boolean isActive = false;
 
     @Autowired
-    ScheduleProvider scheduleProvider;
+    private ScheduleProvider scheduleProvider;
     @Autowired
-    RouteMapStringProvider routeMapStringProvider;
+    private RouteMapStringProvider routeMapStringProvider;
     @Autowired
-    FlightSenderService flightSenderService;
+    private FlightSenderService flightSenderService;
 
     @Override
     public void stop() {
@@ -46,7 +46,7 @@ public class WIZZFlightScannerRobotImpl implements WIZZFlightScannerRobot {
             String routeMapString = routeMapStringProvider.getRouteMapStringWithOlderScanningByAirline("WIZZ");
             Schedule schedule = scheduleProvider.getScheduleByRouteMapString(routeMapString);
             FlightScannerData data = new FlightScannerData(routeMapString, dayCount, LocalDate.now());
-            FlightScanner flightScanner = new RYFlightScanner(data, schedule);
+            FlightScanner flightScanner = new WIZZFlightScanner(data, schedule);
             List<JSONObject> result = flightScanner.parse(timeOut, multiplier);
             flightSenderService.sendData(result);
         }

@@ -1,9 +1,7 @@
 package by.academy.it.travelcompany.controller;
 
-import by.academy.it.travelcompany.entity.Airport;
 import by.academy.it.travelcompany.entity.Role;
 import by.academy.it.travelcompany.entity.User;
-import by.academy.it.travelcompany.service.AirportService;
 import by.academy.it.travelcompany.service.RoleService;
 import by.academy.it.travelcompany.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -14,24 +12,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 @Slf4j
 public class MainController {
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    RoleService roleService;
-
-    @Autowired
-    AirportService airportService;
+    private RoleService roleService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String about() {
@@ -138,8 +131,5 @@ public class MainController {
         log.info("Successfully register on system " + userName);
         return "login";
     }
-
-    
-
 
 }

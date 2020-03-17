@@ -154,28 +154,4 @@ public class RYFlightScanner implements FlightScanner {
         }
     }
 
-    private static String convertInputStreamToString(InputStream inputStream)
-            throws IOException {
-        ByteArrayOutputStream result = new ByteArrayOutputStream();
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = inputStream.read(buffer)) != -1) {
-            result.write(buffer, 0, length);
-        }
-        return result.toString(StandardCharsets.UTF_8.name());
-    }
-
-    private LocalDateTime getLocalDateTimeFromString(String str, String regexDateFromTime, String regexDayMonthYear, String regexMinHour) {
-        String date = str.split(regexDateFromTime)[0];
-        String year = date.split(regexDayMonthYear)[0];
-        String month = date.split(regexDayMonthYear)[1];
-        String day = date.split(regexDayMonthYear)[2];
-        String time = str.split(regexDateFromTime)[1];
-        String hour = time.split(regexMinHour)[0];
-        String min = time.split(regexMinHour)[1];
-        return LocalDateTime.of(
-                LocalDate.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(day)),
-                LocalTime.of(Integer.parseInt(hour), Integer.parseInt(min)));
-    }
-
 }

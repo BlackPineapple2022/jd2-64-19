@@ -15,7 +15,7 @@ import java.util.List;
 public class FlightJournalServiceImpl implements FlightJournalService {
 
     @Autowired
-    FlightJournalRepository flightJournalRepository;
+    private FlightJournalRepository flightJournalRepository;
 
     @Override
     public void create(FlightJournal flightJournal) {

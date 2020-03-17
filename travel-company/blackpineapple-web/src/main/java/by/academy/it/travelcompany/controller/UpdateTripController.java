@@ -36,19 +36,19 @@ import java.util.*;
 public class UpdateTripController implements SenderService {
 
     @Autowired
-    FavouriteTripUpdaterCustomsInformer favouriteTripUpdaterCustomsInformer;
+    private FavouriteTripUpdaterCustomsInformer favouriteTripUpdaterCustomsInformer;
 
     @Autowired
-    RoundTripService roundTripService;
+    private RoundTripService roundTripService;
 
     @Autowired
-    HttpSession httpSession;
+    private HttpSession httpSession;
 
     @Autowired
-    FlightConverter flightConverter;
+    private FlightConverter flightConverter;
 
     @Autowired
-    FlightService flightService;
+    private FlightService flightService;
 
     @RequestMapping(value = "/update", method = RequestMethod.GET)
     public String update() {

@@ -1,7 +1,9 @@
 package by.academy.it.travelcompany.sender;
 
+import java.util.ResourceBundle;
+
 public interface SenderService {
 
-    String apiAddress = "http://localhost:8080/flightupdater/";
+    String apiAddress = ResourceBundle.getBundle("blackpineapple").getString("flight.updater.path");
 
 }

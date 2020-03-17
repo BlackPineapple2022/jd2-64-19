@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class FlightJournalRestController {
 
     @Autowired
-    FlightJournalService flightJournalService;
+    private FlightJournalService flightJournalService;
 
     @GetMapping(value = "/{airline}")
     public ResponseEntity<String> getRouteMap(@PathVariable("airline") String airline) {
