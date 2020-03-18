@@ -146,7 +146,7 @@ public class FlightScannerImpl extends Thread {
             }
 
             CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.13.0/Api/search/search");
+            HttpPost httpPost = new HttpPost("https://be.wizzair.com/10.15.2/Api/search/search");
 
             httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
             httpPost.setHeader("accept-encoding", "gzip, deflate, br");
@@ -248,7 +248,7 @@ public class FlightScannerImpl extends Thread {
 
         final CloseableHttpClient httpClient = HttpClients.createDefault();
 
-        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.13.0/Api/search/search");
+        final HttpUriRequest httpPost = new HttpPost("https://be.wizzair.com/10.15.2/Api/search/search");
 
         httpPost.setHeader("accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9");
         httpPost.setHeader("accept-encoding", "gzip, deflate, br");
