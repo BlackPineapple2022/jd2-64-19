@@ -1,0 +1,21 @@
+<configuration>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                %d{HH:mm:ss.SSS} [%-5level] %logger{42} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+
+
+    <logger name="by.it.academy.travelcompany" level="debug" additivity="true">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</configuration>
