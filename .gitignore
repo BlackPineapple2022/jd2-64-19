@@ -2,3 +2,5 @@ target/
 .idea
 *.iml
 *AppDub.java
+.log
+.log.gz
