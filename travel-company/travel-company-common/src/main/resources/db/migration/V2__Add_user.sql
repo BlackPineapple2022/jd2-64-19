@@ -20,6 +20,6 @@ VALUES (1, 'skibidi', '89f797f47ee2032b7d5580025401e4386c00a00d2666bb08b8c298669
         1),
        (2, 'black', 'e93c5efc1922220ce69d8552dc97d4f8e3f78c12195985a08c8b380a6781031b', '6wU222Efsb9G61jX2gjvmlnTUT8=',
         2),
-       (3, 'admin', 'e22c5ef22973d20ce69d8222dc97d4f8e3f78c12195985a08c8b380a6781031b', '6wUzpf22b9G61jX2gjvmlnTUT8=',
+       (3, 'admin', 'a51e8ec2f5544cec8bf9c72569812c9f412cd32bde721fe0fd81348b203c8833', 'd+aCfbdwTqvUPy7su1TJlpVUL2I==',
         2);
 
